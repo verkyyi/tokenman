@@ -66,7 +66,7 @@ jobs:
       - name: Run Claude Code
         run: |
           claude -p "$(cat /tmp/prompt.txt)" \
-            --allowedTools "bash,read,write,edit,glob,grep" \
+            --allowedTools "Bash Read Write Edit Glob Grep" \
             --max-turns 20
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}

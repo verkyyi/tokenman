@@ -90,7 +90,7 @@ jobs:
       - name: Run Claude agent
         run: |
           claude -p "$(cat /tmp/task_prompt.txt)" \
-            --allowedTools "bash,read,write,edit" \
+            --allowedTools "Bash Read Write Edit Glob Grep" \
             --max-turns 50
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
