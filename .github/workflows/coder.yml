@@ -120,7 +120,7 @@ jobs:
             --allowedTools "bash,read,write,edit" \
             --max-turns 30
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
 
       - name: Check if fix was attempted or failed
         id: check

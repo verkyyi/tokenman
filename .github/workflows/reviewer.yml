@@ -31,7 +31,7 @@ jobs:
       - name: Run reviewer with Claude Code Action
         uses: anthropics/claude-code-action@v1
         with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           prompt: |
             Read CLAUDE.md and apps/scaffold/CLAUDE.md for the auto-merge rules.
 

@@ -69,7 +69,7 @@ NEVER auto-execute:
 
 ## GitHub Actions Context
 - GITHUB_TOKEN: always available, use for API calls
-- ANTHROPIC_API_KEY: in secrets, use for claude -p
+- CLAUDE_CODE_OAUTH_TOKEN: in secrets, use for claude -p and claude-code-action
 - APP_NAME: resolved dynamically per workflow (see APP_NAME Resolution)
 - Workflows run on ubuntu-latest runners
 - Full outbound internet access in runners

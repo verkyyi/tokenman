@@ -42,13 +42,6 @@ jobs:
             echo "Warning: sitemap not found in dist/"
           fi
 
-      # Update agent_log.md with deploy event
-      - name: Log deploy event
-        run: |
-          TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-          echo "" >> state/agent_log.md
-          echo "${TIMESTAMP} | deploy.yml | Pages deploy | success" >> state/agent_log.md
-
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:

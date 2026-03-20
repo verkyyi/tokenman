@@ -24,7 +24,7 @@ Go to **Settings → Secrets and variables → Actions** in your forked repo and
 
 | Name | Value |
 |------|-------|
-| `ANTHROPIC_API_KEY` | Your Anthropic API key |
+| `CLAUDE_CODE_OAUTH_TOKEN` | Your Claude Code OAuth token (run `claude setup-token` to generate) |
 
 ### 3. Enable GitHub Pages
 
