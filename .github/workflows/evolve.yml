@@ -28,50 +28,70 @@ jobs:
       - name: Build evolution prompt
         run: |
           cat > /tmp/prompt.txt << 'PROMPT'
-          You are the self-evolution agent for Agentfolio.
+          You are the self-evolution agent for Agentfolio. You MUST execute
+          bash commands to fetch data, write files, and make changes.
+          Do NOT just reason about what to do — actually do it.
 
-          ## Your Task
-          Analyze the scaffold and propose improvements. You have two phases:
+          ## STEP 1: Research (REQUIRED — always execute these commands)
 
-          ### Phase 1: Research
-          Fetch external knowledge to inform improvements:
-          - Check reference repos for new commits/releases:
-            - https://api.github.com/repos/godagoo/claude-code-always-on/commits?per_page=5
-            - https://api.github.com/repos/humanlayer/humanlayer/commits?per_page=5
-          - Check GitHub Actions changelog:
-            - https://api.github.com/repos/actions/runner/releases?per_page=3
-          - Log all findings to state/research_log.md (append only)
-          - Format: ISO_TIMESTAMP | source | finding_summary | action_taken
+          Run these curl commands and capture the output:
 
-          ### Phase 2: Analyze
-          Read and analyze:
-          - state/agent_log.md — recent actions and patterns
-          - state/project_state.md — current state
-          - CLAUDE.md failure log — repeated failures
-          - .github/workflows/*.yml — workflow efficiency
-          - skills/*.md — skill coverage gaps
-          - Recent git log (last 20 commits) — what changed
+          ```bash
+          TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)
 
-          Look for:
-          - Repeated failures that need new rules
-          - Workflow inefficiencies that need patches
-          - Missing skills that need drafting
-          - New apps/ folders without CLAUDE.md (trigger discovery)
+          # Fetch reference repo commits
+          REPO1=$(curl -s "https://api.github.com/repos/godagoo/claude-code-always-on/commits?per_page=3" | head -c 500)
+          REPO2=$(curl -s "https://api.github.com/repos/humanlayer/humanlayer/commits?per_page=3" | head -c 500)
+          ACTIONS=$(curl -s "https://api.github.com/repos/actions/runner/releases?per_page=2" | head -c 500)
+          ```
 
-          ### Phase 3: Act
-          Based on findings:
-          - AUTO-COMMIT: failure log entries, state updates, skill wording fixes
-          - Write improvements to files directly for auto-commit items
-          - For structural changes (workflow YAML, CLAUDE.md rules, new skills):
-            write a file at .proposed-change.md describing the change and why
-          - Maximum ONE structural change proposal per run
+          Then append findings to state/research_log.md. For each source,
+          add ONE line in this exact format:
+          TIMESTAMP | source-name | one-line summary of what you found | action taken or "no action"
 
-          ### Rules
+          Example:
+          2026-03-20T03:00:00Z | humanlayer/humanlayer | no new commits in past week | no action
+          2026-03-20T03:00:00Z | actions/runner | v2.322.0 released with node24 support | noted for future update
+
+          ## STEP 2: Analyze
+
+          Read these files and look for issues:
+          - state/agent_log.md — any patterns or repeated failures?
+          - state/project_state.md — current priorities
+          - CLAUDE.md — check failure log section for entries starting with "# 20"
+          - git log --oneline -20 — recent changes
+          - ls apps/ — any folders without CLAUDE.md?
+
+          ## STEP 3: Log this run
+
+          ALWAYS append a line to state/agent_log.md:
+          TIMESTAMP | evolve.yml | self-evolution run | summary of what you found and did
+
+          ## STEP 4: Update project state
+
+          Write a brief session summary to state/project_state.md covering
+          what you analyzed and any findings.
+
+          ## STEP 5: Act on findings (if any)
+
+          For safe changes (failure log entries, skill wording fixes):
+          - Write them directly to the files
+
+          For structural changes (workflow fixes, new rules, new skills):
+          - Write a file called .proposed-change.md with:
+            - Line 1: # Title of the change
+            - Rest: what to change, why, and which files
+          - Maximum ONE .proposed-change.md per run
+
+          For new apps/ folders without CLAUDE.md:
+          - Write the folder name to .trigger-discovery.txt
+
+          ## Rules
           - You CANNOT promote your own autonomy
-          - You CANNOT modify workflow YAML directly (propose only)
-          - Each proposal must cite the failure or research that triggered it
-          - If you find a new apps/ folder without CLAUDE.md, note it in
-            .trigger-discovery.txt with the folder name (workflow handles dispatch)
+          - You CANNOT modify workflow YAML directly (propose via .proposed-change.md only)
+          - You MUST execute the curl commands in Step 1
+          - You MUST write to state/agent_log.md in Step 3
+          - You MUST update state/project_state.md in Step 4
 
           ## Context
           $(cat CLAUDE.md)
