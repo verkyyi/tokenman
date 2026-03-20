@@ -81,6 +81,11 @@ jobs:
             echo "has_changes=false" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Setup git config
+        run: |
+          git config user.name "agentfolio[bot]"
+          git config user.email "agentfolio[bot]@users.noreply.github.com"
+
       - name: Update state (on main, before any branch checkout)
         run: |
           CHANGED=$(git status --porcelain | wc -l)
