@@ -26,7 +26,7 @@ jobs:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           # Pattern C: official action handles lightweight issue triage
           prompt: |
-            Read the root CLAUDE.md and apps/portfolio/CLAUDE.md for context.
+            Read the root CLAUDE.md and apps/scaffold/CLAUDE.md for context.
 
             You are the triage agent. Classify this GitHub Issue and take action.
 

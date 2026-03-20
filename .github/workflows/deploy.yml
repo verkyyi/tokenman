@@ -32,8 +32,6 @@ jobs:
 
       - name: Build Astro site
         run: npm run build
-        env:
-          APP_NAME: portfolio
 
       # Regenerate sitemap if not already in dist
       - name: Verify sitemap
@@ -43,19 +41,6 @@ jobs:
           else
             echo "Warning: sitemap not found in dist/"
           fi
-
-      # Copy llms.txt to dist root
-      - name: Copy llms.txt
-        run: |
-          cp content/llms.txt dist/llms.txt
-          echo "llms.txt copied to dist/"
-
-      # Copy profile.json to dist/api/
-      - name: Copy profile.json endpoint
-        run: |
-          mkdir -p dist/api
-          cp content/profile.json dist/api/profile.json
-          echo "profile.json available at /api/profile.json"
 
       # Update agent_log.md with deploy event
       - name: Log deploy event

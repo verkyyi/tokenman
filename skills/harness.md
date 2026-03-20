@@ -10,11 +10,42 @@ description: >
 # Agentfolio Harness
 
 ## Architecture
-- Runtime: GitHub Actions (7 workflows)
+- Runtime: GitHub Actions (8 workflows)
 - State: state/ folder — markdown files committed to repo
 - Event bus: GitHub Issues with labels
 - CMS: content/ folder — Astro content collections
 - Deployment: GitHub Pages (Astro static build)
+
+## Workflows
+1. **deploy.yml** — triggered on push to main; builds and publishes Pages site
+2. **discover.yml** — manual dispatch; scans apps/ for new projects, generates CLAUDE.md
+3. **triage.yml** — triggered on issue open/label; classifies feedback and routes
+4. **coder.yml** — triggered on agent-ready issues; implements features via Claude Code
+5. **reviewer.yml** — triggered on PR open/sync; reviews bot-authored PRs
+6. **evolve.yml** — daily cron; self-improvement loop (research → analyze → propose)
+7. **analyze.yml** — weekly cron; traffic, stars, and repo health metrics
+8. **claude-task.yml** — manual dispatch; runs arbitrary Claude Code tasks
+
+## Self-Evolution Loop
+evolve.yml runs daily:
+1. **Research** — fetch external changelogs, reference repos; append to state/research_log.md
+2. **Analyze** — read agent_log.md, project_state.md, failure log, workflow YAML, skills/
+3. **Act** — AUTO-COMMIT safe changes (state, failure log entries, skill wording);
+   write .proposed-change.md for structural changes (workflow YAML, new skills, rule changes)
+4. **Chain** — if new apps/ folder found without CLAUDE.md, write .trigger-discovery.txt;
+   workflow dispatches discover.yml with `gh workflow run discover.yml -f app_name="$APP"`
+
+Maximum one structural PR per evolve.yml run.
+
+## APP_NAME Resolution
+Workflows determine which project they operate on:
+1. **Issue/PR-triggered** (triage, coder, reviewer): read from issue/PR label
+   (e.g., `project:profile`, `project:scaffold`). Default: scaffold.
+2. **Cron-triggered** (evolve, analyze): iterate all apps/*/ folders,
+   or target scaffold for self-evolution tasks.
+3. **Manual dispatch** (claude-task, discover): accept APP_NAME as workflow input.
+
+Project-specific rules live in apps/${APP_NAME}/CLAUDE.md.
 
 ## State File Conventions
 
@@ -26,15 +57,22 @@ Required sections:
 - Last updated (ISO timestamp + workflow name)
 - Last Session (action, done list, in-progress, next agent hint)
 - Open Items (checkboxes with PR/issue numbers)
-- Metrics Snapshot (updated by growth.yml weekly)
+- Metrics Snapshot (updated by analyze.yml weekly)
 
 ### state/agent_log.md
 Append-only. Never edit existing lines. Format:
 `TIMESTAMP | workflow_name | action description | outcome`
 
-The Base.astro layout reads the last line of this file at BUILD TIME
+The repo profile page reads the last line of this file at BUILD TIME
 to power the "last updated by agent" badge. Malformed lines will
 break the badge. Always use the pipe-delimited format exactly.
+
+### state/research_log.md
+Append-only. Written by evolve.yml during the Research phase.
+Format: `ISO_TIMESTAMP | source | finding_summary | action_taken`
+
+Never rewrite existing entries. Used by the evolution agent to avoid
+re-fetching sources it has already processed.
 
 ### .commit-message
 Written by Claude, read by the workflow's git commit step.
@@ -44,10 +82,10 @@ Use conventional commit format: type(scope): description
 ## Workflow Patterns
 
 ### Pattern A (Claude Code CLI)
-Used for: onboard, coder, maintenance, growth, claude-task
+Used for: discover, coder, evolve, analyze, claude-task
 ```
 claude -p "$(cat /tmp/prompt.txt)" \
-  --allowedTools "bash,read,write,edit" \
+  --allowedTools "bash,read,write,edit,glob,grep" \
   --max-turns [N]
 ```
 Claude has full bash access. Can read GitHub API responses,
@@ -65,12 +103,15 @@ with:
 Lighter weight. Best for classification and GitHub API operations.
 Uses gh CLI for Issue/PR operations.
 
-## Approval Gates
+## Autonomy Gates
 See CLAUDE.md for the full list. Quick reference:
-- AUTO: state files, broken links, dep patches, content sync
-- auto-merge PR: lint fixes, content updates, SEO tweaks
-- needs-review PR: visual changes, new sections, CLAUDE.md edits
-- NEVER auto: delete content, modify workflows, publish externally
+- AUTO: state files, failure log entries, skill wording improvements, FEATURE_STATUS
+- auto-merge PR: lint fixes, minor behavioral skill improvements
+- needs-review PR: workflow YAML changes, CLAUDE.md rule changes, new skill files,
+  any change from external research, profile page layout changes,
+  discovery-generated CLAUDE.md for new projects
+- NEVER auto: delete files/content, promote own autonomy tier,
+  modify auth/secrets, more than one structural PR per evolve.yml run
 
 ## Commit Protocol
 1. Claude writes .commit-message file
@@ -80,8 +121,9 @@ See CLAUDE.md for the full list. Quick reference:
 ## Gotchas
 - Never modify .github/workflows/ files from within a workflow run
 - state/agent_log.md is append-only — never rewrite existing lines
+- state/research_log.md is append-only — never rewrite existing lines
 - The agent badge reads the LAST valid pipe-delimited line in agent_log.md
 - GITHUB_TOKEN has write access but cannot trigger other workflow runs
-  (use repository_dispatch or workflow_dispatch for chaining)
+  (use gh workflow run for chaining — evolve.yml → discover.yml)
 - GitHub cron has ~15 min variance — don't rely on exact timing
 - Lighthouse CI requires the Pages site to already be deployed

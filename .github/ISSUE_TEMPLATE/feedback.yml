@@ -1,5 +1,5 @@
 name: Feedback
-description: Leave feedback about this profile
+description: Leave feedback about this project
 title: "[feedback] "
 labels: ["feedback"]
 body:
@@ -8,6 +8,18 @@ body:
       value: |
         Thanks for taking the time to leave feedback.
         This will be triaged by an AI agent within minutes.
+
+  - type: dropdown
+    id: project
+    attributes:
+      label: Project
+      description: Which project is this feedback for?
+      options:
+        - scaffold
+        - profile
+        - other
+    validations:
+      required: true
 
   - type: dropdown
     id: type
@@ -25,9 +37,9 @@ body:
   - type: input
     id: page
     attributes:
-      label: Where on the profile?
-      description: Which section or page is this about?
-      placeholder: e.g. Projects section, Skills, Contact link
+      label: Where in the project?
+      description: Which section, page, or component is this about?
+      placeholder: e.g. Projects section, Skills, Contact link, Setup instructions
     validations:
       required: false
 

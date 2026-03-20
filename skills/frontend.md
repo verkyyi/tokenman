@@ -20,9 +20,22 @@ Everything is computed at BUILD TIME during `npm run build`.
 
 This means:
 - Content is read from files at build time (not runtime)
-- Profile data comes from content/profile.json (read at build)
 - Agent badge timestamp comes from state/agent_log.md (read at build)
+- Skills list comes from skills/*.md (read at build via fs.readFileSync)
 - Cannot fetch live data at page load time
+
+## Repo Profile Page Structure
+
+The scaffold exposes a single public page: src/pages/index.astro.
+This is the repo's profile page — it shows the scaffold's own state.
+
+It reads three sources at build time using `fs.readFileSync`:
+1. `state/agent_log.md` — last pipe-delimited line → activity badge
+2. `skills/*.md` — frontmatter name/description → capability grid
+3. `CLAUDE.md` — failure log section → transparency feed
+
+It does NOT use Astro content collections for its own data.
+Content collections (content/projects/, etc.) are for project content.
 
 ## File Structure
 ```
@@ -30,11 +43,9 @@ src/
   layouts/
     Base.astro         ← HTML shell, meta tags, agent badge
   pages/
-    index.astro        ← public profile (main page)
+    index.astro        ← repo profile page (reads state/ via fs)
     projects/
-      [slug].astro     ← individual project pages
-    api/
-      profile.json.ts  ← static JSON endpoint
+      [slug].astro     ← individual project pages (uses getCollection)
   components/
     (add as needed)
   content.config.ts    ← collection schemas
@@ -44,26 +55,22 @@ src/
 ```astro
 ---
 // Frontmatter = TypeScript, runs at BUILD TIME only
-import { getCollection } from 'astro:content';
 import { readFileSync } from 'fs';
+import { join } from 'path';
 import Base from '../layouts/Base.astro';
 
-const projects = await getCollection('projects');
-const profile = JSON.parse(readFileSync('./content/profile.json', 'utf-8'));
+// Read state files directly — not via content collections
+const agentLog = readFileSync(join(process.cwd(), 'state/agent_log.md'), 'utf-8');
+const lastLine = agentLog.trim().split('\n').at(-1) ?? '';
 ---
 
 <!-- Template = HTML with Astro expressions -->
-<Base profile={profile}>
-  {projects.map(p => (
-    <article>
-      <h2>{p.data.title}</h2>
-      <p>{p.data.description}</p>
-    </article>
-  ))}
+<Base>
+  <p>Last agent action: {lastLine}</p>
 </Base>
 ```
 
-## Reading Content in Pages
+## Reading Content Collections in Pages
 ```astro
 ---
 import { getCollection } from 'astro:content';
@@ -91,9 +98,7 @@ import { readFileSync } from 'fs';
 import { join } from 'path';
 
 // Always use join(process.cwd(), ...) for reliable paths
-const profile = JSON.parse(
-  readFileSync(join(process.cwd(), 'content/profile.json'), 'utf-8')
-);
+const raw = readFileSync(join(process.cwd(), 'state/agent_log.md'), 'utf-8');
 ---
 ```
 
@@ -121,9 +126,9 @@ npm run build
 
 Common build failures:
 - Missing required frontmatter fields → check src/content.config.ts schema
-- Invalid JSON in profile.json → validate with node -e
 - Import path errors → use relative imports or @/ alias
 - TypeScript errors → run npx tsc --noEmit first
+- fs.readFileSync path errors → use join(process.cwd(), ...) not relative paths
 
 ## Gotchas
 - Astro requires explicit .astro extension on imports
@@ -132,3 +137,4 @@ Common build failures:
 - readFileSync() with process.cwd() works in Astro frontmatter
 - Static paths must be defined in getStaticPaths() for dynamic routes
 - Client-side JS must be in <script> tags or explicit client: directives
+- State files are read with fs, not getCollection — they are not in content/

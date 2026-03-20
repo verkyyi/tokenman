@@ -14,14 +14,20 @@ jobs:
     # Only fire when 'agent-ready' label is added
     if: github.event.label.name == 'agent-ready'
     runs-on: ubuntu-latest
-    env:
-      APP_NAME: portfolio
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           # Need write access to push branches
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Resolve APP_NAME
+        id: resolve-app
+        run: |
+          APP_NAME=$(gh issue view ${{ github.event.issue.number }} --json labels -q '.labels[].name' | grep '^project:' | sed 's/project://' | head -1)
+          echo "APP_NAME=${APP_NAME:-scaffold}" >> "$GITHUB_ENV"
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       - name: Setup Node
         uses: actions/setup-node@v4

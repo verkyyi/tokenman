@@ -1,0 +1,105 @@
+name: Discover Project
+
+on:
+  workflow_dispatch:
+    inputs:
+      app_name:
+        description: 'Folder name in apps/ to discover (or "all" to scan for new projects)'
+        required: false
+        default: 'all'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Build discovery prompt
+        run: |
+          cat > /tmp/prompt.txt << 'PROMPT'
+          You are the project discovery agent for Agentfolio.
+
+          ## Your Task
+          Scan the apps/ directory for projects that need setup.
+
+          If app_name is "all": find every folder in apps/ that does NOT
+          have a CLAUDE.md file and discover each one.
+
+          If app_name is specific: discover that one project.
+
+          ## Discovery Process
+          For each project folder:
+          1. SCAN — list all files, check for package.json, Dockerfile,
+             config files, source code extensions, directory structure
+          2. INFER — determine: language, framework, build tool, test runner,
+             deploy mechanism
+          3. GENERATE — create two files:
+             - apps/<name>/CLAUDE.md with:
+               - Project description (inferred from README, package.json, or code)
+               - Stack details
+               - Build/test/deploy commands (from config files)
+               - Autonomy overrides (conservative: everything starts needs-review)
+               - Empty failure log
+             - apps/<name>/FEATURE_STATUS.md with:
+               - Feature inventory based on what you found
+
+          ## Rules
+          - Do NOT modify the project's own code
+          - Do NOT create per-project workflows
+          - Do NOT assume any specific framework — infer everything
+          - If apps/<name>/CLAUDE.md already exists, skip that project
+          - Write files directly, do not open a PR (the workflow handles git)
+
+          ## Context
+          $(cat CLAUDE.md)
+
+          ## Target
+          App name: ${{ github.event.inputs.app_name }}
+          PROMPT
+
+      - name: Run Claude Code
+        run: |
+          claude -p "$(cat /tmp/prompt.txt)" \
+            --allowedTools "bash,read,write,edit,glob,grep" \
+            --max-turns 20
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: Check for changes
+        id: changes
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Update state (on main, before any branch checkout)
+        run: |
+          CHANGED=$(git status --porcelain | wc -l)
+          echo "$(date -u +%Y-%m-%dT%H:%M:%SZ) | discover | scanned apps/ for new projects | ${CHANGED} files changed" >> state/agent_log.md
+          git add state/
+          git commit -m "state: discovery scan completed" || true
+          git push || true
+
+      - name: Create PR with discovered projects
+        if: steps.changes.outputs.has_changes == 'true'
+        run: |
+          BRANCH="discover/$(date +%Y%m%d-%H%M%S)"
+          git checkout -b "$BRANCH"
+          git add apps/
+          git commit -m "feat: discover new projects in apps/"
+          git push -u origin "$BRANCH"
+          gh pr create \
+            --title "Discover: new project configurations" \
+            --body "Auto-generated project constitutions from discover.yml. Review the generated CLAUDE.md files before merging." \
+            --label "needs-review"
+        env:
+          GH_TOKEN: ${{ github.token }}

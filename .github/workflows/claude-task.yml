@@ -12,6 +12,11 @@ on:
         required: false
         type: boolean
         default: false
+      app_name:
+        description: 'Target project (folder name in apps/)'
+        required: false
+        type: string
+        default: 'scaffold'
 
 permissions:
   contents: write
@@ -19,7 +24,7 @@ permissions:
   issues: write
 
 env:
-  APP_NAME: portfolio
+  APP_NAME: ${{ inputs.app_name }}
 
 jobs:
   task:

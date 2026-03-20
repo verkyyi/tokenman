@@ -1,26 +1,20 @@
 ---
-// src/layouts/Base.astro
-// Reads state/agent_log.md at BUILD TIME for the agent badge.
-// This is build-time static injection (Decision 4A).
-
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
 interface Props {
   title?: string;
   description?: string;
-  profile?: any;
 }
 
-const { title, description, profile } = Astro.props;
+const { title = 'Agentfolio — Self-Evolving Scaffold', description = 'A self-evolving scaffold for autonomous web projects' } = Astro.props;
 
-// Read agent_log.md at build time to extract last action timestamp
-let lastAgentAction = '';
+// Read agent_log.md at build time for agent badge
 let lastAgentTimestamp = '';
+let lastAgentAction = '';
 try {
   const logPath = join(process.cwd(), 'state/agent_log.md');
   const logContent = readFileSync(logPath, 'utf-8');
-  // Find last non-empty, non-comment line
   const lines = logContent
     .split('\n')
     .filter(l => l.trim() && !l.startsWith('#') && !l.startsWith('<!--') && l.includes('|'));
@@ -32,23 +26,7 @@ try {
     const action = parts[2] || '';
     lastAgentAction = `${workflow}: ${action}`;
   }
-} catch {
-  // state/agent_log.md not yet populated — that's fine on first build
-}
-
-// Read profile for meta tags
-let profileData = profile;
-if (!profileData) {
-  try {
-    const profilePath = join(process.cwd(), 'content/profile.json');
-    profileData = JSON.parse(readFileSync(profilePath, 'utf-8'));
-  } catch {}
-}
-
-const pageTitle = title || profileData?.name || 'Agentfolio';
-const pageDescription = description || profileData?.bio || 'A living portfolio maintained by an AI agent.';
-const siteUrl = profileData?.site_url || '';
-const canonicalUrl = siteUrl ? `${siteUrl}${Astro.url.pathname}` : '';
+} catch {}
 ---
 
 <!doctype html>
@@ -56,52 +34,23 @@ const canonicalUrl = siteUrl ? `${siteUrl}${Astro.url.pathname}` : '';
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{pageTitle}</title>
-  <meta name="description" content={pageDescription} />
-  {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
-
-  <!-- Open Graph -->
+  <title>{title}</title>
+  <meta name="description" content={description} />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content={pageTitle} />
-  <meta property="og:description" content={pageDescription} />
-  {siteUrl && <meta property="og:url" content={`${siteUrl}${Astro.url.pathname}`} />}
-
-  <!-- JSON-LD Person schema — maintained by agent -->
-  {profileData && (
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": profileData.name,
-      "url": siteUrl,
-      "description": profileData.bio,
-      "sameAs": [
-        profileData.github,
-        profileData.blog
-      ].filter(Boolean),
-      "knowsAbout": profileData.skills || [],
-    })} />
-  )}
-
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
   <link rel="sitemap" href="/sitemap-index.xml" />
 </head>
 <body>
   <slot />
 
-  <!-- Agent badge — timestamp injected at BUILD TIME from state/agent_log.md -->
   {lastAgentTimestamp && (
-    <div class="agent-badge" aria-label="This profile is maintained by an AI agent">
+    <div class="agent-badge" aria-label="This site is maintained by an AI agent">
       <span class="agent-dot" />
       <span>
         maintained by agent ·
-        <a
-          href={`${profileData?.github}/${profileData?.username ? `${profileData.username}/agentfolio` : 'agentfolio'}/commits/main`}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="agent-link"
-        >
-          last update {new Date(lastAgentTimestamp).toLocaleDateString('en-US', {
-            month: 'short', day: 'numeric'
-          })}
+        <a href="https://github.com/verkyyi/agentfolio/commits/main" target="_blank" rel="noopener noreferrer" class="agent-link">
+          last update {new Date(lastAgentTimestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
         </a>
       </span>
     </div>

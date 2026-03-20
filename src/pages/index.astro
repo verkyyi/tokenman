@@ -1,262 +1,216 @@
 ---
 // src/pages/index.astro
-// The public profile page. All content comes from content/ folder.
-// Agent maintains the content files. Astro renders them statically.
+// Repo profile page — reads state files at build time via fs.
 
-import { getCollection } from 'astro:content';
-import { readFileSync } from 'fs';
+import { readFileSync, readdirSync } from 'fs';
 import { join } from 'path';
 import Base from '../layouts/Base.astro';
 
-// Read profile.json at build time
-const profile = JSON.parse(
-  readFileSync(join(process.cwd(), 'content/profile.json'), 'utf-8')
-);
+// Read agent_log.md — parse pipe-delimited entries
+let agentLogEntries: Array<{timestamp: string; workflow: string; action: string; outcome: string}> = [];
+try {
+  const logContent = readFileSync(join(process.cwd(), 'state/agent_log.md'), 'utf-8');
+  const lines = logContent
+    .split('\n')
+    .filter(l => l.trim() && !l.startsWith('#') && !l.startsWith('<!--') && l.includes('|'));
+  agentLogEntries = lines.map(line => {
+    const parts = line.split('|').map(p => p.trim());
+    return {
+      timestamp: parts[0] || '',
+      workflow: parts[1] || '',
+      action: parts[2] || '',
+      outcome: parts[3] || '',
+    };
+  });
+} catch {}
 
-// Get all projects, sorted: featured first, then by stars
-const allProjects = await getCollection('projects');
-const projects = allProjects
-  .sort((a, b) => {
-    if (a.data.featured && !b.data.featured) return -1;
-    if (!a.data.featured && b.data.featured) return 1;
-    return b.data.stars - a.data.stars;
-  })
-  .filter(p => p.data.status !== 'archived');
+// Read skill files from skills/ directory
+let skills: Array<{name: string; firstLine: string}> = [];
+try {
+  const skillFiles = readdirSync(join(process.cwd(), 'skills'))
+    .filter(f => f.endsWith('.md'))
+    .sort();
+  skills = skillFiles.map(f => {
+    const content = readFileSync(join(process.cwd(), 'skills', f), 'utf-8');
+    const lines = content.split('\n').filter(l => l.trim());
+    // Extract first non-comment, non-heading meaningful line as description
+    const descLine = lines.find(l => !l.startsWith('#') && !l.startsWith('<!--') && l.trim().length > 10) || '';
+    return {
+      name: f.replace('.md', ''),
+      firstLine: descLine.trim().slice(0, 120),
+    };
+  });
+} catch {}
 
-const archivedProjects = allProjects.filter(p => p.data.status === 'archived');
+// Read CLAUDE.md failure log entries (lines starting with "# 20" — date-prefixed)
+let failureEntries: string[] = [];
+try {
+  const claudeContent = readFileSync(join(process.cwd(), 'CLAUDE.md'), 'utf-8');
+  failureEntries = claudeContent
+    .split('\n')
+    .filter(l => /^# \d{4}/.test(l))
+    .map(l => l.replace(/^# /, ''));
+} catch {}
 
-// Get latest blog posts (up to 5)
-const allPosts = await getCollection('posts');
-const posts = allPosts
-  .sort((a, b) => new Date(b.data.published).getTime() - new Date(a.data.published).getTime())
-  .slice(0, 5);
+// Read research_log.md
+let researchEntries: Array<{timestamp: string; source: string; finding: string}> = [];
+try {
+  const researchContent = readFileSync(join(process.cwd(), 'state/research_log.md'), 'utf-8');
+  const lines = researchContent
+    .split('\n')
+    .filter(l => l.trim() && !l.startsWith('#') && l.includes('|'));
+  researchEntries = lines.map(line => {
+    const parts = line.split('|').map(p => p.trim());
+    return {
+      timestamp: parts[0] || '',
+      source: parts[1] || '',
+      finding: parts[2] || '',
+    };
+  }).slice(-5);
+} catch {}
 
-// Build feedback issue URL with pre-filled template
-const repoUrl = `${profile.github}/${profile.username ? `${profile.username}/agentfolio` : 'agentfolio'}`;
-const feedbackUrl = `${repoUrl}/issues/new?template=feedback.yml&labels=feedback`;
+// Stats
+const totalActions = agentLogEntries.length;
+const uniqueWorkflows = new Set(agentLogEntries.map(e => e.workflow)).size;
+const totalFailures = failureEntries.length;
 
-// Availability badge config
-const availabilityConfig = {
-  open:   { color: '#22c55e', label: 'Open to work' },
-  busy:   { color: '#f59e0b', label: 'Limited availability' },
-  closed: { color: '#6b7280', label: 'Not available' },
-};
-const avail = availabilityConfig[profile.availability] || availabilityConfig.open;
+// Recent activity (last 10)
+const recentActivity = agentLogEntries.slice(-10).reverse();
 ---
 
-<Base profile={profile} title={`${profile.name} — ${profile.role}`} description={profile.bio}>
+<Base>
   <main class="max-w-2xl mx-auto px-6 py-16">
 
     <!-- Hero -->
     <section class="mb-14">
-      <div class="flex items-start justify-between gap-4 mb-5">
-        <div>
-          <h1 class="text-3xl font-bold tracking-tight mb-1">{profile.name}</h1>
-          <p class="text-gray-500 text-sm">{profile.role}</p>
+      <h1 class="text-3xl font-bold tracking-tight mb-2">Agentfolio</h1>
+      <p class="text-gray-500 text-sm mb-4">A self-evolving scaffold for autonomous web projects</p>
+      <p class="text-gray-600 leading-relaxed">
+        The repo is the system. GitHub Actions workflows triage feedback, fix bugs,
+        discover projects, and evolve their own code — daily. Every agent action is a commit.
+        The scaffold's first project is itself.
+      </p>
+    </section>
+
+    <!-- Stats -->
+    <section class="mb-14">
+      <h2 class="text-xs font-medium tracking-widest uppercase text-gray-400 mb-5">
+        Stats
+      </h2>
+      <div class="grid grid-cols-3 gap-4">
+        <div class="text-center p-4 rounded-lg bg-gray-50 border border-gray-100">
+          <div class="text-2xl font-bold text-gray-900">{totalActions}</div>
+          <div class="text-xs text-gray-500 mt-1">agent actions</div>
         </div>
-        <!-- Availability badge -->
-        <span class="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border mt-1 shrink-0"
-              style={`border-color: ${avail.color}20; color: ${avail.color}; background: ${avail.color}10`}>
-          <span class="w-1.5 h-1.5 rounded-full" style={`background: ${avail.color}`}></span>
-          {profile.availability_note || avail.label}
-        </span>
-      </div>
-
-      <!-- Bio -->
-      {profile.bio && (
-        <p class="text-gray-600 leading-relaxed mb-5">{profile.bio}</p>
-      )}
-
-      <!-- Location + links row -->
-      <div class="flex flex-wrap gap-3 text-sm">
-        {profile.location && (
-          <span class="text-gray-400">{profile.location}</span>
-        )}
-        <a href={profile.github} target="_blank" rel="noopener noreferrer"
-           class="text-gray-500 hover:text-gray-900 transition-colors">
-          GitHub
-        </a>
-        {profile.blog && (
-          <a href={profile.blog} target="_blank" rel="noopener noreferrer"
-             class="text-gray-500 hover:text-gray-900 transition-colors">
-            Blog
-          </a>
-        )}
-        {profile.links?.map((link: {label: string; url: string}) => (
-          <a href={link.url} target="_blank" rel="noopener noreferrer"
-             class="text-gray-500 hover:text-gray-900 transition-colors">
-            {link.label}
-          </a>
-        ))}
+        <div class="text-center p-4 rounded-lg bg-gray-50 border border-gray-100">
+          <div class="text-2xl font-bold text-gray-900">{uniqueWorkflows}</div>
+          <div class="text-xs text-gray-500 mt-1">active workflows</div>
+        </div>
+        <div class="text-center p-4 rounded-lg bg-gray-50 border border-gray-100">
+          <div class="text-2xl font-bold text-gray-900">{totalFailures}</div>
+          <div class="text-xs text-gray-500 mt-1">failures prevented</div>
+        </div>
       </div>
     </section>
 
-    <!-- Projects -->
-    {projects.length > 0 && (
+    <!-- Recent Activity -->
+    {recentActivity.length > 0 && (
       <section class="mb-14">
         <h2 class="text-xs font-medium tracking-widest uppercase text-gray-400 mb-5">
-          Projects
+          Recent Activity
         </h2>
-        <div class="space-y-6">
-          {projects.map(project => (
-            <article class="group">
-              <div class="flex items-start justify-between gap-3">
-                <div class="flex-1 min-w-0">
-                  <div class="flex items-center gap-2 mb-1">
-                    <a href={project.data.url || project.data.github}
-                       target="_blank" rel="noopener noreferrer"
-                       class="font-medium hover:underline underline-offset-2 transition-colors">
-                      {project.data.title}
-                    </a>
-                    <!-- Status badge -->
-                    {project.data.status === 'active' && (
-                      <span class="text-[10px] px-1.5 py-0.5 rounded bg-green-50 text-green-600 border border-green-100">
-                        active
-                      </span>
-                    )}
-                    {project.data.status === 'experiment' && (
-                      <span class="text-[10px] px-1.5 py-0.5 rounded bg-blue-50 text-blue-600 border border-blue-100">
-                        experiment
-                      </span>
-                    )}
-                  </div>
-                  <p class="text-sm text-gray-500 leading-relaxed">
-                    {project.data.description}
-                  </p>
-                  <!-- Tags -->
-                  {project.data.tags.length > 0 && (
-                    <div class="flex flex-wrap gap-1.5 mt-2">
-                      {project.data.tags.map((tag: string) => (
-                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-gray-50
-                                     text-gray-400 border border-gray-100">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </div>
-                <!-- Stars + GitHub link -->
-                <div class="flex items-center gap-3 text-sm text-gray-400 shrink-0 pt-0.5">
-                  {project.data.stars > 0 && (
-                    <span class="flex items-center gap-1">
-                      <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor">
-                        <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.751.751 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/>
-                      </svg>
-                      {project.data.stars}
-                    </span>
-                  )}
-                  <a href={project.data.github} target="_blank" rel="noopener noreferrer"
-                     class="hover:text-gray-700 transition-colors" aria-label="View on GitHub">
-                    <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
-                      <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/>
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
-
-        <!-- Archived projects toggle (minimal) -->
-        {archivedProjects.length > 0 && (
-          <details class="mt-6">
-            <summary class="text-xs text-gray-400 cursor-pointer hover:text-gray-600 transition-colors">
-              {archivedProjects.length} archived project{archivedProjects.length !== 1 ? 's' : ''}
-            </summary>
-            <div class="mt-3 space-y-2 pl-3 border-l border-gray-100">
-              {archivedProjects.map(p => (
-                <div class="flex items-center gap-2 text-sm">
-                  <a href={p.data.github} target="_blank" rel="noopener noreferrer"
-                     class="text-gray-400 hover:text-gray-600 transition-colors">
-                    {p.data.title}
-                  </a>
-                  <span class="text-gray-300 text-xs">{p.data.language}</span>
-                </div>
-              ))}
-            </div>
-          </details>
-        )}
-      </section>
-    )}
-
-    <!-- Writing -->
-    {posts.length > 0 && (
-      <section class="mb-14">
-        <h2 class="text-xs font-medium tracking-widest uppercase text-gray-400 mb-5">
-          Writing
-        </h2>
-        <div class="space-y-3">
-          {posts.map(post => (
-            <article class="flex items-baseline justify-between gap-4">
-              <a href={post.data.url} target="_blank" rel="noopener noreferrer"
-                 class="text-sm hover:underline underline-offset-2 transition-colors text-gray-700">
-                {post.data.title}
-              </a>
-              <time class="text-xs text-gray-400 shrink-0" datetime={post.data.published}>
-                {new Date(post.data.published).toLocaleDateString('en-US', {
-                  year: 'numeric', month: 'short'
-                })}
+        <div class="space-y-2">
+          {recentActivity.map(entry => (
+            <div class="flex items-start gap-3 text-sm">
+              <time class="text-xs text-gray-400 shrink-0 pt-0.5 w-16" datetime={entry.timestamp}>
+                {entry.timestamp ? new Date(entry.timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : ''}
               </time>
-            </article>
+              <span class="text-[10px] px-1.5 py-0.5 rounded bg-gray-50 text-gray-500 border border-gray-100 shrink-0">
+                {entry.workflow}
+              </span>
+              <span class="text-gray-600">{entry.action}</span>
+              {entry.outcome && (
+                <span class="text-gray-400 text-xs ml-auto shrink-0">{entry.outcome}</span>
+              )}
+            </div>
           ))}
         </div>
       </section>
     )}
 
-    <!-- Skills -->
-    {(profile.skills?.length > 0 || profile.languages?.length > 0) && (
+    <!-- Capabilities -->
+    {skills.length > 0 && (
       <section class="mb-14">
         <h2 class="text-xs font-medium tracking-widest uppercase text-gray-400 mb-5">
-          Stack
+          Capabilities
         </h2>
         <div class="space-y-3">
-          {profile.languages?.length > 0 && (
-            <div class="flex flex-wrap gap-1.5">
-              {profile.languages.map((lang: string) => (
-                <span class="text-xs px-2 py-1 rounded bg-gray-50 text-gray-600 border border-gray-100">
-                  {lang}
-                </span>
-              ))}
+          {skills.map(skill => (
+            <div class="group">
+              <div class="flex items-center gap-2 mb-0.5">
+                <span class="font-medium text-sm text-gray-900">{skill.name}</span>
+              </div>
+              {skill.firstLine && (
+                <p class="text-xs text-gray-500 leading-relaxed">{skill.firstLine}</p>
+              )}
             </div>
-          )}
-          {profile.skills?.length > 0 && (
-            <div class="flex flex-wrap gap-1.5">
-              {profile.skills.map((skill: string) => (
-                <span class="text-xs px-2 py-1 rounded bg-gray-50 text-gray-500 border border-gray-100">
-                  {skill}
-                </span>
-              ))}
-            </div>
-          )}
+          ))}
         </div>
       </section>
     )}
 
-    <!-- Contact / Feedback -->
+    <!-- Research -->
+    {researchEntries.length > 0 && (
+      <section class="mb-14">
+        <h2 class="text-xs font-medium tracking-widest uppercase text-gray-400 mb-5">
+          Recent Research
+        </h2>
+        <div class="space-y-2">
+          {researchEntries.map(entry => (
+            <div class="flex items-start gap-3 text-sm">
+              <span class="text-[10px] px-1.5 py-0.5 rounded bg-blue-50 text-blue-500 border border-blue-100 shrink-0">
+                {entry.source}
+              </span>
+              <span class="text-gray-600">{entry.finding}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Failure Log -->
+    {failureEntries.length > 0 && (
+      <section class="mb-14">
+        <h2 class="text-xs font-medium tracking-widest uppercase text-gray-400 mb-5">
+          Mistakes It Won't Make Again
+        </h2>
+        <div class="space-y-2 pl-3 border-l-2 border-red-100">
+          {failureEntries.map(entry => (
+            <p class="text-sm text-gray-600">{entry}</p>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Getting Started -->
     <section>
       <h2 class="text-xs font-medium tracking-widest uppercase text-gray-400 mb-5">
-        Contact
+        Getting Started
       </h2>
-      <div class="space-y-3 text-sm text-gray-500">
-        <p>
-          Open an issue on GitHub to get in touch or leave feedback.
-          The agent triages within minutes.
-        </p>
-        <div class="flex gap-4">
-          <a href={feedbackUrl}
+      <div class="space-y-3 text-sm text-gray-600">
+        <ol class="list-decimal list-inside space-y-1.5">
+          <li>Fork this repo</li>
+          <li>Add <code class="text-xs bg-gray-50 px-1 py-0.5 rounded">ANTHROPIC_API_KEY</code> to your repo secrets</li>
+          <li>Enable GitHub Pages (Source: GitHub Actions)</li>
+          <li>Drop your project in <code class="text-xs bg-gray-50 px-1 py-0.5 rounded">apps/your-project/</code></li>
+          <li>Run the "Discover Project" workflow</li>
+        </ol>
+        <div class="flex gap-4 mt-4">
+          <a href="https://github.com/verkyyi/agentfolio"
              target="_blank" rel="noopener noreferrer"
-             class="inline-flex items-center gap-1.5 text-sm text-gray-600
-                    hover:text-gray-900 transition-colors underline underline-offset-2">
-            Leave feedback →
+             class="text-gray-600 hover:text-gray-900 transition-colors underline underline-offset-2">
+            View on GitHub →
           </a>
-          {profile.github && (
-            <a href={`${profile.github}/${profile.username}`}
-               target="_blank" rel="noopener noreferrer"
-               class="inline-flex items-center gap-1.5 text-sm text-gray-400
-                      hover:text-gray-700 transition-colors">
-              GitHub profile
-            </a>
-          )}
         </div>
       </div>
     </section>

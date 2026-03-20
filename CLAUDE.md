@@ -3,24 +3,35 @@
 # Project context: read apps/${APP_NAME}/CLAUDE.md
 
 ## What this scaffold is
-An always-evolving web project harness powered by Claude Code.
+A self-evolving web project harness powered by Claude Code.
 The repo IS the system. State lives in state/. Events live in
-GitHub Issues. Every agent action is a commit.
+GitHub Issues. Every agent action is a commit. The scaffold's
+first project is itself — it improves its own workflows, skills,
+and rules over time.
 
 ## Harness Architecture
-Runtime:     GitHub Actions (7 workflows)
+Runtime:     GitHub Actions (8 workflows)
 State:       state/ folder (committed markdown files)
 Event bus:   GitHub Issues with labels
 CMS:         content/ folder (Astro content collections)
 Memory:      state/project_state.md (read/write every run)
+Research:    state/research_log.md (append-only, external findings)
 Deployment:  GitHub Pages (Astro static build)
+
+## APP_NAME Resolution
+Workflows determine which project they operate on:
+1. Issue/PR-triggered (triage, coder, reviewer): read from issue/PR
+   label (e.g., project:profile, project:scaffold). Default: scaffold.
+2. Cron-triggered (evolve, analyze): iterate all apps/*/ folders,
+   or target scaffold for self-evolution tasks.
+3. Manual dispatch (claude-task, discover): accept APP_NAME as input.
 
 ## Session Protocol
 
 ON START (every workflow run):
 1. Read state/project_state.md — what happened last
 2. Read apps/${APP_NAME}/CLAUDE.md — project-specific rules
-3. Read apps/${APP_NAME}/FEATURE_STATUS.md — what's failing
+3. Read apps/${APP_NAME}/FEATURE_STATUS.md — what's done and pending
 4. Check current event: issue body, PR diff, workflow input
 
 ON STOP (every workflow run):
@@ -32,58 +43,62 @@ ON STOP (every workflow run):
 ## Autonomy Rules (scaffold defaults — app CLAUDE.md may override)
 
 AUTO — commit directly, no PR needed:
-- State file updates (project_state.md, agent_log.md)
-- Broken link patches
-- Dependency security patches (non-breaking)
-- Regenerated sitemap.xml, llms.txt, robots.txt
-- New blog posts synced from RSS
-- GitHub API content sync (project descriptions, stars)
+- State file updates (project_state.md, agent_log.md, research_log.md)
+- Failure log entries in CLAUDE.md
+- Skill file wording/clarity improvements (no behavioral changes)
+- FEATURE_STATUS updates
 
 PR — open a pull request, label: auto-merge:
 - Lint and type fixes
-- Content updates to existing project cards
-- SEO meta tag improvements
-- Lighthouse score improvements (markup/config only)
+- Minor skill improvements (behavioral, low-risk)
 
 PR — open a pull request, label: needs-review:
-- New profile sections added
-- Visual/layout changes
-- Skills list modifications
-- Any change to apps/${APP_NAME}/CLAUDE.md
-- Schema or config file changes
+- Workflow YAML changes (always)
+- CLAUDE.md autonomy rule changes
+- New skill files
+- Any change inspired by external research
+- Profile page layout/copy changes
+- Discovery-generated CLAUDE.md for new projects
 
 NEVER auto-execute:
-- Deleting content or files
-- Changing auth configuration
-- Modifying workflow YAML files
-- Publishing to external platforms (drafts only)
+- Deleting files or content
+- Promoting its own autonomy tier
+- Modifying auth/secrets configuration
+- More than one structural PR per evolve.yml run
+  (structural = workflow YAML, CLAUDE.md autonomy rules, new skill files)
 
 ## GitHub Actions Context
 - GITHUB_TOKEN: always available, use for API calls
 - ANTHROPIC_API_KEY: in secrets, use for claude -p
-- APP_NAME env var: set in each workflow, points to apps/ subfolder
+- APP_NAME: resolved dynamically per workflow (see APP_NAME Resolution)
 - Workflows run on ubuntu-latest runners
 - Full outbound internet access in runners
 
 ## Tool Usage in Workflows
 Preferred order for file operations:
 1. GitHub API (for GitHub data — richest, most structured)
-2. curl (for external HTTP — RSS, npm stats, etc.)
+2. curl (for external HTTP — RSS, blogs, changelogs)
 3. Standard unix tools (grep, jq, sed — for parsing)
 
 ## Commit Message Convention
-feat(content): add new project card for [repo]
-fix(seo): update structured data after profile change
+feat(content): add new content for [topic]
+feat(harness): add [workflow/skill/capability]
+fix(workflow): fix [issue] in [workflow]
 state: session summary — [what was done]
 chore(deps): patch [package] security vulnerability
-content(sync): refresh [n] project descriptions from GitHub API
+research: [source] — [finding summary]
 
 ## Failure Handling
 If a step fails:
 1. Write failure to state/agent_log.md
-2. Open a GitHub Issue labeled: agent-error
-3. Do NOT retry more than once automatically
-4. Exit cleanly — next run will pick up from state
+2. Add failure to CLAUDE.md failure log (below)
+3. Open a GitHub Issue labeled: agent-error
+4. Do NOT retry more than once automatically
+5. Exit cleanly — next run will pick up from state
+
+If a merged self-improvement causes a regression:
+1. Log the regression in the failure log
+2. Open a revert PR (needs-review)
 
 ## FAILURE LOG
 # Each line = a past mistake, now prevented.

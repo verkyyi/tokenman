@@ -1,0 +1,128 @@
+name: Self-Evolve
+
+on:
+  schedule:
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+env:
+  APP_NAME: scaffold
+
+jobs:
+  evolve:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 50
+
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Build evolution prompt
+        run: |
+          cat > /tmp/prompt.txt << 'PROMPT'
+          You are the self-evolution agent for Agentfolio.
+
+          ## Your Task
+          Analyze the scaffold and propose improvements. You have two phases:
+
+          ### Phase 1: Research
+          Fetch external knowledge to inform improvements:
+          - Check reference repos for new commits/releases:
+            - https://api.github.com/repos/godagoo/claude-code-always-on/commits?per_page=5
+            - https://api.github.com/repos/humanlayer/humanlayer/commits?per_page=5
+          - Check GitHub Actions changelog:
+            - https://api.github.com/repos/actions/runner/releases?per_page=3
+          - Log all findings to state/research_log.md (append only)
+          - Format: ISO_TIMESTAMP | source | finding_summary | action_taken
+
+          ### Phase 2: Analyze
+          Read and analyze:
+          - state/agent_log.md — recent actions and patterns
+          - state/project_state.md — current state
+          - CLAUDE.md failure log — repeated failures
+          - .github/workflows/*.yml — workflow efficiency
+          - skills/*.md — skill coverage gaps
+          - Recent git log (last 20 commits) — what changed
+
+          Look for:
+          - Repeated failures that need new rules
+          - Workflow inefficiencies that need patches
+          - Missing skills that need drafting
+          - New apps/ folders without CLAUDE.md (trigger discovery)
+
+          ### Phase 3: Act
+          Based on findings:
+          - AUTO-COMMIT: failure log entries, state updates, skill wording fixes
+          - Write improvements to files directly for auto-commit items
+          - For structural changes (workflow YAML, CLAUDE.md rules, new skills):
+            write a file at .proposed-change.md describing the change and why
+          - Maximum ONE structural change proposal per run
+
+          ### Rules
+          - You CANNOT promote your own autonomy
+          - You CANNOT modify workflow YAML directly (propose only)
+          - Each proposal must cite the failure or research that triggered it
+          - If you find a new apps/ folder without CLAUDE.md, note it in
+            .trigger-discovery.txt with the folder name (workflow handles dispatch)
+
+          ## Context
+          $(cat CLAUDE.md)
+          $(cat apps/scaffold/CLAUDE.md)
+
+          ## Current State
+          $(cat state/project_state.md)
+
+          ## Recent Agent Log (last 20 lines)
+          $(tail -20 state/agent_log.md)
+
+          ## Failure Log
+          $(grep "^# [0-9]" CLAUDE.md | tail -20)
+          PROMPT
+
+      - name: Run Claude Code
+        run: |
+          claude -p "$(cat /tmp/prompt.txt)" \
+            --allowedTools "bash,read,write,edit,glob,grep" \
+            --max-turns 30
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: Auto-commit safe changes
+        run: |
+          git add state/ CLAUDE.md skills/
+          git diff --cached --quiet || git commit -m "state: evolve.yml — $(date -u +%Y-%m-%d)"
+          git push || true
+
+      - name: Trigger discovery if needed
+        if: hashFiles('.trigger-discovery.txt') != ''
+        run: |
+          APP=$(cat .trigger-discovery.txt)
+          gh workflow run discover.yml -f app_name="$APP"
+          rm .trigger-discovery.txt
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Create structural PR if proposed
+        if: hashFiles('.proposed-change.md') != ''
+        run: |
+          BRANCH="evolve/$(date +%Y%m%d-%H%M%S)"
+          git checkout -b "$BRANCH"
+          git add -A
+          TITLE=$(head -1 .proposed-change.md | sed 's/^# //')
+          BODY=$(cat .proposed-change.md)
+          rm .proposed-change.md
+          git commit -m "feat(harness): $TITLE"
+          git push -u origin "$BRANCH"
+          gh pr create \
+            --title "$TITLE" \
+            --body "$BODY" \
+            --label "needs-review"
+        env:
+          GH_TOKEN: ${{ github.token }}

@@ -1,185 +1,143 @@
 # Onboarding Guide
 
-Get your living portfolio running in ~5 minutes.
-No terminal required.
+A step-by-step walkthrough for setting up your autonomous project portfolio on agentfolio. For the high-level overview, see the [README](../README.md).
+
+---
 
 ## Prerequisites
-- A GitHub account
-- An Anthropic API key ([get one here](https://console.anthropic.com))
+
+- A **GitHub account** with permissions to fork repositories and configure Actions
+- An **Anthropic API key** (get one at [console.anthropic.com](https://console.anthropic.com))
+- Basic familiarity with **GitHub Actions** (knowing how to trigger workflows and read logs is enough)
 
 ---
 
-## Step 1 — Create your repo from the template
+## Setup (5 Steps)
 
-1. Go to [github.com/yourusername/agentfolio](https://github.com/yourusername/agentfolio)
-2. Click **"Use this template"** → **"Create a new repository"**
-3. Name it anything (e.g. `portfolio`, `agentfolio`, your username)
-4. Choose Public or Private — your choice
+### 1. Fork the Repo
 
----
+Fork [agentfolio](https://github.com/your-org/agentfolio) into your own GitHub account. This gives you a personal copy where the agents will run.
 
-## Step 2 — Add your Anthropic API key
+### 2. Add Your API Key to Repo Secrets
 
-1. In your new repo, go to **Settings** → **Secrets and variables** → **Actions**
-2. Click **"New repository secret"**
-3. Name: `ANTHROPIC_API_KEY`
-4. Value: your `sk-ant-...` key
-5. Click **"Add secret"**
+Go to **Settings → Secrets and variables → Actions** in your forked repo and add:
 
-That's the only secret needed. `GITHUB_TOKEN` is automatic.
+| Name | Value |
+|------|-------|
+| `ANTHROPIC_API_KEY` | Your Anthropic API key |
 
----
+### 3. Enable GitHub Pages
 
-## Step 3 — Enable GitHub Pages
+Go to **Settings → Pages** and set:
 
-1. In your repo, go to **Settings** → **Pages**
-2. Under **Source**, select **"GitHub Actions"**
-3. Don't configure anything else yet
+- **Source:** `GitHub Actions`
 
----
+The portfolio site will be published automatically after the first successful workflow run.
 
-## Step 4 — Run the onboard workflow
+### 4. Add Your Project
 
-1. In your repo, go to **Actions**
-2. In the left sidebar, click **"Onboard"**
-3. Click **"Run workflow"** (top right of the workflow list)
-4. Fill in the inputs:
-   - **GitHub username**: your GitHub username (required)
-   - **Blog RSS URL**: your blog's RSS feed URL (optional)
-   - **Custom domain**: if you have one, e.g. `https://lee.dev` (optional)
-5. Click **"Run workflow"**
+Create a directory for your project under `apps/`:
 
-The workflow will take 3-5 minutes. You can watch it run in the
-Actions tab. When it completes, it automatically triggers a deployment.
-
----
-
-## Step 5 — View your live profile
-
-Once the deploy workflow completes (1-2 min after onboard):
-
-**Default URL:** `https://[your-github-username].github.io/[repo-name]`
-
-If you set a custom domain in Step 4, you'll need to configure DNS:
-- Add a CNAME record pointing to `[username].github.io`
-- Add the domain in Settings → Pages → Custom domain
-
----
-
-## What just happened
-
-The onboard workflow:
-1. Fetched your GitHub profile (bio, location, links)
-2. Fetched all your public repos (names, stars, languages, topics)
-3. Read the README of your top repos
-4. Claude wrote content files for each repo
-5. Claude wrote your `profile.json`, `llms.txt`, and constitution
-6. Committed everything → deploy fired → your profile is live
-
----
-
-## After onboarding
-
-The agent works automatically from this point:
-
-| When | What happens |
-|------|-------------|
-| Every day at 3am UTC | Syncs repo stars, checks for new repos, fixes broken links |
-| Every Monday 6am UTC | Writes weekly growth report, runs SEO audit |
-| When you push to main | Rebuilds and deploys your profile |
-| When a feedback issue is opened | Triage agent classifies within minutes |
-| When a bug is triaged | Coder agent opens a fix PR |
-
----
-
-## Customizing your profile
-
-### Change your bio or availability
-Edit `content/profile.json` directly in GitHub UI (pencil icon).
-Push to main → deploy fires automatically.
-
-Or tell Claude via the manual task workflow:
-1. Actions → "Claude Task (Manual)" → "Run workflow"
-2. Prompt: `Update my availability to "busy" and change bio to "[new bio]"`
-
-### Feature a project
-Edit the project's `.md` file in `content/projects/`, set `featured: true`.
-Push → redeploy.
-
-### Add a custom link
-Edit `content/profile.json`, add to the `links` array:
-```json
-"links": [
-  {"label": "Twitter", "url": "https://twitter.com/username"}
-]
+```
+apps/
+  your-project/
+    CLAUDE.md          # Agent rules and autonomy settings
+    project_state.md   # Auto-generated; tracks current goals and status
+    agent_log.md       # Auto-generated; running log of agent actions
+    research_log.md    # Auto-generated; external research findings
 ```
 
-### Adjust growth targets
-Edit `apps/portfolio/growth_goals.md` directly.
-The growth workflow reads this file every Monday.
+Start by creating `CLAUDE.md` with your project description and any constraints. The other state files will be created automatically when you run the first workflow.
+
+### 5. Run the "Discover Project" Workflow
+
+Go to **Actions → Discover Project** and trigger it manually. This bootstraps your project by analyzing the `CLAUDE.md` you wrote and generating initial state files.
 
 ---
 
-## Using the manual task channel
+## How It Works
 
-The `claude-task.yml` workflow is your dev channel.
-No Telegram, no terminal — just GitHub Actions.
+Eight workflows keep your project portfolio up to date autonomously:
 
-1. Go to **Actions** → **"Claude Task (Manual)"**
-2. Click **"Run workflow"**
-3. Type your instruction in the **"What should Claude do?"** field
-4. Toggle **"Open a PR instead?"** if you want to review before it goes live
-5. Click **"Run workflow"**
-
-Examples:
-- `"Add my new aInbox project to the portfolio with a featured badge"`
-- `"The skills section looks outdated, refresh it from my recent repos"`
-- `"Update my availability to open for consulting"`
+| Workflow | Trigger | What It Does |
+|----------|---------|--------------|
+| `discover.yml` | Manual | Bootstraps a new project; reads `CLAUDE.md`, creates initial state files |
+| `plan.yml` | Daily / Manual | Generates or updates the project roadmap in `project_state.md` |
+| `execute.yml` | Daily / Manual | Works on the current goal; commits code, docs, or content changes |
+| `review.yml` | On PR | Reviews pull requests and leaves structured feedback |
+| `research.yml` | Daily | Fetches external articles, papers, and trends; appends to `research_log.md` |
+| `publish.yml` | On push to `main` | Rebuilds and deploys the Astro portfolio site to GitHub Pages |
+| `evolve.yml` | Daily | Self-improvement loop (see below) |
+| `health.yml` | Daily | Checks for stale goals, broken links, and missing state files |
 
 ---
 
-## Using the plugin in an existing project
+## Understanding the Self-Evolution Loop
 
-If you have an existing Astro project and want to add the harness:
+`evolve.yml` runs daily and closes the feedback loop:
 
+1. **Analyze failures** — Scans recent Action run logs for errors and repeated failures.
+2. **Fetch external research** — Pulls the latest entries from `research_log.md` as context.
+3. **Propose improvements** — Asks Claude to suggest edits to workflows, prompts, or rules.
+4. **Open a PR** — Changes land as a pull request for you to review before merging.
+
+You stay in control: the agent proposes, you decide.
+
+---
+
+## Customizing Rules
+
+Each project's behavior is governed by `apps/your-project/CLAUDE.md`. Edit this file to tune the agent:
+
+```markdown
+# My Project
+
+## What This Is
+A CLI tool for ...
+
+## Autonomy
+- The agent MAY commit directly to `main` for documentation changes.
+- The agent MUST open a PR for any code changes.
+- The agent MUST NOT modify files outside `apps/my-project/`.
+
+## Style
+- Use TypeScript with strict mode enabled.
+- Prefer functional patterns over classes.
+```
+
+Key knobs:
+- **MAY / MUST / MUST NOT** — set permission boundaries
+- **Scope constraints** — limit which directories the agent can touch
+- **Style guides** — enforce coding conventions without manual review
+
+---
+
+## State Files
+
+| File | Purpose |
+|------|---------|
+| `project_state.md` | Current goals, milestones, and project health summary. Updated by `plan.yml` and `execute.yml`. |
+| `agent_log.md` | Chronological log of every action the agent took. Useful for auditing decisions. |
+| `research_log.md` | Summaries of external research fetched by `research.yml`. Feeds into planning and evolution. |
+
+These files live in your project directory and are committed to the repo, so the full history is in git.
+
+---
+
+## Monitoring
+
+Watch what the agent is doing through three channels:
+
+**Git log** — Every agent action produces a commit with a structured message:
 ```bash
-npx @agentfolio/plugin
+git log --oneline apps/your-project/
 ```
 
-Then:
-1. Create `apps/[your-app]/CLAUDE.md` with project-specific rules
-2. Update `APP_NAME` in each workflow file
-3. Add `ANTHROPIC_API_KEY` secret
-4. Enable Pages
-5. Run `onboard.yml`
+**Actions tab** — See live workflow runs, logs, and any failures at `github.com/<you>/agentfolio/actions`.
 
----
+**State files** — Read `agent_log.md` for a plain-English narrative of what happened and why:
+```bash
+cat apps/your-project/agent_log.md
+```
 
-## Troubleshooting
-
-**Onboard workflow fails:**
-- Check that `ANTHROPIC_API_KEY` is set correctly in secrets
-- Check Actions tab for the specific error message
-- If the API key is correct, try running it again (transient failures happen)
-
-**Profile not showing at expected URL:**
-- Wait 2-3 minutes after the deploy workflow completes
-- Check Settings → Pages for the exact published URL
-- Make sure Pages source is set to "GitHub Actions" not a branch
-
-**Agent isn't fixing my feedback issues:**
-- Feedback issues must have the `feedback` label to trigger triage
-- Check that triage.yml ran (look in Actions tab)
-- If the issue was labeled `agent-ready`, coder.yml should have fired
-
-**Workflow not finding Claude Code:**
-- Check that `ANTHROPIC_API_KEY` is not expired or rate-limited
-- Check the Actions logs for specific error messages
-
----
-
-## Further reading
-
-- [Harness philosophy](./harness-philosophy.md) — why the system works this way
-- [Customizing](./customizing.md) — replacing the portfolio with your own app
-- [EC2 mode](./ec2-mode.md) — for advanced users who need real-time features
+If something looks wrong, edit `CLAUDE.md` to add a constraint and the agent will respect it on the next run.

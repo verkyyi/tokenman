@@ -33,7 +33,7 @@ jobs:
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           prompt: |
-            Read CLAUDE.md and apps/portfolio/CLAUDE.md for the auto-merge rules.
+            Read CLAUDE.md and apps/scaffold/CLAUDE.md for the auto-merge rules.
 
             You are the reviewer agent. Review this PR from the coder agent.
 

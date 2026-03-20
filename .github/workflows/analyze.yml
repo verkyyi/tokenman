@@ -1,0 +1,96 @@
+name: Weekly Analysis
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+env:
+  APP_NAME: scaffold
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Build analysis prompt
+        run: |
+          cat > /tmp/prompt.txt << 'PROMPT'
+          You are the weekly analysis agent for Agentfolio.
+
+          ## Your Task
+          Produce a strategic analysis of the scaffold's past week.
+
+          ### What to analyze
+          1. Read state/agent_log.md entries from the past 7 days
+          2. Read state/research_log.md entries from the past 7 days
+          3. Review git log from the past 7 days
+          4. Check apps/scaffold/FEATURE_STATUS.md — what progressed?
+          5. Check apps/profile/FEATURE_STATUS.md — what progressed?
+
+          ### What to look for
+          - Recurring failures or patterns in agent_log
+          - Workflow bottlenecks (PRs that took multiple review rounds)
+          - Skills used vs. available — any gaps?
+          - Research findings that haven't been acted on yet
+          - FEATURE_STATUS items that are stalled
+
+          ### Output
+          Append a weekly summary to state/agent_log.md with:
+          - Format: ISO_TIMESTAMP | analyze | weekly-summary | [key findings]
+          - Include: actions completed, failures encountered, recommendations
+
+          Update state/project_state.md with current priorities.
+
+          If clear improvements are identified, write them to
+          .proposed-change.md (same format as evolve.yml — one per run max).
+
+          ## Context
+          $(cat CLAUDE.md)
+          $(cat apps/scaffold/CLAUDE.md)
+
+          ## Current State
+          $(cat state/project_state.md)
+          PROMPT
+
+      - name: Run Claude Code
+        run: |
+          claude -p "$(cat /tmp/prompt.txt)" \
+            --allowedTools "bash,read,write,edit,glob,grep" \
+            --max-turns 20
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: Commit state updates
+        run: |
+          git add state/
+          git diff --cached --quiet || git commit -m "state: weekly analysis — $(date -u +%Y-%m-%d)"
+          git push || true
+
+      - name: Create improvement PR if proposed
+        if: hashFiles('.proposed-change.md') != ''
+        run: |
+          BRANCH="analyze/$(date +%Y%m%d)"
+          git checkout -b "$BRANCH"
+          git add -A
+          TITLE=$(head -1 .proposed-change.md | sed 's/^# //')
+          BODY=$(cat .proposed-change.md)
+          rm .proposed-change.md
+          git commit -m "feat(harness): $TITLE"
+          git push -u origin "$BRANCH"
+          gh pr create \
+            --title "$TITLE" \
+            --body "$BODY" \
+            --label "needs-review"
+        env:
+          GH_TOKEN: ${{ github.token }}

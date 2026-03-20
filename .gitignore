@@ -18,3 +18,7 @@ dist/
 # OS
 .DS_Store
 Thumbs.db
+
+# Ephemeral workflow communication files
+.proposed-change.md
+.trigger-discovery.txt
