@@ -23,7 +23,7 @@ jobs:
       - name: Run triage with Claude Code Action
         uses: anthropics/claude-code-action@v1
         with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           # Pattern C: official action handles lightweight issue triage
           prompt: |
             Read the root CLAUDE.md and apps/scaffold/CLAUDE.md for context.

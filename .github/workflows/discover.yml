@@ -70,7 +70,7 @@ jobs:
             --allowedTools "bash,read,write,edit,glob,grep" \
             --max-turns 20
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
 
       - name: Check for changes
         id: changes

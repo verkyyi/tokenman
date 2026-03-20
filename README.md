@@ -62,7 +62,7 @@ human review. The git log is the audit trail.
 ## Quick start
 
 1. Fork this repo
-2. Settings → Secrets → Add `ANTHROPIC_API_KEY`
+2. Settings → Secrets → Add `CLAUDE_CODE_OAUTH_TOKEN`
 3. Settings → Pages → Source: GitHub Actions
 4. Drop your project in `apps/your-project/`
 5. Run the "Discover Project" workflow
