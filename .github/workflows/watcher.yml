@@ -1,0 +1,160 @@
+name: Pipeline Watcher
+
+on:
+  schedule:
+    - cron: '30 * * * *'  # Every hour at :30 (offset from evolve at :00)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+  actions: write
+
+concurrency:
+  group: watcher
+  cancel-in-progress: true
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Collect system state
+        id: state
+        run: |
+          echo "=== FAILED RUNS (last 6 hours) ===" > /tmp/system_state.txt
+          gh run list --status failure --limit 20 \
+            --json databaseId,workflowName,createdAt,conclusion,headBranch \
+            -q '.[] | "\(.databaseId) | \(.workflowName) | \(.createdAt) | \(.headBranch)"' \
+            >> /tmp/system_state.txt
+
+          echo "" >> /tmp/system_state.txt
+          echo "=== IN-PROGRESS RUNS ===" >> /tmp/system_state.txt
+          gh run list --status in_progress --limit 10 \
+            --json databaseId,workflowName,createdAt \
+            -q '.[] | "\(.databaseId) | \(.workflowName) | \(.createdAt)"' \
+            >> /tmp/system_state.txt
+
+          echo "" >> /tmp/system_state.txt
+          echo "=== OPEN ISSUES ===" >> /tmp/system_state.txt
+          gh issue list --state open --limit 20 \
+            --json number,title,labels,createdAt,updatedAt \
+            -q '.[] | "#\(.number) | \(.title) | \([.labels[].name] | join(",")) | created: \(.createdAt) | updated: \(.updatedAt)"' \
+            >> /tmp/system_state.txt
+
+          echo "" >> /tmp/system_state.txt
+          echo "=== OPEN PRS ===" >> /tmp/system_state.txt
+          gh pr list --state open --limit 10 \
+            --json number,title,labels,createdAt,updatedAt \
+            -q '.[] | "#\(.number) | \(.title) | \([.labels[].name] | join(",")) | created: \(.createdAt) | updated: \(.updatedAt)"' \
+            >> /tmp/system_state.txt
+
+          echo "" >> /tmp/system_state.txt
+          echo "=== RECENT SUCCESSFUL RUNS (last 10) ===" >> /tmp/system_state.txt
+          gh run list --status success --limit 10 \
+            --json databaseId,workflowName,createdAt \
+            -q '.[] | "\(.databaseId) | \(.workflowName) | \(.createdAt)"' \
+            >> /tmp/system_state.txt
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Build watcher prompt
+        run: |
+          SYSTEM_STATE=$(cat /tmp/system_state.txt)
+          LEARNED_RULES=$(cat state/learned_rules.md)
+          AGENT_LOG=$(tail -30 state/agent_log.md)
+
+          cat > /tmp/watcher_prompt.txt << 'PROMPTSTART'
+          You are the pipeline watcher — the self-healing guardian of Agentfolio.
+          You monitor the entire automated pipeline and take corrective action
+          when things go wrong. You run every 30 minutes.
+
+          ## Your responsibilities:
+
+          ### 1. Detect broken chains
+          The pipeline is: evolve → issue → triage → coder → PR → reviewer → merge
+          Check if any link is broken:
+          - Issues labeled "agent-ready" but no coder run started → re-trigger coder
+          - PRs open with no reviewer run → re-trigger reviewer
+          - Triage completed but coder never triggered → re-trigger coder
+          - Coder completed but reviewer never triggered → re-trigger reviewer
+
+          ### 2. Detect repeated failures
+          If the same workflow has failed 3+ times in a row with no success:
+          - Get the failure logs: gh run view <id> --log-failed 2>&1 | tail -20
+          - Create a [pipeline] issue if one doesn't exist for this failure pattern
+          - Include the error message and suggested fix in the issue body
+
+          ### 3. Detect stuck runs
+          - Runs in_progress for >30 minutes may be stuck
+          - Note them in the log but don't cancel (they may be legitimately long)
+
+          ### 4. Detect stale issues/PRs
+          - Issues labeled "agent-ready" for >2 hours with no activity → re-trigger coder
+          - PRs open for >1 hour with no review → re-trigger reviewer
+          - Issues open for >24 hours with no labels → re-trigger triage
+
+          ### 5. Cleanup
+          - Close issues that were fixed (PR merged that references the issue)
+          - Remove "agent-ready" label from issues that already have a PR open
+
+          ## How to take corrective action:
+          - Re-trigger triage: gh workflow run triage.yml -f issue_number=N
+          - Re-trigger coder: gh workflow run coder.yml -f issue_number=N
+          - Re-trigger reviewer: gh workflow run reviewer.yml -f pr_number=N
+          - Create issue: gh issue create --title "[pipeline] ..." --body "..." --label "pipeline-fix,project:scaffold"
+          - Close issue: gh issue close N
+          - Always check for duplicates before creating issues
+
+          ## Rules:
+          - Maximum 3 corrective actions per run (don't flood the system)
+          - Never re-trigger a workflow that is currently in_progress
+          - Never re-trigger a workflow that succeeded in the last 30 minutes
+          - Always log what you did to state/agent_log.md:
+            TIMESTAMP | watcher.yml | health check | [summary of findings and actions]
+          - Update state/project_state.md with current system health
+          - If everything is healthy, just log "all clear" and exit
+
+          PROMPTSTART
+
+          # Now append the dynamic data outside the quoted heredoc
+          cat >> /tmp/watcher_prompt.txt << PROMPTEND
+
+          ## Current system state:
+          ${SYSTEM_STATE}
+
+          ## Recent agent log:
+          ${AGENT_LOG}
+
+          ## Learned rules:
+          ${LEARNED_RULES}
+
+          ## Context:
+          $(cat CLAUDE.md)
+          PROMPTEND
+
+      - name: Run watcher
+        run: |
+          claude -p "$(cat /tmp/watcher_prompt.txt)" \
+            --allowedTools "Bash(gh:*) Bash(git:*) Bash(date:*) Bash(grep:*) Bash(tail:*) Read Write Edit Glob Grep" \
+            --max-turns 25
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Commit state updates
+        run: |
+          git config user.name "agentfolio[bot]"
+          git config user.email "agentfolio[bot]@users.noreply.github.com"
+          git add state/
+          if ! git diff --cached --quiet; then
+            git commit -m "state: watcher health check — $(date -u +%Y-%m-%dT%H:%M)"
+            git pull --rebase || true
+            git push || true
+          fi
