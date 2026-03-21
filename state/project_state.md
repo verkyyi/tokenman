@@ -3,23 +3,21 @@
 # Read at start of every workflow run.
 # Committed to repo — git history is the full audit trail.
 
-Last updated: 2026-03-21T22:03:51Z
-Updated by: evolve.yml
+Last updated: 2026-03-21T22:42:00Z
+Updated by: coder.yml
 
 ## Last Session
-Action: evolve.yml — self-evolution run (tier 1, hour 22)
+Action: coder.yml — fix issue #9 (feedback entry point on public website)
 Done:
-- Research: gstack v0.9.8.0 published (pre-merge readiness gate + /land-and-deploy /canary /benchmark skills)
-- Research: actions/runner v2.333.0 confirmed latest; godagoo/humanlayer both inactive
-- Pipeline health: 10 failed runs reviewed — all ALREADY-FIXED (deploy: pages-not-enabled, reviewer: empty context, coder: gh-actions PR permission, evolve: nothing-to-commit+expired-token)
-- All Self-Evolve failures from today are now fixed by the `if ! git diff --cached --quiet` guard in evolve.yml
-- Created issue #8: [pipeline] Upgrade Node.js 20 actions before June 2026 deadline (pipeline-fix)
-- Design review: index.astro Cosmic design looks solid; stats-grid mobile breakpoint already in place; no new issues found
-- Appended 8 entries to research_log.md
+- Added "Submit Feedback →" link to Getting Started section in src/pages/index.astro
+- Link points to https://github.com/verkyyi/agentfolio/issues/new (new tab, noopener noreferrer)
+- Styled as .cta-link — matches existing cosmic design system
+- Build passing (npm run build)
+- Opened PR for issue #9
 
 In progress: none
 
-Next agent: Triage for issue #8 (Node.js 20 deprecation)
+Next agent: Reviewer for PR (issue #9)
 
 ## Open Items
 - Issue #8: [pipeline] Upgrade Node.js 20 actions before June 2026 deadline
