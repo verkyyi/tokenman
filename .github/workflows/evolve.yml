@@ -11,6 +11,10 @@ permissions:
   issues: write
   actions: write
 
+concurrency:
+  group: evolve
+  cancel-in-progress: true
+
 env:
   APP_NAME: scaffold
 
@@ -190,8 +194,11 @@ jobs:
       - name: Auto-commit safe changes
         run: |
           git add state/ CLAUDE.md skills/
-          git diff --cached --quiet || git commit -m "state: evolve.yml — $(date -u +%Y-%m-%d)"
-          git push || true
+          if ! git diff --cached --quiet; then
+            git commit -m "state: evolve.yml — $(date -u +%Y-%m-%d)"
+            git pull --rebase || true
+            git push || true
+          fi
 
       - name: Trigger triage for new issues
         run: |

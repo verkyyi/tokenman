@@ -16,6 +16,10 @@ permissions:
   pull-requests: write
   actions: write
 
+concurrency:
+  group: coder-${{ inputs.issue_number || github.event.issue.number }}
+  cancel-in-progress: false
+
 jobs:
   code:
     # For label events, only fire on 'agent-ready'. For dispatch, always run.
@@ -64,7 +68,7 @@ jobs:
         run: |
           ISSUE_NUM=${{ steps.issue.outputs.NUMBER }}
           BRANCH="fix/issue-${ISSUE_NUM}"
-          git checkout -b "$BRANCH"
+          git checkout -b "$BRANCH" 2>/dev/null || git checkout "$BRANCH"
           echo "BRANCH=$BRANCH" >> $GITHUB_OUTPUT
 
       - name: Build coder prompt
