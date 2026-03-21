@@ -145,7 +145,47 @@ jobs:
           (purple #a78bfa, blue #60a5fa, green #34d399), dark backgrounds,
           glowing effects.
 
-          ## STEP 2c: SEO & Discoverability (once per day, hour 12 UTC only)
+          ## STEP 2c: Growth Metrics (once per day, hour 6 UTC only)
+
+          If the current hour is 06 UTC (check with `date -u +%H`), fetch:
+
+          ```bash
+          # GitHub repo stats
+          REPO_STATS=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/verkyyi/agentfolio")
+          STARS=$(echo "$REPO_STATS" | grep -o '"stargazers_count":[0-9]*' | cut -d: -f2)
+          FORKS=$(echo "$REPO_STATS" | grep -o '"forks_count":[0-9]*' | cut -d: -f2)
+          WATCHERS=$(echo "$REPO_STATS" | grep -o '"subscribers_count":[0-9]*' | cut -d: -f2)
+          OPEN_ISSUES=$(echo "$REPO_STATS" | grep -o '"open_issues_count":[0-9]*' | cut -d: -f2)
+
+          # Traffic (last 14 days — requires push access)
+          TRAFFIC=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/verkyyi/agentfolio/traffic/views")
+          VIEWS=$(echo "$TRAFFIC" | grep -o '"count":[0-9]*' | head -1 | cut -d: -f2)
+          UNIQUES=$(echo "$TRAFFIC" | grep -o '"uniques":[0-9]*' | head -1 | cut -d: -f2)
+
+          # Referrers
+          REFERRERS=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/verkyyi/agentfolio/traffic/popular/referrers" | head -c 500)
+          ```
+
+          Append to state/research_log.md:
+          TIMESTAMP | growth-metrics | stars:X forks:Y views:Z uniques:U | [note any significant changes]
+
+          Write metrics to state/growth_metrics.md (overwrite):
+          ```
+          # Growth Metrics
+          Last updated: TIMESTAMP
+          Stars: X | Forks: Y | Watchers: Z
+          Views (14d): X | Unique visitors (14d): Y
+          Open issues: X
+          Top referrers: [list]
+          ```
+
+          If stars or forks increased since last check, note it.
+          If a new referrer appeared, note it — this tells us where exposure is coming from.
+
+          ## STEP 2d: SEO & Discoverability (once per day, hour 12 UTC only)
 
           If the current hour is 12 UTC (check with `date -u +%H`), do these:
 
@@ -240,7 +280,7 @@ jobs:
 
       - name: Auto-commit safe changes
         run: |
-          git add state/ CLAUDE.md skills/ README.md public/robots.txt src/layouts/Base.astro
+          git add state/ CLAUDE.md skills/ README.md public/robots.txt src/layouts/Base.astro src/pages/index.astro
           if ! git diff --cached --quiet; then
             git commit -m "state: evolve.yml — $(date -u +%Y-%m-%d)"
             git pull --rebase || true

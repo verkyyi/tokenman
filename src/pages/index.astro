@@ -78,6 +78,20 @@ try {
   }).slice(-5);
 } catch {}
 
+// Read growth metrics
+let growthMetrics = { stars: '0', forks: '0', views: '0', uniques: '0' };
+try {
+  const metricsContent = readFileSync(join(process.cwd(), 'state/growth_metrics.md'), 'utf-8');
+  const starsMatch = metricsContent.match(/Stars:\s*(\d+)/);
+  const forksMatch = metricsContent.match(/Forks:\s*(\d+)/);
+  const viewsMatch = metricsContent.match(/Views \(14d\):\s*(\d+)/);
+  const uniquesMatch = metricsContent.match(/Unique visitors \(14d\):\s*(\d+)/);
+  if (starsMatch) growthMetrics.stars = starsMatch[1];
+  if (forksMatch) growthMetrics.forks = forksMatch[1];
+  if (viewsMatch) growthMetrics.views = viewsMatch[1];
+  if (uniquesMatch) growthMetrics.uniques = uniquesMatch[1];
+} catch {}
+
 // Stats
 const totalActions = agentLogEntries.length;
 const uniqueWorkflows = new Set(agentLogEntries.map(e => e.workflow)).size;
@@ -95,19 +109,57 @@ const recentActivity = agentLogEntries.slice(-10).reverse();
       <div class="hero-label">Self-Evolving Scaffold</div>
       <h1 class="hero-title">Agentfolio</h1>
       <p class="hero-subtitle">
-        The repo is the system. GitHub Actions workflows triage feedback, fix bugs,
-        discover projects, and evolve their own code — daily. Every agent action is a commit.
-        The scaffold's first project is itself.
+        Fork this repo. Drop your project in. Get an autonomous dev team that
+        never sleeps — it triages issues, writes code, reviews PRs, deploys,
+        and improves its own workflows. Every hour.
       </p>
+      <div class="hero-ctas">
+        <a href="https://github.com/verkyyi/agentfolio/generate" target="_blank" rel="noopener noreferrer" class="cta-primary">
+          Use This Template
+        </a>
+        <a href="https://github.com/verkyyi/agentfolio" target="_blank" rel="noopener noreferrer" class="cta-secondary">
+          View Source
+        </a>
+      </div>
     </section>
 
-    <!-- Codex -->
+    <!-- Live Pipeline -->
     <section class="cosmic-section">
-      <div class="section-header">Codex</div>
-      <p class="codex-desc">
-        Articles on harness engineering, agent autonomy tiers, self-evolution patterns, and failure handling.
-      </p>
-      <a href="/codex" class="codex-link">Read the Codex →</a>
+      <div class="section-header">Live Pipeline</div>
+      <div class="pipeline">
+        <div class="pipeline-step">
+          <div class="pipeline-icon">🔍</div>
+          <div class="pipeline-name">Evolve</div>
+          <div class="pipeline-freq">every hour</div>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step">
+          <div class="pipeline-icon">📋</div>
+          <div class="pipeline-name">Triage</div>
+          <div class="pipeline-freq">per issue</div>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step">
+          <div class="pipeline-icon">⚡</div>
+          <div class="pipeline-name">Code</div>
+          <div class="pipeline-freq">per issue</div>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step">
+          <div class="pipeline-icon">✓</div>
+          <div class="pipeline-name">Review</div>
+          <div class="pipeline-freq">per PR</div>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step">
+          <div class="pipeline-icon">🚀</div>
+          <div class="pipeline-name">Deploy</div>
+          <div class="pipeline-freq">on merge</div>
+        </div>
+      </div>
+      <div class="pipeline-sub">
+        <span class="pipeline-watcher">🛡️ Watcher monitors every 30 min · self-heals broken chains</span>
+      </div>
     </section>
 
     <!-- Stats -->
@@ -123,10 +175,23 @@ const recentActivity = agentLogEntries.slice(-10).reverse();
           <div class="stat-label">active workflows</div>
         </div>
         <div class="stat-card stat-green">
-          <div class="stat-value">{totalFailures}</div>
-          <div class="stat-label">failures prevented</div>
+          <div class="stat-value">{growthMetrics.stars}</div>
+          <div class="stat-label">stars</div>
+        </div>
+        <div class="stat-card stat-amber">
+          <div class="stat-value">{growthMetrics.forks}</div>
+          <div class="stat-label">forks</div>
         </div>
       </div>
+    </section>
+
+    <!-- Codex -->
+    <section class="cosmic-section">
+      <div class="section-header">Codex</div>
+      <p class="codex-desc">
+        Articles on harness engineering, agent autonomy tiers, self-evolution patterns, and failure handling.
+      </p>
+      <a href="/codex" class="codex-link">Read the Codex →</a>
     </section>
 
     <!-- Recent Activity -->
@@ -198,18 +263,22 @@ const recentActivity = agentLogEntries.slice(-10).reverse();
     <section class="cosmic-section">
       <div class="section-header">Getting Started</div>
       <ol class="steps">
-        <li>Fork this repo</li>
+        <li>Click <a href="https://github.com/verkyyi/agentfolio/generate" target="_blank" rel="noopener noreferrer" class="inline-link">"Use This Template"</a> on GitHub</li>
         <li>Add <code>CLAUDE_CODE_OAUTH_TOKEN</code> to your repo secrets</li>
         <li>Enable GitHub Pages (Source: GitHub Actions)</li>
-        <li>Drop your project in <code>apps/your-project/</code></li>
-        <li>Run the "Discover Project" workflow</li>
+        <li>Enable "Allow GitHub Actions to create and approve pull requests"</li>
+        <li>The scaffold starts evolving itself immediately</li>
       </ol>
-      <a href="https://github.com/verkyyi/agentfolio" target="_blank" rel="noopener noreferrer" class="cta-link">
-        View on GitHub →
-      </a>
-      <a href="https://github.com/verkyyi/agentfolio/issues/new" target="_blank" rel="noopener noreferrer" class="cta-link">
-        Submit Feedback →
-      </a>
+      <p class="getting-started-note">
+        Want to add your own project? Drop it in <code>apps/your-project/</code>
+        and run the "Discover Project" workflow. The agent scans your code,
+        generates rules, and starts maintaining it.
+      </p>
+      <div class="getting-started-links">
+        <a href="https://github.com/verkyyi/agentfolio/issues/new" target="_blank" rel="noopener noreferrer" class="cta-link">
+          Submit Feedback →
+        </a>
+      </div>
     </section>
 
   </main>
@@ -249,6 +318,89 @@ const recentActivity = agentLogEntries.slice(-10).reverse();
     max-width: 480px;
   }
 
+  /* Hero CTAs */
+  .hero-ctas {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+  }
+  .cta-primary {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 24px;
+    background: linear-gradient(135deg, #7c3aed, #6d28d9);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.2s;
+    border: 1px solid rgba(139,92,246,0.3);
+  }
+  .cta-primary:hover {
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+    box-shadow: 0 0 20px rgba(139,92,246,0.3);
+  }
+  .cta-secondary {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 24px;
+    background: transparent;
+    color: #a78bfa;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    border: 1px solid rgba(139,92,246,0.3);
+    transition: all 0.2s;
+  }
+  .cta-secondary:hover {
+    background: rgba(139,92,246,0.1);
+    border-color: rgba(139,92,246,0.5);
+  }
+
+  /* Pipeline */
+  .pipeline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+    padding: 20px 0;
+    overflow-x: auto;
+  }
+  .pipeline-step {
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .pipeline-icon {
+    font-size: 20px;
+    margin-bottom: 6px;
+  }
+  .pipeline-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: #e2e8f0;
+  }
+  .pipeline-freq {
+    font-size: 10px;
+    color: #64748b;
+    margin-top: 2px;
+  }
+  .pipeline-arrow {
+    color: #475569;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .pipeline-sub {
+    text-align: center;
+    padding-top: 8px;
+    border-top: 1px solid rgba(139,92,246,0.1);
+  }
+  .pipeline-watcher {
+    font-size: 11px;
+    color: #64748b;
+  }
+
   /* Section headers */
   .section-header {
     font-size: 10px;
@@ -263,7 +415,7 @@ const recentActivity = agentLogEntries.slice(-10).reverse();
   /* Stats */
   .stats-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 12px;
   }
   .stat-card {
@@ -288,15 +440,23 @@ const recentActivity = agentLogEntries.slice(-10).reverse();
     border: 1px solid rgba(52,211,153,0.15);
   }
   .stat-green .stat-value { color: #34d399; }
+  .stat-amber {
+    background: rgba(251,191,36,0.08);
+    border: 1px solid rgba(251,191,36,0.15);
+  }
+  .stat-amber .stat-value { color: #fbbf24; }
   .stat-value { font-size: 28px; font-weight: 800; }
   .stat-label { font-size: 11px; color: #64748b; margin-top: 4px; letter-spacing: 0.5px; }
 
   @media (max-width: 480px) {
     .stats-grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, 1fr);
       gap: 8px;
     }
     .stat-card { padding: 16px; }
+    .pipeline { flex-wrap: wrap; justify-content: center; gap: 8px; }
+    .pipeline-arrow { display: none; }
+    .hero-ctas { flex-direction: column; }
   }
 
   /* Activity feed */
@@ -450,4 +610,16 @@ const recentActivity = agentLogEntries.slice(-10).reverse();
     transition: color 0.2s;
   }
   .cta-link:hover { color: #c084fc; }
+  .inline-link {
+    color: #a78bfa;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .inline-link:hover { color: #c084fc; }
+  .getting-started-note {
+    font-size: 13px;
+    color: #64748b;
+    margin-top: 16px;
+    line-height: 1.6;
+  }
 </style>
