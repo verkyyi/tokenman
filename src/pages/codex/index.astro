@@ -1,0 +1,157 @@
+---
+// src/pages/codex/index.astro
+// Codex blog index — lists all harness engineering articles.
+
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+const posts = (await getCollection('codex')).sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+---
+
+<Base title="Codex — Agentfolio" description="Articles on harness engineering, agent autonomy, and self-evolving scaffold design.">
+  <main class="cosmic-main">
+    <section class="cosmic-section">
+      <a href="/" class="back-link">← Agentfolio</a>
+      <div class="hero-label">Harness Engineering</div>
+      <h1 class="hero-title">Codex</h1>
+      <p class="hero-subtitle">
+        Design decisions, patterns, and lessons learned from running a self-evolving scaffold.
+      </p>
+    </section>
+
+    <section class="cosmic-section">
+      <div class="section-header">Articles</div>
+      {posts.length === 0 ? (
+        <p class="empty-state">No articles yet.</p>
+      ) : (
+        <div class="post-list">
+          {posts.map(post => (
+            <a href={`/codex/${post.id.replace(/\.mdx?$/, '')}`} class="post-card">
+              <div class="post-meta">
+                <time class="post-date" datetime={post.data.date}>
+                  {new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+                </time>
+                {post.data.tags.map(tag => (
+                  <span class="post-tag">{tag}</span>
+                ))}
+              </div>
+              <div class="post-title">{post.data.title}</div>
+              <p class="post-desc">{post.data.description}</p>
+            </a>
+          ))}
+        </div>
+      )}
+    </section>
+  </main>
+</Base>
+
+<style>
+  .cosmic-main {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 64px 24px;
+    position: relative;
+  }
+  .cosmic-section { margin-bottom: 56px; }
+
+  .back-link {
+    display: inline-block;
+    font-size: 12px;
+    color: #a78bfa;
+    text-decoration: none;
+    margin-bottom: 24px;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+  }
+  .back-link:hover { opacity: 1; }
+
+  .hero-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #a78bfa;
+    margin-bottom: 12px;
+  }
+  .hero-title {
+    font-size: 40px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    background: linear-gradient(135deg, #c084fc, #60a5fa, #34d399);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+  }
+  .hero-subtitle {
+    font-size: 14px;
+    color: #94a3b8;
+    line-height: 1.6;
+    max-width: 480px;
+  }
+
+  .section-header {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #7c3aed;
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(124,58,237,0.2);
+  }
+
+  .post-list { display: flex; flex-direction: column; gap: 16px; }
+
+  .post-card {
+    display: block;
+    padding: 20px;
+    border-radius: 12px;
+    background: rgba(139,92,246,0.06);
+    border: 1px solid rgba(139,92,246,0.12);
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .post-card:hover {
+    background: rgba(139,92,246,0.12);
+    border-color: rgba(139,92,246,0.3);
+  }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+  .post-date {
+    font-size: 11px;
+    color: #475569;
+  }
+  .post-tag {
+    font-size: 10px;
+    padding: 1px 7px;
+    border-radius: 4px;
+    background: rgba(139,92,246,0.12);
+    color: #a78bfa;
+    border: 1px solid rgba(139,92,246,0.2);
+  }
+
+  .post-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #e2e8f0;
+    margin-bottom: 6px;
+    line-height: 1.4;
+  }
+  .post-desc {
+    font-size: 13px;
+    color: #64748b;
+    line-height: 1.5;
+  }
+
+  .empty-state {
+    font-size: 13px;
+    color: #475569;
+  }
+</style>

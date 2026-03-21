@@ -1,0 +1,178 @@
+---
+// src/pages/codex/[slug].astro
+// Individual Codex post renderer.
+
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('codex');
+  return posts.map(post => ({
+    params: { slug: post.id.replace(/\.mdx?$/, '') },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<Base title={`${post.data.title} — Codex`} description={post.data.description}>
+  <main class="cosmic-main">
+    <a href="/codex" class="back-link">← Codex</a>
+
+    <article>
+      <header class="post-header">
+        <div class="post-meta">
+          <time class="post-date" datetime={post.data.date}>
+            {new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+          </time>
+          {post.data.tags.map(tag => (
+            <span class="post-tag">{tag}</span>
+          ))}
+        </div>
+        <h1 class="post-title">{post.data.title}</h1>
+        <p class="post-desc">{post.data.description}</p>
+      </header>
+
+      <div class="post-content">
+        <Content />
+      </div>
+    </article>
+
+    <footer class="post-footer">
+      <a href="/codex" class="back-link">← Back to Codex</a>
+    </footer>
+  </main>
+</Base>
+
+<style>
+  .cosmic-main {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 64px 24px;
+    position: relative;
+  }
+
+  .back-link {
+    display: inline-block;
+    font-size: 12px;
+    color: #a78bfa;
+    text-decoration: none;
+    margin-bottom: 32px;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+  }
+  .back-link:hover { opacity: 1; }
+
+  .post-header { margin-bottom: 40px; }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  .post-date {
+    font-size: 11px;
+    color: #475569;
+  }
+  .post-tag {
+    font-size: 10px;
+    padding: 1px 7px;
+    border-radius: 4px;
+    background: rgba(139,92,246,0.12);
+    color: #a78bfa;
+    border: 1px solid rgba(139,92,246,0.2);
+  }
+
+  .post-title {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #c084fc, #60a5fa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .post-desc {
+    font-size: 15px;
+    color: #64748b;
+    line-height: 1.6;
+  }
+
+  /* Markdown content */
+  .post-content {
+    font-size: 15px;
+    line-height: 1.75;
+    color: #cbd5e1;
+  }
+  .post-content :global(h1),
+  .post-content :global(h2),
+  .post-content :global(h3) {
+    color: #e2e8f0;
+    font-weight: 700;
+    margin-top: 36px;
+    margin-bottom: 12px;
+  }
+  .post-content :global(h1) { font-size: 24px; }
+  .post-content :global(h2) { font-size: 20px; }
+  .post-content :global(h3) { font-size: 17px; }
+  .post-content :global(p) { margin-bottom: 16px; }
+  .post-content :global(ul),
+  .post-content :global(ol) {
+    padding-left: 24px;
+    margin-bottom: 16px;
+  }
+  .post-content :global(li) { margin-bottom: 6px; }
+  .post-content :global(strong) { color: #e2e8f0; font-weight: 600; }
+  .post-content :global(em) { color: #a78bfa; font-style: italic; }
+  .post-content :global(code) {
+    font-size: 13px;
+    background: rgba(139,92,246,0.1);
+    border: 1px solid rgba(139,92,246,0.2);
+    padding: 1px 6px;
+    border-radius: 4px;
+    color: #c084fc;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+  }
+  .post-content :global(pre) {
+    background: rgba(15,12,41,0.8);
+    border: 1px solid rgba(139,92,246,0.15);
+    border-radius: 8px;
+    padding: 16px;
+    overflow-x: auto;
+    margin-bottom: 20px;
+  }
+  .post-content :global(pre code) {
+    background: none;
+    border: none;
+    padding: 0;
+    color: #94a3b8;
+  }
+  .post-content :global(blockquote) {
+    border-left: 2px solid rgba(139,92,246,0.4);
+    padding-left: 16px;
+    color: #64748b;
+    margin-bottom: 16px;
+  }
+  .post-content :global(hr) {
+    border: none;
+    border-top: 1px solid rgba(139,92,246,0.15);
+    margin: 32px 0;
+  }
+  .post-content :global(a) {
+    color: #a78bfa;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .post-footer {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(139,92,246,0.1);
+  }
+</style>

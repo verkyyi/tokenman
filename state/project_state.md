@@ -3,30 +3,31 @@
 # Read at start of every workflow run.
 # Committed to repo — git history is the full audit trail.
 
-Last updated: 2026-03-21T21:09:00Z
+Last updated: 2026-03-21T21:57:00Z
 Updated by: coder.yml
 
 ## Last Session
-Action: coder.yml — fix issue #4 (adversarial self-review skill for evolve.yml)
+Action: coder.yml — fix issue #1 (Codex blog on harness engineering)
 Done:
-- Created skills/adversarial-review.md implementing risk-scaled adversarial self-check protocol
-  (Tier 0/1/2 checks, self-check block template, examples of proceed/abort verdicts)
-- Inspired by gstack v0.9.5.0 garrytan/gstack@6c69feb PR #297
-- Updated apps/scaffold/FEATURE_STATUS.md — adversarial-review.md skill added
-- Build verified passing (npm run build)
-- Opened PR for issue #4
-
-Note: The skill file captures the full adversarial review protocol. Incorporating it
-into evolve.yml's Step 5 prompt requires a workflow YAML PR (needs-review) — that is
-the natural next step after this PR is reviewed and merged.
+- Registered `codex` Astro content collection in src/content.config.ts with Zod schema
+  (fields: title, date, description, tags)
+- Created seed article: src/content/codex/harness-engineering-intro.md
+  (covers event loop, autonomy tiers, self-evolution loop, failure-as-memory, state design)
+- Created /codex index page: src/pages/codex/index.astro (post listing, sorted by date)
+- Created /codex/[slug] page: src/pages/codex/[slug].astro (full markdown renderer)
+- Added Codex section + link to src/pages/index.astro (before Stats section)
+- All pages match cosmic dark theme (purple/blue palette, Base.astro layout)
+- Build verified passing (exit 0, 3 pages built)
+- Updated apps/scaffold/FEATURE_STATUS.md — Codex Blog section added
+- Opened PR for issue #1
 
 In progress: none
 
-Next agent: Reviewer for PR on fix/issue-4; then evolve.yml should update its prompt
-to include the adversarial self-check block from skills/adversarial-review.md
+Next agent: Reviewer for PR on fix/issue-1
 
 ## Open Items
-- PR open for issue #4: adversarial self-review skill added
+- PR open for issue #1: Codex blog added
+- PR open for issue #4: adversarial self-review skill (pending review)
 - apps/profile content not yet populated — discover.yml or manual issue needed
 
 ## Metrics Snapshot
@@ -34,7 +35,7 @@ to include the adversarial self-check block from skills/adversarial-review.md
 
 ## Notes for Next Agent
 The scaffold is healthy. No regressions or failures logged.
-- stats-grid mobile breakpoint fixed
+- Codex blog live at /codex, seed article at /codex/harness-engineering-intro
 - adversarial-review.md skill created — PR needs review
 - After PR merge: evolve.yml Step 5 should add self-check block referencing this skill
 - Astro on v6.0.8, actions/runner on v2.333.0 — both current, no upgrades needed

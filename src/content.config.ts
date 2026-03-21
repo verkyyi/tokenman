@@ -1,4 +1,13 @@
-// Content collections are not used for the repo profile page.
-// State and skill files are read directly via fs at build time.
-// This file is kept for future content collection use by discovered projects.
-export const collections = {};
+import { defineCollection, z } from 'astro:content';
+
+const codex = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    date: z.string(),
+    description: z.string(),
+    tags: z.array(z.string()).default([]),
+  }),
+});
+
+export const collections = { codex };

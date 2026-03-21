@@ -12,6 +12,13 @@
 - [x] Research log and external knowledge fetching
 - [x] Repo profile page
 
+## Codex Blog
+- [x] content/codex collection registered in src/content.config.ts (Zod schema: title, date, description, tags)
+- [x] Seed article: src/content/codex/harness-engineering-intro.md
+- [x] /codex index page: src/pages/codex/index.astro (post listing)
+- [x] /codex/[slug] page: src/pages/codex/[slug].astro (individual post renderer)
+- [x] Codex section linked from index.astro
+
 ## Skills
 - [x] harness.md
 - [x] content.md
