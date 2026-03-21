@@ -3,28 +3,47 @@ name: Coder Agent
 on:
   issues:
     types: [labeled]
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: 'Issue number to work on'
+        required: true
+        type: string
 
 permissions:
   contents: write
   issues: write
   pull-requests: write
+  actions: write
 
 jobs:
   code:
-    # Only fire when 'agent-ready' label is added
-    if: github.event.label.name == 'agent-ready'
+    # For label events, only fire on 'agent-ready'. For dispatch, always run.
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      github.event.label.name == 'agent-ready'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          # Need write access to push branches
-          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Resolve issue
+        id: issue
+        run: |
+          if [ -n "${{ inputs.issue_number }}" ]; then
+            NUM="${{ inputs.issue_number }}"
+          else
+            NUM="${{ github.event.issue.number }}"
+          fi
+          echo "NUMBER=$NUM" >> $GITHUB_OUTPUT
+          gh issue view "$NUM" --json title,body,author > /tmp/issue.json
+          echo "TITLE=$(jq -r '.title' /tmp/issue.json)" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       - name: Resolve APP_NAME
-        id: resolve-app
         run: |
-          APP_NAME=$(gh issue view ${{ github.event.issue.number }} --json labels -q '.labels[].name' | grep '^project:' | sed 's/project://' | head -1)
+          APP_NAME=$(gh issue view ${{ steps.issue.outputs.NUMBER }} --json labels -q '.labels[].name' | grep '^project:' | sed 's/project://' | head -1)
           echo "APP_NAME=${APP_NAME:-scaffold}" >> "$GITHUB_ENV"
         env:
           GH_TOKEN: ${{ github.token }}
@@ -40,28 +59,19 @@ jobs:
       - name: Install project dependencies
         run: npm ci
 
-      - name: Read current state
-        id: state
-        run: |
-          echo "Reading project_state.md and FEATURE_STATUS.md"
-          PROJECT_STATE=$(cat state/project_state.md)
-          FEATURE_STATUS=$(cat apps/${APP_NAME}/FEATURE_STATUS.md)
-          APP_CLAUDE=$(cat apps/${APP_NAME}/CLAUDE.md)
-          ROOT_CLAUDE=$(cat CLAUDE.md)
-          echo "STATE_READ=true" >> $GITHUB_OUTPUT
-
       - name: Create feature branch
         id: branch
         run: |
-          ISSUE_NUM="${{ github.event.issue.number }}"
+          ISSUE_NUM=${{ steps.issue.outputs.NUMBER }}
           BRANCH="fix/issue-${ISSUE_NUM}"
           git checkout -b "$BRANCH"
           echo "BRANCH=$BRANCH" >> $GITHUB_OUTPUT
 
       - name: Build coder prompt
         run: |
-          ISSUE_NUM="${{ github.event.issue.number }}"
-          ISSUE_TITLE="${{ github.event.issue.title }}"
+          ISSUE_NUM=${{ steps.issue.outputs.NUMBER }}
+          ISSUE_TITLE=$(jq -r '.title' /tmp/issue.json)
+          ISSUE_BODY=$(jq -r '.body' /tmp/issue.json)
 
           cat > /tmp/coder_prompt.txt << PROMPT
           $(cat CLAUDE.md)
@@ -86,7 +96,7 @@ jobs:
           Issue #${ISSUE_NUM}: ${ISSUE_TITLE}
 
           Full issue body:
-          ${{ github.event.issue.body }}
+          ${ISSUE_BODY}
 
           ## Instructions:
           1. Understand the issue from the body above
@@ -112,8 +122,6 @@ jobs:
 
           PROMPT
 
-          echo "Coder prompt written"
-
       - name: Run Claude coder agent
         run: |
           claude -p "$(cat /tmp/coder_prompt.txt)" \
@@ -135,7 +143,8 @@ jobs:
       - name: Handle fix failure
         if: steps.check.outputs.FAILED == 'true'
         run: |
-          gh issue comment ${{ github.event.issue.number }} \
+          NUM=${{ steps.issue.outputs.NUMBER }}
+          gh issue comment "$NUM" \
             --body "**Coder agent:** Could not automatically fix this issue.
 
           Reason: ${{ steps.check.outputs.REASON }}
@@ -143,12 +152,12 @@ jobs:
           This issue has been escalated for manual review." \
             --repo ${{ github.repository }}
 
-          gh issue edit ${{ github.event.issue.number }} \
+          gh issue edit "$NUM" \
             --remove-label "agent-ready" \
             --add-label "needs-review" \
             --repo ${{ github.repository }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Commit fix
         if: steps.check.outputs.FAILED == 'false'
@@ -164,7 +173,7 @@ jobs:
           fi
 
           COMMIT_MSG=$(cat .commit-message 2>/dev/null || \
-            echo "fix: address issue #${{ github.event.issue.number }}")
+            echo "fix: address issue #${{ steps.issue.outputs.NUMBER }}")
           git commit -m "$COMMIT_MSG"
           git push origin ${{ steps.branch.outputs.BRANCH }}
 
@@ -172,21 +181,13 @@ jobs:
         if: steps.check.outputs.FAILED == 'false'
         id: pr
         run: |
-          ISSUE_NUM="${{ github.event.issue.number }}"
-          ISSUE_TITLE="${{ github.event.issue.title }}"
+          ISSUE_NUM=${{ steps.issue.outputs.NUMBER }}
+          ISSUE_TITLE="${{ steps.issue.outputs.TITLE }}"
           BRANCH="${{ steps.branch.outputs.BRANCH }}"
 
-          # Determine if this is safe to auto-merge based on changed files
           CHANGED=$(git diff --name-only origin/main...HEAD)
           echo "Changed files: $CHANGED"
 
-          # Check if any needs-review files were touched
-          NEEDS_REVIEW=false
-          if echo "$CHANGED" | grep -qE "CLAUDE\.md|\.yml|schema"; then
-            NEEDS_REVIEW=true
-          fi
-
-          # Open the PR
           PR_URL=$(gh pr create \
             --title "fix: ${ISSUE_TITLE} (closes #${ISSUE_NUM})" \
             --body "Fixes #${ISSUE_NUM}
@@ -203,18 +204,17 @@ jobs:
 
           PR_NUMBER=$(echo "$PR_URL" | grep -oP '(?<=/pull/)\d+')
           echo "PR_NUMBER=$PR_NUMBER" >> $GITHUB_OUTPUT
-          echo "NEEDS_REVIEW=$NEEDS_REVIEW" >> $GITHUB_OUTPUT
 
-          # Label the PR
-          if [ "$NEEDS_REVIEW" = "true" ]; then
-            gh pr edit "$PR_NUMBER" --add-label "needs-review" --repo ${{ github.repository }}
-          else
-            gh pr edit "$PR_NUMBER" --add-label "auto-merge" --repo ${{ github.repository }}
-          fi
-
-          # Comment on the issue
           gh issue comment "$ISSUE_NUM" \
             --body "**Coder agent:** Fix implemented. See PR #${PR_NUMBER}." \
             --repo ${{ github.repository }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Trigger reviewer
+        if: steps.check.outputs.FAILED == 'false' && steps.pr.outputs.PR_NUMBER != ''
+        run: |
+          echo "Triggering reviewer for PR #${{ steps.pr.outputs.PR_NUMBER }}"
+          gh workflow run reviewer.yml -f pr_number="${{ steps.pr.outputs.PR_NUMBER }}"
+        env:
+          GH_TOKEN: ${{ github.token }}

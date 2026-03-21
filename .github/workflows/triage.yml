@@ -1,97 +1,120 @@
-name: Triage Feedback
+name: Triage
 
 on:
   issues:
     types: [opened, reopened]
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: 'Issue number to triage'
+        required: true
+        type: string
 
 permissions:
   contents: read
   issues: write
+  actions: write
 
 jobs:
   triage:
-    # Only run on issues labeled 'feedback' or with [feedback] in title
-    if: |
-      contains(github.event.issue.labels.*.name, 'feedback') ||
-      contains(github.event.issue.title, '[feedback]') ||
-      contains(github.event.issue.title, '[bug]')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Run triage with Claude Code Action
-        uses: anthropics/claude-code-action@v1
-        with:
-          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-          # Pattern C: official action handles lightweight issue triage
-          prompt: |
-            Read the root CLAUDE.md and apps/scaffold/CLAUDE.md for context.
-
-            You are the triage agent. Classify this GitHub Issue and take action.
-
-            Issue #${{ github.event.issue.number }}
-            Title: ${{ github.event.issue.title }}
-            Body:
-            ${{ github.event.issue.body }}
-
-            Submitted by: ${{ github.event.issue.user.login }}
-
-            ## Classification rules:
-            - BUG: something is broken, not working, displaying wrong, link is broken
-            - UX-REQUEST: suggestion to improve something that works but could be better
-            - POSITIVE: positive feedback, thank you, compliment
-            - SPAM: promotional, unrelated, bot-generated
-            - QUESTION: asking for information
-
-            ## Your actions:
-
-            1. Classify the issue using the rules above.
-
-            2. Use the GitHub CLI to:
-
-            For BUG:
-              gh issue edit ${{ github.event.issue.number }} \
-                --remove-label "feedback" \
-                --add-label "bug,agent-ready" \
-                --repo ${{ github.repository }}
-              gh issue comment ${{ github.event.issue.number }} \
-                --body "**Triage:** Classified as a bug. The agent will investigate and open a fix PR shortly." \
-                --repo ${{ github.repository }}
-
-            For UX-REQUEST:
-              gh issue edit ${{ github.event.issue.number }} \
-                --remove-label "feedback" \
-                --add-label "ux-request,needs-review" \
-                --repo ${{ github.repository }}
-              gh issue comment ${{ github.event.issue.number }} \
-                --body "**Triage:** Classified as a UX suggestion. Queued for the owner's review." \
-                --repo ${{ github.repository }}
-
-            For POSITIVE:
-              gh issue edit ${{ github.event.issue.number }} \
-                --remove-label "feedback" \
-                --add-label "positive" \
-                --repo ${{ github.repository }}
-              gh issue comment ${{ github.event.issue.number }} \
-                --body "**Triage:** Thank you for the positive feedback! This has been logged." \
-                --repo ${{ github.repository }}
-              gh issue close ${{ github.event.issue.number }} \
-                --repo ${{ github.repository }}
-
-            For SPAM:
-              gh issue edit ${{ github.event.issue.number }} \
-                --add-label "spam" \
-                --repo ${{ github.repository }}
-              gh issue close ${{ github.event.issue.number }} \
-                --repo ${{ github.repository }}
-
-            For QUESTION:
-              gh issue edit ${{ github.event.issue.number }} \
-                --remove-label "feedback" \
-                --add-label "question" \
-                --repo ${{ github.repository }}
-
-            3. Do nothing else. Do not modify any files. This is classification only.
+      - name: Resolve issue
+        id: issue
+        run: |
+          NUM="${{ inputs.issue_number || github.event.issue.number }}"
+          echo "NUMBER=$NUM" >> $GITHUB_OUTPUT
+          gh issue view "$NUM" --json title,body,author > /tmp/issue.json
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Build triage prompt
+        run: |
+          NUM=${{ steps.issue.outputs.NUMBER }}
+          TITLE=$(jq -r '.title' /tmp/issue.json)
+          AUTHOR=$(jq -r '.author.login' /tmp/issue.json)
+          BODY=$(jq -r '.body' /tmp/issue.json)
+
+          cat > /tmp/triage_prompt.txt << PROMPT
+          Read the root CLAUDE.md and apps/scaffold/CLAUDE.md for context.
+
+          You are the triage agent. Classify this GitHub Issue and take action.
+
+          Issue #${NUM}
+          Title: ${TITLE}
+          Submitted by: ${AUTHOR}
+
+          Body:
+          ${BODY}
+
+          ## Classification rules:
+          - BUG: something is broken, not working, displaying wrong, link is broken
+          - FEATURE: new functionality, improvement, or enhancement to implement
+          - EVOLVE-IDEA: issue created by evolve.yml (title starts with [evolve]) — an actionable improvement inspired by external research
+          - UX-REQUEST: suggestion to improve something that works but could be better
+          - POSITIVE: positive feedback, thank you, compliment
+          - SPAM: promotional, unrelated, bot-generated
+          - QUESTION: asking for information
+
+          ## Your actions:
+
+          1. Classify the issue using the rules above.
+
+          2. Use the GitHub CLI to add labels and comment:
+
+          For BUG:
+            gh issue edit ${NUM} --add-label "bug,agent-ready" --repo ${{ github.repository }}
+            gh issue comment ${NUM} --body "**Triage:** Classified as a bug. The coder agent will investigate and open a fix PR shortly." --repo ${{ github.repository }}
+
+          For FEATURE:
+            gh issue edit ${NUM} --add-label "feature,agent-ready" --repo ${{ github.repository }}
+            gh issue comment ${NUM} --body "**Triage:** Classified as a feature request. The coder agent will implement this shortly." --repo ${{ github.repository }}
+
+          For EVOLVE-IDEA:
+            gh issue edit ${NUM} --add-label "agent-ready" --repo ${{ github.repository }}
+            gh issue comment ${NUM} --body "**Triage:** Evolve-generated idea triaged. The coder agent will implement this shortly." --repo ${{ github.repository }}
+
+          For UX-REQUEST:
+            gh issue edit ${NUM} --add-label "ux-request,needs-review" --repo ${{ github.repository }}
+            gh issue comment ${NUM} --body "**Triage:** Classified as a UX suggestion. Queued for the owner's review." --repo ${{ github.repository }}
+
+          For POSITIVE:
+            gh issue edit ${NUM} --add-label "positive" --repo ${{ github.repository }}
+            gh issue comment ${NUM} --body "**Triage:** Thank you for the positive feedback! This has been logged." --repo ${{ github.repository }}
+            gh issue close ${NUM} --repo ${{ github.repository }}
+
+          For SPAM:
+            gh issue edit ${NUM} --add-label "spam" --repo ${{ github.repository }}
+            gh issue close ${NUM} --repo ${{ github.repository }}
+
+          For QUESTION:
+            gh issue edit ${NUM} --add-label "question" --repo ${{ github.repository }}
+
+          3. Do nothing else. Do not modify any files. This is classification only.
+          PROMPT
+
+      - name: Run triage
+        run: |
+          claude -p "$(cat /tmp/triage_prompt.txt)" \
+            --allowedTools "Bash(gh:*) Read" \
+            --max-turns 10
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Trigger coder if agent-ready
+        run: |
+          NUM=${{ steps.issue.outputs.NUMBER }}
+          LABELS=$(gh issue view "$NUM" --json labels -q '.labels[].name')
+          if echo "$LABELS" | grep -q "agent-ready"; then
+            echo "Triggering coder for issue #$NUM"
+            gh workflow run coder.yml -f issue_number="$NUM"
+          fi
+        env:
+          GH_TOKEN: ${{ github.token }}

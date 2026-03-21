@@ -3,6 +3,12 @@ name: Reviewer Agent
 on:
   pull_request:
     types: [opened, synchronize]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'PR number to review'
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -10,14 +16,37 @@ permissions:
 
 jobs:
   review:
-    # Only review PRs opened by the bot
-    if: github.event.pull_request.user.login == 'github-actions[bot]'
+    # For PR events, only review bot PRs. For dispatch, always run.
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      github.event.pull_request.user.login == 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
+      - name: Resolve PR
+        id: pr
+        run: |
+          if [ -n "${{ inputs.pr_number }}" ]; then
+            NUM="${{ inputs.pr_number }}"
+          else
+            NUM="${{ github.event.pull_request.number }}"
+          fi
+          echo "NUMBER=$NUM" >> $GITHUB_OUTPUT
+
+          # Get PR details
+          gh pr view "$NUM" --json headRefSha,headRefName,title --repo ${{ github.repository }} > /tmp/pr.json
+          SHA=$(jq -r '.headRefSha' /tmp/pr.json)
+          BRANCH=$(jq -r '.headRefName' /tmp/pr.json)
+          TITLE=$(jq -r '.title' /tmp/pr.json)
+          echo "SHA=$SHA" >> $GITHUB_OUTPUT
+          echo "BRANCH=$BRANCH" >> $GITHUB_OUTPUT
+          echo "TITLE=$TITLE" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ github.token }}
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
+          ref: ${{ steps.pr.outputs.SHA }}
 
       - name: Get PR diff
         id: diff
@@ -37,9 +66,9 @@ jobs:
 
             You are the reviewer agent. Review this PR from the coder agent.
 
-            PR #${{ github.event.pull_request.number }}
-            Title: ${{ github.event.pull_request.title }}
-            Branch: ${{ github.event.pull_request.head.ref }}
+            PR #${{ steps.pr.outputs.NUMBER }}
+            Title: ${{ steps.pr.outputs.TITLE }}
+            Branch: ${{ steps.pr.outputs.BRANCH }}
 
             Changed files:
             ${{ steps.diff.outputs.CHANGED_FILES }}
@@ -67,21 +96,21 @@ jobs:
             3. Execute one of:
 
             If AUTO-MERGE safe:
-              gh pr review ${{ github.event.pull_request.number }} \
+              gh pr review ${{ steps.pr.outputs.NUMBER }} \
                 --approve \
                 --body "**Reviewer agent:** Changes look safe. Enabling auto-merge." \
                 --repo ${{ github.repository }}
-              gh pr merge ${{ github.event.pull_request.number }} \
+              gh pr merge ${{ steps.pr.outputs.NUMBER }} \
                 --auto --squash \
                 --repo ${{ github.repository }}
 
             If NEEDS-REVIEW:
-              gh pr review ${{ github.event.pull_request.number }} \
+              gh pr review ${{ steps.pr.outputs.NUMBER }} \
                 --request-changes \
                 --body "**Reviewer agent:** This PR requires human review because: [reason].
                 Changes affecting [list files] need manual approval." \
                 --repo ${{ github.repository }}
-              gh pr edit ${{ github.event.pull_request.number }} \
+              gh pr edit ${{ steps.pr.outputs.NUMBER }} \
                 --add-label "needs-review" \
                 --repo ${{ github.repository }}
 
