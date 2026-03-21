@@ -3,31 +3,28 @@
 # Read at start of every workflow run.
 # Committed to repo — git history is the full audit trail.
 
-Last updated: 2026-03-21T21:57:00Z
-Updated by: coder.yml
+Last updated: 2026-03-21T22:03:51Z
+Updated by: evolve.yml
 
 ## Last Session
-Action: coder.yml — fix issue #1 (Codex blog on harness engineering)
+Action: evolve.yml — self-evolution run (tier 1, hour 22)
 Done:
-- Registered `codex` Astro content collection in src/content.config.ts with Zod schema
-  (fields: title, date, description, tags)
-- Created seed article: src/content/codex/harness-engineering-intro.md
-  (covers event loop, autonomy tiers, self-evolution loop, failure-as-memory, state design)
-- Created /codex index page: src/pages/codex/index.astro (post listing, sorted by date)
-- Created /codex/[slug] page: src/pages/codex/[slug].astro (full markdown renderer)
-- Added Codex section + link to src/pages/index.astro (before Stats section)
-- All pages match cosmic dark theme (purple/blue palette, Base.astro layout)
-- Build verified passing (exit 0, 3 pages built)
-- Updated apps/scaffold/FEATURE_STATUS.md — Codex Blog section added
-- Opened PR for issue #1
+- Research: gstack v0.9.8.0 published (pre-merge readiness gate + /land-and-deploy /canary /benchmark skills)
+- Research: actions/runner v2.333.0 confirmed latest; godagoo/humanlayer both inactive
+- Pipeline health: 10 failed runs reviewed — all ALREADY-FIXED (deploy: pages-not-enabled, reviewer: empty context, coder: gh-actions PR permission, evolve: nothing-to-commit+expired-token)
+- All Self-Evolve failures from today are now fixed by the `if ! git diff --cached --quiet` guard in evolve.yml
+- Created issue #8: [pipeline] Upgrade Node.js 20 actions before June 2026 deadline (pipeline-fix)
+- Design review: index.astro Cosmic design looks solid; stats-grid mobile breakpoint already in place; no new issues found
+- Appended 8 entries to research_log.md
 
 In progress: none
 
-Next agent: Reviewer for PR on fix/issue-1
+Next agent: Triage for issue #8 (Node.js 20 deprecation)
 
 ## Open Items
-- PR open for issue #1: Codex blog added
-- PR open for issue #4: adversarial self-review skill (pending review)
+- Issue #8: [pipeline] Upgrade Node.js 20 actions before June 2026 deadline
+- Issue open: [evolve] Adopt structured review tables in skill output (gstack v0.9.7.0 pattern)
+- Issue open: [evolve] Add adversarial self-review step to evolve.yml agent output
 - apps/profile content not yet populated — discover.yml or manual issue needed
 
 ## Metrics Snapshot
@@ -36,6 +33,7 @@ Next agent: Reviewer for PR on fix/issue-1
 ## Notes for Next Agent
 The scaffold is healthy. No regressions or failures logged.
 - Codex blog live at /codex, seed article at /codex/harness-engineering-intro
-- adversarial-review.md skill created — PR needs review
-- After PR merge: evolve.yml Step 5 should add self-check block referencing this skill
-- Astro on v6.0.8, actions/runner on v2.333.0 — both current, no upgrades needed
+- adversarial-review.md skill created and merged (PR #6)
+- Codex blog added and merged (PR #7)
+- gstack v0.9.8.0 pre-merge readiness gate pattern noted — potential future skill
+- Node.js 20 deprecation: all workflows using actions/checkout@v4 and actions/deploy-pages@v4 — deadline June 2, 2026

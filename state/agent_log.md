@@ -14,3 +14,4 @@
 2026-03-21T21:00:00Z | evolve.yml | self-evolution run | researched 5 sources (tier 0); applied stats-grid mobile breakpoint fix directly (proposed twice, now written); found adversarial review pattern in gstack v0.9.5.0; opened issue #4; 5 research entries appended
 2026-03-21T21:09:00Z | coder.yml | fix issue #4 | success — created skills/adversarial-review.md with risk-scaled self-check protocol (Tier 0/1/2); FEATURE_STATUS updated; PR opened
 2026-03-21T21:57:00Z | coder.yml | fix issue #1 | success — Codex blog added: content collection registered, seed article created, /codex index + [slug] pages built, Codex linked from index; build passing; PR opened
+2026-03-21T22:03:51Z | evolve.yml | self-evolution run | tier 1 research: gstack v0.9.8.0 (pre-merge gate + deploy pipeline), actions/runner v2.333.0 stable; pipeline health: 10 failed runs all ALREADY-FIXED; created issue #8 (Node.js 20 deprecation deadline June 2026); no design issues found

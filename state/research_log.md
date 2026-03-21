@@ -21,3 +21,10 @@
 2026-03-21T21:00:00Z | affaan-m/everything-claude-code (core) | published "Shorthand Guide to Everything Agentic Security" 2026-03-21 — security patterns for agent harnesses | noted for future harness security review
 2026-03-21T21:00:00Z | wshobson/agents (tier 0) | OCI awareness added to agents (2026-03-17) — container platform detection in agent prompts | no action — not relevant to current harness
 2026-03-21T21:00:00Z | VoltAgent/awesome-claude-code-subagents (tier 0) | scientific literature researcher subagent added; README updates 2026-03-19 | no action
+2026-03-21T22:03:51Z | anthropics/claude-code (core) | CHANGELOG updated 2026-03-20 — ongoing active development, no breaking changes | no action
+2026-03-21T22:03:51Z | garrytan/gstack (core) | v0.9.8.0 released 2026-03-21T21:54Z — deploy pipeline docs + pre-merge readiness gate (#306); adds /land-and-deploy /canary /benchmark skills | noted — pre-merge gate pattern worth tracking
+2026-03-21T22:03:51Z | affaan-m/everything-claude-code (core) | PR #728 merged 2026-03-21 — Chinese docs sync; community growth steady | no action
+2026-03-21T22:03:51Z | godagoo/claude-code-always-on (tier 1) | last commit 2026-02-03 — no recent activity | no action
+2026-03-21T22:03:51Z | humanlayer/humanlayer (tier 1) | last commit 2026-01-07 — no recent activity | no action
+2026-03-21T22:03:51Z | actions/runner (tier 1) | v2.333.0 confirmed latest — no new release | no action
+2026-03-21T22:03:51Z | pipeline-health | 10 failed runs checked: deploy (3x, pages-not-enabled) ALREADY-FIXED; reviewer (3x, empty context) ALREADY-FIXED; coder (1x, gh-actions PR creation) ALREADY-FIXED; evolve (2x, nothing-to-commit + expired-token) ALREADY-FIXED; Node.js 20 deprecation warning across all workflows — June 2026 deadline | issue created
