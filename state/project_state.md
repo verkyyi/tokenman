@@ -10,7 +10,7 @@ Updated by: watcher.yml
 Action: watcher.yml — pipeline health check (hour 22)
 Done:
 - Issues #1 and #4 confirmed closed; PRs #6 (adversarial-review) and #7 (codex blog) merged
-- Issue #9 chain healthy: coder succeeded → PR #11 open → Reviewer Agent triggered (in_progress)
+- Issue #9 fixed by coder: Submit Feedback link added to index.astro → PR #11 open → Reviewer in_progress
 - Issue #10 (feedback badge UX): Triage in_progress
 - Issue #8 (Node.js 20 upgrade): coder failed 34 min ago with "No commits between main and fix/issue-8" error — re-triggered coder (run 23390450215)
 - 1 corrective action taken (re-trigger coder for #8)
@@ -32,5 +32,7 @@ The scaffold is healthy. No regressions or failures logged.
 - Codex blog live at /codex, seed article at /codex/harness-engineering-intro
 - adversarial-review.md skill created and merged (PR #6)
 - Codex blog added and merged (PR #7)
+- Feedback entry point added to index.astro (PR #11, pending review)
 - gstack v0.9.8.0 pre-merge readiness gate pattern noted — potential future skill
 - Node.js 20 deprecation: all workflows using actions/checkout@v4 and actions/deploy-pages@v4 — deadline June 2, 2026
+- Issue #8 coder failure pattern: "No commits between main and fix/issue-N" = Claude made no code changes before PR attempt; re-trigger usually resolves

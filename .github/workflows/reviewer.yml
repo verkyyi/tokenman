@@ -118,6 +118,11 @@ jobs:
             gh pr review ${NUM} --approve --body "**Reviewer agent:** ✅ Reviewed and approved. Build passes, no hard blocks found." --repo ${{ github.repository }}
             gh pr merge ${NUM} --squash --repo ${{ github.repository }}
 
+            Then close any linked issues. Check the PR title and body for
+            "closes #N", "fixes #N", or "issue #N" references. For each:
+            gh issue close N --repo ${{ github.repository }}
+            gh issue comment N --body "**Reviewer agent:** Closed by PR #${NUM} merge." --repo ${{ github.repository }}
+
           If HARD BLOCK:
             gh pr review ${NUM} --request-changes --body "**Reviewer agent:** ❌ Blocked: [specific reason]. This requires human review." --repo ${{ github.repository }}
             gh pr edit ${NUM} --add-label "needs-review" --repo ${{ github.repository }}
