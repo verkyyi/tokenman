@@ -145,6 +145,27 @@ jobs:
           (purple #a78bfa, blue #60a5fa, green #34d399), dark backgrounds,
           glowing effects.
 
+          ## STEP 2c: SEO & Discoverability (once per day, hour 12 UTC only)
+
+          If the current hour is 12 UTC (check with `date -u +%H`), do these:
+
+          1. Check README.md — does it accurately reflect the current workflow
+             count, features, and architecture? If not, update it.
+             Focus on: workflow descriptions, feature list, research sources,
+             architecture section. Keep it concise and scannable.
+
+          2. Check GitHub repo topics — run:
+             `gh repo view --json repositoryTopics -q '.repositoryTopics[].name'`
+             If relevant new topics should be added based on new capabilities,
+             update with: `gh repo edit --add-topic "new-topic"`
+
+          3. Check src/layouts/Base.astro meta tags — is the description still
+             accurate? Update if the project's scope has changed significantly.
+
+          4. Check public/robots.txt — is the sitemap URL correct?
+
+          Only make changes if something is genuinely out of date. Don't churn.
+
           ## STEP 3: Log this run
 
           ALWAYS append a line to state/agent_log.md:
@@ -219,7 +240,7 @@ jobs:
 
       - name: Auto-commit safe changes
         run: |
-          git add state/ CLAUDE.md skills/
+          git add state/ CLAUDE.md skills/ README.md public/robots.txt src/layouts/Base.astro
           if ! git diff --cached --quiet; then
             git commit -m "state: evolve.yml — $(date -u +%Y-%m-%d)"
             git pull --rebase || true

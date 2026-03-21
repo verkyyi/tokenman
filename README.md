@@ -3,70 +3,88 @@
 **A self-evolving scaffold for autonomous web projects.**
 The repo is the system. The scaffold's first project is itself.
 
+[![Deploy](https://github.com/verkyyi/agentfolio/actions/workflows/deploy.yml/badge.svg)](https://github.com/verkyyi/agentfolio/actions/workflows/deploy.yml)
+[![Self-Evolve](https://github.com/verkyyi/agentfolio/actions/workflows/evolve.yml/badge.svg)](https://github.com/verkyyi/agentfolio/actions/workflows/evolve.yml)
+[![Pipeline Watcher](https://github.com/verkyyi/agentfolio/actions/workflows/watcher.yml/badge.svg)](https://github.com/verkyyi/agentfolio/actions/workflows/watcher.yml)
+
+**[Live site](https://verkyyi.github.io/agentfolio/)** · **[Codex blog](https://verkyyi.github.io/agentfolio/codex/)** · **[Agent log](https://github.com/verkyyi/agentfolio/blob/main/state/agent_log.md)**
+
 ---
 
 ## What it is
 
 Agentfolio is a harness of GitHub Actions workflows that make any web project
-agent-powered. The agent triages feedback, fixes bugs, discovers new projects,
-and evolves its own workflows and skills over time.
+fully autonomous. The agent researches improvements, triages issues, writes code,
+reviews PRs, and deploys — all without human intervention.
 
 No server. No daemon. No database. GitHub IS the infrastructure.
+
+### Key features
+
+- **Hourly self-evolution** — researches 10 external sources across rotating tiers, creates issues for actionable improvements
+- **Full autonomous pipeline** — evolve → triage → coder → reviewer → deploy, with explicit workflow chaining
+- **Self-healing watcher** — monitors the pipeline every 30 minutes, re-triggers broken chains, creates fix issues
+- **Feedback learning loop** — human corrections are extracted into persistent rules that shape all future agent behavior
+- **Blacklist policy** — agents can modify anything (including their own workflows) unless it's a hard block (secrets, infinite loops, build failures)
+- **Smart triage** — elaborates vague issues into structured specs with acceptance criteria and affected files
 
 ---
 
 ## How it works
 
 ```
-Push to main         → deploy.yml    → Astro build    → Pages live
-Feedback issue       → triage.yml   → classify       → labels
-agent-ready label    → coder.yml    → implement fix  → PR
-Agent PR opened      → reviewer.yml → review         → merge/flag
-Daily 3am UTC        → evolve.yml   → self-evolution → improvements
-Monday 6am UTC       → analyze.yml  → weekly review  → priorities
-New app folder       → discover.yml → infer stack    → generate rules
-Your instruction     → claude-task  → Claude acts    → commit
+Hourly              → evolve.yml   → research + ideas  → create issues
+Issue created       → triage.yml   → classify + elaborate → label
+agent-ready label   → coder.yml    → implement          → open PR
+PR opened           → reviewer.yml → review + merge     → deploy
+Every 30 min        → watcher.yml  → health check       → self-heal
+Human feedback      → feedback-learner.yml → extract lesson → permanent rule
+Every 6 hours       → analyze.yml  → strategic review   → priorities
+Your instruction    → claude-task  → Claude acts         → commit
 ```
+
+Each link in the chain is an explicit `gh workflow run` call — no reliance on GitHub event propagation.
 
 ---
 
-## The eight workflows
+## The nine workflows
 
 | Workflow | Trigger | What it does |
 |---|---|---|
-| `deploy.yml` | push to main | Astro build → GitHub Pages |
-| `discover.yml` | manual / evolve trigger | Scans apps/, infers stack, generates CLAUDE.md |
-| `triage.yml` | feedback issue opened | Classifies bug/ux/positive, labels |
-| `coder.yml` | agent-ready label added | Implements fix, opens PR |
-| `reviewer.yml` | agent PR opened | Reviews diff, approves or flags |
-| `evolve.yml` | daily 3am UTC | Analyzes failures + research, proposes improvements |
-| `analyze.yml` | weekly Monday 6am UTC | Strategic analysis, identifies patterns |
-| `claude-task.yml` | manual (anytime) | Your dev channel — type any instruction |
+| `evolve.yml` | Hourly | Researches 10 repos (rotating tiers), creates improvement issues |
+| `triage.yml` | Issue opened / dispatched | Classifies, elaborates with acceptance criteria, routes to coder |
+| `coder.yml` | agent-ready label / dispatched | Implements fix on feature branch, opens PR |
+| `reviewer.yml` | PR opened / dispatched | Reviews code, runs build, merges or blocks |
+| `watcher.yml` | Every 30 min | Monitors pipeline health, re-triggers broken chains |
+| `feedback-learner.yml` | Human comment/review | Extracts lasting lessons into learned rules |
+| `deploy.yml` | Source files pushed to main | Astro build → GitHub Pages |
+| `analyze.yml` | Every 6 hours | Strategic analysis of past activity |
+| `claude-task.yml` | Manual dispatch | Your dev channel — type any instruction |
 
 ---
 
 ## Self-evolution
 
-The scaffold improves itself daily:
+The scaffold improves itself continuously:
 
-1. **Research** — checks reference repos and changelogs for new patterns
-2. **Analyze** — reads its own failure log and action history
-3. **Act** — auto-commits safe fixes, opens PRs for structural changes
-4. **Learn** — every mistake becomes a rule that prevents recurrence
+1. **Research** — checks Claude Code, gstack, trending repos, and 7 other sources hourly
+2. **Detect** — pipeline watcher catches failures and broken chains every 30 minutes
+3. **Act** — creates issues that flow through the full triage → code → review → deploy pipeline
+4. **Learn** — every human correction becomes a permanent rule that shapes future behavior
+5. **Heal** — watcher re-triggers stalled workflows, coder fixes pipeline bugs
 
-The agent cannot promote its own autonomy. Structural changes always need
-human review. The git log is the audit trail.
+The system can modify its own workflows, skills, and rules. Only hard blocks
+(secrets in code, infinite loops, build failures) stop a merge.
 
 ---
 
 ## Quick start
 
 1. Fork this repo
-2. Settings → Secrets → Add `CLAUDE_CODE_OAUTH_TOKEN`
+2. Settings → Secrets → Add `CLAUDE_CODE_OAUTH_TOKEN` ([get one](https://console.anthropic.com))
 3. Settings → Pages → Source: GitHub Actions
-4. Drop your project in `apps/your-project/`
-5. Run the "Discover Project" workflow
-6. The scaffold generates rules for your project and starts maintaining it
+4. Settings → Actions → General → Allow GitHub Actions to create and approve pull requests
+5. The scaffold starts evolving itself immediately
 
 ---
 
@@ -78,24 +96,53 @@ Create a folder in `apps/` with your code. Run `discover.yml`. The agent will:
 - Generate `apps/your-project/FEATURE_STATUS.md`
 - Open a PR for your review
 
-Or create `apps/your-project/CLAUDE.md` manually — see `apps/scaffold/CLAUDE.md`
-for the format.
+---
+
+## Architecture
+
+```
+state/                    # Committed state (read/write every run)
+├── project_state.md      # Current priorities (overwritten each run)
+├── agent_log.md          # Append-only action log
+├── research_log.md       # Append-only research findings
+└── learned_rules.md      # Human feedback → permanent rules
+
+apps/                     # Projects managed by the scaffold
+├── scaffold/             # The scaffold manages itself
+└── profile/              # Additional projects
+
+.github/workflows/        # The nine autonomous workflows
+skills/                   # Agent skill files (markdown prompts)
+src/                      # Astro site source
+content/codex/            # Blog posts on harness engineering
+```
 
 ---
 
 ## Philosophy
 
-> The model is the agent. The code is the harness.
+> The model is the agent. The code is the harness. The git log is the audit trail.
 
-Every agent mistake becomes a line in the failure log. The constitution grows
-with the project. The git log is the audit trail. The Issues tab is the event
-bus. The Actions tab is the dashboard.
+Every agent mistake becomes a learned rule. The constitution grows with the project.
+The Issues tab is the event bus. The Actions tab is the dashboard.
+Human corrections compound — say it once, never repeat it.
+
+---
+
+## Research sources
+
+The evolve agent monitors these repos hourly (rotating tiers):
+
+**Core (every run):** [anthropics/claude-code](https://github.com/anthropics/claude-code) · [garrytan/gstack](https://github.com/garrytan/gstack) · [affaan-m/everything-claude-code](https://github.com/affaan-m/everything-claude-code)
+
+**Rotating:** [wshobson/agents](https://github.com/wshobson/agents) · [VoltAgent/awesome-claude-code-subagents](https://github.com/VoltAgent/awesome-claude-code-subagents) · [godagoo/claude-code-always-on](https://github.com/godagoo/claude-code-always-on) · [withastro/astro](https://github.com/withastro/astro) · GitHub trending
 
 ---
 
 ## References
 
 Built on patterns from:
+- [garrytan/gstack](https://github.com/garrytan/gstack) — Garry Tan's Claude Code harness
 - [godagoo/claude-code-always-on](https://godagoo.github.io/claude-code-always-on/)
 - [mitchellh.com — harness engineering](https://mitchellh.com/writing/my-ai-adoption-journey)
 - [Anthropic — Effective Harnesses](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents)

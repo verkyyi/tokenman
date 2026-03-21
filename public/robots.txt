@@ -22,4 +22,4 @@ User-agent: CCBot
 Allow: /
 
 # Sitemap location
-Sitemap: https://yourusername.github.io/agentfolio/sitemap-index.xml
+Sitemap: https://verkyyi.github.io/agentfolio/sitemap-index.xml
