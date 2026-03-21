@@ -19,6 +19,9 @@
 - [x] /codex/[slug] page: src/pages/codex/[slug].astro (individual post renderer)
 - [x] Codex section linked from index.astro
 
+## Profile Page
+- [x] Feedback link in Getting Started section (opens GitHub Issues new-issue page)
+
 ## Skills
 - [x] harness.md
 - [x] content.md
