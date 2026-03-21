@@ -13,7 +13,6 @@ on:
 permissions:
   contents: read
   pull-requests: write
-  id-token: write
 
 jobs:
   review:
@@ -33,7 +32,6 @@ jobs:
           fi
           echo "NUMBER=$NUM" >> $GITHUB_OUTPUT
 
-          # Get PR details
           gh pr view "$NUM" --json headRefOid,headRefName,title --repo ${{ github.repository }} > /tmp/pr.json
           SHA=$(jq -r '.headRefOid' /tmp/pr.json)
           BRANCH=$(jq -r '.headRefName' /tmp/pr.json)
@@ -59,63 +57,66 @@ jobs:
           echo "$DIFF" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
-      - name: Run reviewer with Claude Code Action
-        uses: anthropics/claude-code-action@v1
-        with:
-          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-          prompt: |
-            Read CLAUDE.md and apps/scaffold/CLAUDE.md for the auto-merge rules.
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
 
-            You are the reviewer agent. Review this PR from the coder agent.
+      - name: Build review prompt
+        run: |
+          NUM=${{ steps.pr.outputs.NUMBER }}
+          TITLE="${{ steps.pr.outputs.TITLE }}"
+          BRANCH="${{ steps.pr.outputs.BRANCH }}"
+          CHANGED="${{ steps.diff.outputs.CHANGED_FILES }}"
 
-            PR #${{ steps.pr.outputs.NUMBER }}
-            Title: ${{ steps.pr.outputs.TITLE }}
-            Branch: ${{ steps.pr.outputs.BRANCH }}
+          cat > /tmp/review_prompt.txt << PROMPT
+          Read CLAUDE.md and apps/scaffold/CLAUDE.md for the auto-merge rules.
 
-            Changed files:
-            ${{ steps.diff.outputs.CHANGED_FILES }}
+          You are the reviewer agent. Review this PR from the coder agent.
 
-            ## Review checklist:
+          PR #${NUM}
+          Title: ${TITLE}
+          Branch: ${BRANCH}
 
-            AUTO-MERGE safe if ALL of these are true:
-            - [ ] No CLAUDE.md files modified
-            - [ ] No .yml workflow files modified
-            - [ ] No auth/config files modified
-            - [ ] No schema files modified
-            - [ ] Changes are limited to: src/ content/ state/ public/
-            - [ ] Build would pass (check for obvious syntax errors)
+          Changed files:
+          ${CHANGED}
 
-            NEEDS-REVIEW if ANY of these are true:
-            - CLAUDE.md was modified
-            - Workflow files were modified
-            - New pages or major layout changes
-            - Any file not in the safe list above
+          ## Review checklist:
 
-            ## Your actions:
+          AUTO-MERGE safe if ALL of these are true:
+          - No CLAUDE.md files modified
+          - No .yml workflow files modified
+          - No auth/config files modified
+          - No schema files modified
+          - Changes are limited to: src/ content/ state/ public/ skills/ apps/
+          - Build would pass (check for obvious syntax errors)
 
-            1. Review the changed files list above
-            2. Apply the checklist
-            3. Execute one of:
+          NEEDS-REVIEW if ANY of these are true:
+          - CLAUDE.md was modified
+          - Workflow files were modified
+          - New pages or major layout changes
+          - Any file not in the safe list above
 
-            If AUTO-MERGE safe:
-              gh pr review ${{ steps.pr.outputs.NUMBER }} \
-                --approve \
-                --body "**Reviewer agent:** Changes look safe. Enabling auto-merge." \
-                --repo ${{ github.repository }}
-              gh pr merge ${{ steps.pr.outputs.NUMBER }} \
-                --auto --squash \
-                --repo ${{ github.repository }}
+          ## Your actions:
 
-            If NEEDS-REVIEW:
-              gh pr review ${{ steps.pr.outputs.NUMBER }} \
-                --request-changes \
-                --body "**Reviewer agent:** This PR requires human review because: [reason].
-                Changes affecting [list files] need manual approval." \
-                --repo ${{ github.repository }}
-              gh pr edit ${{ steps.pr.outputs.NUMBER }} \
-                --add-label "needs-review" \
-                --repo ${{ github.repository }}
+          1. Review the changed files list above
+          2. Apply the checklist
+          3. Execute one of:
 
-            4. Do nothing else. Classification and labeling only.
+          If AUTO-MERGE safe:
+            gh pr review ${NUM} --approve --body "**Reviewer agent:** Changes look safe. Enabling auto-merge." --repo ${{ github.repository }}
+            gh pr merge ${NUM} --auto --squash --repo ${{ github.repository }}
+
+          If NEEDS-REVIEW:
+            gh pr review ${NUM} --request-changes --body "**Reviewer agent:** This PR requires human review because: [reason]. Changes affecting [list files] need manual approval." --repo ${{ github.repository }}
+            gh pr edit ${NUM} --add-label "needs-review" --repo ${{ github.repository }}
+
+          4. Do nothing else. Classification and labeling only.
+          PROMPT
+
+      - name: Run reviewer
+        run: |
+          claude -p "$(cat /tmp/review_prompt.txt)" \
+            --allowedTools "Bash(gh:*) Read Glob Grep" \
+            --max-turns 10
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
