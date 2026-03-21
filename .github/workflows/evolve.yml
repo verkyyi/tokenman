@@ -103,6 +103,29 @@ jobs:
           - git log --oneline -20 — recent changes
           - ls apps/ — any folders without CLAUDE.md?
 
+          ## STEP 2a: Pipeline Health Check (REQUIRED)
+
+          Check recent workflow runs for failures:
+
+          ```bash
+          # Get failed runs from the last 24 hours
+          FAILED=$(gh run list --status failure --limit 10 --json databaseId,workflowName,createdAt,conclusion -q '.[] | "\(.databaseId) | \(.workflowName) | \(.createdAt)"')
+          ```
+
+          For each failed run:
+          1. Get the failure details: `gh run view <id> --log-failed 2>&1 | tail -20`
+          2. Categorize the failure:
+             - ALREADY-FIXED: the same workflow has succeeded more recently (skip)
+             - TRANSIENT: network timeout, rate limit, runner issue (skip)
+             - ACTIONABLE: code bug, config error, missing permission (create issue)
+          3. For ACTIONABLE failures, check if an issue already exists:
+             `gh issue list --state open --label pipeline-fix --json title -q '.[].title'`
+          4. If no existing issue covers this failure, create one:
+             `gh issue create --title "[pipeline] Brief description" --body "## Failed Workflow\n...\n## Error\n...\n## Suggested Fix\n...\n---\n*Created by evolve.yml pipeline health check*" --label "pipeline-fix,project:scaffold"`
+
+          Append a health check summary to state/research_log.md:
+          TIMESTAMP | pipeline-health | X failed runs checked, Y issues created | details
+
           ## STEP 2b: Design Evaluation (profile page)
 
           Read src/pages/index.astro and src/layouts/Base.astro.
@@ -225,6 +248,7 @@ jobs:
       - name: Ensure labels exist
         run: |
           gh label create "evolve-finding" --color "7057ff" --description "Issue created by evolve.yml" --force
+          gh label create "pipeline-fix" --color "d73a4a" --description "Pipeline failure to fix" --force
           gh label create "agent-ready" --color "0e8a16" --description "Ready for coder agent" --force
           gh label create "needs-review" --color "fbca04" --description "Needs human review" --force
           gh label create "project:scaffold" --color "c5def5" --description "Scaffold project" --force

@@ -57,6 +57,7 @@ jobs:
           - BUG: something is broken, not working, displaying wrong, link is broken
           - FEATURE: new functionality, improvement, or enhancement to implement
           - EVOLVE-IDEA: issue created by evolve.yml (title starts with [evolve]) — an actionable improvement inspired by external research
+          - PIPELINE-FIX: workflow/CI failure (title starts with [pipeline]) — a bug in the automation pipeline
           - UX-REQUEST: suggestion to improve something that works but could be better
           - POSITIVE: positive feedback, thank you, compliment
           - SPAM: promotional, unrelated, bot-generated
@@ -79,6 +80,10 @@ jobs:
           For EVOLVE-IDEA:
             gh issue edit ${NUM} --add-label "agent-ready" --repo ${{ github.repository }}
             gh issue comment ${NUM} --body "**Triage:** Evolve-generated idea triaged. The coder agent will implement this shortly." --repo ${{ github.repository }}
+
+          For PIPELINE-FIX:
+            gh issue edit ${NUM} --add-label "agent-ready" --repo ${{ github.repository }}
+            gh issue comment ${NUM} --body "**Triage:** Pipeline failure identified. The coder agent will investigate and fix shortly." --repo ${{ github.repository }}
 
           For UX-REQUEST:
             gh issue edit ${NUM} --add-label "ux-request,needs-review" --repo ${{ github.repository }}
