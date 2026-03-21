@@ -195,12 +195,16 @@ jobs:
       - name: Create structural PR if proposed
         if: hashFiles('.proposed-change.md') != ''
         run: |
-          BRANCH="evolve/$(date +%Y%m%d-%H%M%S)"
-          git checkout -b "$BRANCH"
-          git add -A
           TITLE=$(head -1 .proposed-change.md | sed 's/^# //')
           BODY=$(cat .proposed-change.md)
+          BRANCH="evolve/$(date +%Y%m%d-%H%M%S)"
+          git checkout -b "$BRANCH"
           rm .proposed-change.md
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to propose"
+            exit 0
+          fi
           git commit -m "feat(harness): $TITLE"
           git push -u origin "$BRANCH"
           gh pr create \
