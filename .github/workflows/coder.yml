@@ -119,8 +119,9 @@ jobs:
 
           ## Constraints:
           - Only modify files relevant to the fix
-          - Do NOT modify workflow YAML files
-          - Do NOT modify CLAUDE.md files (that's a needs-review change)
+          - You CAN modify any file including workflows and CLAUDE.md if the issue requires it
+          - NEVER commit secrets, tokens, or API keys
+          - NEVER create changes that could cause infinite workflow loops
           - Build must pass after your changes
           - If you cannot fix it in 3 attempts, write to .fix-failed with reason
 
