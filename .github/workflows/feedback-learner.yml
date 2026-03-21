@@ -135,11 +135,36 @@ jobs:
 
           6. If you DO write a lesson: write "LESSON_ADDED" to .learner-result
 
+          ## Actionable request detection:
+
+          ALSO determine if the feedback contains an ACTIONABLE REQUEST —
+          something that should be done right now, not just remembered.
+
+          Examples of actionable requests:
+          - "fix this" / "change this" / "update this" / "remove this"
+          - "can you also add X" / "this should do Y instead"
+          - "revert this" / "this broke X"
+          - PR review requesting changes with specific instructions
+
+          Examples of NOT actionable (learn only):
+          - "in the future, always do X" (rule, not action)
+          - "LGTM" / "looks good" (acknowledgment)
+          - "why did you do X?" (question)
+
+          If there IS an actionable request:
+          - Write the action description to .action-needed
+          - Format: ISSUE_OR_PR_NUMBER|ACTION_TYPE|DESCRIPTION
+          - ACTION_TYPE is one of: NEW_ISSUE, RETRIGGER_CODER, RETRIGGER_REVIEWER
+          - Example: 4|NEW_ISSUE|Fix button color to match cosmic design palette
+          - Example: 6|RETRIGGER_CODER|PR review requested changes, needs rework
+
+          A comment can be BOTH a lasting lesson AND an actionable request.
+
           IMPORTANT: Only append to state/learned_rules.md. Never delete existing rules.
           PROMPT
 
           claude -p "$(cat /tmp/learner_prompt.txt)" \
-            --allowedTools "Read Write Edit" \
+            --allowedTools "Bash(gh:*) Read Write Edit" \
             --max-turns 10
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
@@ -159,3 +184,42 @@ jobs:
             echo "No lesson extracted — nothing to commit"
           fi
           rm -f .learner-result
+
+      - name: Act on feedback if needed
+        run: |
+          if [ ! -f .action-needed ]; then
+            echo "No action needed"
+            exit 0
+          fi
+
+          ACTION_LINE=$(cat .action-needed)
+          NUM=$(echo "$ACTION_LINE" | cut -d'|' -f1)
+          TYPE=$(echo "$ACTION_LINE" | cut -d'|' -f2)
+          DESC=$(echo "$ACTION_LINE" | cut -d'|' -f3-)
+
+          echo "Action: $TYPE on #$NUM — $DESC"
+
+          case "$TYPE" in
+            NEW_ISSUE)
+              ISSUE_URL=$(gh issue create \
+                --title "$DESC" \
+                --body "Created from human feedback on #${NUM}.\n\n---\n*Created by feedback-learner*" \
+                --label "agent-ready,project:scaffold" \
+                --repo ${{ github.repository }})
+              NEW_NUM=$(echo "$ISSUE_URL" | grep -oP '\d+$')
+              gh workflow run triage.yml -f issue_number="$NEW_NUM"
+              echo "Created issue #$NEW_NUM and triggered triage"
+              ;;
+            RETRIGGER_CODER)
+              gh workflow run coder.yml -f issue_number="$NUM"
+              echo "Re-triggered coder for issue #$NUM"
+              ;;
+            RETRIGGER_REVIEWER)
+              gh workflow run reviewer.yml -f pr_number="$NUM"
+              echo "Re-triggered reviewer for PR #$NUM"
+              ;;
+          esac
+
+          rm -f .action-needed
+        env:
+          GH_TOKEN: ${{ github.token }}
