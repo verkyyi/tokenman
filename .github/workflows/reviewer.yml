@@ -74,6 +74,8 @@ jobs:
           BRANCH="${{ steps.pr.outputs.BRANCH }}"
           CHANGED="${{ steps.diff.outputs.CHANGED_FILES }}"
 
+          LEARNED_RULES=$(cat state/learned_rules.md)
+
           cat > /tmp/review_prompt.txt << PROMPT
           You are the reviewer agent for Agentfolio. Your job is to review PRs
           and decide: merge or block. You should be BOLD — approve and merge
@@ -121,6 +123,9 @@ jobs:
             gh pr edit ${NUM} --add-label "needs-review" --repo ${{ github.repository }}
 
           When in doubt, APPROVE. The system self-heals.
+
+          ## Learned Rules (from human feedback — MUST follow these)
+          ${LEARNED_RULES}
           PROMPT
 
       - name: Run reviewer

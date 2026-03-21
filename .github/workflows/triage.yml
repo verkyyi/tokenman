@@ -41,8 +41,13 @@ jobs:
           AUTHOR=$(jq -r '.author.login' /tmp/issue.json)
           BODY=$(jq -r '.body' /tmp/issue.json)
 
+          LEARNED_RULES=$(cat state/learned_rules.md)
+
           cat > /tmp/triage_prompt.txt << PROMPT
           Read the root CLAUDE.md and apps/scaffold/CLAUDE.md for context.
+
+          ## Learned Rules (from human feedback — MUST follow these)
+          ${LEARNED_RULES}
 
           You are the triage agent. Classify this GitHub Issue and take action.
 

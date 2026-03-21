@@ -198,6 +198,9 @@ jobs:
 
           ## Failure Log
           $(grep "^# [0-9]" CLAUDE.md | tail -20)
+
+          ## Learned Rules (from human feedback — MUST follow these)
+          $(cat state/learned_rules.md)
           PROMPT
 
       - name: Run Claude Code

@@ -92,6 +92,9 @@ jobs:
           ## Feature Status
           $(cat apps/${APP_NAME}/FEATURE_STATUS.md)
 
+          ## Learned Rules (from human feedback — MUST follow these)
+          $(cat state/learned_rules.md)
+
           ---
 
           ## Your Task
