@@ -3,28 +3,25 @@
 # Read at start of every workflow run.
 # Committed to repo — git history is the full audit trail.
 
-Last updated: 2026-03-21T22:03:51Z
-Updated by: evolve.yml
+Last updated: 2026-03-21T22:44:00Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: evolve.yml — self-evolution run (tier 1, hour 22)
+Action: watcher.yml — pipeline health check (hour 22)
 Done:
-- Research: gstack v0.9.8.0 published (pre-merge readiness gate + /land-and-deploy /canary /benchmark skills)
-- Research: actions/runner v2.333.0 confirmed latest; godagoo/humanlayer both inactive
-- Pipeline health: 10 failed runs reviewed — all ALREADY-FIXED (deploy: pages-not-enabled, reviewer: empty context, coder: gh-actions PR permission, evolve: nothing-to-commit+expired-token)
-- All Self-Evolve failures from today are now fixed by the `if ! git diff --cached --quiet` guard in evolve.yml
-- Created issue #8: [pipeline] Upgrade Node.js 20 actions before June 2026 deadline (pipeline-fix)
-- Design review: index.astro Cosmic design looks solid; stats-grid mobile breakpoint already in place; no new issues found
-- Appended 8 entries to research_log.md
+- Issues #1 and #4 confirmed closed; PRs #6 (adversarial-review) and #7 (codex blog) merged
+- Issue #9 chain healthy: coder succeeded → PR #11 open → Reviewer Agent triggered (in_progress)
+- Issue #10 (feedback badge UX): Triage in_progress
+- Issue #8 (Node.js 20 upgrade): coder failed 34 min ago with "No commits between main and fix/issue-8" error — re-triggered coder (run 23390450215)
+- 1 corrective action taken (re-trigger coder for #8)
 
-In progress: none
-
-Next agent: Triage for issue #8 (Node.js 20 deprecation)
+In progress: Reviewer for #9/PR#11, Triage for #10, Coder for #8 (re-triggered)
 
 ## Open Items
-- Issue #8: [pipeline] Upgrade Node.js 20 actions before June 2026 deadline
-- Issue open: [evolve] Adopt structured review tables in skill output (gstack v0.9.7.0 pattern)
-- Issue open: [evolve] Add adversarial self-review step to evolve.yml agent output
+- Issue #8: [pipeline] Upgrade Node.js 20 actions before June 2026 deadline (coder re-triggered)
+- Issue #9: [feedback] add feedback entry point on public website (PR #11 under review)
+- Issue #10: [feedback] last updated badge user-friendly time (triage in_progress)
+- Issue #5: [evolve] Adopt structured review tables in skill output (no agent-ready, parked)
 - apps/profile content not yet populated — discover.yml or manual issue needed
 
 ## Metrics Snapshot
