@@ -118,11 +118,6 @@ jobs:
             gh pr review ${NUM} --approve --body "**Reviewer agent:** ✅ Reviewed and approved. Build passes, no hard blocks found." --repo ${{ github.repository }}
             gh pr merge ${NUM} --squash --repo ${{ github.repository }}
 
-            Then close any linked issues. Check the PR title and body for
-            "closes #N", "fixes #N", or "issue #N" references. For each:
-            gh issue close N --repo ${{ github.repository }}
-            gh issue comment N --body "**Reviewer agent:** Closed by PR #${NUM} merge." --repo ${{ github.repository }}
-
           If HARD BLOCK:
             gh pr review ${NUM} --request-changes --body "**Reviewer agent:** ❌ Blocked: [specific reason]. This requires human review." --repo ${{ github.repository }}
             gh pr edit ${NUM} --add-label "needs-review" --repo ${{ github.repository }}
@@ -147,6 +142,23 @@ jobs:
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Close linked issues if PR was merged
+        if: always()
+        run: |
+          NUM=${{ steps.pr.outputs.NUMBER }}
+          STATE=$(gh pr view "$NUM" --json state --jq '.state' --repo ${{ github.repository }})
+          if [ "$STATE" = "MERGED" ]; then
+            ISSUES=$(gh pr view "$NUM" --json closingIssuesReferences --jq '.closingIssuesReferences[].number' --repo ${{ github.repository }})
+            for ISSUE in $ISSUES; do
+              echo "Closing issue #$ISSUE (linked to merged PR #$NUM)"
+              gh issue close "$ISSUE" --comment "Closed by merge of PR #$NUM." --repo ${{ github.repository }} || true
+            done
+          else
+            echo "PR #$NUM not merged — skipping issue close"
+          fi
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       - name: Log usage metrics
         if: always()
