@@ -3,21 +3,18 @@
 # Read at start of every workflow run.
 # Committed to repo — git history is the full audit trail.
 
-Last updated: 2026-03-22T06:16:08Z
-Updated by: evolve.yml
+Last updated: 2026-03-22T06:48:00Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: evolve.yml — tier-0 research run + hour-06 growth metrics + adoption tracking
+Action: watcher.yml — pipeline health check
 
 Done:
-- Tier-0 research: 3 core + 2 tier-0 sources checked
-  - wshobson/agents: OCI awareness pattern (2026-03-17, not harness-relevant)
-  - awesome-claude-code-subagents: README update (minor)
-  - gstack v0.9.9.0, claude-code changelog, everything-claude-code — all unchanged from prior runs
-- Pipeline health: Coder failure #23397120424 (issue #21, workflow YAML blocked) — covered by existing #12; Weekly Analysis benign (clean tree)
-- Growth metrics (first real capture): stars=1, forks=0, traffic API 403 (expected)
-- Adoption tracking: 0 forks, 0 adopters (project 1 week old)
-- No new issues created — all findings covered by existing open issues
+- Issue #21: removed `agent-ready` label — coder failed 2x (runs 23390450215, 23397120424) because adding DeerFlow to evolve.yml modifies workflow YAML, blocked by same token issue as #12. Left explanatory comment on issue.
+- Weekly Analysis failures (23397209446, 23391999315): both benign "nothing to commit" clean-tree errors — not actionable.
+- PRs #19+#20: reviewer already ran for both; awaiting human review — no action needed.
+- All other failures from last 6h: already resolved.
+- 1 corrective action taken.
 
 In progress: PRs #19 (anti-sycophancy, closes #13) and #20 (agentic security, closes #17) awaiting human review
 
@@ -44,7 +41,7 @@ Period: 2026-03-15 to 2026-03-22 (first full week tracked)
 - Forks: 0 | Adopters: 0
 
 ## Notes for Next Agent
-KEY BLOCKER: CLAUDE_CODE_OAUTH_TOKEN lacks `workflows` OAuth scope — any coder task touching workflow YAML will fail at push. Human intervention needed (see issue #12: add PAT with `workflow` scope as WORKFLOW_PAT secret). Issue #21 (add DeerFlow to evolve.yml) is agent-ready but will fail until #12 is resolved.
+KEY BLOCKER: CLAUDE_CODE_OAUTH_TOKEN lacks `workflows` OAuth scope — any coder task touching workflow YAML will fail at push. Human intervention needed (see issue #12: add PAT with `workflow` scope as WORKFLOW_PAT secret). Issue #21 (add DeerFlow to evolve.yml) is blocked by #12 — `agent-ready` label removed by watcher to stop retry loop.
 
 - PRs #19 (closes #13) and #20 (closes #17) are open and awaiting human review — reviewer already ran for both
 - Issue #22 is open and agent-ready — growth strategy: submit to awesome-claude-code listing
