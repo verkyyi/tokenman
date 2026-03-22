@@ -42,3 +42,12 @@
 - [x] Tier 1 (coder, claude-task): claude-opus-4-6 + effort max + fallback sonnet + bypassPermissions; coder max-turns 30→40
 - [x] Tier 2 (reviewer, evolve, triage): claude-sonnet-4-6 + effort high + fallback haiku + bypassPermissions; reviewer max-turns 15→30, triage 25→30
 - [x] Tier 3 (watcher, growth, analyze, discover, feedback-learner): claude-haiku-4-5-20251001 + effort medium + bypassPermissions; analyze/discover 20→25, feedback-learner 10→25
+
+## Token Utilization Feedback Loop (closes #28)
+- [x] state/usage_log.md created (append-only, 7-day rolling window)
+- [x] Phase 1 pilot: coder.yml, watcher.yml, evolve.yml instrumented with --output-format json + usage logging
+- [x] Phase 2: watcher responsibility #8 — token utilization analysis (skips if <20 data lines; detects under/overutilization; creates max 1 optimization issue per run)
+- [x] Phase 3 rollout: reviewer.yml, triage.yml, analyze.yml, claude-task.yml, discover.yml, feedback-learner.yml, growth.yml instrumented
+- [x] Maintenance: 7-day rolling truncation via awk date comparison in each logging step
+- [x] Workflows without existing state commit (reviewer, triage) given dedicated usage log commit step
+- [x] feedback-learner commit step updated to include usage_log.md in both lesson/no-lesson paths

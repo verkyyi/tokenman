@@ -3,19 +3,23 @@
 # Read at start of every workflow run.
 # Committed to repo — git history is the full audit trail.
 
-Last updated: 2026-03-22T07:56:00Z
-Updated by: coder.yml (fix issue #26)
+Last updated: 2026-03-22T08:10:00Z
+Updated by: coder.yml (fix issue #28)
 
 ## Last Session
-Action: coder.yml — fix issue #26 (optimize Claude CLI configuration)
+Action: coder.yml — fix issue #28 (token utilization feedback loop)
 
 Done:
-- Added tiered model/effort/fallback/permission-mode flags to all 10 workflow Claude CLI invocations
-- Tier 1 (coder, claude-task): claude-opus-4-6 + effort max + fallback sonnet-4-6 + bypassPermissions; coder max-turns 30→40
-- Tier 2 (reviewer, evolve, triage): claude-sonnet-4-6 + effort high + fallback haiku-4-5 + bypassPermissions; reviewer max-turns 15→30, triage 25→30
-- Tier 3 (watcher, growth, analyze, discover, feedback-learner): claude-haiku-4-5-20251001 + effort medium + bypassPermissions; analyze/discover 20→25, feedback-learner 10→25
+- Created state/usage_log.md (append-only, 7-day rolling window)
+- Phase 1 pilot: instrumented coder.yml, watcher.yml, evolve.yml with --output-format json > /tmp/claude_output.json + usage logging step
+- Phase 2: added watcher responsibility #8 (token utilization analysis) — skips if <20 data lines; detects under/overutilization signals; creates max 1 optimization issue per run
+- Phase 3 rollout: instrumented all 7 remaining workflows (reviewer, triage, analyze, claude-task, discover, feedback-learner, growth)
+- Added dedicated usage log commit steps for reviewer.yml and triage.yml (had no state commit)
+- Updated feedback-learner.yml to commit usage_log.md in both lesson/no-lesson paths
+- Each logging step includes 7-day rolling truncation via awk date comparison
+- JSON field extraction: model from modelUsage keys, total input tokens (input + cache_creation + cache_read), output_tokens, num_turns, total_cost_usd; all with "unknown" fallbacks
 - Build passing (exit 0); FEATURE_STATUS updated
-- Opened PR for issue #26 (needs-review)
+- Opened PR for issue #28 (needs-review)
 
 In progress: PRs #19 (reviewer re-triggered) and #20 (reviewer re-triggered); issue #8 coder queued
 

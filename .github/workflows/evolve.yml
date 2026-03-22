@@ -339,10 +339,33 @@ jobs:
             --effort high \
             --max-turns 30 \
             --fallback-model claude-haiku-4-5-20251001 \
-            --permission-mode bypassPermissions
+            --permission-mode bypassPermissions \
+            --output-format json \
+            > /tmp/claude_output.json
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Log usage metrics
+        if: always()
+        run: |
+          TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          if [ -f /tmp/claude_output.json ]; then
+            MODEL=$(jq -r '(.modelUsage // {} | keys | .[0]) // "unknown"' /tmp/claude_output.json 2>/dev/null || echo "unknown")
+            INPUT=$(jq -r '((.usage.input_tokens // 0) + (.usage.cache_creation_input_tokens // 0) + (.usage.cache_read_input_tokens // 0)) | tostring' /tmp/claude_output.json 2>/dev/null || echo "unknown")
+            OUTPUT=$(jq -r '(.usage.output_tokens // 0) | tostring' /tmp/claude_output.json 2>/dev/null || echo "unknown")
+            TURNS=$(jq -r '(.num_turns // 0) | tostring' /tmp/claude_output.json 2>/dev/null || echo "unknown")
+            COST=$(jq -r '(.total_cost_usd // 0) | tostring' /tmp/claude_output.json 2>/dev/null || echo "unknown")
+          else
+            MODEL="unknown"; INPUT="unknown"; OUTPUT="unknown"; TURNS="unknown"; COST="unknown"
+          fi
+          mkdir -p state
+          if [ ! -f state/usage_log.md ]; then
+            printf '# Usage Log\n' > state/usage_log.md
+          fi
+          echo "${TIMESTAMP} | evolve | model:${MODEL} | in:${INPUT} | out:${OUTPUT} | turns:${TURNS} | cost:${COST}" >> state/usage_log.md
+          CUTOFF=$(date -u -d '7 days ago' +%Y-%m-%dT)
+          awk -v c="$CUTOFF" 'NR==1{print;next} $0>=c' state/usage_log.md > /tmp/usage_trimmed.md && mv /tmp/usage_trimmed.md state/usage_log.md
 
       - name: Setup git config
         run: |

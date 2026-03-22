@@ -37,3 +37,4 @@
 2026-03-22T07:44:00Z | watcher.yml | health check | closed #23 (PR #24 merged 07:43, GitHub no auto-close); re-triggered reviewer for PRs #19+#20 (0 reviews each, silent fail first attempt); re-queued #8 with agent-ready (unblocked: #12 closed, WORKFLOW_PAT now available); triggered triage for #5 (10h+ open, no triage comment); 5 corrective actions taken
 2026-03-22T07:50:00Z | coder.yml | fix issue #5 | success — structured findings table (Trigger/Why/Status/Findings) added to skills/adversarial-review.md; optional for non-trivial Tier 1/2 reviews; pattern note for future skill files; harness.md updated; build passing; PR opened (auto-merge)
 2026-03-22T07:56:38Z | coder.yml | fix issue #26 — tiered Claude CLI model/effort/fallback/permission flags for all 10 workflows | success
+2026-03-22T08:10:00Z | coder.yml | fix issue #28 — token utilization feedback loop: --output-format json + usage logging in all 10 workflows + watcher responsibility #8 | success

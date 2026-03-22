@@ -167,6 +167,32 @@ jobs:
           - Close issue: gh issue close N
           - Always check for duplicates before creating issues
 
+          ### 8. Analyze token utilization
+          Skip this responsibility if state/usage_log.md has fewer than 20 data lines
+          (lines not starting with #). Read state/usage_log.md and evaluate:
+
+          **Underutilization signals:**
+          - Workflows consistently using <30% of max-turns (e.g. coder completes in 5 of 40 turns)
+          - Low output tokens relative to task complexity
+          - No rate-limit errors in state/agent_log.md
+
+          **Overutilization signals:**
+          - Workflows frequently hitting max-turns (>30% of runs for that workflow)
+          - Rate-limit errors appearing in state/agent_log.md
+          - Fallback model triggering (model in usage_log differs from configured primary)
+
+          **Usage targets:** 70-90% of rate limit = healthy; <50% = underutilized;
+          >95% = saturated; >30% of runs hitting max-turns = limit too low.
+
+          When a clear optimization is found:
+          1. Check for an existing open issue before creating one:
+             gh issue list --state open --label pipeline-fix --json title -q '.[].title'
+          2. Create at most 1 optimization issue per run:
+             gh issue create --title "[pipeline] Optimize [workflow] CLI config — [signal]" \
+               --body "## Signal\n[describe the pattern]\n\n## Evidence\n[data from usage_log.md]\n\n## Proposed Change\n[specific flag to change and expected outcome]\n\n---\n*Created by watcher.yml token utilization analysis*" \
+               --label "pipeline-fix,project:scaffold"
+          3. This counts toward the 5 corrective actions per run limit
+
           ## Rules:
           - Maximum 5 corrective actions per run (don't flood the system)
           - Never re-trigger a workflow that is currently in_progress
@@ -202,10 +228,33 @@ jobs:
             --effort medium \
             --max-turns 25 \
             --fallback-model claude-haiku-4-5-20251001 \
-            --permission-mode bypassPermissions
+            --permission-mode bypassPermissions \
+            --output-format json \
+            > /tmp/claude_output.json
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Log usage metrics
+        if: always()
+        run: |
+          TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          if [ -f /tmp/claude_output.json ]; then
+            MODEL=$(jq -r '(.modelUsage // {} | keys | .[0]) // "unknown"' /tmp/claude_output.json 2>/dev/null || echo "unknown")
+            INPUT=$(jq -r '((.usage.input_tokens // 0) + (.usage.cache_creation_input_tokens // 0) + (.usage.cache_read_input_tokens // 0)) | tostring' /tmp/claude_output.json 2>/dev/null || echo "unknown")
+            OUTPUT=$(jq -r '(.usage.output_tokens // 0) | tostring' /tmp/claude_output.json 2>/dev/null || echo "unknown")
+            TURNS=$(jq -r '(.num_turns // 0) | tostring' /tmp/claude_output.json 2>/dev/null || echo "unknown")
+            COST=$(jq -r '(.total_cost_usd // 0) | tostring' /tmp/claude_output.json 2>/dev/null || echo "unknown")
+          else
+            MODEL="unknown"; INPUT="unknown"; OUTPUT="unknown"; TURNS="unknown"; COST="unknown"
+          fi
+          mkdir -p state
+          if [ ! -f state/usage_log.md ]; then
+            printf '# Usage Log\n' > state/usage_log.md
+          fi
+          echo "${TIMESTAMP} | watcher | model:${MODEL} | in:${INPUT} | out:${OUTPUT} | turns:${TURNS} | cost:${COST}" >> state/usage_log.md
+          CUTOFF=$(date -u -d '7 days ago' +%Y-%m-%dT)
+          awk -v c="$CUTOFF" 'NR==1{print;next} $0>=c' state/usage_log.md > /tmp/usage_trimmed.md && mv /tmp/usage_trimmed.md state/usage_log.md
 
       - name: Commit state updates
         run: |
