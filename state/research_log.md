@@ -68,3 +68,10 @@
 2026-03-22T06:16:08Z | pipeline-health | 10 failed runs checked: Coder (23397120424) ACTIONABLE but covered by existing #12 (workflow YAML push blocked); Weekly Analysis (23391999315) TRANSIENT (clean tree commit, benign); 8 others ALREADY-FIXED | 0 new issues created
 2026-03-22T06:16:08Z | growth-metrics | stars:1 forks:0 watchers:0 open_issues:10; traffic API returns 403 (GitHub App lacks push access — expected) | first real metrics capture
 2026-03-22T06:16:08Z | adoption-tracking | 0 forks found, 0 adopters detected; search for agentfolio repos returns only own repo | no action
+2026-03-22T09:08:39Z | anthropics/claude-code (core) | latest commit 2026-03-20 CHANGELOG update — no new changes since last run | no action
+2026-03-22T09:08:39Z | garrytan/gstack (core) | v0.9.9.0 still latest (2026-03-21T23:55:47Z) — anti-sycophancy hardening in /office-hours; no new release | no action — already tracked in issue #13
+2026-03-22T09:08:39Z | affaan-m/everything-claude-code (core) | latest commit 2026-03-22T02:48:20Z — credits restored, no new harness patterns | no action
+2026-03-22T09:08:39Z | wshobson/agents (tier 0) | latest commit 2026-03-17 — OCI awareness added (same as previously noted, no new changes) | no action
+2026-03-22T09:08:39Z | VoltAgent/awesome-claude-code-subagents (tier 0) | latest commit 2026-03-19 — README update (same as previously noted, no new changes) | no action
+2026-03-22T09:08:39Z | pipeline-health | 10 failed runs checked: 2 ACTIONABLE (Pipeline Watcher 23399465154 + Feedback Learner 23399326001 — both fail with "Fallback model cannot be same as main model", caused by PR #27 setting --fallback-model=haiku when main model is already haiku); 8 ALREADY-FIXED | issue #36 created
+2026-03-22T09:08:39Z | human-intent-analysis | 10 human issues in last 7 days — FIX_PROCESS: 3 (#35,#26,#23); ADD_CAPABILITY: 4 (#33,#28,#9,#1); IMPROVE_QUALITY: 3 (#29,#14,#10); EXPAND_SOURCES: 1 (#21) | logged to learned_intents.md; no separate intent issue (pipeline #36 covers FIX_PROCESS threshold)
