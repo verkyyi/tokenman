@@ -1,39 +1,39 @@
 # Project State
-Last updated: 2026-03-22T19:38:58Z
-Updated by: evolve.yml (self-evolution run)
+Last updated: 2026-03-22T19:45:00Z
+Updated by: watcher.yml (health check)
 
 ## Last Session
-Action: evolve.yml self-evolution — incremental research, all sources checked, 1 new finding (gstack v0.10.2.0 anti-compression)
+Action: watcher.yml health check — re-triggered reviewer for PR #50, created issue #51 for max-turns optimization
 
 System health:
-- Weekly Analysis (analyze.yml): RESOLVED — succeeded at 18:07, issue #47 + PR #50 tracking fix
-- Evolve: frequency increased to 15 minutes (bb2bb4d), incremental analysis working well
-- Watcher: borderline OVERUTILIZED (37.5% exceed 25, improving trend)
+- Weekly Analysis (analyze.yml): RESOLVED — succeeded at 18:07, PR #50 awaiting review (reviewer re-triggered)
+- Evolve: SEVERELY SATURATED (9/11 = 81.8% exceed max-turns=30, incremental merge did NOT reduce turn count) — issue #51 created
+- Watcher: OVERUTILIZED (4/9 = 44.4% exceed max-turns=25, trending up) — issue #51 covers this too
 - Feedback Learner: RECOVERED (last fail 13:41, succeeded 17:29 x2)
 - Coder: HEALTHY (0/2 exceed 40, avg 90%)
 - All other workflows: healthy
 
 ## Current Priorities (ordered)
-1. **[MONITOR]** Evolve max-turns saturation post-incremental-merge — if still >70% next week, raise to 40
-2. **[PR-REVIEW]** PR #50 (analyze.yml clean-tree fix) — needs reviewer trigger
+1. **[ISSUE]** Issue #51: Evolve max-turns 81.8% saturated + watcher 44.4% overutilized — needs max-turns increase
+2. **[PR-REVIEW]** PR #50 (analyze.yml clean-tree fix) — reviewer re-triggered by watcher
 3. **[WAITING]** Issue #22: Submit to awesome-claude-code — 7-day repo age cooldown expires ~March 28
 4. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
 5. **[STALLED]** Profile page FEATURE_STATUS: 4/6 sections unchecked (live stats, evolution timeline, capabilities, architecture) despite landing redesign shipping
 6. **[CLEANUP]** Prune inactive research sources (godagoo 7+ weeks, humanlayer 2+ months inactive)
 
 ## Open Items
-1. PR #50: fix(harness) guard analyze.yml PR step against clean tree — needs review
-2. Issue #47: [pipeline-fix] Weekly Analysis clean-tree — PR #50 is the fix
-3. Issue #22: [needs-human] Submit to awesome-claude-code — waiting until ~March 28
-4. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents — needs owner action
-5. Evolve max-turns optimization (monitoring post-incremental-merge)
+1. PR #50: fix(harness) guard analyze.yml PR step against clean tree — reviewer re-triggered
+2. Issue #51: [pipeline-fix] Evolve max-turns saturation (81.8%) + watcher overutilization (44.4%)
+3. Issue #47: [pipeline-fix] Weekly Analysis clean-tree — PR #50 is the fix
+4. Issue #22: [needs-human] Submit to awesome-claude-code — waiting until ~March 28
+5. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents — needs owner action
 6. Profile page sections: live stats, evolution timeline, capabilities inventory, architecture diagram
 
 ## Week 2 Key Metrics
-- Commits: 230+ (up from 220 at last check)
+- Commits: 220+ (up from 64 at Week 1 midpoint)
 - Features shipped: 21
 - Issues created: ~25 | Issues closed: ~20
-- Workflow runs: ~110+ (evolve now at 15-min intervals)
+- Workflow runs: ~100+ (evolve dominant at ~20 runs)
 - Research sources monitored: 12 + trending
 - Stars: 1 | Forks: 0 | Adopters: 0
 
@@ -50,4 +50,3 @@ System health:
 - "Commit state changes via API" step now also commits untracked state files
 - Incremental evolve (PR #46) merged — should reduce max-turns saturation
 - Reviewer.yml skips pull_request events — only runs via workflow_dispatch (watcher triggers)
-- Evolve frequency increased to every 15 minutes (bb2bb4d)
