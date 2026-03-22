@@ -70,7 +70,6 @@ jobs:
             --model claude-haiku-4-5-20251001 \
             --effort medium \
             --max-turns 25 \
-            --fallback-model claude-haiku-4-5-20251001 \
             --permission-mode bypassPermissions \
             --output-format json \
             > /tmp/claude_output.json
