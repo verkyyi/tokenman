@@ -111,11 +111,14 @@ jobs:
           git config user.name "agentfolio[bot]"
           git config user.email "agentfolio[bot]@users.noreply.github.com"
 
-      - name: Commit state updates
+      - name: Commit state changes via API
+        if: always()
         run: |
-          git add state/
-          git diff --cached --quiet || git commit -m "state: weekly analysis — $(date -u +%Y-%m-%d)"
-          git push || true
+          for f in $(git diff --name-only state/ 2>/dev/null); do
+            ./scripts/commit-state.sh "$f" "state: weekly analysis — $(date -u +%Y-%m-%d)"
+          done
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       - name: Create improvement PR if proposed
         if: hashFiles('.proposed-change.md') != ''

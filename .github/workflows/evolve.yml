@@ -461,16 +461,27 @@ jobs:
           CUTOFF=$(date -u -d '7 days ago' +%Y-%m-%dT)
           awk -v c="$CUTOFF" 'NR==1{print;next} $0>=c' state/usage_log.md > /tmp/usage_trimmed.md && mv /tmp/usage_trimmed.md state/usage_log.md
 
+      - name: Commit state changes via API
+        if: always()
+        run: |
+          for f in $(git diff --name-only state/ 2>/dev/null); do
+            ./scripts/commit-state.sh "$f" "state: evolve — $(date -u +%Y-%m-%dT%H:%M)"
+          done
+          # Reset state/ changes so they don't get double-committed
+          git checkout -- state/ 2>/dev/null || true
+        env:
+          GH_TOKEN: ${{ github.token }}
+
       - name: Setup git config
         run: |
           git config user.name "agentfolio[bot]"
           git config user.email "agentfolio[bot]@users.noreply.github.com"
 
-      - name: Auto-commit safe changes
+      - name: Commit non-state changes
         run: |
-          git add state/ CLAUDE.md skills/ README.md public/robots.txt src/layouts/Base.astro src/pages/index.astro
+          git add CLAUDE.md skills/ README.md public/robots.txt src/layouts/Base.astro src/pages/index.astro
           if ! git diff --cached --quiet; then
-            git commit -m "state: evolve.yml — $(date -u +%Y-%m-%d)"
+            git commit -m "feat: evolve.yml — $(date -u +%Y-%m-%d)"
             git pull --rebase || true
             git push || true
           fi

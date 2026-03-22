@@ -118,13 +118,22 @@ jobs:
           git config user.name "agentfolio[bot]"
           git config user.email "agentfolio[bot]@users.noreply.github.com"
 
-      - name: Update state (on main, before any branch checkout)
+      - name: Commit state changes via API
+        if: always()
         run: |
           CHANGED=$(git status --porcelain | wc -l)
           echo "$(date -u +%Y-%m-%dT%H:%M:%SZ) | discover | scanned apps/ for new projects | ${CHANGED} files changed" >> state/agent_log.md
-          git add state/
-          git commit -m "state: discovery scan completed" || true
-          git push || true
+          for f in $(git diff --name-only state/ 2>/dev/null); do
+            ./scripts/commit-state.sh "$f" "state: discovery scan completed"
+          done
+          # Commit newly created state/agent_log.md line (untracked or modified)
+          if git diff --name-only state/agent_log.md | grep -q . || ! git ls-files --error-unmatch state/agent_log.md 2>/dev/null; then
+            ./scripts/commit-state.sh "state/agent_log.md" "state: discovery scan completed"
+          fi
+          # Reset state/ so it doesn't bleed into the PR branch
+          git checkout -- state/ 2>/dev/null || true
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       - name: Create PR with discovered projects
         if: steps.changes.outputs.has_changes == 'true'

@@ -219,28 +219,15 @@ jobs:
           CUTOFF=$(date -u -d '7 days ago' +%Y-%m-%dT)
           awk -v c="$CUTOFF" 'NR==1{print;next} $0>=c' state/usage_log.md > /tmp/usage_trimmed.md && mv /tmp/usage_trimmed.md state/usage_log.md
 
-      - name: Commit if rules changed
+      - name: Commit state changes via API
+        if: always()
         run: |
-          if [ -f .learner-result ] && grep -q "LESSON_ADDED" .learner-result; then
-            git config user.name "agentfolio[bot]"
-            git config user.email "agentfolio[bot]@users.noreply.github.com"
-            git add state/learned_rules.md state/usage_log.md
-            if ! git diff --cached --quiet; then
-              git commit -m "state: learned rule from human feedback"
-              git pull --rebase || true
-              git push || true
-            fi
-          else
-            git config user.name "agentfolio[bot]"
-            git config user.email "agentfolio[bot]@users.noreply.github.com"
-            git add state/usage_log.md
-            if ! git diff --cached --quiet; then
-              git commit -m "state: feedback-learner usage metrics"
-              git pull --rebase || true
-              git push || true
-            fi
-          fi
+          for f in $(git diff --name-only state/ 2>/dev/null); do
+            ./scripts/commit-state.sh "$f" "state: feedback-learner usage metrics"
+          done
           rm -f .learner-result
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       - name: Handle PR rejection
         if: >
