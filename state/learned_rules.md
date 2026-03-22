@@ -39,3 +39,8 @@ Don't propose optimizations where the added complexity (e.g., caching layers, ch
 **Date:** 2026-03-22 | **Source:** issue #38: Readme content shall be kept consistent along repo changes, automatically maintained by the workflow and pipeline itself
 
 When a dedicated periodic check already handles a concern (e.g., daily evolve SEO/discoverability step for README consistency), don't scatter the same check into every workflow run. A daily check is sufficient for files that change infrequently — adding it everywhere is over-engineering.
+
+## QUALITY Evaluate site content regardless of framework
+**Date:** 2026-03-22 | **Source:** issue #43: Evolve skips site content evaluation for non-framework sites
+
+The evolve agent must evaluate site content (pages, copy, structure) for all sites, not only those using a recognized framework. Content quality assessment should be framework-agnostic — a static HTML site or unconventional stack deserves the same content review as an Astro or Next.js project.
