@@ -44,11 +44,19 @@ jobs:
           node-version: 20
           cache: npm
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Install project dependencies
+        run: |
+          INSTALL_CMD=$(grep '^install:' state/evolve_config.md | cut -d: -f2- | xargs)
+          if [ -n "$INSTALL_CMD" ]; then
+            eval "$INSTALL_CMD"
+          fi
 
-      - name: Build Astro site
-        run: npm run build
+      - name: Build
+        run: |
+          BUILD_CMD=$(grep '^build:' state/evolve_config.md | cut -d: -f2- | xargs)
+          if [ -n "$BUILD_CMD" ] && [ "$BUILD_CMD" != "(none)" ]; then
+            eval "$BUILD_CMD"
+          fi
         env:
           SITE_URL: https://${{ github.repository_owner }}.github.io
           BASE_PATH: /${{ github.event.repository.name }}
