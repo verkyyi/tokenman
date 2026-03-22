@@ -91,6 +91,8 @@ jobs:
               "https://api.github.com/repos/wshobson/agents/commits?per_page=3" | head -c 800)
             R2=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
               "https://api.github.com/repos/VoltAgent/awesome-claude-code-subagents/commits?per_page=3" | head -c 800)
+            R3=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+              "https://api.github.com/repos/bytedance/deer-flow/commits?per_page=3" | head -c 800)
           elif [ "$TIER" -eq 1 ]; then
             # Tier 1: Original references + infrastructure
             R1=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
