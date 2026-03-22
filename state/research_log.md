@@ -380,3 +380,8 @@
 2026-03-22T23:41:42Z | github-trending | 3302 repos (+3 from 3299), no breakout | no action
 2026-03-22T23:41:42Z | openai-harness-blog | Cloudflare blocked (persistent) | no action
 2026-03-22T23:41:42Z | pipeline-health | 10 failed runs checked, 0 new since 21:47, 0 issues created | no action
+2026-03-22T23:54:35Z | bytedance/deer-flow | SHA 1c981ea (NEW, was 835ba04) — fix: add ~/.codex and ~/.claude bind mounts to docker-compose-dev.yaml (#1247) | no action — Docker dev infra, not harness-relevant
+2026-03-22T23:54:35Z | all-other-sources | 11/12 SHAs unchanged since 23:41 run (13 min gap): claude-code 6aadfbd, gstack cc9e6f8, everything-claude-code 0f22cb4, awesome-claude-code ab8fd91, agents 1ad2f00 (stale), subagents b8d6c58 (stale), godagoo 00854ad (stale), humanlayer bdea199 (stale), runner 4259ffb, astro 2dcd8d5, agentfolio 51e3a43 (state only) | no action
+2026-03-22T23:54:35Z | github-trending | 3307 repos (+5 from 3302), no breakout | no action
+2026-03-22T23:54:35Z | openai-harness-blog | Cloudflare blocked (persistent) | no action
+2026-03-22T23:54:35Z | pipeline-health | 10 failed runs checked; 1 new: Coder 23:46 (duplicate PR creation for fix/issue-53, PR #55 already exists) — ALREADY-FIXED; 0 issues created | no action
