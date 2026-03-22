@@ -311,6 +311,52 @@ jobs:
           Intent-driven issues: labeled `intent-driven,evolve-finding,project:$(echo $GITHUB_REPOSITORY | cut -d/ -f2)`,
           body references original human issues with "Inspired by human action on #N".
 
+          ## STEP 2g: Config Re-check (every 7 days)
+
+          Read the "Last recheck" date from the Evolve Config header (line starting with "# Last recheck:").
+          If more than 7 days have passed since that date:
+
+          1. Scan the repo for structural changes:
+             - Check for new dependency files (package.json, requirements.txt, go.mod, Cargo.toml)
+               that weren't present when the config was written
+             - Check if existing dependency files have new major frameworks added
+             - Check for new Dockerfile or deploy configs (vercel.json, netlify.toml, fly.toml)
+             - Check for new test frameworks (jest.config, pytest.ini, etc.)
+          2. Compare findings against the Repo Profile and Build sections in the config.
+          3. If any significant change detected (new language, new framework, new deploy method):
+             - Create an issue titled "[config] Repo structure may have changed — run CLI session to update evolve config"
+             - Label: "needs-review"
+             - Body: Describe what changed and why the config may be outdated
+             - Do NOT auto-update the config
+          4. If no significant changes: update the "Last recheck" date in state/evolve_config.md
+             to today's date. Commit this change.
+
+          Only flag changes that affect workflow fit or build commands.
+          Ignore: minor dependency additions, dev tool changes, documentation files.
+
+          ## STEP 2h: Scaffold Version Check
+
+          Read the "Version" field from the Evolve Config header (line starting with "# Version:").
+          Fetch the latest agentfolio release:
+
+          ```bash
+          LATEST=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/verkyyi/agentfolio/releases/latest" \
+            | grep -o '"tag_name":"[^"]*"' | cut -d'"' -f4)
+          ```
+
+          Compare LATEST against the Version field in the config.
+          If LATEST exists and is different from the config version:
+          - Check if an issue about this upgrade already exists (dedup)
+          - If not, create an issue:
+            Title: "[upgrade] Agentfolio scaffold update available: $LATEST"
+            Body: "A new version of the agentfolio scaffold is available.
+            Current: [version from config]. Latest: [version from release].
+            Run a Claude Code CLI session to review and apply changes."
+            Label: "needs-review"
+
+          If no release exists or versions match, skip silently.
+
           ## STEP 3: Log this run
 
           ALWAYS append a line to state/agent_log.md:
