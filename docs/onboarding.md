@@ -1,66 +1,177 @@
 # Agentfolio Onboarding
 
-Add an autonomous dev pipeline to your existing GitHub repo. These instructions are designed to be followed by Claude Code — run them in a CLI session.
+Instructions for Claude Code. Follow each step in order during a CLI session in the user's repo.
 
-## Prerequisites
+## Prerequisites check
 
-- Your repo is on GitHub with Actions enabled
-- Claude Code CLI installed (`npm install -g @anthropic-ai/claude-code`)
-- A Claude Code OAuth token (`claude setup-token`)
+Confirm before starting:
+- The user's repo is on GitHub with Actions enabled
+- Claude Code CLI is installed (`npm install -g @anthropic-ai/claude-code`)
+- A Claude Code OAuth token exists (`claude setup-token`)
 
-## Steps
+If any prerequisite is missing, stop and tell the user what to fix first.
 
-### 1. Copy workflow files
+---
 
-Clone the agentfolio repo and copy its workflow files into the target repo:
+## Step 1 — Copy scaffold files
+
+Run these commands in the user's repo root:
 
 ```bash
-# In your target repo
 git clone --depth=1 https://github.com/verkyyi/agentfolio.git /tmp/agentfolio
 cp -r /tmp/agentfolio/.github/workflows/ .github/workflows/
-cp -r /tmp/agentfolio/state/ state/
 cp -r /tmp/agentfolio/skills/ skills/
-mkdir -p apps/scaffold
-cp /tmp/agentfolio/apps/scaffold/CLAUDE.md apps/scaffold/CLAUDE.md
-cp /tmp/agentfolio/apps/scaffold/FEATURE_STATUS.md apps/scaffold/FEATURE_STATUS.md
 cp /tmp/agentfolio/CLAUDE.md CLAUDE.md
+mkdir -p state
 rm -rf /tmp/agentfolio
 ```
 
-### 2. Create project CLAUDE.md
+---
 
-Create `apps/<your-project>/CLAUDE.md` describing your project. This tells the agents what your project is, what rules to follow, and what autonomy they have. Example:
+## Step 2 — Analyze the repo
 
-```markdown
-# My Project
+Read and inspect the repo to detect its stack and build configuration:
 
-## What This Is
-A brief description of your project.
+- Read `package.json`, `requirements.txt`, `go.mod`, `Cargo.toml`, `pyproject.toml`, `Gemfile` — whichever exist
+- List file extensions to detect the primary language mix
+- Check for deploy config: `Dockerfile`, `vercel.json`, `netlify.toml`, `fly.toml`, `railway.json`
+- Check for test config: `jest.config.*`, `pytest.ini`, `setup.cfg`, `Makefile` (look for a `test` target), `go test` usage
+- Read `README.md` for the project description and purpose
+- Run `git rev-list --count HEAD` to get total commit count (for maturity estimate)
 
-## Autonomy
-- The agent MAY commit directly to main for documentation and state changes.
-- The agent MUST open a PR for any code changes.
-- The agent MUST NOT delete files without confirmation.
+---
+
+## Step 3 — Present findings
+
+Report what you found before asking anything. Use this format:
+
+```
+I detected:
+  Stack:   [languages and frameworks]
+  Install: [command, e.g. "npm install" or "(none detected)"]
+  Build:   [command, e.g. "npm run build" or "(none detected)"]
+  Test:    [command, e.g. "npm test" or "(none detected)"]
+  Deploy:  [platform detected, e.g. "Vercel (vercel.json found)" or "(none detected)"]
+  Commits: [count] → Maturity: [Early (<50) / Active (50–500) / Mature (>500)]
 ```
 
-### 3. Initialize state files
+Then show the workflow fit table. Assess each workflow as HIGH, MEDIUM, or SKIP based on what you detected:
 
-Reset state files to start fresh for your repo:
+| Workflow         | Fit    | Reason |
+|------------------|--------|--------|
+| evolve           | ...    | Core self-improvement loop — fits all repos |
+| triage           | ...    | Useful if repo has active issues |
+| coder            | ...    | Useful if repo has a buildable codebase |
+| reviewer         | ...    | Useful if coder is HIGH or MEDIUM |
+| watcher          | ...    | Useful for keeping the pipeline healthy |
+| deploy           | ...    | HIGH only if deploy config detected |
+| growth           | ...    | Useful for public repos with users |
+| feedback-learner | ...    | Useful for repos with active human oversight |
+| analyze          | ...    | Useful for repos with tests or metrics |
+| discover         | SKIP   | Single-project repos skip this |
+| claude-task      | ...    | Useful for any repo |
 
-```bash
-cat > state/project_state.md << 'EOF'
+Explain: "SKIP means the workflow will be installed but disabled via its config. You can enable it later."
+
+---
+
+## Step 4 — Ask questions one at a time
+
+Ask each question and wait for the user's answer before proceeding to the next.
+
+1. If no deploy config was detected: "How do you deploy this project? (e.g. Vercel, Fly.io, AWS, manual, not applicable)"
+
+2. "Is this a public or private repo?"
+
+3. "These workflows run autonomously using `--permission-mode bypassPermissions`. This means the agent can execute any command without asking for confirmation. OK to proceed?"
+   - If the user says no: stop and tell them they can set a more restrictive permission mode in CLAUDE.md after setup.
+
+4. "I'll watch these repos for updates: [list from Step 5 below]. Want to add or remove any?"
+
+---
+
+## Step 5 — Auto-discover research sources
+
+Before asking question 4 above, build the watch list:
+
+- Map each major dependency found in Step 2 to its GitHub repo (e.g. `react` → `facebook/react`, `fastapi` → `tiangolo/fastapi`)
+- Always include `verkyyi/agentfolio`
+- Limit to the 8 most relevant repos to keep the list focused
+
+Present the list for confirmation in question 4. Record the confirmed list.
+
+---
+
+## Step 6 — Write config file
+
+Write `state/evolve_config.md` using the exact template below, filled in with all discovered and confirmed values:
+
+```markdown
+# Evolve Config
+# Generated by onboarding CLI session. Human edits welcome.
+# Delete this file to re-trigger onboarding.
+# Version: 1
+# Last recheck: [today's date]
+
+## Repo Profile
+Stack: [detected stack]
+Purpose: [from README or user description]
+Maturity: [Early/Active/Mature based on commit count]
+
+## Build
+install: [detected or confirmed install command]
+build: [detected or confirmed build command, or "(none)"]
+test: [detected or confirmed test command]
+deploy: [user's answer about deployment]
+
+## Workflow Fit
+evolve: [HIGH/MEDIUM/SKIP — reason]
+triage: [HIGH/MEDIUM/SKIP — reason]
+coder: [HIGH/MEDIUM/SKIP — reason]
+reviewer: [HIGH/MEDIUM/SKIP — reason]
+watcher: [HIGH/MEDIUM/SKIP — reason]
+deploy: [HIGH/MEDIUM/SKIP — reason]
+growth: [HIGH/MEDIUM/SKIP — reason]
+feedback-learner: [HIGH/MEDIUM/SKIP — reason]
+analyze: [HIGH/MEDIUM/SKIP — reason]
+discover: SKIP — single-project
+claude-task: [HIGH/MEDIUM/SKIP — reason]
+
+## Research Sources
+[list of confirmed repos, one per line, format: owner/repo]
+- verkyyi/agentfolio
+
+## User Answers
+Deploy: [answer]
+Tests: [detected or confirmed test command, or "none"]
+Public: [Yes/No]
+Bypass permissions confirmed: [Yes/No]
+
+## Project
+CLAUDE.md: ./CLAUDE.md
+```
+
+---
+
+## Step 7 — Initialize state files
+
+Create each file only if it does not already exist:
+
+**state/project_state.md**
+```markdown
 # Project State
-Last updated: (will be written by first workflow run)
-Updated by: (pending)
+Last updated: [today's date]
+Updated by: onboarding
 
 ## Last Session
 Action: Initial setup — agentfolio scaffold installed
 
 ## Open Items
 (none yet — evolve.yml will populate on first run)
-EOF
+```
 
-cat > state/agent_log.md << 'EOF'
+**state/agent_log.md**
+```markdown
 # Agent Log
 # Append-only. One line per agent action.
 # Format: ISO_DATETIME | workflow | action | outcome
@@ -68,68 +179,58 @@ cat > state/agent_log.md << 'EOF'
 ## Log
 
 <!-- entries appended below by workflows -->
-EOF
+```
 
-cat > state/research_log.md << 'EOF'
+**state/research_log.md**
+```markdown
 # Research Log
 # Append-only. Written by evolve.yml during research phase.
 # Format: ISO_TIMESTAMP | source | finding_summary | action_taken
-EOF
+```
 
-cat > state/learned_rules.md << 'EOF'
+**state/learned_rules.md**
+```markdown
 # Learned Rules
 # Rules learned from human feedback. Read by all workflows before acting.
 # Add rules here and agents will follow them on every run.
-EOF
 ```
 
-### 4. Add the secret
+---
 
-Using the GitHub CLI:
+## Step 8 — Add the secret
 
-```bash
-# Generate a token if you haven't already
-claude setup-token
+Tell the user:
 
-# Add it to your repo (paste when prompted)
-gh secret set CLAUDE_CODE_OAUTH_TOKEN
+```
+Next, add your Claude Code OAuth token as a GitHub Actions secret:
+
+  gh secret set CLAUDE_CODE_OAUTH_TOKEN
+
+Paste your token when prompted. Generate one with: claude setup-token
 ```
 
-### 5. Enable GitHub Pages (optional)
+---
 
-If you want the auto-deploying profile site:
-
-```bash
-gh api repos/{owner}/{repo}/pages -X POST -f source='{"branch":"main","path":"/"}' 2>/dev/null || true
-```
-
-Or manually: Settings → Pages → Source: GitHub Actions.
-
-### 6. Commit and push
+## Step 9 — Commit and push
 
 ```bash
-git add .github/ state/ skills/ apps/ CLAUDE.md
+git add .github/ state/ skills/ CLAUDE.md
 git commit -m "feat: add agentfolio autonomous pipeline"
 git push
 ```
 
-The pipeline starts on the next hourly cron cycle. To start immediately:
+Tell the user:
 
-```bash
-gh workflow run evolve.yml
 ```
+Setup complete. The pipeline starts on the next hourly cron cycle.
+To trigger it immediately: gh workflow run evolve.yml
 
-## What happens next
+What happens next:
+- evolve.yml  — runs hourly, researches improvements, creates issues
+- triage.yml  — fires on new issues, labels and routes them
+- coder.yml   — picks up agent-ready issues, writes code, opens PRs
+- reviewer.yml — reviews and merges PRs
+- watcher.yml — runs every 30 min, self-heals broken chains
 
-- `evolve.yml` runs hourly — researches improvements, checks pipeline health, creates issues
-- `triage.yml` fires on new issues — labels and routes them
-- `coder.yml` picks up `agent-ready` issues — writes code, opens PRs
-- `reviewer.yml` reviews and merges PRs — closes linked issues
-- `watcher.yml` runs every 30 min — self-heals broken chains
-- `feedback-learner.yml` learns from human corrections — updates rules
-
-Create an issue describing a change you want. Watch the pipeline handle it.
-
-## Customization
-
-Edit `CLAUDE.md` (harness rules) and `apps/<project>/CLAUDE.md` (project rules) to control agent behavior. Use MAY / MUST / MUST NOT to set boundaries. Changes take effect on the next workflow run.
+Edit CLAUDE.md to adjust agent behavior. Changes take effect on the next run.
+```
