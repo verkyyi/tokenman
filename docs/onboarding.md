@@ -19,8 +19,11 @@ Run these commands in the user's repo root:
 
 ```bash
 git clone --depth=1 https://github.com/verkyyi/agentfolio.git /tmp/agentfolio
-cp -r /tmp/agentfolio/.github/workflows/ .github/workflows/
+mkdir -p .github/workflows
+cp /tmp/agentfolio/.github/workflows/*.yml .github/workflows/
 cp -r /tmp/agentfolio/skills/ skills/
+cp /tmp/agentfolio/scripts/commit-state.sh scripts/commit-state.sh
+chmod +x scripts/commit-state.sh
 cp /tmp/agentfolio/CLAUDE.md CLAUDE.md
 mkdir -p state
 rm -rf /tmp/agentfolio
@@ -210,25 +213,77 @@ Next, add your Claude Code OAuth token as a GitHub Actions secret:
   gh secret set CLAUDE_CODE_OAUTH_TOKEN
 
 Paste your token when prompted. Generate one with: claude setup-token
+
+IMPORTANT: This must be a Claude Code OAuth token (starts with "clo_"),
+not an Anthropic API key (starts with "sk-ant-"). Invalid tokens cause
+silent failures with no error message in workflow logs.
 ```
 
 ---
 
-## Step 9 — Commit and push
+## Step 9 — Configure repo settings
+
+Tell the user to check these GitHub settings:
+
+```
+Before pushing, verify these repo settings:
+
+1. Settings → Actions → General:
+   - Workflow permissions: "Read and write permissions" (required)
+   - Check: "Allow GitHub Actions to create and approve pull requests"
+
+2. (Optional) Settings → General:
+   - Check: "Discussions" — enables growth.yml to create discussions
+
+3. (Optional) Add a WORKFLOW_PAT secret:
+   gh secret set WORKFLOW_PAT
+
+   This is a personal access token with 'repo' and 'workflows' scope.
+   Without it, the coder agent cannot create PRs that modify workflow
+   YAML files. The pipeline still works — it just can't self-modify
+   its own workflows. Most adopters don't need this.
+```
+
+---
+
+## Step 10 — Commit and push
 
 ```bash
-git add .github/ state/ skills/ CLAUDE.md
+git add .github/ state/ skills/ scripts/ CLAUDE.md
 git commit -m "feat: add agentfolio autonomous pipeline"
 git push
+```
+
+---
+
+## Step 11 — Verify first run
+
+Trigger evolve manually and watch it:
+
+```bash
+gh workflow run evolve.yml
+gh run watch
 ```
 
 Tell the user:
 
 ```
-Setup complete. The pipeline starts on the next hourly cron cycle.
-To trigger it immediately: gh workflow run evolve.yml
+Verification checklist:
+- Run completes in 2-10 minutes (not <2s — that means the gate blocked it)
+- Exit code 0
+- state/research_log.md has new entries (check with: git pull && tail -5 state/research_log.md)
+- state/agent_log.md has a new line
 
-What happens next:
+If the run fails:
+- "Invalid OAuth token" → wrong token format, re-run: claude setup-token
+- Exits in <2 seconds → state/evolve_config.md missing, re-run onboarding
+- "Resource not accessible" → enable workflow read/write permissions (Step 9)
+```
+
+Tell the user:
+
+```
+Setup complete. The pipeline runs autonomously from here:
 - evolve.yml  — runs hourly, researches improvements, creates issues
 - triage.yml  — fires on new issues, labels and routes them
 - coder.yml   — picks up agent-ready issues, writes code, opens PRs
