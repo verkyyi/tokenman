@@ -103,6 +103,13 @@ with:
 Lighter weight. Best for classification and GitHub API operations.
 Uses gh CLI for Issue/PR operations.
 
+## Reviewer Workflow — Pre-Merge Gate
+Before the reviewer agent issues any merge recommendation, it MUST run the
+Pre-Merge Gate defined in `skills/adversarial-review.md`. The gate blocks merge
+if CI is failing, if a high-risk file (`.github/workflows/`, `CLAUDE.md`
+autonomy rules) was changed without an explicit one-sentence risk assessment,
+or if any open blocking issue is linked to the PR.
+
 ## Autonomy Gates
 See CLAUDE.md for the full list. Quick reference:
 - AUTO: state files, failure log entries, skill wording improvements, FEATURE_STATUS

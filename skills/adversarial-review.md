@@ -54,7 +54,72 @@ VERDICT: [proceed / abort — reason]
 
 Only proceed if verdict is "proceed".
 
-## Examples
+---
+
+## Pre-Merge Gate
+
+The reviewer agent runs this gate **before** issuing any merge recommendation.
+It checks external state (CI, blocking issues, high-risk files) — distinct from
+the adversarial self-review above, which checks internal reasoning.
+
+### Gate Checklist
+
+```
+PRE-MERGE GATE:
+1. CI status: [all checks green / failing checks: list them]
+   → If any check is non-green: BLOCK — do not recommend merge.
+2. High-risk files: [yes — .github/workflows/ or CLAUDE.md autonomy rules touched / no]
+   → If yes: one-sentence risk assessment REQUIRED (see below).
+   → Risk assessment: "[sentence or MISSING]"
+   → If MISSING: BLOCK — do not apply auto-merge label.
+3. Blocking dependencies: [open issues linked and labeled blocking / none]
+   → If any blocking issue is open: BLOCK — do not apply auto-merge label.
+VERDICT: [PASS — safe to recommend merge / BLOCK — reason]
+```
+
+**Rule:** If verdict is BLOCK, the reviewer must post the gate result as a PR
+comment explaining the block, apply `needs-review` instead of `auto-merge`, and
+do **not** merge.
+
+### Gate Examples
+
+**PASS:**
+```
+PRE-MERGE GATE:
+1. CI status: all checks green
+2. High-risk files: no
+3. Blocking dependencies: none
+VERDICT: PASS — safe to recommend merge
+```
+
+**BLOCK (CI failing):**
+```
+PRE-MERGE GATE:
+1. CI status: failing — deploy workflow (run #23401234) red
+2. High-risk files: no
+3. Blocking dependencies: none
+VERDICT: BLOCK — CI must be green before merge
+```
+
+**BLOCK (high-risk file, no risk assessment):**
+```
+PRE-MERGE GATE:
+1. CI status: all checks green
+2. High-risk files: yes — .github/workflows/coder.yml modified
+   Risk assessment: MISSING
+3. Blocking dependencies: none
+VERDICT: BLOCK — risk assessment required for workflow YAML change; apply needs-review
+```
+
+**PASS (high-risk file with assessment):**
+```
+PRE-MERGE GATE:
+1. CI status: all checks green
+2. High-risk files: yes — .github/workflows/coder.yml modified
+   Risk assessment: "Adds a timeout flag to the claude CLI call; worst case the job times out cleanly with no side effects."
+3. Blocking dependencies: none
+VERDICT: PASS — risk assessment present, CI green
+```
 
 **Good (proceed):**
 ```

@@ -32,3 +32,4 @@
 - [x] seo.md
 - [x] Skills updated for self-evolving architecture
 - [x] adversarial-review.md — risk-scaled self-check protocol for evolve.yml Step 5
+- [x] pre-merge gate — CI + risk-assessment + blocking-issue checks added to adversarial-review.md; referenced from harness.md reviewer guidance (closes #16)
