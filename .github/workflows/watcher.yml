@@ -241,7 +241,7 @@ jobs:
           claude -p "$(cat /tmp/watcher_prompt.txt)" \
             --model opus \
             --effort max \
-            --max-turns 25 \
+            --max-turns 30 \
             --permission-mode bypassPermissions \
             --output-format json \
             > /tmp/claude_output.json
