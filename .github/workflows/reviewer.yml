@@ -146,6 +146,11 @@ jobs:
           ${LEARNED_RULES}
           PROMPT
 
+      - name: Git identity
+        run: |
+          git config user.name "agentfolio[bot]"
+          git config user.email "agentfolio[bot]@users.noreply.github.com"
+
       - name: Run reviewer
         run: |
           claude -p "$(cat /tmp/review_prompt.txt)" \
@@ -225,8 +230,6 @@ jobs:
           fi
 
           echo "Structural files changed in merged PR — syncing README"
-          git config user.name "agentfolio[bot]"
-          git config user.email "agentfolio[bot]@users.noreply.github.com"
           git fetch origin main
           git checkout -B main origin/main
 

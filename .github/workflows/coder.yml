@@ -176,6 +176,12 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
 
+      - name: Git identity
+        if: steps.human.outputs.SKIP != 'true'
+        run: |
+          git config user.name "agentfolio[bot]"
+          git config user.email "agentfolio[bot]@users.noreply.github.com"
+
       - name: Run Claude coder agent
         if: steps.human.outputs.SKIP != 'true'
         run: |
@@ -270,8 +276,6 @@ jobs:
       - name: Commit fix
         if: steps.human.outputs.SKIP != 'true' && steps.check.outputs.FAILED == 'false'
         run: |
-          git config user.name "agentfolio[bot]"
-          git config user.email "agentfolio[bot]@users.noreply.github.com"
           git add .
           rm -f .commit-message .fix-failed
 

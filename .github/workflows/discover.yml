@@ -71,6 +71,11 @@ jobs:
           App name: ${{ github.event.inputs.app_name }}
           PROMPT
 
+      - name: Git identity
+        run: |
+          git config user.name "agentfolio[bot]"
+          git config user.email "agentfolio[bot]@users.noreply.github.com"
+
       - name: Run Claude Code
         run: |
           claude -p "$(cat /tmp/prompt.txt)" \
@@ -112,11 +117,6 @@ jobs:
           else
             echo "has_changes=false" >> "$GITHUB_OUTPUT"
           fi
-
-      - name: Setup git config
-        run: |
-          git config user.name "agentfolio[bot]"
-          git config user.email "agentfolio[bot]@users.noreply.github.com"
 
       - name: Commit state changes via API
         if: always()

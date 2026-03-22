@@ -471,6 +471,11 @@ jobs:
           - Read CLAUDE.md from the path specified in the Project section of the config.
           PROMPT
 
+      - name: Git identity
+        run: |
+          git config user.name "agentfolio[bot]"
+          git config user.email "agentfolio[bot]@users.noreply.github.com"
+
       - name: Run Claude Code
         run: |
           claude -p "$(cat /tmp/prompt.txt)" \
@@ -516,11 +521,6 @@ jobs:
           git checkout -- state/ 2>/dev/null || true
         env:
           GH_TOKEN: ${{ github.token }}
-
-      - name: Setup git config
-        run: |
-          git config user.name "agentfolio[bot]"
-          git config user.email "agentfolio[bot]@users.noreply.github.com"
 
       - name: Commit non-state changes
         run: |

@@ -73,6 +73,11 @@ jobs:
           $(cat state/project_state.md)
           PROMPT
 
+      - name: Git identity
+        run: |
+          git config user.name "agentfolio[bot]"
+          git config user.email "agentfolio[bot]@users.noreply.github.com"
+
       - name: Run Claude Code
         run: |
           claude -p "$(cat /tmp/prompt.txt)" \
@@ -105,11 +110,6 @@ jobs:
           echo "${TIMESTAMP} | analyze | model:${MODEL} | in:${INPUT} | out:${OUTPUT} | turns:${TURNS} | cost:${COST}" >> state/usage_log.md
           CUTOFF=$(date -u -d '7 days ago' +%Y-%m-%dT)
           awk -v c="$CUTOFF" 'NR==1{print;next} $0>=c' state/usage_log.md > /tmp/usage_trimmed.md && mv /tmp/usage_trimmed.md state/usage_log.md
-
-      - name: Setup git config
-        run: |
-          git config user.name "agentfolio[bot]"
-          git config user.email "agentfolio[bot]@users.noreply.github.com"
 
       - name: Commit state changes via API
         if: always()
