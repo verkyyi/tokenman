@@ -58,24 +58,53 @@ try {
       <span>
         maintained by agent ·
         <a href="https://github.com/verkyyi/agentfolio/commits/main" target="_blank" rel="noopener noreferrer" class="agent-link">
-          last update {(() => {
-            const now = new Date();
-            const then = new Date(lastAgentTimestamp);
-            const diffMs = now.getTime() - then.getTime();
-            const diffMins = Math.floor(diffMs / 60000);
-            const diffHours = Math.floor(diffMs / 3600000);
-            const diffDays = Math.floor(diffMs / 86400000);
-            if (diffMins < 1) return 'just now';
-            if (diffMins < 60) return `${diffMins}m ago`;
-            if (diffHours < 24) return `${diffHours}h ago`;
-            if (diffDays === 1) return 'yesterday';
-            if (diffDays < 7) return `${diffDays}d ago`;
-            return then.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-          })()}
+          last update <span class="relative-time" data-time={lastAgentTimestamp}></span>
         </a>
       </span>
     </div>
   )}
+
+  <script>
+    function formatRelative(iso) {
+      const now = Date.now();
+      const then = new Date(iso).getTime();
+      const diff = now - then;
+      const mins = Math.floor(diff / 60000);
+      const hours = Math.floor(diff / 3600000);
+      const days = Math.floor(diff / 86400000);
+      if (mins < 1) return 'just now';
+      if (mins < 60) return mins + 'm ago';
+      if (hours < 24) return hours + 'h ago';
+      if (days === 1) return 'yesterday';
+      if (days < 7) return days + 'd ago';
+      if (days < 30) return Math.floor(days / 7) + 'w ago';
+      return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    }
+
+    // Update all relative timestamps
+    function updateTimes() {
+      document.querySelectorAll('.relative-time').forEach(el => {
+        el.textContent = formatRelative(el.dataset.time);
+      });
+    }
+    updateTimes();
+    setInterval(updateTimes, 60000);
+
+    // Live stats from GitHub API
+    const repo = document.querySelector('meta[property="og:site_name"]')?.content === 'Agentfolio'
+      ? 'verkyyi/agentfolio' : null;
+    if (repo) {
+      fetch('https://api.github.com/repos/' + repo)
+        .then(r => r.json())
+        .then(data => {
+          const stars = document.querySelector('[data-live="stars"]');
+          const forks = document.querySelector('[data-live="forks"]');
+          if (stars && data.stargazers_count !== undefined) stars.textContent = data.stargazers_count;
+          if (forks && data.forks_count !== undefined) forks.textContent = data.forks_count;
+        })
+        .catch(() => {});
+    }
+  </script>
 </body>
 </html>
 

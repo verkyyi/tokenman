@@ -190,11 +190,11 @@ const recentActivity = agentLogEntries.slice(-10).reverse();
           <div class="stat-label">active workflows</div>
         </div>
         <div class="stat-card stat-green">
-          <div class="stat-value">{growthMetrics.stars}</div>
+          <div class="stat-value" data-live="stars">{growthMetrics.stars}</div>
           <div class="stat-label">stars</div>
         </div>
         <div class="stat-card stat-amber">
-          <div class="stat-value">{growthMetrics.forks}</div>
+          <div class="stat-value" data-live="forks">{growthMetrics.forks}</div>
           <div class="stat-label">forks</div>
         </div>
       </div>
@@ -225,7 +225,7 @@ const recentActivity = agentLogEntries.slice(-10).reverse();
         <div>
           {recentActivity.map(entry => (
             <div class="activity-item">
-              <time class="activity-time" datetime={entry.timestamp}>
+              <time class="activity-time relative-time" datetime={entry.timestamp} data-time={entry.timestamp}>
                 {entry.timestamp ? new Date(entry.timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : ''}
               </time>
               <span class="activity-badge">{entry.workflow}</span>
