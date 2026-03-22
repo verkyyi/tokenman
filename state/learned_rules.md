@@ -29,3 +29,8 @@ Before opening a PR or starting work on an issue, check the target branch (e.g.,
 **Date:** 2026-03-22 | **Source:** issue #10: [feedback] last updated by badge should use user friendly time descriptions
 
 When displaying time information to users (badges, labels, metadata), use human-friendly relative descriptions (e.g., "2 hours ago", "yesterday", "3 days ago") instead of raw dates or absolute timestamps.
+
+## AVOID Don't propose micro-optimizations that add complexity for trivial savings
+**Date:** 2026-03-22 | **Source:** issue #31: [evolve] Cache research source checksums to skip unchanged sources
+
+Don't propose optimizations where the added complexity (e.g., caching layers, checksum management) outweighs the savings (e.g., ~$0.30/month in tokens). Token cost is not a concern when running high-tier models. Cosmetic issues (like duplicate log entries) are not functional problems and don't warrant architectural changes.
