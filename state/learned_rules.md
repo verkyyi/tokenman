@@ -34,3 +34,8 @@ When displaying time information to users (badges, labels, metadata), use human-
 **Date:** 2026-03-22 | **Source:** issue #31: [evolve] Cache research source checksums to skip unchanged sources
 
 Don't propose optimizations where the added complexity (e.g., caching layers, checksum management) outweighs the savings (e.g., ~$0.30/month in tokens). Token cost is not a concern when running high-tier models. Cosmetic issues (like duplicate log entries) are not functional problems and don't warrant architectural changes.
+
+## QUALITY Include verification steps and complete config guidance in setup docs
+**Date:** 2026-03-22 | **Source:** issue #42: Improve onboarding: add verification steps and missing config guidance
+
+When writing onboarding or setup documentation, always include: (1) verification steps so users can confirm each configuration step succeeded, (2) all required settings — even ones that seem obvious like repo permissions, token formats, and optional-but-recommended secrets. Don't assume users will discover required configuration on their own.
