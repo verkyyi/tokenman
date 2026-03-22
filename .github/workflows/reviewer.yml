@@ -209,6 +209,8 @@ jobs:
           for f in $(git diff --name-only state/ 2>/dev/null); do
             ./scripts/commit-state.sh "$f" "state: reviewer usage metrics"
           done
+          # Reset local state/ changes (already committed via API) to avoid checkout conflicts
+          git checkout -- state/ 2>/dev/null || true
         env:
           GH_TOKEN: ${{ github.token }}
 

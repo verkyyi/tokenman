@@ -1,12 +1,12 @@
 # Project State
-Last updated: 2026-03-22T23:42:00Z
-Updated by: watcher.yml (health check)
+Last updated: 2026-03-22T23:50:00Z
+Updated by: coder.yml (fix issue #53)
 
 ## Last Session
-Action: watcher.yml — health check. Re-triggered triage for #53 (2h44m untriaged, 0 comments) and #48 (5h32m, growth issue never triaged). No new failures since 21:47. Token utilization post-merge monitoring continues (small sample).
+Action: coder.yml — fixed reviewer.yml README sync checkout conflict (issue #53). Added `git checkout -- state/` cleanup after commit-state.sh API step, matching the pattern already used in coder.yml and evolve.yml. Checked all other workflows — none have a subsequent git checkout that would conflict. Opened PR for issue #53.
 
 System health:
-- Reviewer Agent: FAILURE — state file checkout conflict in README sync (issue #53, triage re-triggered)
+- Reviewer Agent: FIX IN PR — state file checkout conflict fix (issue #53)
 - Evolve: POST-MERGE MONITORING — 3 runs post-45: 1/3 exceeded (33%), small sample
 - Weekly Analysis: HEALTHY (succeeded 18:13, issue #47 closed)
 - Feedback Learner: RECOVERED (no failures since 13:41)
@@ -15,12 +15,12 @@ System health:
 - All other workflows: healthy
 
 ## Current Priorities (ordered)
-1. **[ISSUE]** Issue #53: Reviewer Agent README sync state file conflict — triage re-triggered, awaiting fix
+1. **[PR]** Issue #53: Reviewer Agent README sync state file conflict — fix PR opened
 2. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — triage re-triggered, needs-human
 3. **[WAITING]** Issue #22: Submit to awesome-claude-code — 7-day cooldown expires ~March 28
 
 ## Open Items
-1. Issue #53: [pipeline-fix] Reviewer Agent README sync checkout conflict — triage re-triggered
+1. Issue #53: [pipeline-fix] Reviewer Agent README sync checkout conflict — fix PR opened
 2. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents — triage re-triggered
 3. Issue #22: [needs-human] Submit to awesome-claude-code — waiting until ~March 28
 
@@ -46,4 +46,4 @@ System health:
 - "Commit state changes via API" step now also commits untracked state files
 - Incremental evolve (PR #46) merged — max-turns raised to 45 (PR #54)
 - Reviewer.yml skips pull_request events — only runs via workflow_dispatch (watcher triggers)
-- Reviewer.yml has a bug: README sync step doesn't handle dirty working tree (issue #53)
+- Reviewer.yml checkout conflict fixed: state/ cleanup added after commit-state.sh (issue #53 PR)
