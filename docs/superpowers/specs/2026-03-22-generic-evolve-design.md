@@ -64,7 +64,7 @@ deploy: SKIP — user deploys via Docker to AWS ECS
 growth: SKIP — private repo
 feedback-learner: MEDIUM
 analyze: HIGH
-discover: HIGH
+discover: SKIP — single-project, no apps/ directory
 claude-task: HIGH
 
 ## Research Sources
@@ -78,9 +78,8 @@ Tests: pytest, runs via `make test`
 Public: No — private repo
 Bypass permissions confirmed: Yes
 
-## Apps
-Structure: single-project (no apps/ directory needed)
-Project CLAUDE.md: ./CLAUDE.md
+## Project
+CLAUDE.md: ./CLAUDE.md
 ```
 
 ## Phase 2: Autonomous Evolution (Cron)
@@ -151,21 +150,16 @@ Evolve tracks a `last_recheck` timestamp in `state/evolve_config.md`. Every 7 da
 - **reviewer**: Same — reads config build/test commands. Runs the configured test command to validate PRs.
 - **triage**: Reads config for project structure. Uses `project:<name>` label from config instead of hardcoded `project:scaffold`.
 - **watcher**: Generic pipeline health checks. Reads config to know which workflows are SKIP (doesn't flag their "failures" as problems).
-- **analyze**: Reads config for APP_NAME and project structure instead of hardcoding `scaffold`.
+- **analyze**: Reads config for project name instead of hardcoding `scaffold`.
 - **claude-task**: Reads config for build commands.
 - **deploy**: Gate check handles SKIP. If HIGH, runs as-is.
 - **growth**: Gate check handles SKIP. If HIGH, runs as-is.
 - **feedback-learner**: Runs if MEDIUM or HIGH.
-- **discover**: Generic, runs as-is.
+- **discover**: Not needed for single-project repos. SKIP by default.
 
-### Apps Directory Structure
+### Project Structure
 
-For single-project repos, the `apps/` directory is optional. The config specifies where the project CLAUDE.md lives:
-
-- **Single project**: `Project CLAUDE.md: ./CLAUDE.md` — workflows read from repo root
-- **Multi-project**: `Project CLAUDE.md: apps/<name>/CLAUDE.md` — standard apps/ structure
-
-Onboarding detects which pattern fits and configures accordingly.
+Adopter repos are single-project. The `apps/` directory and `APP_NAME` resolution are not used. CLAUDE.md lives at the repo root. Workflows that currently read `apps/${APP_NAME}/CLAUDE.md` are updated to read `./CLAUDE.md` based on the config.
 
 ## Scope
 
@@ -177,7 +171,7 @@ Onboarding detects which pattern fits and configures accordingly.
 4. **evolve.yml prompt**: Replace hardcoded sources/steps with config-driven instructions
 5. **coder.yml, reviewer.yml, claude-task.yml**: Replace `npm ci` / `npm run build` with config-driven commands
 6. **triage.yml**: Replace `project:scaffold` with config-driven label
-7. **analyze.yml**: Replace hardcoded `APP_NAME: scaffold` with config-driven value
+7. **analyze.yml**: Remove hardcoded `APP_NAME: scaffold`, read project name from config
 8. **docs/onboarding.md**: Rewrite as interactive CLI session guide with repo analysis, fit estimation, Q&A, and config generation
 9. **Profile page**: Update "Add to Your Repo" section to reflect the interactive onboarding
 
