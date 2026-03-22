@@ -117,6 +117,26 @@ const daysEvolving = firstTimestamp
 
 // Recent activity (last 10)
 const recentActivity = agentLogEntries.slice(-10).reverse();
+
+// Human-friendly workflow descriptions
+const workflowVerbs: Record<string, string> = {
+  'evolve.yml': 'Researched improvements',
+  'coder.yml': 'Wrote a fix',
+  'reviewer.yml': 'Reviewed and merged a PR',
+  'watcher.yml': 'Checked pipeline health',
+  'triage.yml': 'Triaged an issue',
+  'deploy': 'Deployed the site',
+  'growth.yml': 'Analyzed growth',
+  'feedback-learner.yml': 'Learned from feedback',
+  'analyze.yml': 'Ran weekly analysis',
+  'discover': 'Discovered a project',
+  'cli-session': 'Human + agent session',
+  'claude-task.yml': 'Ran a manual task',
+};
+const latestEntry = recentActivity[0];
+const latestVerb = latestEntry
+  ? (workflowVerbs[latestEntry.workflow] || latestEntry.workflow)
+  : '';
 ---
 
 <Base>
@@ -222,37 +242,43 @@ const recentActivity = agentLogEntries.slice(-10).reverse();
     )}
 
     <!-- Latest Action (single line to show it's alive) -->
-    {recentActivity.length > 0 && (
+    {latestEntry && (
       <section class="cosmic-section">
         <div class="latest-action">
           <span class="latest-dot" />
-          <time class="relative-time" data-time={recentActivity[0].timestamp}>
-            {new Date(recentActivity[0].timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+          <span class="latest-text">{latestVerb}</span>
+          <time class="relative-time latest-time" data-time={latestEntry.timestamp}>
+            {new Date(latestEntry.timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
           </time>
-          <span class="latest-badge">{recentActivity[0].workflow}</span>
-          <span class="latest-text">{recentActivity[0].action}</span>
         </div>
       </section>
     )}
 
-    <!-- Getting Started -->
+    <!-- How to Use -->
     <section class="cosmic-section">
-      <div class="section-header">Getting Started</div>
-      <ol class="steps">
-        <li>Click <a href="https://github.com/verkyyi/agentfolio/generate" target="_blank" rel="noopener noreferrer" class="inline-link">"Use This Template"</a> on GitHub</li>
-        <li>Add <code>CLAUDE_CODE_OAUTH_TOKEN</code> to your repo secrets</li>
-        <li>Enable GitHub Pages (Source: GitHub Actions)</li>
-        <li>Enable "Allow GitHub Actions to create and approve pull requests"</li>
-        <li>The scaffold starts evolving itself immediately</li>
-      </ol>
-      <p class="getting-started-note">
-        Want to add your own project? Drop it in <code>apps/your-project/</code>
-        and run the "Discover Project" workflow. The agent scans your code,
-        generates rules, and starts maintaining it.
-      </p>
-      <div class="getting-started-links">
-        <a href="https://github.com/verkyyi/agentfolio/issues/new" target="_blank" rel="noopener noreferrer" class="cta-link">
-          Submit Feedback →
+      <div class="section-header">Use It</div>
+      <div class="use-cases">
+        <div class="use-case">
+          <div class="use-case-label">New idea?</div>
+          <p class="use-case-desc">
+            Fork this repo, describe your project in <code>apps/your-project/CLAUDE.md</code>,
+            and the pipeline starts building it for you.
+          </p>
+        </div>
+        <div class="use-case">
+          <div class="use-case-label">Existing repo?</div>
+          <p class="use-case-desc">
+            Copy the <code>.github/workflows/</code> folder into your repo, add one secret,
+            and your project gains an autonomous dev team.
+          </p>
+        </div>
+      </div>
+      <div class="use-ctas">
+        <a href="https://github.com/verkyyi/agentfolio/generate" target="_blank" rel="noopener noreferrer" class="cta-primary">
+          Use This Template
+        </a>
+        <a href="/agentfolio/docs/onboarding" target="_blank" rel="noopener noreferrer" class="cta-secondary">
+          Setup Guide
         </a>
       </div>
     </section>
@@ -490,44 +516,39 @@ const recentActivity = agentLogEntries.slice(-10).reverse();
     white-space: nowrap;
   }
   .latest-text {
-    color: #94a3b8;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    color: #cbd5e1;
+  }
+  .latest-time {
+    color: #475569;
+    margin-left: auto;
+    flex-shrink: 0;
   }
 
-  /* Getting started */
-  .steps {
-    list-style: none;
-    counter-reset: step;
-    padding: 0;
-  }
-  .steps li {
-    counter-increment: step;
-    padding: 8px 0 8px 32px;
-    position: relative;
-    font-size: 14px;
-    color: #94a3b8;
-    line-height: 1.5;
-  }
-  .steps li::before {
-    content: counter(step);
-    position: absolute;
-    left: 0;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: rgba(139,92,246,0.15);
-    border: 1px solid rgba(139,92,246,0.3);
-    color: #a78bfa;
-    font-size: 11px;
-    font-weight: 600;
+  /* Use cases */
+  .use-cases {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    top: 9px;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
   }
-  .steps code {
+  .use-case {
+    padding: 16px;
+    background: rgba(139,92,246,0.06);
+    border: 1px solid rgba(139,92,246,0.12);
+    border-radius: 10px;
+  }
+  .use-case-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #c084fc;
+    margin-bottom: 6px;
+  }
+  .use-case-desc {
+    font-size: 13px;
+    color: #94a3b8;
+    line-height: 1.6;
+  }
+  .use-case-desc code {
     font-size: 12px;
     background: rgba(139,92,246,0.1);
     border: 1px solid rgba(139,92,246,0.2);
@@ -536,28 +557,11 @@ const recentActivity = agentLogEntries.slice(-10).reverse();
     color: #c084fc;
     font-family: 'SF Mono', 'Fira Code', monospace;
   }
-  /* Getting started */
-  .cta-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 16px;
-    color: #a78bfa;
-    text-decoration: none;
-    font-size: 14px;
-    transition: color 0.2s;
+  .use-ctas {
+    display: flex;
+    gap: 12px;
   }
-  .cta-link:hover { color: #c084fc; }
-  .inline-link {
-    color: #a78bfa;
-    text-decoration: underline;
-    text-underline-offset: 2px;
-  }
-  .inline-link:hover { color: #c084fc; }
-  .getting-started-note {
-    font-size: 13px;
-    color: #64748b;
-    margin-top: 16px;
-    line-height: 1.6;
+  @media (max-width: 480px) {
+    .use-ctas { flex-direction: column; }
   }
 </style>
