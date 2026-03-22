@@ -61,6 +61,19 @@ jobs:
           HUMANFLAG
 
           cat >> /tmp/prompt.txt << 'PROMPT'
+          ## Incremental Analysis Rules
+          Read the Previous Evolve Run Summary above.
+          - If the summary is missing or older than 24 hours: perform a full analysis of all steps.
+          - If the summary is recent (< 24 hours): for each step, compare what you find against the summary.
+            - Research sources: if a source's latest commit SHA matches the summary, state "unchanged since last run" and move on. Only log sources that have new commits.
+            - Pipeline health: if no new failed runs since the summary timestamp, state "no new failures" and move on.
+            - Design evaluation: if no new commits touching site files since the summary, skip.
+            - Other steps: use your judgment — if the data matches the summary, skip the detailed analysis.
+          - If the previous summary shows HUMAN_ACTIVE=true and the current run is HUMAN_ACTIVE=false, treat steps that were skipped due to HUMAN_ACTIVE mode as needing full analysis (the previous run's skip was policy-driven, not data-driven).
+          - Always execute Step 3 (logging) and Step 4 (state update).
+          - Always write an updated last_evolve_summary.md at the end of the run, even if nothing changed.
+          - When skipping a step, use one sentence. Do not re-analyze data you've already confirmed is unchanged.
+
           You are the self-evolution agent for Agentfolio. You MUST execute
           bash commands to fetch data, write files, and make changes.
           Do NOT just reason about what to do — actually do it.
@@ -367,6 +380,30 @@ jobs:
           Write a brief session summary to state/project_state.md covering
           what you analyzed and any findings.
 
+          Also write state/last_evolve_summary.md with: timestamp, HUMAN_ACTIVE mode,
+          main HEAD SHA (from `git rev-parse HEAD`), open issues list (from `gh issue list`),
+          per-source latest commit SHA and one-line summary from Step 1,
+          which steps were executed vs skipped, and a findings summary.
+          Format:
+          ```
+          # Last Evolve Summary
+          Timestamp: YYYY-MM-DDTHH:MM:SSZ
+          Mode: HUMAN_ACTIVE=true/false
+          Main HEAD: <sha>
+          Open issues: #N, #M, ...
+
+          ## Research Source Digests
+          source/name: <sha> | one-line summary
+          ...
+
+          ## Steps Executed
+          Step N: description — what was found or "skipped (reason)"
+          ...
+
+          ## Findings Summary
+          Brief summary. N issues created.
+          ```
+
           ## STEP 5: Act on findings (if any)
 
           For safe changes (failure log entries, skill wording fixes):
@@ -397,6 +434,9 @@ jobs:
           - You MUST write to state/agent_log.md in Step 3
           - You MUST update state/project_state.md in Step 4
           - Maximum THREE issues per run (2 research + 1 intent) — quality over quantity
+
+          ## Previous Evolve Run Summary
+          $(cat state/last_evolve_summary.md 2>/dev/null || echo "No previous run summary available — perform full analysis.")
 
           ## Context
           $(cat $(grep '^CLAUDE.md:' state/evolve_config.md | cut -d' ' -f2))
@@ -464,7 +504,7 @@ jobs:
       - name: Commit state changes via API
         if: always()
         run: |
-          for f in $(git diff --name-only state/ 2>/dev/null); do
+          for f in $(git diff --name-only state/ 2>/dev/null; git ls-files --others --exclude-standard state/ 2>/dev/null); do
             ./scripts/commit-state.sh "$f" "state: evolve — $(date -u +%Y-%m-%dT%H:%M)"
           done
           # Reset state/ changes so they don't get double-committed
