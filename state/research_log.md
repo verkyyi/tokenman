@@ -331,3 +331,18 @@
 2026-03-22T22:44:37Z | github-trending | 3290 repos (+5), no breakout | no action
 2026-03-22T22:44:37Z | openai-harness-blog | Cloudflare blocked (persistent) | no action
 2026-03-22T22:44:37Z | pipeline-health | same 10 failed runs; no new since 21:47; Reviewer #53 known, Feedback Learner INTERMITTENT, rest ALREADY-FIXED; 0 new issues | no action
+2026-03-22T22:54:50Z | affaan-m/everything-claude-code | SHA 0f22cb4 — ECC 2.0 reference architecture from competitor research (superset-sh/superset Electron 7.7K, standardagents/dmux Ink TUI 1.2K); three-layer daemon+runtime+TUI pattern | noted — desktop/CLI architecture, not harness-relevant
+2026-03-22T22:54:50Z | anthropics/claude-code | SHA 6aadfbd — unchanged since last run | no action
+2026-03-22T22:54:50Z | garrytan/gstack | SHA cc9e6f8 — unchanged since last run | no action
+2026-03-22T22:54:50Z | hesreallyhim/awesome-claude-code | SHA ab8fd91 — unchanged since last run | no action
+2026-03-22T22:54:50Z | bytedance/deer-flow | SHA 835ba04 — unchanged since last run | no action
+2026-03-22T22:54:50Z | wshobson/agents | SHA 1ad2f00 — stale (2026-03-17) | no action
+2026-03-22T22:54:50Z | VoltAgent/awesome-claude-code-subagents | SHA b8d6c58 — stale (2026-03-19) | no action
+2026-03-22T22:54:50Z | godagoo/claude-code-always-on | SHA 00854ad — stale (2026-02-03) | no action
+2026-03-22T22:54:50Z | humanlayer/humanlayer | SHA bdea199 — stale (2026-01-07) | no action
+2026-03-22T22:54:50Z | actions/runner | SHA 4259ffb — unchanged since last run | no action
+2026-03-22T22:54:50Z | withastro/astro | SHA 2dcd8d5 — unchanged since last run | no action
+2026-03-22T22:54:50Z | verkyyi/agentfolio | SHA 5c4082d — state commits (watcher health check) | no action
+2026-03-22T22:54:50Z | github-trending | 3291 repos (+1), no breakout | no action
+2026-03-22T22:54:50Z | openai-harness-blog | Cloudflare blocked (persistent) | no action
+2026-03-22T22:54:50Z | pipeline-health | same 10 failed runs; no new since 21:47; all known (#53 Reviewer, Feedback Learner INTERMITTENT, rest ALREADY-FIXED); 0 new issues | no action
