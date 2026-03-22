@@ -79,6 +79,9 @@ jobs:
           ISSUE_TITLE=$(jq -r '.title' /tmp/issue.json)
           ISSUE_BODY=$(jq -r '.body' /tmp/issue.json)
 
+          # Fetch issue comments for context (helps when coder is re-triggered after rejection)
+          ISSUE_COMMENTS=$(gh issue view "$ISSUE_NUM" --json comments -q '.comments[] | "[\(.author.login)] \(.body)"' | tail -20)
+
           cat > /tmp/coder_prompt.txt << PROMPT
           $(cat CLAUDE.md)
 
@@ -107,6 +110,9 @@ jobs:
           Full issue body:
           ${ISSUE_BODY}
 
+          ## Issue comments
+          ${ISSUE_COMMENTS}
+
           ## Instructions:
           1. Understand the issue from the body above
           2. Find the relevant code in src/ or content/
@@ -131,6 +137,8 @@ jobs:
           - If you cannot fix it in 3 attempts, write to .fix-failed with reason
 
           PROMPT
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       - name: Run Claude coder agent
         run: |

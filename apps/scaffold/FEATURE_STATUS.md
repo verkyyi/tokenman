@@ -52,3 +52,11 @@
 - [x] Maintenance: 7-day rolling truncation via awk date comparison in each logging step
 - [x] Workflows without existing state commit (reviewer, triage) given dedicated usage log commit step
 - [x] feedback-learner commit step updated to include usage_log.md in both lesson/no-lesson paths
+
+## Human-Pipeline Interaction (closes #33)
+- [x] feedback-learner.yml: PR close-without-merge trigger + rejection handling (re-adds agent-ready, re-triggers coder)
+- [x] feedback-learner.yml: merged PR close skipped (reviewer already handled)
+- [x] coder.yml: issue comments included in coder prompt for re-trigger context
+- [x] evolve.yml: Step 2f Human Intent Analysis (categorize human issues, track in learned_intents.md, create intent-driven issues)
+- [x] README.md: "Interacting with the Pipeline" section documenting human interaction protocol
+- [x] state/learned_intents.md: created as append-only placeholder for intent tracking

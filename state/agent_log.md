@@ -39,3 +39,4 @@
 2026-03-22T07:56:38Z | coder.yml | fix issue #26 — tiered Claude CLI model/effort/fallback/permission flags for all 10 workflows | success
 2026-03-22T08:10:00Z | coder.yml | fix issue #28 — token utilization feedback loop: --output-format json + usage logging in all 10 workflows + watcher responsibility #8 | success
 2026-03-22T08:10:00Z | coder.yml | fix issue #29 — added state/** and skills/** to deploy.yml path triggers for profile page auto-redeploy | success
+2026-03-22T08:28:00Z | coder.yml | fix issue #33 — human intent learning + PR close handling + interaction guide: feedback-learner PR rejection flow, coder issue comments, evolve Step 2f intent analysis, README interaction docs, learned_intents.md | success

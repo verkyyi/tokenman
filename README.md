@@ -47,6 +47,23 @@ Each link in the chain is an explicit `gh workflow run` call — no reliance on 
 
 ---
 
+## Interacting with the pipeline
+
+You can steer the agent at any time using these actions:
+
+| Action | What happens |
+|---|---|
+| Comment on an issue | Feedback learner extracts lessons; if actionable, re-triggers coder |
+| Close a PR without merging | Rejection detected — `agent-ready` re-added to linked issue, coder re-triggered with rejection context |
+| Close an issue as "not planned" | Feedback learner records an AVOID rule — agent won't create similar issues |
+| Write "Always do X" or "Never do Y" in a comment | Extracted as a permanent learned rule that shapes all future agent behavior |
+| Add `agent-ready` label to an issue | Coder picks it up on next run |
+| Run `claude-task.yml` manually | Your dev channel — type any instruction |
+
+Human corrections compound. Say it once and the system remembers permanently.
+
+---
+
 ## The ten workflows
 
 | Workflow | Trigger | What it does |

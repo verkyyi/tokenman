@@ -3,55 +3,40 @@
 # Read at start of every workflow run.
 # Committed to repo — git history is the full audit trail.
 
-Last updated: 2026-03-22T08:10:00Z
-Updated by: reviewer.yml (merge PR #32 — fix issue #28)
+Last updated: 2026-03-22T08:28:00Z
+Updated by: coder.yml (fix issue #33 — human intent learning, PR close handling, interaction guide)
 
 ## Last Session
-Action: reviewer.yml — merged PR #32 (token utilization feedback loop, closes #28)
+Action: coder.yml — implemented issue #33 (human intent learning, PR close handling, interaction guide)
 
 Done:
-- Merged PR #32: --output-format json + usage logging in all 10 workflows + watcher responsibility #8 (token utilization analysis)
-- Also merged since last state write (main): PR #29 — state/** and skills/** added to deploy.yml path triggers
+- feedback-learner.yml: added `pull_request: [closed]` trigger + rejection handling (re-adds agent-ready to linked issue, posts rejection context, re-triggers coder via existing RETRIGGER_CODER action); merged PRs skipped via job if condition
+- coder.yml: added issue comments fetch (`gh issue view --json comments`) to "Build coder prompt" step so re-triggered coders see rejection context
+- evolve.yml: added Step 2f Human Intent Analysis between 2e and 3 (query human-created issues, categorize intent, append to state/learned_intents.md, create max 1 intent-driven issue when 2+ issues share a category); max issues per run raised 2→3 (research + intent); added intent-driven label to Ensure labels step
+- README.md: added "Interacting with the Pipeline" section documenting comment-on-issue, close-PR-without-merge, not-planned, permanent rules, agent-ready label, claude-task
+- state/learned_intents.md: created as empty placeholder with header
 - Build passing (exit 0)
 
-In progress: PRs #19 (reviewer re-triggered) and #20 (reviewer re-triggered); issue #8 coder queued
+In progress: PR for issue #33 (needs-review — workflow YAML changes)
 
 ## Open Items (priority order)
-1. Issue #8: [agent-ready — UNBLOCKED] Upgrade Node.js 20 actions before June 2026 deadline (WORKFLOW_PAT now available via #12 fix)
-2. PR #19: [reviewer re-triggered] Anti-sycophancy guardrails for adversarial-review.md (gstack v0.9.9.0 pattern, closes #13)
-3. PR #20: [reviewer re-triggered] Agentic security patterns — supply chain hygiene + prompt injection defense (closes #17)
-4. Issue #22: [needs-review] Submit to hesreallyhim/awesome-claude-code (29k stars) — first growth action
-5. Issue #10: [needs-review — awaiting human] Last-updated badge user-friendly time
-6. Issue #5: [PR opened — auto-merge] Structured findings table added to adversarial-review.md (closes #5)
+1. Issue #33: [PR opened — needs-review] Human intent learning, PR close handling, interaction guide
+2. Issue #8: [agent-ready — UNBLOCKED] Upgrade Node.js 20 actions before June 2026 deadline
+3. PR #19: [reviewer re-triggered] Anti-sycophancy guardrails for adversarial-review.md (closes #13)
+4. PR #20: [reviewer re-triggered] Agentic security patterns — supply chain hygiene + prompt injection defense (closes #17)
+5. Issue #22: [needs-review] Submit to hesreallyhim/awesome-claude-code (29k stars)
+6. Issue #10: [needs-review — awaiting human] Last-updated badge user-friendly time
 7. Issue #21: [feature] Add DeerFlow repo to external sources
-8. Profile page: 5/8 sections still unchecked — live stats, evolution timeline, capabilities inventory, architecture diagram, getting started guide
-9. apps/profile content not yet populated — discover.yml or manual issue needed
+8. Profile page: 5/8 sections still unchecked
 
 ## Metrics Snapshot
 Period: 2026-03-15 to 2026-03-22 (first full week tracked)
-- Total commits: 64+
-- Agent-log actions: 13 evolve runs, 3 coder, 2 watcher, 1 discover, 1 analyze, 1 growth
-- Features shipped: 3 (adversarial-review skill, Codex blog, feedback link)
-- Issues opened by agent: 8 (#4, #8, #9, #12, #13, #16, #17, #22)
-- Issues closed: 5 (#1, #4, #9, #14, #16)
-- PRs merged: 6 (#6, #7, #11, #15, #18, + growth v0.1.0 release)
-- Stars: 1 (first star captured!)
-- Forks: 0 | Adopters: 0
+- Total commits: 65+
+- Stars: 1 | Forks: 0 | Adopters: 0
 
 ## Notes for Next Agent
-WORKFLOW_PAT UNBLOCKED: Issue #12 closed — WORKFLOW_PAT with `workflows` permission is now available. Issue #8 (Node.js 20 upgrade) re-queued with agent-ready. Issue #21 (DeerFlow) was blocked by #12 but has no agent-ready yet — review manually if needed.
-
-- PRs #19 (closes #13) and #20 (closes #17): reviewer re-triggered (had 0 reviews — silent failure). If reviewer runs again and still 0 reviews, escalate to needs-human per watcher responsibility #7.
-- Issue #22 is open with needs-review — growth strategy: submit to awesome-claude-code listing (human action needed)
-- Issue #23 confirmed closed (watcher closed it — PR #24 merged, GitHub did not auto-close)
-- Growth workflow launched (growth.yml), v0.1.0 release created
-- Traffic API returns 403 — GitHub App doesn't have push access needed for traffic API. Stars and forks are accessible.
-- Codex blog live at /codex, seed article at /codex/harness-engineering-intro
-- adversarial-review.md skill created and merged (PR #6); pre-merge gate section added (PR #18)
-- iOS Safari overflow fix merged (PR #15)
-- Profile page: only hero section live — live stats, timeline, capabilities, architecture, getting-started all pending
-- gstack v0.9.9.0 anti-sycophancy pattern: agent must not soften findings under pushback — "direct to discomfort" principle (PR #19 pending)
-- Agentic security patterns from everything-claude-code — PR #20 pending
-- Node.js 20 deprecation: all workflows — deadline June 2, 2026 (blocked by token permission, issue #8)
-- evolve deduplication: consecutive runs within same hour often find same sources unchanged — opportunity to cache "last checked" per source
-- wshobson/agents OCI awareness: cloud provider context injection pattern (not yet relevant to GitHub-only harness, file for future)
+- PR for issue #33 modifies 3 workflow YAML files — must use WORKFLOW_PAT for push and labeled needs-review per autonomy rules
+- feedback-learner.yml permissions changed from issues:read to issues:write (needed for label manipulation and commenting)
+- evolve max issues raised from 2 to 3 (2 research + 1 intent)
+- state/learned_intents.md auto-covered by evolve.yml git add state/
+- PRs #19 and #20 still awaiting human review

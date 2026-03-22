@@ -273,6 +273,36 @@ jobs:
 
           Only make changes if something is genuinely out of date. Don't churn.
 
+          ## STEP 2f: Human Intent Analysis
+
+          Read state/learned_intents.md to see existing intent data.
+
+          Query recent human-created issues (not github-actions[bot]) from the last 7 days:
+
+          ```bash
+          SINCE=$(date -u -d '7 days ago' +%Y-%m-%dT%H:%M:%SZ)
+          HUMAN_ISSUES=$(gh issue list --state all --json number,title,author,labels,createdAt \
+            --jq "[.[] | select(.author.login != \"github-actions[bot]\" and .createdAt >= \"$SINCE\")]")
+          ```
+
+          For each human issue, categorize intent:
+          - EXPAND_SOURCES: "add X repo", "track Y"
+          - IMPROVE_QUALITY: "fix X", "improve Y"
+          - ADD_CAPABILITY: "add feature X", "support Y"
+          - FIX_PROCESS: "change workflow", "fix pipeline"
+          - GROW_REACH: "submit to X", "share on Y"
+
+          Append to state/learned_intents.md:
+          TIMESTAMP | issue #N | CATEGORY | intent summary | action taken or "noted"
+
+          Create at most 1 intent-driven issue per run, only when 2+ human issues
+          share the same category (conservative threshold). This intent-driven
+          issue counts toward the max issues per run limit (research + intent
+          combined, max 3 total).
+
+          Intent-driven issues: labeled `intent-driven,evolve-finding,project:scaffold`,
+          body references original human issues with "Inspired by human action on #N".
+
           ## STEP 3: Log this run
 
           ALWAYS append a line to state/agent_log.md:
@@ -300,7 +330,7 @@ jobs:
             ISSUE_NUM=$(echo "$ISSUE_URL" | grep -oP '\d+$')
             echo "$ISSUE_NUM" >> .new_issues.txt
           - The pipeline will automatically triage and route each issue
-          - Maximum TWO issues per run
+          - Maximum THREE issues per run (2 research + 1 intent)
 
           For new apps/ folders without CLAUDE.md:
           - Write the folder name to .trigger-discovery.txt
@@ -312,7 +342,7 @@ jobs:
           - You MUST execute the curl commands in Step 1
           - You MUST write to state/agent_log.md in Step 3
           - You MUST update state/project_state.md in Step 4
-          - Maximum TWO issues per run — quality over quantity
+          - Maximum THREE issues per run (2 research + 1 intent) — quality over quantity
 
           ## Context
           $(cat CLAUDE.md)
@@ -408,6 +438,7 @@ jobs:
           gh label create "evolve-finding" --color "7057ff" --description "Issue created by evolve.yml" --force
           gh label create "pipeline-fix" --color "d73a4a" --description "Pipeline failure to fix" --force
           gh label create "adopter-insight" --color "1d76db" --description "Pattern found from adopter usage" --force
+          gh label create "intent-driven" --color "5319e7" --description "Issue driven by human intent analysis" --force
           gh label create "agent-ready" --color "0e8a16" --description "Ready for coder agent" --force
           gh label create "needs-review" --color "fbca04" --description "Needs human review" --force
           gh label create "project:scaffold" --color "c5def5" --description "Scaffold project" --force

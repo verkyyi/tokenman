@@ -7,12 +7,14 @@ on:
     types: [submitted]
   pull_request_review_comment:
     types: [created]
+  pull_request:
+    types: [closed]
   issues:
     types: [closed]
 
 permissions:
   contents: write
-  issues: read
+  issues: write
   pull-requests: read
 
 concurrency:
@@ -24,7 +26,8 @@ jobs:
     # Only learn from human feedback, not bot comments
     if: >
       github.event.sender.login != 'github-actions[bot]' &&
-      github.event.sender.type == 'User'
+      github.event.sender.type == 'User' &&
+      !(github.event_name == 'pull_request' && github.event.pull_request.merged == true)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -56,6 +59,14 @@ jobs:
             AUTHOR="${{ github.event.sender.login }}"
             LABELS=$(gh issue view ${{ github.event.issue.number }} --json labels -q '[.labels[].name] | join(",")')
             echo "LABELS=$LABELS" >> $GITHUB_OUTPUT
+          elif [ "$EVENT" = "pull_request" ]; then
+            PR_NUM="${{ github.event.pull_request.number }}"
+            LINKED_ISSUE=$(gh pr view "$PR_NUM" --json body -q '.body' | grep -oP '(?:Fixes|Closes|Resolves)\s+#\K\d+' | head -1 || echo "")
+            PR_COMMENTS=$(gh pr view "$PR_NUM" --json comments,reviews --jq '([.comments[] | "[\(.author.login)] \(.body)"] + [.reviews[] | "[\(.author.login)] (\(.state)) \(.body)"]) | .[]' 2>/dev/null | tail -20)
+            BODY="PR #${PR_NUM} closed without merge. Rejection context: ${PR_COMMENTS}"
+            SOURCE="PR #${PR_NUM}: ${{ github.event.pull_request.title }}"
+            AUTHOR="${{ github.event.sender.login }}"
+            echo "LINKED_ISSUE=$LINKED_ISSUE" >> $GITHUB_OUTPUT
           fi
 
           echo "AUTHOR=$AUTHOR" >> $GITHUB_OUTPUT
@@ -218,6 +229,30 @@ jobs:
             fi
           fi
           rm -f .learner-result
+
+      - name: Handle PR rejection
+        if: >
+          github.event_name == 'pull_request' &&
+          steps.context.outputs.LINKED_ISSUE != ''
+        run: |
+          LINKED_ISSUE="${{ steps.context.outputs.LINKED_ISSUE }}"
+          PR_NUM="${{ github.event.pull_request.number }}"
+
+          # Re-add agent-ready label to linked issue
+          gh issue edit "$LINKED_ISSUE" --add-label "agent-ready" --repo ${{ github.repository }}
+
+          # Post rejection context on linked issue
+          gh issue comment "$LINKED_ISSUE" \
+            --body "**Feedback learner:** PR #${PR_NUM} was closed without merge. Re-triggering coder with rejection context.
+
+          ---
+          *Re-queued by feedback-learner.yml*" \
+            --repo ${{ github.repository }}
+
+          # Write action-needed file for existing Act on feedback step
+          echo "${LINKED_ISSUE}|RETRIGGER_CODER|PR #${PR_NUM} closed without merge, needs rework" > .action-needed
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       - name: Act on feedback if needed
         run: |
