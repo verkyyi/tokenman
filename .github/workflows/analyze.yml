@@ -126,6 +126,10 @@ jobs:
           BRANCH="analyze/$(date +%Y%m%d)"
           git checkout -b "$BRANCH"
           git add -A
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "No changes to commit — exiting cleanly"
+            exit 0
+          fi
           TITLE=$(head -1 .proposed-change.md | sed 's/^# //')
           BODY=$(cat .proposed-change.md)
           rm .proposed-change.md
