@@ -47,3 +47,10 @@
 2026-03-22T01:33:26Z | humanlayer/humanlayer (tier 1) | last commit 2026-01-07 — no new activity | no action
 2026-03-22T01:33:26Z | actions/runner (tier 1) | v2.333.0 confirmed latest — no new release | no action
 2026-03-22T01:33:26Z | pipeline-health | 10 failed runs checked: Weekly Analysis ALREADY-FIXED (benign clean-tree commit); Coder 3x ALREADY-FIXED (succeeded 00:40); Reviewer 3x ALREADY-FIXED (succeeded 00:41); Self-Evolve 3x ALREADY-FIXED (succeeded 00:15) | 0 issues created
+2026-03-22T04:37:46Z | anthropics/claude-code (core) | CHANGELOG last updated 2026-03-20 — no new commits, ongoing active development | no action
+2026-03-22T04:37:46Z | garrytan/gstack (core) | v0.9.9.0 still latest (2026-03-21T23:55:47Z) — anti-sycophancy hardening in /office-hours; no new release since last run | no action — already tracked in issue #13
+2026-03-22T04:37:46Z | affaan-m/everything-claude-code (core) | NEW commit 2026-03-22T02:48:20Z — "restore zenith.chat and @DRodriguezFX in Background (own project)"; credits restored after yesterday's removal — not a new pattern, internal housekeeping | no action
+2026-03-22T04:37:46Z | godagoo/claude-code-always-on (tier 1) | last commit 2026-02-03 — no recent activity | no action
+2026-03-22T04:37:46Z | humanlayer/humanlayer (tier 1) | last commit 2026-01-07 — no recent activity | no action
+2026-03-22T04:37:46Z | actions/runner (tier 1) | v2.333.0 confirmed latest — no new release | no action
+2026-03-22T04:37:46Z | pipeline-health | 10 failed runs checked: all ALREADY-FIXED (Weekly Analysis benign; Coder/Reviewer/Self-Evolve all have newer successes at 04:27-04:32) | 0 issues created
