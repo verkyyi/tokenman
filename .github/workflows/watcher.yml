@@ -25,6 +25,18 @@ jobs:
       - name: Install Claude Code
         run: npm install -g @anthropic-ai/claude-code
 
+      - name: Check for recent human activity
+        id: human
+        run: |
+          RECENT_HUMAN=$(git log origin/main --since="2 hours ago" --format="%an" \
+            | grep -v "agentfolio\[bot\]" | head -1)
+          if [ -n "$RECENT_HUMAN" ]; then
+            echo "HUMAN_ACTIVE=true" >> $GITHUB_OUTPUT
+            echo "Human recently active — watcher will observe but skip corrective actions"
+          else
+            echo "HUMAN_ACTIVE=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Collect system state
         id: state
         run: |
@@ -82,6 +94,22 @@ jobs:
           You monitor the entire automated pipeline and take corrective action
           when things go wrong. You run every 30 minutes.
 
+          PROMPTSTART
+
+          # Inject human-active flag (outside single-quoted heredoc so variable expands)
+          cat >> /tmp/watcher_prompt.txt << HUMANFLAG
+          ## Human Activity Status: HUMAN_ACTIVE=${{ steps.human.outputs.HUMAN_ACTIVE }}
+          When HUMAN_ACTIVE=true, a human is working in a CLI session. In this mode:
+          - Still collect and log system health (observability is always useful)
+          - Do NOT take corrective actions (no re-triggering workflows, no label changes)
+          - Do NOT modify issues or PRs (human is actively managing them)
+          - Skip issues labeled "human-wip" entirely
+          - Log findings as usual so the next normal run can act on them
+          When HUMAN_ACTIVE=false, operate normally with all responsibilities.
+
+          HUMANFLAG
+
+          cat >> /tmp/watcher_prompt.txt << 'PROMPTSTART'
           ## Your responsibilities:
 
           ### 1. Detect broken chains

@@ -29,9 +29,34 @@ jobs:
       - name: Install Claude Code
         run: npm install -g @anthropic-ai/claude-code
 
+      - name: Check for recent human activity
+        id: human
+        run: |
+          RECENT_HUMAN=$(git log origin/main --since="2 hours ago" --format="%an" \
+            | grep -v "agentfolio\[bot\]" | head -1)
+          if [ -n "$RECENT_HUMAN" ]; then
+            echo "HUMAN_ACTIVE=true" >> $GITHUB_OUTPUT
+            echo "Human recently active — evolve will run in read-only mode"
+          else
+            echo "HUMAN_ACTIVE=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Build evolution prompt
         run: |
-          cat > /tmp/prompt.txt << 'PROMPT'
+          cat > /tmp/prompt.txt << HUMANFLAG
+          ## Human Activity Status: HUMAN_ACTIVE=${{ steps.human.outputs.HUMAN_ACTIVE }}
+          When HUMAN_ACTIVE=true, a human is working in a CLI session. In this mode:
+          - Still execute Step 1 (research) and log findings to research_log.md
+          - Still execute Step 2a (pipeline health check) — log findings only, do NOT create issues
+          - Still execute Steps 3-4 (logging and state) BUT do NOT overwrite project_state.md
+            (the human may have updated it). Instead, append a note to agent_log.md only.
+          - Do NOT execute Step 5 (act on findings) — do not create issues or write files
+          - Skip issues labeled "human-wip" in all analysis
+          When HUMAN_ACTIVE=false, operate normally with all steps.
+
+          HUMANFLAG
+
+          cat >> /tmp/prompt.txt << 'PROMPT'
           You are the self-evolution agent for Agentfolio. You MUST execute
           bash commands to fetch data, write files, and make changes.
           Do NOT just reason about what to do — actually do it.
