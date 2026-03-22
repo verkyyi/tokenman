@@ -3,20 +3,18 @@
 # Read at start of every workflow run.
 # Committed to repo — git history is the full audit trail.
 
-Last updated: 2026-03-22T00:30:00Z
-Updated by: analyze.yml
+Last updated: 2026-03-22T01:00:00Z
+Updated by: coder.yml
 
 ## Last Session
-Action: analyze.yml — first weekly analysis run
+Action: coder.yml — fix issue #14 (mobile horizontal overflow on iOS Safari)
 
 Done:
-- Reviewed 64 commits, 10 agent-log entries, 42 research-log entries from past 7 days
-- Identified 1 persistent blocker: issue #12 (workflow token permission)
-- Identified profile page as most stalled area (5/8 sections unchecked)
-- Identified 3 unacted research findings (structured tables, pre-merge gate, agentic security)
-- Found evolve deduplication opportunity (consecutive runs finding "no new changes" for same sources)
-- Appended weekly summary to agent_log.md
-- Wrote .proposed-change.md: implement profile page live stats via build-time extraction
+- Added `overflow-x: hidden` to `html` and `body` in Base.astro
+- Added `width: 100%` to body to prevent layout shifts
+- Fixed `.activity-item` to use `flex-wrap: wrap` and `min-width: 0` to prevent overflow on narrow screens
+- Added `word-break: break-word` to `.activity-text`
+- Build passing; PR opened for issue #14
 
 In progress: none
 

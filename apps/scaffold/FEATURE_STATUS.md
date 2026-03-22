@@ -21,6 +21,7 @@
 
 ## Profile Page
 - [x] Feedback link in Getting Started section (opens GitHub Issues new-issue page)
+- [x] Mobile-friendly: fixed horizontal overflow on iOS Safari (closes #14)
 
 ## Skills
 - [x] harness.md
