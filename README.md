@@ -64,7 +64,7 @@ Human corrections compound. Say it once and the system remembers permanently.
 
 ---
 
-## The ten workflows
+## The eleven workflows
 
 | Workflow | Trigger | What it does |
 |---|---|---|
@@ -77,6 +77,7 @@ Human corrections compound. Say it once and the system remembers permanently.
 | `feedback-learner.yml` | Human comment/review | Extracts lasting lessons into learned rules |
 | `deploy.yml` | Source files pushed to main | Astro build → GitHub Pages |
 | `analyze.yml` | Every 6 hours | Strategic analysis of past activity |
+| `discover.yml` | Manual dispatch | Scans apps/ folders, generates project CLAUDE.md |
 | `claude-task.yml` | Manual dispatch | Your dev channel — type any instruction |
 
 ---
@@ -129,7 +130,7 @@ apps/                     # Projects managed by the scaffold
 ├── scaffold/             # The scaffold manages itself
 └── profile/              # Additional projects
 
-.github/workflows/        # The nine autonomous workflows
+.github/workflows/        # The eleven autonomous workflows
 skills/                   # Agent skill files (markdown prompts)
 src/                      # Astro site source
 content/codex/            # Blog posts on harness engineering

@@ -53,6 +53,12 @@
 - [x] Workflows without existing state commit (reviewer, triage) given dedicated usage log commit step
 - [x] feedback-learner commit step updated to include usage_log.md in both lesson/no-lesson paths
 
+## README Auto-Sync (closes #38)
+- [x] skills/readme-sync.md — documents sync protocol and auto-maintained sections
+- [x] reviewer.yml post-merge step — deterministic shell sync of workflow count, table, and architecture section after structural changes
+- [x] README.md inconsistencies fixed — "nine"/"ten" → "eleven", discover.yml added to table
+- [x] Existing evolve.yml daily SEO check preserved as safety net (no changes needed)
+
 ## Human-Pipeline Interaction (closes #33)
 - [x] feedback-learner.yml: PR close-without-merge trigger + rejection handling (re-adds agent-ready, re-triggers coder)
 - [x] feedback-learner.yml: merged PR close skipped (reviewer already handled)

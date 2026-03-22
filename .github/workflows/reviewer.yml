@@ -191,3 +191,77 @@ jobs:
             git pull --rebase || true
             git push || true
           fi
+
+      - name: Sync README after merge
+        if: always()
+        run: |
+          NUM=${{ steps.pr.outputs.NUMBER }}
+          STATE=$(gh pr view "$NUM" --json state --jq '.state' --repo ${{ github.repository }} 2>/dev/null || echo "UNKNOWN")
+          if [ "$STATE" != "MERGED" ]; then
+            echo "PR not merged — skipping README sync"
+            exit 0
+          fi
+
+          # Only sync if structural files changed
+          CHANGED=$(gh pr view "$NUM" --json files --jq '.files[].path' --repo ${{ github.repository }})
+          if ! echo "$CHANGED" | grep -qE '^\.github/workflows/|^skills/|^apps/'; then
+            echo "No structural files changed — skipping README sync"
+            exit 0
+          fi
+
+          echo "Structural files changed in merged PR — syncing README"
+          git config user.name "agentfolio[bot]"
+          git config user.email "agentfolio[bot]@users.noreply.github.com"
+          git fetch origin main
+          git checkout -B main origin/main
+
+          # Count actual workflow files
+          ACTUAL_COUNT=$(ls -1 .github/workflows/*.yml 2>/dev/null | wc -l)
+
+          # Number-to-word mapping
+          declare -A WORDS
+          WORDS=([1]="one" [2]="two" [3]="three" [4]="four" [5]="five" [6]="six" [7]="seven" [8]="eight" [9]="nine" [10]="ten" [11]="eleven" [12]="twelve" [13]="thirteen" [14]="fourteen" [15]="fifteen")
+          COUNT_WORD="${WORDS[$ACTUAL_COUNT]:-$ACTUAL_COUNT}"
+
+          # Update heading: "## The X workflows"
+          sed -i "s/## The [a-z]* workflows/## The ${COUNT_WORD} workflows/" README.md
+
+          # Update architecture comment: "The X autonomous workflows"
+          sed -i "s/The [a-z]* autonomous workflows/The ${COUNT_WORD} autonomous workflows/" README.md
+
+          # Add missing workflows to table
+          LAST_TABLE_LINE=$(grep -n '^| `.*\.yml`' README.md | tail -1 | cut -d: -f1)
+          for YML in .github/workflows/*.yml; do
+            BASENAME=$(basename "$YML")
+            if ! grep -q "^| \`${BASENAME}\`" README.md; then
+              WF_NAME=$(grep '^name:' "$YML" | head -1 | sed 's/name: *//')
+              TRIGGER="Dispatched"
+              grep -q 'workflow_dispatch:' "$YML" && TRIGGER="Manual dispatch"
+              grep -q 'schedule:' "$YML" && TRIGGER="Scheduled"
+              grep -q 'push:' "$YML" && TRIGGER="Push to main"
+              grep -q 'pull_request:' "$YML" && TRIGGER="PR event"
+              grep -q 'issues:' "$YML" && TRIGGER="Issue event"
+              sed -i "${LAST_TABLE_LINE}a\\| \`${BASENAME}\` | ${TRIGGER} | ${WF_NAME} |" README.md
+              LAST_TABLE_LINE=$((LAST_TABLE_LINE + 1))
+              echo "Added ${BASENAME} to README table"
+            fi
+          done
+
+          # Remove table rows for deleted workflows
+          grep -E '^\| `[^`]+\.yml`' README.md | sed -E 's/^\| `([^`]+\.yml)`.*/\1/' | while read -r WF; do
+            if [ ! -f ".github/workflows/$WF" ]; then
+              sed -i "/^| \`$(echo "$WF" | sed 's/\./\\./g')\`/d" README.md
+              echo "Removed ${WF} from README table (file deleted)"
+            fi
+          done
+
+          # Only commit if README actually changed
+          if git diff --quiet README.md; then
+            echo "README already up to date"
+          else
+            git add README.md
+            git commit -m "state: sync README workflow count and table"
+            git push origin main || true
+          fi
+        env:
+          GH_TOKEN: ${{ github.token }}
