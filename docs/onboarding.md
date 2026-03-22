@@ -1,151 +1,135 @@
-# Onboarding Guide
+# Agentfolio Onboarding
 
-A step-by-step walkthrough for setting up your autonomous project scaffold on agentfolio. For the high-level overview, see the [README](../README.md).
-
----
+Add an autonomous dev pipeline to your existing GitHub repo. These instructions are designed to be followed by Claude Code — run them in a CLI session.
 
 ## Prerequisites
 
-- A **GitHub account** with permissions to fork repositories and configure Actions
-- A **Claude Code OAuth token** (run `claude setup-token` to generate)
-- Basic familiarity with **GitHub Actions** (knowing how to trigger workflows and read logs is enough)
+- Your repo is on GitHub with Actions enabled
+- Claude Code CLI installed (`npm install -g @anthropic-ai/claude-code`)
+- A Claude Code OAuth token (`claude setup-token`)
 
----
+## Steps
 
-## Setup (3 Steps)
+### 1. Copy workflow files
 
-### 1. Fork the Repo
+Clone the agentfolio repo and copy its workflow files into the target repo:
 
-Click **"Use This Template"** or fork [agentfolio](https://github.com/verkyyi/agentfolio) into your own GitHub account.
-
-### 2. Add Your OAuth Token
-
-Go to **Settings → Secrets and variables → Actions** and add:
-
-| Name | Value |
-|------|-------|
-| `CLAUDE_CODE_OAUTH_TOKEN` | Your Claude Code OAuth token (run `claude setup-token` to generate) |
-
-Optional: Add `WORKFLOW_PAT` (a personal access token with `workflows` scope) if you want agents to modify workflow YAML files.
-
-### 3. Enable GitHub Pages
-
-Go to **Settings → Pages** and set:
-
-- **Source:** `GitHub Actions`
-
-The site URL will automatically resolve to `https://<your-username>.github.io/agentfolio`.
-
-That's it. The pipeline starts on the next hourly cron cycle, or you can manually trigger any workflow from the Actions tab.
-
----
-
-## How It Works
-
-Eleven workflows form the autonomous pipeline:
-
-| Workflow | Trigger | What It Does |
-|----------|---------|--------------|
-| `evolve.yml` | Hourly | Researches external sources, analyzes pipeline health, creates improvement issues |
-| `triage.yml` | On issue created | Labels and routes issues to the right agent |
-| `coder.yml` | On issue labeled `agent-ready` | Writes code to fix issues, opens PRs |
-| `reviewer.yml` | On PR opened | Reviews PRs, merges if safe, closes linked issues |
-| `deploy.yml` | On push to `main` | Builds Astro site and deploys to GitHub Pages |
-| `watcher.yml` | Every 30 min | Monitors pipeline health, unblocks stalled chains |
-| `feedback-learner.yml` | On issue/PR closed | Learns from human corrections, updates rules |
-| `growth.yml` | Every 6 hours | Tracks growth metrics, creates releases, suggests distribution |
-| `analyze.yml` | Weekly | Generates weekly summary of agent activity |
-| `discover.yml` | Manual | Bootstraps a new project under `apps/` |
-| `claude-task.yml` | Manual | Runs arbitrary tasks via workflow dispatch |
-
-### The Pipeline Loop
-
-```
-evolve (finds improvement) → triage (labels issue) → coder (writes fix)
-→ reviewer (merges PR) → deploy (ships it) → watcher (verifies health)
+```bash
+# In your target repo
+git clone --depth=1 https://github.com/verkyyi/agentfolio.git /tmp/agentfolio
+cp -r /tmp/agentfolio/.github/workflows/ .github/workflows/
+cp -r /tmp/agentfolio/state/ state/
+cp -r /tmp/agentfolio/skills/ skills/
+mkdir -p apps/scaffold
+cp /tmp/agentfolio/apps/scaffold/CLAUDE.md apps/scaffold/CLAUDE.md
+cp /tmp/agentfolio/apps/scaffold/FEATURE_STATUS.md apps/scaffold/FEATURE_STATUS.md
+cp /tmp/agentfolio/CLAUDE.md CLAUDE.md
+rm -rf /tmp/agentfolio
 ```
 
-Human corrections at any point become permanent learned rules via `feedback-learner.yml`.
+### 2. Create project CLAUDE.md
 
----
-
-## Adding Your Own Project
-
-Create a directory under `apps/`:
-
-```
-apps/
-  my-project/
-    CLAUDE.md          # Agent rules and autonomy settings
-    FEATURE_STATUS.md  # Auto-generated; tracks feature completion
-```
-
-Start by creating `CLAUDE.md` with your project description and constraints. Then trigger the **Discover Project** workflow manually — it will analyze your `CLAUDE.md` and generate initial state.
-
----
-
-## Customizing Rules
-
-Each project's behavior is governed by `apps/your-project/CLAUDE.md`:
+Create `apps/<your-project>/CLAUDE.md` describing your project. This tells the agents what your project is, what rules to follow, and what autonomy they have. Example:
 
 ```markdown
 # My Project
 
 ## What This Is
-A CLI tool for ...
+A brief description of your project.
 
 ## Autonomy
-- The agent MAY commit directly to `main` for documentation changes.
+- The agent MAY commit directly to main for documentation and state changes.
 - The agent MUST open a PR for any code changes.
-- The agent MUST NOT modify files outside `apps/my-project/`.
-
-## Style
-- Use TypeScript with strict mode enabled.
-- Prefer functional patterns over classes.
+- The agent MUST NOT delete files without confirmation.
 ```
 
-Key knobs:
-- **MAY / MUST / MUST NOT** — set permission boundaries
-- **Scope constraints** — limit which directories the agent can touch
-- **Style guides** — enforce coding conventions without manual review
+### 3. Initialize state files
 
----
+Reset state files to start fresh for your repo:
 
-## State Files
-
-| File | Purpose |
-|------|---------|
-| `state/project_state.md` | Current goals, priorities, and session summaries. Updated every workflow run. |
-| `state/agent_log.md` | Chronological log of every agent action. Read at build time for the site badge. |
-| `state/research_log.md` | External research findings from evolve.yml. Append-only. |
-| `state/learned_rules.md` | Rules learned from human feedback. Read by all workflows. |
-| `state/usage_log.md` | Token usage metrics per workflow run. |
-
-These files are committed to the repo — git history is the full audit trail.
-
----
-
-## Monitoring
-
-**Actions tab** — See live workflow runs, logs, and failures at `github.com/<you>/agentfolio/actions`.
-
-**Git log** — Every agent action produces a structured commit:
 ```bash
-git log --oneline state/
+cat > state/project_state.md << 'EOF'
+# Project State
+Last updated: (will be written by first workflow run)
+Updated by: (pending)
+
+## Last Session
+Action: Initial setup — agentfolio scaffold installed
+
+## Open Items
+(none yet — evolve.yml will populate on first run)
+EOF
+
+cat > state/agent_log.md << 'EOF'
+# Agent Log
+# Append-only. One line per agent action.
+# Format: ISO_DATETIME | workflow | action | outcome
+
+## Log
+
+<!-- entries appended below by workflows -->
+EOF
+
+cat > state/research_log.md << 'EOF'
+# Research Log
+# Append-only. Written by evolve.yml during research phase.
+# Format: ISO_TIMESTAMP | source | finding_summary | action_taken
+EOF
+
+cat > state/learned_rules.md << 'EOF'
+# Learned Rules
+# Rules learned from human feedback. Read by all workflows before acting.
+# Add rules here and agents will follow them on every run.
+EOF
 ```
 
-**Agent badge** — The portfolio site shows "maintained by agent · last update 2h ago" with a link to recent commits.
+### 4. Add the secret
 
-If something looks wrong, edit `CLAUDE.md` to add a constraint and the agent will respect it on the next run.
+Using the GitHub CLI:
 
----
+```bash
+# Generate a token if you haven't already
+claude setup-token
 
-## Troubleshooting
+# Add it to your repo (paste when prompted)
+gh secret set CLAUDE_CODE_OAUTH_TOKEN
+```
 
-| Problem | Fix |
-|---------|-----|
-| Workflows fail with "Invalid OAuth token" | Add `CLAUDE_CODE_OAUTH_TOKEN` secret (Step 2) |
-| Site shows 404 | Enable GitHub Pages with source "GitHub Actions" (Step 3) |
-| Coder can't push workflow YAML changes | Add `WORKFLOW_PAT` secret with `workflows` scope |
-| Bot merges blocked by branch protection | Allow `github-actions[bot]` to bypass review requirements |
-| State files look stale after forking | They auto-update on the first pipeline run |
+### 5. Enable GitHub Pages (optional)
+
+If you want the auto-deploying profile site:
+
+```bash
+gh api repos/{owner}/{repo}/pages -X POST -f source='{"branch":"main","path":"/"}' 2>/dev/null || true
+```
+
+Or manually: Settings → Pages → Source: GitHub Actions.
+
+### 6. Commit and push
+
+```bash
+git add .github/ state/ skills/ apps/ CLAUDE.md
+git commit -m "feat: add agentfolio autonomous pipeline"
+git push
+```
+
+The pipeline starts on the next hourly cron cycle. To start immediately:
+
+```bash
+gh workflow run evolve.yml
+```
+
+## What happens next
+
+- `evolve.yml` runs hourly — researches improvements, checks pipeline health, creates issues
+- `triage.yml` fires on new issues — labels and routes them
+- `coder.yml` picks up `agent-ready` issues — writes code, opens PRs
+- `reviewer.yml` reviews and merges PRs — closes linked issues
+- `watcher.yml` runs every 30 min — self-heals broken chains
+- `feedback-learner.yml` learns from human corrections — updates rules
+
+Create an issue describing a change you want. Watch the pipeline handle it.
+
+## Customization
+
+Edit `CLAUDE.md` (harness rules) and `apps/<project>/CLAUDE.md` (project rules) to control agent behavior. Use MAY / MUST / MUST NOT to set boundaries. Changes take effect on the next workflow run.

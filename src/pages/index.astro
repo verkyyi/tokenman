@@ -147,13 +147,13 @@ const latestVerb = latestEntry
       <div class="hero-label">Self-Evolving Scaffold</div>
       <h1 class="hero-title">Agentfolio</h1>
       <p class="hero-subtitle">
-        Fork this repo. Drop your project in. Get an autonomous dev team that
-        never sleeps — it triages issues, writes code, reviews PRs, deploys,
-        and improves its own workflows. Every hour.
+        Add an autonomous dev team to your GitHub repo. It triages issues,
+        writes code, reviews PRs, deploys, and improves its own workflows.
+        Every hour. No server required.
       </p>
       <div class="hero-ctas">
-        <a href="https://github.com/verkyyi/agentfolio/generate" target="_blank" rel="noopener noreferrer" class="cta-primary">
-          Use This Template
+        <a href="https://github.com/verkyyi/agentfolio/blob/main/docs/onboarding.md" target="_blank" rel="noopener noreferrer" class="cta-primary">
+          Add to Your Repo
         </a>
         <a href="https://github.com/verkyyi/agentfolio" target="_blank" rel="noopener noreferrer" class="cta-secondary">
           View Source
@@ -254,31 +254,25 @@ const latestVerb = latestEntry
       </section>
     )}
 
-    <!-- How to Use -->
+    <!-- Add to Your Repo -->
     <section class="cosmic-section">
-      <div class="section-header">Use It</div>
-      <div class="use-cases">
-        <div class="use-case">
-          <div class="use-case-label">New idea?</div>
-          <p class="use-case-desc">
-            Fork this repo, describe your project in <code>apps/your-project/CLAUDE.md</code>,
-            and the pipeline starts building it for you.
-          </p>
-        </div>
-        <div class="use-case">
-          <div class="use-case-label">Existing repo?</div>
-          <p class="use-case-desc">
-            Copy the <code>.github/workflows/</code> folder into your repo, add one secret,
-            and your project gains an autonomous dev team.
-          </p>
-        </div>
+      <div class="section-header">Add to Your Repo</div>
+      <p class="add-desc">
+        Open your project in Claude Code and run:
+      </p>
+      <div class="code-block">
+        <code>Set up agentfolio in this repo. Follow https://github.com/verkyyi/agentfolio/blob/main/docs/onboarding.md</code>
       </div>
+      <p class="add-desc">
+        Claude copies the workflows, initializes state files, configures the secret,
+        and pushes. Your repo starts evolving itself within the hour.
+      </p>
       <div class="use-ctas">
-        <a href="https://github.com/verkyyi/agentfolio/generate" target="_blank" rel="noopener noreferrer" class="cta-primary">
-          Use This Template
-        </a>
-        <a href="/agentfolio/docs/onboarding" target="_blank" rel="noopener noreferrer" class="cta-secondary">
+        <a href="https://github.com/verkyyi/agentfolio/blob/main/docs/onboarding.md" target="_blank" rel="noopener noreferrer" class="cta-primary">
           Setup Guide
+        </a>
+        <a href="https://github.com/verkyyi/agentfolio" target="_blank" rel="noopener noreferrer" class="cta-secondary">
+          View Source
         </a>
       </div>
     </section>
@@ -524,38 +518,28 @@ const latestVerb = latestEntry
     flex-shrink: 0;
   }
 
-  /* Use cases */
-  .use-cases {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin-bottom: 24px;
-  }
-  .use-case {
-    padding: 16px;
-    background: rgba(139,92,246,0.06);
-    border: 1px solid rgba(139,92,246,0.12);
-    border-radius: 10px;
-  }
-  .use-case-label {
+  /* Add to repo */
+  .add-desc {
     font-size: 14px;
-    font-weight: 600;
-    color: #c084fc;
-    margin-bottom: 6px;
-  }
-  .use-case-desc {
-    font-size: 13px;
     color: #94a3b8;
     line-height: 1.6;
+    margin-bottom: 16px;
   }
-  .use-case-desc code {
-    font-size: 12px;
-    background: rgba(139,92,246,0.1);
+  .code-block {
+    background: rgba(15,12,41,0.8);
     border: 1px solid rgba(139,92,246,0.2);
-    padding: 1px 6px;
-    border-radius: 4px;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 16px;
+    overflow-x: auto;
+  }
+  .code-block code {
+    font-size: 13px;
     color: #c084fc;
     font-family: 'SF Mono', 'Fira Code', monospace;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-break: break-word;
   }
   .use-ctas {
     display: flex;
