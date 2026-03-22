@@ -33,6 +33,4 @@
 2026-03-22T17:32:08Z | feedback-learner | model:claude-opus-4-6 | in:303381 | out:2952 | turns:16 | cost:0.33184424999999995
 2026-03-22T17:43:58Z | watcher | model:claude-opus-4-6 | in:774383 | out:7685 | turns:27 | cost:0.9517925
 2026-03-22T18:13:24Z | analyze | model:claude-opus-4-6 | in:840942 | out:16157 | turns:27 | cost:1.183028
-2026-03-22T18:51:59Z | watcher | model:claude-opus-4-6 | in:834614 | out:14360 | turns:29 | cost:1.2068707500000002
-2026-03-22T19:12:08Z | evolve | model:claude-opus-4-6 | in:593240 | out:12129 | turns:42 | cost:1.1831222499999998
-2026-03-22T19:44:06Z | watcher | model:claude-opus-4-6 | in:753636 | out:11301 | turns:27 | cost:1.0301182500000001
+2026-03-22T19:44:06Z | reviewer | model:claude-opus-4-6 | in:242392 | out:1827 | turns:12 | cost:0.37481625
