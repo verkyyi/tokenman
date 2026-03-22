@@ -345,7 +345,7 @@ jobs:
 
           For actionable improvements or features inspired by research:
           - FIRST check for duplicate issues:
-            gh issue list --state open --label evolve-finding --json title -q '.[].title'
+            gh issue list --state all --limit 100 --label evolve-finding --json title -q '.[].title'
           - If a similar issue already exists, skip it
           - Otherwise, create a GitHub Issue and save its number:
             ISSUE_URL=$(gh issue create \
