@@ -137,7 +137,11 @@ jobs:
         run: |
           claude -p "$(cat /tmp/review_prompt.txt)" \
             --allowedTools "Bash(npm:*) Bash(gh:*) Bash(git:*) Read Glob Grep" \
-            --max-turns 15
+            --model claude-sonnet-4-6 \
+            --effort high \
+            --max-turns 30 \
+            --fallback-model claude-haiku-4-5-20251001 \
+            --permission-mode bypassPermissions
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           GITHUB_TOKEN: ${{ github.token }}

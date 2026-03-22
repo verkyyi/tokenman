@@ -3,20 +3,19 @@
 # Read at start of every workflow run.
 # Committed to repo — git history is the full audit trail.
 
-Last updated: 2026-03-22T07:50:00Z
-Updated by: coder.yml (fix issue #5)
+Last updated: 2026-03-22T07:56:00Z
+Updated by: coder.yml (fix issue #26)
 
 ## Last Session
-Action: coder.yml — fix issue #5 (structured review tables)
+Action: coder.yml — fix issue #26 (optimize Claude CLI configuration)
 
 Done:
-- Added structured findings table (Trigger | Why | Status | Findings) to skills/adversarial-review.md after Pre-Merge Gate section
-- Table marked as optional/lightweight — required only for Tier 1/2 or non-PASS gate reviews; Tier 0 state-file updates exempt
-- Included filled example with one PASS row and one BLOCK row
-- Added pattern note: all future review skill files must adopt this table format
-- Added reference note to skills/harness.md under Reviewer Workflow section
+- Added tiered model/effort/fallback/permission-mode flags to all 10 workflow Claude CLI invocations
+- Tier 1 (coder, claude-task): claude-opus-4-6 + effort max + fallback sonnet-4-6 + bypassPermissions; coder max-turns 30→40
+- Tier 2 (reviewer, evolve, triage): claude-sonnet-4-6 + effort high + fallback haiku-4-5 + bypassPermissions; reviewer max-turns 15→30, triage 25→30
+- Tier 3 (watcher, growth, analyze, discover, feedback-learner): claude-haiku-4-5-20251001 + effort medium + bypassPermissions; analyze/discover 20→25, feedback-learner 10→25
 - Build passing (exit 0); FEATURE_STATUS updated
-- Opened PR for issue #5 (auto-merge)
+- Opened PR for issue #26 (needs-review)
 
 In progress: PRs #19 (reviewer re-triggered) and #20 (reviewer re-triggered); issue #8 coder queued
 

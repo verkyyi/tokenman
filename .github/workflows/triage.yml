@@ -163,7 +163,11 @@ jobs:
         run: |
           claude -p "$(cat /tmp/triage_prompt.txt)" \
             --allowedTools "Bash(gh:*) Bash(git:*) Bash(ls:*) Read Glob Grep" \
-            --max-turns 25
+            --model claude-sonnet-4-6 \
+            --effort high \
+            --max-turns 30 \
+            --fallback-model claude-haiku-4-5-20251001 \
+            --permission-mode bypassPermissions
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           GITHUB_TOKEN: ${{ github.token }}

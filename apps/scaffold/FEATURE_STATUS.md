@@ -37,3 +37,8 @@
 
 ## Watcher Improvements
 - [x] Pipeline outcome health checks (responsibility #7) — triage comment detection, coder handoff detection, reviewer silent-failure detection; corrective action limit raised 3→5 (closes #23)
+
+## Claude CLI Optimization (closes #26)
+- [x] Tier 1 (coder, claude-task): claude-opus-4-6 + effort max + fallback sonnet + bypassPermissions; coder max-turns 30→40
+- [x] Tier 2 (reviewer, evolve, triage): claude-sonnet-4-6 + effort high + fallback haiku + bypassPermissions; reviewer max-turns 15→30, triage 25→30
+- [x] Tier 3 (watcher, growth, analyze, discover, feedback-learner): claude-haiku-4-5-20251001 + effort medium + bypassPermissions; analyze/discover 20→25, feedback-learner 10→25

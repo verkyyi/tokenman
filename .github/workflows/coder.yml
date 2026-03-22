@@ -136,7 +136,11 @@ jobs:
         run: |
           claude -p "$(cat /tmp/coder_prompt.txt)" \
             --allowedTools "Bash Read Write Edit Glob Grep" \
-            --max-turns 30
+            --model claude-opus-4-6 \
+            --effort max \
+            --max-turns 40 \
+            --fallback-model claude-sonnet-4-6 \
+            --permission-mode bypassPermissions
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
 
