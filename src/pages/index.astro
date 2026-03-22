@@ -515,6 +515,8 @@ const recentActivity = agentLogEntries.slice(-10).reverse();
     padding: 10px 0;
     border-bottom: 1px solid rgba(139,92,246,0.08);
     font-size: 13px;
+    flex-wrap: wrap;
+    min-width: 0;
   }
   .activity-item:last-child { border-bottom: none; }
   .activity-time {
@@ -534,7 +536,7 @@ const recentActivity = agentLogEntries.slice(-10).reverse();
     flex-shrink: 0;
     white-space: nowrap;
   }
-  .activity-text { color: #cbd5e1; }
+  .activity-text { color: #cbd5e1; word-break: break-word; min-width: 0; }
   .activity-outcome { color: #475569; font-size: 11px; margin-left: auto; flex-shrink: 0; }
 
   /* Capabilities */
