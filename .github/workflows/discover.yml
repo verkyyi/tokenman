@@ -18,6 +18,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Check onboarding complete
+        run: |
+          if [ ! -f state/evolve_config.md ]; then
+            echo "::warning::Onboarding not complete. Run: claude 'Set up agentfolio. Follow https://github.com/verkyyi/agentfolio/blob/main/docs/onboarding.md'"
+            exit 0
+          fi
+
       - name: Install Claude Code
         run: npm install -g @anthropic-ai/claude-code
 
