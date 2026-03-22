@@ -17,3 +17,4 @@
 2026-03-22T12:52:37Z | issue #38 | ADD_CAPABILITY | README auto-sync — keep README consistent with repo changes automatically | noted (already logged at 09:08 as ADD_CAPABILITY)
 2026-03-22T14:07:52Z | issue #43 | ADD_CAPABILITY | evolve site content evaluation for non-framework sites — expand Step 2b to evaluate all site types | noted
 2026-03-22T15:08:52Z | issue #44 | FIX_PROCESS | reduce workflow run time — agent re-explores entire repo every run, wasting tokens and time | noted
+2026-03-22T16:05:40Z | issue #42 | IMPROVE_QUALITY | improve onboarding — add verification steps and complete config guidance | noted
