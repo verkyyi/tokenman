@@ -124,7 +124,40 @@ jobs:
             1. Remove "needs-human" label
             2. Add "agent-ready" label
             3. Comment: "**Watcher:** Blocker resolved (see #N). Re-queuing for the coder agent."
-            4. This counts toward the 3 corrective actions per run limit
+            4. This counts toward the 5 corrective actions per run limit
+
+          ### 7. Verify pipeline stage outcomes
+          Don't just check if workflows ran — verify they produced expected results.
+          Process signals (did it run? did it exit 0?) are necessary but not sufficient.
+          Check outcome signals too.
+
+          **For each open issue:**
+
+          - If open >2 hours and has no comment containing "Triaged by agentfolio triage agent":
+            the issue was never triaged. Re-trigger triage regardless of existing labels.
+            This catches pre-labeled issues created by evolve.yml that triage never processed.
+            Command: gh issue view N --json comments -q '.comments[].body' | grep -q "Triaged by agentfolio"
+            If grep finds nothing → re-trigger triage.
+
+          - If the issue has a coder agent comment (containing "Coder agent:") indicating a
+            failure attempt, but currently has NO actionable label (agent-ready, needs-human,
+            needs-review) AND no open PR linked to it:
+            the issue fell through the cracks after a coder push failure. Re-trigger triage
+            to re-classify it.
+
+          **For each open PR:**
+
+          - If open >1 hour and has zero reviews: check if a reviewer workflow run completed
+            for this PR. If yes, the reviewer silently failed (hit max-turns without writing
+            a review). Re-trigger the reviewer.
+            Command: gh pr view N --json reviews -q '.reviews | length'
+            If result is 0 → reviewer failed silently → re-trigger reviewer.
+
+          - If re-triggering reviewer for a PR that has ALREADY been re-triggered before with
+            no review produced (check comments for prior "Watcher: re-triggering reviewer"
+            messages): instead of re-triggering again, add label "needs-human" and comment:
+            "**Watcher:** Automated review has been triggered multiple times without producing
+            a review (likely hitting max-turns limit). Manual review required."
 
           ## How to take corrective action:
           - Re-trigger triage: gh workflow run triage.yml -f issue_number=N
@@ -135,7 +168,7 @@ jobs:
           - Always check for duplicates before creating issues
 
           ## Rules:
-          - Maximum 3 corrective actions per run (don't flood the system)
+          - Maximum 5 corrective actions per run (don't flood the system)
           - Never re-trigger a workflow that is currently in_progress
           - Never re-trigger a workflow that succeeded in the last 30 minutes
           - Always log what you did to state/agent_log.md:

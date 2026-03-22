@@ -3,31 +3,33 @@
 # Read at start of every workflow run.
 # Committed to repo — git history is the full audit trail.
 
-Last updated: 2026-03-22T06:48:00Z
-Updated by: watcher.yml
+Last updated: 2026-03-22T07:40:00Z
+Updated by: coder.yml (issue #23)
 
 ## Last Session
-Action: watcher.yml — pipeline health check
+Action: coder.yml — fix issue #23 (watcher outcome health checks)
 
 Done:
-- Issue #21: removed `agent-ready` label — coder failed 2x (runs 23390450215, 23397120424) because adding DeerFlow to evolve.yml modifies workflow YAML, blocked by same token issue as #12. Left explanatory comment on issue.
-- Weekly Analysis failures (23397209446, 23391999315): both benign "nothing to commit" clean-tree errors — not actionable.
-- PRs #19+#20: reviewer already ran for both; awaiting human review — no action needed.
-- All other failures from last 6h: already resolved.
-- 1 corrective action taken.
+- Added responsibility #7 to watcher.yml prompt: pipeline stage outcome checks
+  - Triage: re-trigger if issue >2h has no "Triaged by agentfolio triage agent" comment
+  - Coder handoff: re-trigger triage if coder attempted but left issue with no label/PR
+  - Reviewer: detect silent failures (0 reviews after run), re-trigger; escalate to needs-human on repeat failure
+- Raised corrective actions limit 3→5 to accommodate additional checks
+- Opened PR for issue #23 (needs-review — workflow YAML change)
 
-In progress: PRs #19 (anti-sycophancy, closes #13) and #20 (agentic security, closes #17) awaiting human review
+In progress: PRs #19 (anti-sycophancy, closes #13), #20 (agentic security, closes #17), and new PR for #23 (watcher outcome checks) — all awaiting human review
 
 ## Open Items (priority order)
 1. Issue #12: [BLOCKED — human] CLAUDE_CODE_OAUTH_TOKEN missing `workflows` OAuth scope — blocks all workflow YAML PRs and issue #8 Node.js upgrade. Fix: add PAT with `workflow` scope as WORKFLOW_PAT secret.
 2. Issue #22: [agent-ready] Submit to hesreallyhim/awesome-claude-code (29k stars) — first growth action (from growth.yml)
 3. PR #19: [awaiting human review] Anti-sycophancy guardrails for adversarial-review.md (gstack v0.9.9.0 pattern, closes #13)
 4. PR #20: [awaiting human review] Agentic security patterns — supply chain hygiene + prompt injection defense (closes #17)
-5. Issue #10: [needs-review label — awaiting human review] Last-updated badge user-friendly time
-6. Issue #8: [BLOCKED by #12] Upgrade Node.js 20 actions before June 2026 deadline
-7. Issue #5: [parked] Adopt structured review tables in skill output (gstack v0.9.7.0)
-8. Profile page: 5/8 sections still unchecked — live stats, evolution timeline, capabilities inventory, architecture diagram, getting started guide
-9. apps/profile content not yet populated — discover.yml or manual issue needed
+5. PR for #23: [awaiting human review] Watcher outcome health checks — triage/coder/reviewer stage verification
+6. Issue #10: [needs-review label — awaiting human review] Last-updated badge user-friendly time
+7. Issue #8: [BLOCKED by #12] Upgrade Node.js 20 actions before June 2026 deadline
+8. Issue #5: [parked] Adopt structured review tables in skill output (gstack v0.9.7.0)
+9. Profile page: 5/8 sections still unchecked — live stats, evolution timeline, capabilities inventory, architecture diagram, getting started guide
+10. apps/profile content not yet populated — discover.yml or manual issue needed
 
 ## Metrics Snapshot
 Period: 2026-03-15 to 2026-03-22 (first full week tracked)
