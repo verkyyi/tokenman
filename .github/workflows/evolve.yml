@@ -33,34 +33,9 @@ jobs:
       - name: Install Claude Code
         run: npm install -g @anthropic-ai/claude-code
 
-      - name: Check for recent human activity
-        id: human
-        run: |
-          RECENT_HUMAN=$(git log origin/main --since="2 hours ago" --format="%an" \
-            | grep -v "agentfolio\[bot\]" | head -1)
-          if [ -n "$RECENT_HUMAN" ]; then
-            echo "HUMAN_ACTIVE=true" >> $GITHUB_OUTPUT
-            echo "Human recently active — evolve will run in read-only mode"
-          else
-            echo "HUMAN_ACTIVE=false" >> $GITHUB_OUTPUT
-          fi
-
       - name: Build evolution prompt
         run: |
-          cat > /tmp/prompt.txt << HUMANFLAG
-          ## Human Activity Status: HUMAN_ACTIVE=${{ steps.human.outputs.HUMAN_ACTIVE }}
-          When HUMAN_ACTIVE=true, a human is working in a CLI session. In this mode:
-          - Still execute Step 1 (research) and log findings to research_log.md
-          - Still execute Step 2a (pipeline health check) — log findings only, do NOT create issues
-          - Still execute Steps 3-4 (logging and state) BUT do NOT overwrite project_state.md
-            (the human may have updated it). Instead, append a note to agent_log.md only.
-          - Do NOT execute Step 5 (act on findings) — do not create issues or write files
-          - Skip issues labeled "human-wip" in all analysis
-          When HUMAN_ACTIVE=false, operate normally with all steps.
-
-          HUMANFLAG
-
-          cat >> /tmp/prompt.txt << 'PROMPT'
+          cat > /tmp/prompt.txt << 'PROMPT'
           ## Incremental Analysis Rules
           Read the Previous Evolve Run Summary above.
           - If the summary is missing or older than 24 hours: perform a full analysis of all steps.
@@ -69,7 +44,6 @@ jobs:
             - Pipeline health: if no new failed runs since the summary timestamp, state "no new failures" and move on.
             - Design evaluation: if no new commits touching site files since the summary, skip.
             - Other steps: use your judgment — if the data matches the summary, skip the detailed analysis.
-          - If the previous summary shows HUMAN_ACTIVE=true and the current run is HUMAN_ACTIVE=false, treat steps that were skipped due to HUMAN_ACTIVE mode as needing full analysis (the previous run's skip was policy-driven, not data-driven).
           - Always execute Step 3 (logging) and Step 4 (state update).
           - Always write an updated last_evolve_summary.md at the end of the run, even if nothing changed.
           - When skipping a step, use one sentence. Do not re-analyze data you've already confirmed is unchanged.
@@ -385,7 +359,7 @@ jobs:
           Write a brief session summary to state/project_state.md covering
           what you analyzed and any findings.
 
-          Also write state/last_evolve_summary.md with: timestamp, HUMAN_ACTIVE mode,
+          Also write state/last_evolve_summary.md with: timestamp,
           main HEAD SHA (from `git rev-parse HEAD`), open issues list (from `gh issue list`),
           per-source latest commit SHA and one-line summary from Step 1,
           which steps were executed vs skipped, and a findings summary.
@@ -393,7 +367,6 @@ jobs:
           ```
           # Last Evolve Summary
           Timestamp: YYYY-MM-DDTHH:MM:SSZ
-          Mode: HUMAN_ACTIVE=true/false
           Main HEAD: <sha>
           Open issues: #N, #M, ...
 

@@ -29,18 +29,6 @@ jobs:
             exit 0
           fi
 
-      - name: Check for recent human activity
-        id: human
-        run: |
-          RECENT_HUMAN=$(git log origin/main --since="2 hours ago" --format="%an" \
-            | grep -v "agentfolio\[bot\]" | head -1)
-          if [ -n "$RECENT_HUMAN" ]; then
-            echo "HUMAN_ACTIVE=true" >> $GITHUB_OUTPUT
-            echo "Human recently active — triage will classify but not auto-queue"
-          else
-            echo "HUMAN_ACTIVE=false" >> $GITHUB_OUTPUT
-          fi
-
       - name: Resolve issue
         id: issue
         run: |
@@ -135,14 +123,6 @@ jobs:
           coder agent everything it needs to implement without guessing.
 
           ### Step 3: Add labels and comment.
-
-          IMPORTANT — Human activity mode: HUMAN_ACTIVE=${{ steps.human.outputs.HUMAN_ACTIVE }}
-          When HUMAN_ACTIVE=true, a human is actively working in a CLI session.
-          In this mode, replace "agent-ready" with "triaged" in ALL label commands below.
-          The issue is classified and ready, but queued for the human to decide when to
-          hand it to the coder. Add a note in the comment: "(Human active — queued for owner)"
-
-          When HUMAN_ACTIVE=false, use the labels exactly as written below (normal mode).
 
           For BUG:
             gh issue edit ${NUM} --add-label "bug,agent-ready" --repo ${{ github.repository }}
@@ -241,7 +221,6 @@ jobs:
           GH_TOKEN: ${{ github.token }}
 
       - name: Trigger coder if agent-ready
-        if: steps.human.outputs.HUMAN_ACTIVE == 'false'
         run: |
           NUM=${{ steps.issue.outputs.NUMBER }}
           LABELS=$(gh issue view "$NUM" --json labels -q '.labels[].name')

@@ -54,7 +54,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
 
-      - name: Check for human-wip or active human session
+      - name: Check for human-wip label
         id: human
         run: |
           NUM=${{ steps.issue.outputs.NUMBER }}
@@ -63,16 +63,6 @@ jobs:
             echo "SKIP=true" >> $GITHUB_OUTPUT
             echo "Issue #$NUM has human-wip label — skipping"
             exit 0
-          fi
-          # For label-triggered runs (not explicit dispatch), check human activity
-          if [ "${{ github.event_name }}" != "workflow_dispatch" ]; then
-            RECENT_HUMAN=$(git log origin/main --since="2 hours ago" --format="%an" \
-              | grep -v "agentfolio\[bot\]" | head -1)
-            if [ -n "$RECENT_HUMAN" ]; then
-              echo "SKIP=true" >> $GITHUB_OUTPUT
-              echo "Human recently active — skipping auto-triggered coder run"
-              exit 0
-            fi
           fi
           echo "SKIP=false" >> $GITHUB_OUTPUT
         env:
