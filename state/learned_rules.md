@@ -24,3 +24,8 @@ In workflow configurations, ensure `--fallback-model` differs from the main mode
 **Date:** 2026-03-22 | **Source:** issue #37: fix: [pipeline] Avoid CLI/pipeline conflicts — detect human activity and prevent duplicated work (closes #35)
 
 Before opening a PR or starting work on an issue, check the target branch (e.g., main) for recent commits that already implement the fix or feature. CLI sessions and other agents may have already landed the change directly, making a new PR redundant and conflict-prone.
+
+## STYLE Use human-friendly relative time for all user-facing timestamps
+**Date:** 2026-03-22 | **Source:** issue #10: [feedback] last updated by badge should use user friendly time descriptions
+
+When displaying time information to users (badges, labels, metadata), use human-friendly relative descriptions (e.g., "2 hours ago", "yesterday", "3 days ago") instead of raw dates or absolute timestamps.
