@@ -126,26 +126,31 @@ jobs:
           Append a health check summary to state/research_log.md:
           TIMESTAMP | pipeline-health | X failed runs checked, Y issues created | details
 
-          ## STEP 2b: Design Evaluation (profile page)
+          ## STEP 2b: Site Content Evaluation (three-tier)
 
-          Check the Evolve Config. If the Stack does NOT include a frontend framework (e.g., Astro, Next.js, React, Vue) — SKIP this step entirely.
+          Read the Evolve Config's Stack and deploy fields to determine which tier applies:
 
-          Read src/pages/index.astro and src/layouts/Base.astro.
-          Evaluate the profile page design for:
-          - Visual consistency (colors, spacing, typography)
-          - Readability (contrast ratios, font sizes, line heights)
-          - Responsiveness (does the layout work on mobile?)
-          - Polish (hover states, transitions, alignment)
-          - Content presentation (are sections well-organized?)
+          **Tier 1 — Framework site** (Stack includes Astro, Next.js, React, or Vue):
+          Read framework-specific files (e.g., src/pages/index.astro, src/layouts/Base.astro).
+          Evaluate: design language, visual consistency, responsiveness, polish, content presentation.
+          If this is agentfolio's own site, maintain the Cosmic design language: deep purple gradients,
+          neon accents (purple #a78bfa, blue #60a5fa, green #34d399), dark backgrounds, glowing effects.
 
-          If you identify a concrete CSS/layout improvement:
-          - For minor fixes (spacing, color tweaks, typos): write directly
-          - For structural layout changes: create a GitHub Issue (see Step 5)
+          **Tier 2 — Static HTML site** (deploy mentions GitHub Pages/Netlify/Vercel/Cloudflare Pages,
+          OR index.html exists in repo root):
+          Find and read HTML files (index.html, *.html in root and common dirs like docs/, public/).
+          Evaluate:
+          - Content completeness: bio/about, projects/work, contact info
+          - Site structure: root index links to subpages
+          - SEO basics: <title>, <meta name="description">, <meta name="viewport">
+          - Responsiveness indicators: viewport meta tag, media queries or responsive framework
+          Prioritize content gaps over visual polish.
 
-          Design improvements follow the same autonomy rules as other changes.
-          Keep the Cosmic design language: deep purple gradients, neon accents
-          (purple #a78bfa, blue #60a5fa, green #34d399), dark backgrounds,
-          glowing effects.
+          **Tier 3 — No web presence** (none of the above): SKIP Step 2b entirely.
+
+          Action rules for both tiers:
+          - Minor fixes (missing meta tags, content typos, broken links): write directly
+          - Structural changes (new sections, layout overhaul): create a GitHub Issue (see Step 5)
 
           ## STEP 2c: Growth Metrics (once per day, hour 6 UTC only)
 

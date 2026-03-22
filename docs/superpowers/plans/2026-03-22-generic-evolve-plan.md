@@ -136,7 +136,7 @@ Replace hardcoded research sources, analysis steps, APP_NAME, and project:scaffo
 | `env: APP_NAME: scaffold` | Top-level env block | Remove (not needed with config) |
 | CORE curl commands (anthropics/claude-code, gstack, ECC, ACC) | Step 1 Research section in prompt heredoc | Replace with config-driven instruction |
 | Rotating tier curl commands (Tier 0/1/2) | Step 1 Research section in prompt heredoc | Flatten — iterate all Research Sources from config |
-| Step 2b (Design Evaluation referencing index.astro) | Prompt heredoc | Conditional — only if config indicates frontend |
+| Step 2b (Design Evaluation referencing index.astro) | Prompt heredoc | Three-tier: framework site (full design review), static HTML (content/SEO eval), no web presence (skip) |
 | Step 2c (Growth Metrics referencing $GITHUB_REPOSITORY) | Prompt heredoc | Conditional — only if config indicates public repo |
 | Step 2d (Adoption Tracking) | Prompt heredoc | Conditional — only if config indicates template repo |
 | Step 2e (SEO) | Prompt heredoc | Conditional — only if config indicates public site |
@@ -192,9 +192,10 @@ Replace the entire Step 1 Research block (CORE sources + rotating tier system) w
 Replace each hardcoded step with a conditional version:
 
 ```
-          ## STEP 2b: Design Evaluation (CONDITIONAL)
-          Check the Evolve Config. If Stack includes a frontend framework, evaluate
-          the main page. If no frontend — SKIP this step entirely.
+          ## STEP 2b: Site Content Evaluation (three-tier)
+          Read Evolve Config Stack and deploy fields. Framework site (Astro/Next.js/React/Vue):
+          full design review. Static HTML site (deploy mentions web host OR index.html exists):
+          evaluate content completeness, SEO basics, structure. No web presence: skip entirely.
 
           ## STEP 2c: Growth Metrics (CONDITIONAL — hour 6 UTC only)
           Check the Evolve Config. If Public is "Yes", fetch metrics using $GITHUB_REPOSITORY.

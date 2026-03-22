@@ -123,7 +123,7 @@ Evolve reads `state/evolve_config.md` and:
 
 - **Research**: Fetches commits from auto-discovered sources + `verkyyi/agentfolio`. No hardcoded gstack/ECC/etc unless relevant to the repo.
 - **Pipeline health** (Step 2a): Runs as-is — generic, checks workflow failures.
-- **Design evaluation** (Step 2b): Skipped unless config indicates a frontend.
+- **Design evaluation** (Step 2b): Three-tier — framework sites get full design review, static HTML sites get content/SEO evaluation, repos with no web presence skip entirely.
 - **Growth metrics** (Step 2c): Skipped unless config indicates public repo.
 - **Adoption tracking** (Step 2d): Skipped unless config indicates template/scaffold repo.
 - **SEO** (Step 2e): Skipped unless config indicates public site.
