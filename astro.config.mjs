@@ -3,8 +3,8 @@ import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: process.env.SITE_URL || 'https://verkyyi.github.io',
-  base: process.env.BASE_PATH || '/tokenman',
+  site: process.env.SITE_URL || 'https://tokenman.io',
+  base: process.env.BASE_PATH || '/',
   integrations: [
     tailwind(),
     sitemap(),
