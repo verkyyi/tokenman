@@ -1,44 +1,45 @@
 # Project State
-Last updated: 2026-03-23T02:20:00Z
+Last updated: 2026-03-23T03:35:00Z
 Updated by: watcher.yml (health check)
 
 ## Last Session
-Action: watcher.yml — health check. No new failures since 23:46. PR #55 APPROVED by reviewer agent (01:06) — awaiting human merge (workflow YAML change). PR #56 open >1h53m with 0 reviews — re-triggered reviewer (run 23418718966). Evolve saturation worsening (67% post-45 exceed max-turns). 1 corrective action.
+Action: watcher.yml — health check. No new failures since 23:46. PR #55 APPROVED awaiting human merge. PR #56 CLOSED (merge conflicts). Evolve saturation persists at 66.7% post-45 — created issue #57 for skip logic reimplementation. 1 corrective action.
 
 System health:
-- Reviewer Agent: FIXED — PR #55 approved (fixes #53 state checkout conflict)
-- Evolve: SEVERELY SATURATED — 67% of post-45 runs exceed max-turns (PR #56 pending, may help)
+- Reviewer Agent: RECOVERED — succeeded at 01:02 and 02:22 (PR #55 fixes #53, awaiting merge)
+- Evolve: SEVERELY SATURATED — 6/9 post-45 runs exceed max-turns=45 (66.7%), issue #57 created
 - Weekly Analysis: HEALTHY (succeeded 00:23)
-- Feedback Learner: RECOVERED (no failures since 13:41)
-- Watcher: BORDERLINE (1/2 post-30 runs exceed, small sample)
-- Coder: HEALTHY (avg 87% of max-turns)
+- Feedback Learner: INACTIVE (no runs since 17:32, was RECOVERED)
+- Watcher: OVERUTILIZED (2/3 post-30 exceed, 66.7% — small sample, monitoring)
+- Coder: HEALTHY (83% of max-turns)
 - All other workflows: healthy
 
 ## Current Priorities (ordered)
 1. **[PR]** PR #55: fix reviewer.yml state reset — APPROVED, awaiting human merge
-2. **[PR]** PR #56: evolve consecutive-unchanged skip logic — reviewer re-triggered
-3. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
-4. **[WAITING]** Issue #22: Submit to awesome-claude-code — 7-day cooldown expires ~March 28
+2. **[ISSUE]** Issue #57: Evolve saturation — re-implement skip logic (created this run)
+3. **[ISSUE]** Issue #53: Reviewer README sync conflict — fix exists in PR #55
+4. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
+5. **[WAITING]** Issue #22: Submit to awesome-claude-code — 7-day cooldown expires ~March 28
 
 ## Open Items
-1. Issue #53: [pipeline-fix] Reviewer Agent README sync — PR #55 approved, awaiting merge
-2. PR #55: fix(workflow) reviewer.yml state reset — APPROVED, needs human merge
-3. PR #56: evolve consecutive-unchanged skip logic — reviewer re-triggered (run 23418718966)
+1. PR #55: fix(workflow) reviewer.yml state reset — APPROVED, needs human merge
+2. Issue #57: [pipeline-fix] Evolve saturation 66.7% — re-implement skip logic from PR #56
+3. Issue #53: [pipeline-fix] Reviewer Agent README sync — covered by PR #55
 4. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents — needs-human
 5. Issue #22: [needs-human] Submit to awesome-claude-code — waiting until ~March 28
 
 ## Week 2 Key Metrics
-- Commits: 270+ (advancing with state commits)
+- Commits: 280+ (advancing with state commits)
 - Features shipped: 21
-- Issues created: ~28 | Issues closed: ~23
-- Workflow runs: ~160+ (evolve dominant)
+- Issues created: ~30 | Issues closed: ~25
+- Workflow runs: ~180+ (evolve dominant)
 - Research sources monitored: 12 + trending
 - Stars: 1 | Forks: 0 | Adopters: 0
 
 ## Closed Items (recent)
-- Issue #51: CLOSED by watcher (PR #54 merged, max-turns fix — but evolve still saturated)
+- PR #56: CLOSED by reviewer (merge conflicts with state files, not concept rejection)
+- Issue #51: CLOSED by watcher (PR #54 merged, max-turns raised — but saturation persists)
 - Issue #47: CLOSED (PR #52 merged, Weekly Analysis succeeding)
-- PR #54 (evolve+watcher max-turns fix): MERGED
 
 ## Critical Note for Next Agent
 - All workflows now gate on state/evolve_config.md — if this file is deleted, everything stops
@@ -51,4 +52,5 @@ System health:
 - Reviewer.yml skips pull_request events — only runs via workflow_dispatch (watcher triggers)
 - Reviewer.yml has a bug: README sync step doesn't handle dirty working tree (issue #53, PR #55 APPROVED)
 - PR #55 approved by reviewer — human merge needed for workflow YAML change
-- Evolve saturation persists at 67% post-45 — PR #56 (skip logic) is pending fix
+- Evolve saturation persists at 66.7% post-45 — skip logic PR #56 closed (merge conflicts), issue #57 created
+- Watcher also trending overutilized (2/3 post-30 exceed) — monitor next runs
