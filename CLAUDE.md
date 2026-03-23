@@ -82,6 +82,10 @@ NEVER auto-execute:
 - APP_NAME: resolved dynamically per workflow (see APP_NAME Resolution)
 - Workflows run on ubuntu-latest runners
 - Full outbound internet access in runners
+- --bare flag (claude-code v2.1.81): NOT adopted. All 10 workflows use
+  CLAUDE_CODE_OAUTH_TOKEN (OAuth), but --bare disables OAuth and requires
+  ANTHROPIC_API_KEY. The startup savings are marginal vs total agent runtime.
+  Revisit only if ANTHROPIC_API_KEY is provisioned for other reasons. (#63)
 
 ## Tool Usage in Workflows
 Preferred order for file operations:
