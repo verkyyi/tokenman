@@ -13,6 +13,8 @@ on:
       - 'package.json'
       - 'package-lock.json'
       - 'tsconfig.json'
+      - 'tests/**'
+      - 'playwright.config.*'
   workflow_dispatch:
 
 permissions:
@@ -58,8 +60,23 @@ jobs:
             eval "$BUILD_CMD"
           fi
         env:
-          SITE_URL: https://${{ github.repository_owner }}.github.io
-          BASE_PATH: /${{ github.event.repository.name }}
+          SITE_URL: https://tokenman.io
+          BASE_PATH: /
+
+      - name: Run E2E tests (if configured)
+        run: |
+          E2E_SETUP=$(grep '^e2e-setup:' state/evolve_config.md | cut -d: -f2- | xargs)
+          E2E_CMD=$(grep '^e2e:' state/evolve_config.md | cut -d: -f2- | xargs)
+          if [ -z "$E2E_CMD" ] || [ "$E2E_CMD" = "(none)" ]; then
+            echo "No e2e command configured — skipping"
+            exit 0
+          fi
+          if [ -n "$E2E_SETUP" ] && [ "$E2E_SETUP" != "(none)" ]; then
+            echo "Running E2E setup: $E2E_SETUP"
+            eval "$E2E_SETUP"
+          fi
+          echo "Running E2E tests: $E2E_CMD"
+          eval "$E2E_CMD"
 
       # Regenerate sitemap if not already in dist
       - name: Verify sitemap
