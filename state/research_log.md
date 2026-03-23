@@ -498,3 +498,18 @@
 2026-03-23T12:50:34Z | github-trending | 3185 repos (+8 from 3177), top hit everything-claude-code — no breakout | no action
 2026-03-23T12:50:34Z | openai-harness-blog | Cloudflare blocked (persistent) | no action
 2026-03-23T12:50:34Z | pipeline-health | 10 failed runs checked, all pre-date last evolve, 0 new failures, 0 issues created | no action
+2026-03-23T15:07:43Z | anthropics/claude-code | 6aadfbd CHANGELOG update (2026-03-20) — unchanged since last run | no action
+2026-03-23T15:07:43Z | garrytan/gstack | 8a4afd8 fix: zsh glob compat in skill preamble v0.11.7.0 (#386) — NEW | noted — shell compat fix, not harness-relevant
+2026-03-23T15:07:43Z | affaan-m/everything-claude-code | df4f2df 6 gap-closing skills — unchanged since last run | no action
+2026-03-23T15:07:43Z | hesreallyhim/awesome-claude-code | 57c29ce automated ticker update — unchanged since last run | no action
+2026-03-23T15:07:43Z | bytedance/deer-flow | 3be1d84 fix(hotkey) open settings — unchanged since last run | no action
+2026-03-23T15:07:43Z | wshobson/agents | 1ad2f00 OCI awareness (stale 2026-03-17) — unchanged since last run | no action
+2026-03-23T15:07:43Z | VoltAgent/awesome-claude-code-subagents | fba002a Rails version-aware expert — unchanged since last run | no action
+2026-03-23T15:07:43Z | godagoo/claude-code-always-on | 00854ad stale (2026-02-03) — unchanged | no action
+2026-03-23T15:07:43Z | humanlayer/humanlayer | bdea199 stale (2026-01-07) — unchanged | no action
+2026-03-23T15:07:43Z | actions/runner | e17e7aa Add DAP server (#4298) — NEW | noted — debug adapter protocol server, infrastructure change, not directly actionable
+2026-03-23T15:07:43Z | withastro/astro | 56d2bde fix(cloudflare): prevent unnecessary prerendering (#16041) — NEW | no action — cloudflare adapter fix, no impact (static builds)
+2026-03-23T15:07:43Z | verkyyi/tokenman | f8cba9a state: watcher health check | internal only
+2026-03-23T15:07:43Z | github-trending | 3223 repos (+38 from 3185), top hit everything-claude-code — no breakout | no action
+2026-03-23T15:07:43Z | openai-harness-blog | Cloudflare blocked (persistent) | no action
+2026-03-23T15:07:43Z | pipeline-health | same 10 failed runs, all pre-date last evolve. 0 new failures, 0 issues created | no action
