@@ -1,41 +1,38 @@
 # Project State
-Last updated: 2026-03-23T23:15:56Z
-Updated by: evolve.yml (HORIZON_SCAN)
+Last updated: 2026-03-23T23:45:00Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: evolve.yml HORIZON_SCAN — searched 4 trending queries, discovered 3 new Watch List sources (volcengine/OpenViking 18.4K stars, OthmanAdi/planning-with-files 16.9K, ruvnet/ruflo 23.9K). All 14 existing source SHAs unchanged (4th consecutive). Watch List now at 7 sources. 0 forks/adopters. 0 issues created.
+Action: watcher.yml health check — 2 corrective actions: closed #63 and #64 (PRs #70/#69 merged, GitHub auto-close missed). Pipeline chain for #63/#64 completed successfully (evolve→triage→coder→PR→reviewer→merge). #66/#67/#68 under 2h, awaiting triage next run.
 
 System health:
-- Evolve: SEVERELY SATURATED (structural, stable, 90% exceed max-turns=45)
-- Watcher: NORMALIZED (healthy, 10% exceed 30)
+- Evolve: SEVERELY SATURATED (structural, 85% exceed max-turns=45, max 73 at PATTERN_HUNT)
+- Watcher: NORMALIZED (healthy, 0/6 exceed 30)
+- Coder: HEALTHY — succeeded at 22:49
+- Reviewer: HEALTHY — succeeded at 22:52
+- Triage: HEALTHY — succeeded at 22:47
 - Weekly Analysis: HEALTHY — succeeded at 18:16
-- Reviewer Agent: HEALTHY — succeeded at 06:06
-- Feedback Learner: HEALTHY/IDLE — succeeded at 07:38
-- Coder: HEALTHY (33/40 avg, 83%)
-- Deploy: RECOVERING — 2 failures at 20:29+20:44 (#65 fix deployed, no run since ~2h)
 - Growth: HEALTHY — succeeded at 18:16
 - Analyze: HEALTHY — succeeded at 18:23
+- Feedback Learner: IDLE/HEALTHY — no merged PRs to process
+- Deploy: RECOVERING — 2 failures at 20:29+20:44 (#65 fix deployed, no site-content push since)
 - All other workflows: healthy
 
 ## Current Priorities (ordered)
-1. **[PR]** PR #55: fix reviewer.yml state reset — APPROVED 21h+, awaiting human merge (workflow YAML)
+1. **[PR]** PR #55: fix reviewer.yml state reset — APPROVED 24h+, awaiting human merge (workflow YAML)
 2. **[NEW]** Issue #68: Adopt SKILL.md quality standard — awaiting triage
 3. **[NEW]** Issue #67: Adopt hooks-based guardrail enforcement — awaiting triage
 4. **[NEW]** Issue #66: Package harness patterns as installable skills — awaiting triage
-5. **[NEW]** Issue #64: Adopt cross-model outside voice for reviewer — triage re-triggered by watcher
-6. **[IN PR]** Issue #63: Investigate --bare flag for workflows — PR opened, not adopting
-4. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
-5. **[WAITING]** Issue #22: Submit to awesome-claude-code — 7-day cooldown expires ~March 28
+5. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
+6. **[WAITING]** Issue #22: Submit to awesome-claude-code — 7-day cooldown expires ~March 28
 
 ## Open Items
-1. PR #55: fix(workflow) reviewer.yml state reset — APPROVED 23h+, needs human merge
+1. PR #55: fix(workflow) reviewer.yml state reset — APPROVED 24h+, needs human merge
 2. Issue #68: [evolve-finding] SKILL.md quality standard — awaiting triage
 3. Issue #67: [evolve-finding] hooks-based guardrail enforcement — awaiting triage
 4. Issue #66: [evolve-finding] package harness as installable skills — awaiting triage
-5. Issue #64: [evolve-finding] cross-model outside voice — triage re-triggered
-6. Issue #63: [evolve-finding] --bare flag for workflows — PR opened, closing
-7. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents — needs-human
-8. Issue #22: [needs-human] Submit to awesome-claude-code — waiting until ~March 28
+5. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents — needs-human
+6. Issue #22: [needs-human] Submit to awesome-claude-code — waiting until ~March 28
 
 ## Week 2 Key Metrics
 - Commits: 300+ (advancing with state commits)
@@ -56,8 +53,9 @@ System health:
 - Evolve lightweight mode gate now deployed (commit ce1994c) — skips Steps 2b-2h when sources unchanged 2+ consecutive runs
 - Reviewer.yml skips pull_request events — only runs via workflow_dispatch (watcher triggers)
 - Reviewer.yml has a bug: README sync step doesn't handle dirty working tree (issue #53 closed, PR #55 APPROVED — awaiting human merge)
-- PR #55 approved by reviewer — human merge needed for workflow YAML change (20h+ pending)
+- PR #55 approved by reviewer — human merge needed for workflow YAML change (24h+ pending)
 - analyze.yml stale branch bug fixed (issue #59 closed, fix deployed — Weekly Analysis succeeded at 18:16, fully confirmed)
+- #63 and #64 fully processed: evolve→triage→coder→PR→reviewer→merge. Closed by watcher (GitHub auto-close missed).
 - Evolve severely saturated — structural, stable
 - Watcher NORMALIZED — healthy
 - Feedback Learner healthy — succeeded 07:38, idle when no merged PRs (expected)
