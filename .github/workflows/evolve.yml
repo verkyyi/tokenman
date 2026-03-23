@@ -345,6 +345,9 @@ jobs:
             OUTPUT=$(jq -r '(.usage.output_tokens // 0) | tostring' /tmp/claude_output.json 2>/dev/null || echo "unknown")
             TURNS=$(jq -r '(.num_turns // 0) | tostring' /tmp/claude_output.json 2>/dev/null || echo "unknown")
             COST=$(jq -r '(.total_cost_usd // 0) | tostring' /tmp/claude_output.json 2>/dev/null || echo "unknown")
+            # Extract posture and issues from evolve summary
+            POSTURE=$(grep -oP 'Posture: \K\w+' state/last_evolve_summary.md 2>/dev/null || echo "unknown")
+            ISSUES_CREATED=$(grep -oP '(\d+) issues created' state/last_evolve_summary.md 2>/dev/null | grep -oP '\d+' || echo "0")
           else
             MODEL="unknown"; INPUT="unknown"; OUTPUT="unknown"; TURNS="unknown"; COST="unknown"
           fi
@@ -352,7 +355,7 @@ jobs:
           if [ ! -f state/usage_log.md ]; then
             printf '# Usage Log\n' > state/usage_log.md
           fi
-          echo "${TIMESTAMP} | evolve | model:${MODEL} | in:${INPUT} | out:${OUTPUT} | turns:${TURNS} | cost:${COST}" >> state/usage_log.md
+          echo "${TIMESTAMP} | evolve | model:${MODEL} | in:${INPUT} | out:${OUTPUT} | turns:${TURNS} | cost:${COST} | posture:${POSTURE} | issues:${ISSUES_CREATED}" >> state/usage_log.md
           CUTOFF=$(date -u -d '7 days ago' +%Y-%m-%dT)
           awk -v c="$CUTOFF" 'NR==1{print;next} $0>=c' state/usage_log.md > /tmp/usage_trimmed.md && mv /tmp/usage_trimmed.md state/usage_log.md
 
