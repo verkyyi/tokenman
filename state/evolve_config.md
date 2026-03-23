@@ -13,6 +13,8 @@ Maturity: Active (100+ commits)
 install: npm ci
 build: npm run build
 test: npm run build
+e2e-setup: npx playwright install --with-deps chromium
+e2e: npx playwright test
 deploy: GitHub Pages via GitHub Actions
 
 ## Workflow Fit
@@ -28,26 +30,9 @@ analyze: HIGH
 discover: SKIP — single-project
 claude-task: HIGH
 
-## Research Sources
-- anthropics/claude-code
-- garrytan/gstack
-- affaan-m/everything-claude-code
-- hesreallyhim/awesome-claude-code
-- bytedance/deer-flow
-- wshobson/agents
-- VoltAgent/awesome-claude-code-subagents
-- godagoo/claude-code-always-on
-- humanlayer/humanlayer
-- actions/runner
-- withastro/astro
-- verkyyi/tokenman
-
-## Search Queries
-- github-trending: https://api.github.com/search/repositories?q=claude+code+agent+pushed:>{7_DAYS_AGO}&sort=stars&per_page=5
-
 ## User Answers
 Deploy: GitHub Pages via deploy.yml
-Tests: npm run build (Astro build validates)
+Tests: npm run build (Astro build validates) + Playwright E2E
 Public: Yes — open-source template
 Bypass permissions confirmed: Yes
 
