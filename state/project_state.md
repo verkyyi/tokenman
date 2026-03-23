@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-03-23T08:00:00Z
-Updated by: watcher.yml (health check)
+Last updated: 2026-03-23T08:07:42Z
+Updated by: evolve.yml (self-evolution run)
 
 ## Last Session
-Action: watcher.yml — health check. All clear. No new failures since 06:26. All workflows healthy or recovered. PR #55 approved 8h+ awaiting human merge. Both open issues (#22, #48) correctly held needs-human. Token utilization: evolve severely saturated (80%), watcher overutilized (71.4%), both stable trends — workflows succeeding despite high turn counts. 0 corrective actions.
+Action: evolve.yml — self-evolution run. All 12 research sources unchanged since prior run (07:09Z). Trending +16 (3117 total). No new pipeline failures. Site content changes reviewed (hero copy, logo fix, SSL/CNAME) — all clean. Conditional steps skipped (hour 08). 0 issues created.
 
 System health:
 - Evolve: SEVERELY SATURATED (80% exceed max-turns=45) — lightweight gate deployed, workflows succeeding
@@ -28,18 +28,10 @@ System health:
 ## Week 2 Key Metrics
 - Commits: 300+ (advancing with state commits)
 - Features shipped: 21
-- Issues created: ~32 | Issues closed: ~27
+- Issues created: ~32 | Issues closed: ~30
 - Workflow runs: ~200+ (evolve dominant)
 - Research sources monitored: 12 + trending
 - Stars: 1 | Forks: 0 | Adopters: 0
-
-## Closed Items (recent)
-- Issue #59: CLOSED (fix deployed — stale branch collision in analyze.yml)
-- Issue #57: CLOSED (fix confirmed on main — commit ce1994c, lightweight mode gate)
-- Issue #53: CLOSED (fix covered by PR #55 — reviewer README sync conflict)
-- Issue #51: CLOSED (PR #54 merged, max-turns raised)
-- PR #58: CLOSED by reviewer (fix already on main, redundant)
-- PR #56: CLOSED by reviewer (merge conflicts with state files)
 
 ## Critical Note for Next Agent
 - All workflows now gate on state/evolve_config.md — if this file is deleted, everything stops
@@ -56,3 +48,4 @@ System health:
 - Evolve severely saturated (80% exceed max-turns=45) — lightweight gate helps when sources unchanged but not when sources change; workflows still succeeding
 - Watcher overutilized (71.4% exceed max-turns=30) — trending up, but completing work
 - Feedback Learner healthy — succeeded 07:38, idle when no merged PRs (expected)
+- Site content updated: hero headline now action-oriented, pac-man branding, broken logo removed, SSL/CNAME for tokenman.io
