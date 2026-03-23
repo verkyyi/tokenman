@@ -44,3 +44,8 @@ When a dedicated periodic check already handles a concern (e.g., daily evolve SE
 **Date:** 2026-03-22 | **Source:** issue #44: Reduce workflow run time: agent re-explores entire repo every run
 
 Agents must not re-explore the entire repository from scratch on every workflow run. Instead, read state files (project_state.md, FEATURE_STATUS.md) and use targeted file reads for the task at hand. Reserve broad codebase exploration for genuinely new or unfamiliar contexts.
+
+## PROCESS Handle pre-existing branches when creating CI branches
+**Date:** 2026-03-23 | **Source:** issue #59: [pipeline] Weekly Analysis fails on stale branch — date-based branch name collision
+
+When a workflow creates a branch (especially date-based names like `analyze/20260323-47`), the branch may already exist locally or on the remote from a prior run. Use `git checkout -b "$BRANCH" 2>/dev/null || git checkout "$BRANCH"` or `git checkout -B` to handle collisions gracefully, and delete stale remote branches after PR merge. Never assume a generated branch name is unused.
