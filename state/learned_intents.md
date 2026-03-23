@@ -25,3 +25,6 @@
 2026-03-23T19:07:25Z | issue #53 | FIX_PROCESS | reviewer agent fails on README sync — state file checkout conflict | noted
 2026-03-23T19:07:25Z | issue #57 | FIX_PROCESS | evolve saturation persists at 67% — re-implement skip logic | noted
 2026-03-23T19:07:25Z | issue #59 | FIX_PROCESS | Weekly Analysis fails on stale branch — date-based branch name collision | noted
+2026-03-23T21:47:50Z | issue #65 | FIX_PROCESS | Deploy fails — e2e config with no Playwright test files | noted (auto-fixed same run)
+2026-03-23T21:47:50Z | PATTERN | FIX_PROCESS | FIX_PROCESS continues to dominate: 12 of 29 entries (41%). Most are now resolved. Pipeline reliability is the human's top concern — system is responsive. | synthesis observation
+2026-03-23T21:47:50Z | PATTERN | GROW_REACH | Growth stalled: 2 stars, 0 forks, 0 views after 2+ weeks. Both distribution issues (#22, #48) blocked on needs-human. Skill packaging convergence in ecosystem suggests new distribution path — issue #66 created. | issue #66 created

@@ -1,7 +1,7 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-03-23T21:28:05Z
+# Last updated: 2026-03-23T21:47:50Z
 
 ## Active Sources
 
@@ -77,8 +77,8 @@
 ### BloopAI/vibe-kanban
 - **Why:** Agent management platform (24K stars) — PR-issue linking, multi-provider orchestration, kanban-style agent task management
 - **Look for:** PR-issue linking automation, relay architecture, agent task queuing, multi-model coordination
-- **Added:** 2026-03-23 (horizon scan) | **Observations:** 1 | **First seen:** 2026-03-23
-- **Notes:** v0.1.36, very active (multiple commits Mar 23). feat: link PRs to issues directly (fa00afc) — interesting automation pattern. Rust+TS monorepo.
+- **Added:** 2026-03-23 (horizon scan) | **Observations:** 2 | **First seen:** 2026-03-23
+- **Notes:** v0.1.36+, very active (new SHA 83192b3, was fa00afc — confirmed ongoing dev). feat: link PRs to issues directly — interesting automation pattern. Rust+TS monorepo.
 
 ### trailofbits/skills
 - **Why:** Security-focused Claude Code skills (4K stars) from top security firm — audit workflows, vulnerability detection, semgrep rules

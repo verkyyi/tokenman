@@ -654,3 +654,10 @@
 2026-03-23T21:28:05Z | sickn33/antigravity-awesome-skills | NEW Watch List: 27K stars, 1304+ installable skills, v8.7.1, npm distribution model | Watch List
 2026-03-23T21:28:05Z | sha-scan | All 10 Active sources unchanged — SHAs match last run exactly. No staleness candidates (all active within 7 days) | No action
 2026-03-23T21:28:05Z | verkyyi/tokenman | Forks: 0, Adopters: 0. No external usage detected | No action
+2026-03-23T21:47:50Z | synthesis | SYNTHESIS posture: analyzed 656 research_log lines, 27 learned intents, 4 open issues. 4 convergent signals identified | synthesis run
+2026-03-23T21:47:50Z | synthesis-signal | FIX_PROCESS intent dominance: 12 of 29 entries (41%), most resolved. Pipeline reliability is human's top concern, system is responsive | observation
+2026-03-23T21:47:50Z | synthesis-signal | Source portfolio imbalance: garrytan/gstack produces 7 of 9 pattern hits (78%). 6 Active sources have 0 hits since seed | observation
+2026-03-23T21:47:50Z | synthesis-signal | Skill ecosystem standardization: 4 independent sources (gstack, antigravity-awesome-skills, trailofbits/skills, everything-claude-code) converging on installable skill packages as distribution mechanism | issue #66 created
+2026-03-23T21:47:50Z | synthesis-signal | Growth stalled at distribution: 2 stars, 0 forks, 0 views after 2+ weeks. #22 and #48 blocked on needs-human. Skill packaging could be new distribution channel | observation
+2026-03-23T21:47:50Z | sha-scan | All 10 Active sources unchanged. Watch List: vibe-kanban NEW SHA 83192b3 (was fa00afc, active dev confirmed). Other 3 unchanged | noted
+2026-03-23T21:47:50Z | growth-metrics | Stars: 2 (+1 since v0.1.0), Forks: 0, Watchers: 0, Open issues: 4. Traffic API still 403 | logged to growth_metrics.md
