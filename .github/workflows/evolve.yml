@@ -48,6 +48,20 @@ jobs:
           - Always write an updated last_evolve_summary.md at the end of the run, even if nothing changed.
           - When skipping a step, use one sentence. Do not re-analyze data you've already confirmed is unchanged.
 
+          ## Lightweight Mode Gate
+          Read the `Consecutive-Unchanged` field from the Previous Evolve Run Summary.
+          After completing Step 1 (research check), determine if ANY research source has a
+          new commit SHA compared to the summary. Then apply this logic:
+          - If new changes were found: set Consecutive-Unchanged to 0, run ALL steps (full mode).
+          - If NO new changes were found AND Consecutive-Unchanged >= 2: enter LIGHTWEIGHT MODE.
+            In lightweight mode, ONLY execute: Step 1 (already done), Step 2a (pipeline health),
+            Step 3 (log), and Step 4 (state update). SKIP Steps 2b, 2c, 2d, 2e, 2f, 2g, 2h entirely.
+            State "LIGHTWEIGHT MODE — skipping Steps 2b-2h (no source changes for N consecutive runs)".
+          - If NO new changes were found AND Consecutive-Unchanged < 2: run all steps normally
+            (the counter will be incremented in Step 4).
+          The Consecutive-Unchanged counter is written in Step 4. If the field is missing from the
+          summary, treat it as 0.
+
           You are the self-evolution agent for Agentfolio. You MUST execute
           bash commands to fetch data, write files, and make changes.
           Do NOT just reason about what to do — actually do it.
@@ -361,14 +375,21 @@ jobs:
 
           Also write state/last_evolve_summary.md with: timestamp,
           main HEAD SHA (from `git rev-parse HEAD`), open issues list (from `gh issue list`),
-          per-source latest commit SHA and one-line summary from Step 1,
-          which steps were executed vs skipped, and a findings summary.
+          the Consecutive-Unchanged counter, per-source latest commit SHA and one-line summary
+          from Step 1, which steps were executed vs skipped, and a findings summary.
+
+          Consecutive-Unchanged counter logic:
+          - If ANY research source had a new commit SHA (vs. the previous summary): set to 0.
+          - If NO research sources changed: increment the previous value by 1.
+          - If the previous summary had no Consecutive-Unchanged field: treat previous as 0.
+
           Format:
           ```
           # Last Evolve Summary
           Timestamp: YYYY-MM-DDTHH:MM:SSZ
           Main HEAD: <sha>
           Open issues: #N, #M, ...
+          Consecutive-Unchanged: N
 
           ## Research Source Digests
           source/name: <sha> | one-line summary
