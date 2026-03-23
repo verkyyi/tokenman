@@ -32,7 +32,7 @@ Each entry has `name`, `color`, and `description`. Comments group labels by cate
 - `workflow_dispatch` — manual trigger with optional `prune` input
 
 **Logic:**
-1. Parse `.github/labels.yml` with `yq`
+1. Parse `.github/labels.yml` with `yq` (installed via `snap install yq` or binary download — not pre-installed on ubuntu-latest)
 2. For each entry: `gh label create "$name" --color "$color" --description "$desc" --force`
 3. **Prune step** (opt-in, defaults to `false`): list all GitHub labels, diff against registry, delete labels not in the file
 4. No Claude/AI — pure shell, fast, deterministic, idempotent
@@ -45,14 +45,19 @@ Each entry has `name`, `color`, and `description`. Comments group labels by cate
 - Delete the "Ensure labels exist" step (lines 448-460) that currently runs `gh label create` for 8 labels
 
 **Remove `project:*` references from workflow prompts:**
-- evolve.yml: remove `project:$(...)` from issue creation instructions
-- watcher.yml: remove `project:<reponame>` from issue creation instructions
-- growth.yml: remove `project:<reponame>` from label instructions
-- triage.yml: remove project label instructions
-- feedback-learner.yml: remove `project:$(...)` from issue creation
+- evolve.yml line ~126 (PIPELINE WATCH posture): remove `project:$(echo $GITHUB_REPOSITORY | cut -d/ -f2)` from `--label` in prompt
+- evolve.yml line ~239 (Issue Creation section): remove `project:$(echo $GITHUB_REPOSITORY | cut -d/ -f2)` from prompt
+- watcher.yml lines ~176-177, ~204: remove `project:<reponame>` from issue creation instructions in prompt
+- growth.yml line ~146: remove `project:<reponame>` from label instructions in prompt
+- triage.yml lines ~59, ~64: remove project label instructions from prompt
+- feedback-learner.yml line ~119: remove project label instruction from prompt
+- feedback-learner.yml line ~275: remove `project:$(gh repo view --json name -q .name)` from `--label` flag
+
+**Update CLAUDE.md:**
+- Remove `project:*` label pattern from APP_NAME Resolution section (line ~24)
 
 **No changes needed to:**
-- Workflows that only `--add-label` or `--label` with labels (coder, reviewer, analyze, claude-task, discover) — these stay as-is
+- Workflows that only `--add-label` or `--label` without `project:*` (coder, reviewer, analyze, claude-task, discover) — these stay as-is
 
 ### 4. Label inventory
 
@@ -87,11 +92,13 @@ Each entry has `name`, `color`, and `description`. Comments group labels by cate
 **Workflow meta:**
 | Name | Color | Description |
 |------|-------|-------------|
-| `triaged` | `0e8a16` | Triaged and queued for owner |
+| `auto-merge` | `0e8a16` | PR approved for automatic merge |
+| `agent-error` | `d73a4a` | Issue created by agent failure handling |
+| `feedback` | `1d76db` | User feedback (also hardcoded in `.github/ISSUE_TEMPLATE/feedback.yml`) |
 
-**Total: 17 labels.**
+**Total: 19 labels.**
 
-GitHub default labels not in this list (`documentation`, `duplicate`, `enhancement`, `good first issue`, `help wanted`, `invalid`, `wontfix`) will be pruned when prune is enabled. Until then they remain unused.
+GitHub default labels not in this list (`documentation`, `duplicate`, `enhancement`, `good first issue`, `help wanted`, `invalid`, `wontfix`, `triaged`) will be pruned when prune is enabled. Until then they remain unused.
 
 ## Non-goals
 
