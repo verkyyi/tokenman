@@ -1,0 +1,20 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E8926A" />
+      <stop offset="100%" stop-color="#C45E35" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  <!-- Pac-man body -->
+  <path
+    d="M 60 60 L 96.77 86.27 A 45.6 45.6 0 1 1 96.77 33.73 Z"
+    fill="url(#bodyGrad)"
+    filter="url(#glow)"
+  />
+  <!-- Eye -->
+  <circle cx="66.84" cy="40.85" r="4.8" fill="white" opacity="0.9" />
+</svg>
