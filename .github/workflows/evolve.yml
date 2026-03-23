@@ -123,7 +123,7 @@ jobs:
              - For ACTIONABLE: check if issue exists
                (`gh issue list --state open --label pipeline-fix --json title -q '.[].title'`),
                create if not:
-               `gh issue create --title "[pipeline] Brief description" --body "..." --label "pipeline-fix,project:$(echo $GITHUB_REPOSITORY | cut -d/ -f2)"`
+               `gh issue create --title "[pipeline] Brief description" --body "..." --label "pipeline-fix"`
           3. Check state/usage_log.md for cost trends or token saturation patterns
           4. Quick SHA scan of all Active sources (note changes, don't deep-dive)
 
@@ -236,7 +236,7 @@ jobs:
           - Title: "[evolve] Adopt X pattern from Y" or "[pipeline] Fix X"
           - Body MUST include: ## Source, ## Pattern, ## Proposed Change, ## Evidence
           - Labels: evolve-finding (research), pipeline-fix (pipeline),
-            intent-driven (human intent) + project:$(echo $GITHUB_REPOSITORY | cut -d/ -f2)
+            intent-driven (human intent)
           - Save issue number: `echo "$ISSUE_NUM" >> .new_issues.txt`
 
           Maximum 3 issues per run (any type). Quality over quantity.
