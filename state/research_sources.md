@@ -1,7 +1,7 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-03-23T21:47:50Z
+# Last updated: 2026-03-23T22:25:09Z
 
 ## Active Sources
 
@@ -26,14 +26,14 @@
 ### hesreallyhim/awesome-claude-code
 - **Why:** Curated ecosystem catalog — discover new tools, libraries, and patterns
 - **Look for:** New entries in Orchestrators/Tools/Skills sections, trending repos referenced
-- **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 0
-- **Notes:** Good source for HORIZON SCAN cross-references.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-23 | **Pattern hits:** 0
+- **Notes:** Categories: Skills, Workflows, Tooling, Hooks, Slash-Commands, CLAUDE.md Files, Status Lines, Alternative Clients. Recent additions: parry (prompt injection scanner), RIPER workflow, ccpm (project management). Value is cross-reference for HORIZON SCAN, not direct patterns. Recent commits are automated ticker updates only.
 
 ### bytedance/deer-flow
 - **Why:** Multi-agent orchestration patterns from a major tech company
 - **Look for:** Agent coordination, state management, tool orchestration, LLM provider patterns
-- **Added:** 2026-03-21 (seed) | **Last deep:** never | **Pattern hits:** 0
-- **Notes:** Active development. Enterprise-scale patterns may not be directly applicable but inform design.
+- **Added:** 2026-03-21 (seed) | **Last deep:** 2026-03-23 | **Pattern hits:** 1
+- **Notes:** Very active (5+ commits/day). GuardrailMiddleware: pre-tool-call authorization with pluggable providers (AllowlistProvider, OAP passport, custom class-path), fail-closed option, numbered middleware chain (11 positions). Covered by #67. Also: Cmd+K command palette, podcast TTS error handling, thread cleanup — not harness-relevant.
 
 ### wshobson/agents
 - **Why:** Agent framework patterns — autonomous agent architectures
@@ -83,14 +83,14 @@
 ### trailofbits/skills
 - **Why:** Security-focused Claude Code skills (4K stars) from top security firm — audit workflows, vulnerability detection, semgrep rules
 - **Look for:** Security audit skill structure, semgrep rule patterns, skill-improver tooling, SKILL.md format conventions
-- **Added:** 2026-03-23 (horizon scan) | **Observations:** 1 | **First seen:** 2026-03-23
-- **Notes:** Last commit Mar 17. Added Codex support (aab484c). skill-improver plugin, semgrep-rule-creator. Could inform our security posture and skill file format.
+- **Added:** 2026-03-23 (horizon scan) | **Observations:** 2 | **First seen:** 2026-03-23
+- **Notes:** Last commit Mar 17. 34 plugins with formal SKILL.md standard: YAML frontmatter (name, description, allowed-tools), structured sections (When to Use, When NOT to Use, Rationalizations to Reject, Anti-Patterns, Strictness Level). skill-improver: automated quality loop (Review->Categorize->Fix->Evaluate->Repeat) with Critical/Major/Minor severity. Codex compatibility layer. Pattern hit: SKILL.md quality standard (issue #68).
 
 ### sickn33/antigravity-awesome-skills
-- **Why:** Largest skill catalog (27K stars, 1304+ skills) — installable via CLI, bundles, multi-platform (Claude Code, Codex, Gemini CLI, Cursor)
+- **Why:** Largest skill catalog (27K stars, 1309+ skills) — installable via CLI, bundles, multi-platform (Claude Code, Codex, Gemini CLI, Cursor)
 - **Look for:** Skill packaging/distribution model, CLI installer patterns, bundle organization, cross-platform skill format
-- **Added:** 2026-03-23 (horizon scan) | **Observations:** 1 | **First seen:** 2026-03-23
-- **Notes:** v8.7.1, very active (Mar 23). npm-based distribution. Massive catalog — useful for pattern discovery and understanding skill ecosystem conventions.
+- **Added:** 2026-03-23 (horizon scan) | **Observations:** 2 | **First seen:** 2026-03-23
+- **Notes:** v8.7.1 (Mar 23), very active. NPX installer (`npx antigravity-awesome-skills`) installs to target directory. Bundles by role (Web Wizard, Security Engineer, Essentials). Registry sync metadata in README. Confirms direction of #66. Distribution model: npm package + GitHub catalog + curated bundles.
 
 ## Dropped Sources
 <!-- Removed sources with reason. Kept for history so we don't re-discover them. -->
