@@ -644,3 +644,6 @@
 2026-03-23T20:34:28Z | withastro/astro | SHA scan: 47694d0 unchanged | no action
 2026-03-23T20:34:28Z | verkyyi/tokenman | SHA scan: 02f20af (state commits only) | no action
 2026-03-23T20:34:28Z | pipeline-health | 5 recent failures: 1 NEW (Deploy 20:29), 4 pre-existing. Not 3+ new, no forced PIPELINE_WATCH | no action
+2026-03-23T20:46:32Z | pipeline-health | PIPELINE_WATCH: 10 failed runs — 2 ACTIONABLE (Deploy e2e config, same root cause), 8 ALREADY-FIXED/INTERMITTENT. Deploy broken by commit 67a8974 adding e2e config with no test files. | Fixed: removed e2e lines from evolve_config.md, created+closed issue #65
+2026-03-23T20:46:32Z | usage-trends | Cost: $62 across 50 recent runs. Evolve ~$1.35/run avg (20 runs/12h), watcher ~$1.00/run (10 runs/12h). Evolve saturation 91%+ exceeding max-turns=45. Structural, known. | Logged, no new issue (covered by existing observations)
+2026-03-23T20:46:32Z | sha-scan | All 10 Active sources unchanged since last run — SHAs match exactly (claude-code 6aadfbd, gstack f4bbfaa, everything-claude-code df4f2df, awesome-claude-code 018dc1d, deer-flow 8b0f3fe, agents 1ad2f00, awesome-subagents fba002a, runner e17e7aa, astro 47694d0) | No action needed
