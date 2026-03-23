@@ -1,27 +1,27 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-03-23T00:00:00Z
+# Last updated: 2026-03-23T20:34:28Z
 
 ## Active Sources
 
 ### anthropics/claude-code
 - **Why:** The runtime we build on — releases, breaking changes, new hooks, CLI flags
 - **Look for:** CHANGELOG entries, new hook types, permission changes, SDK updates
-- **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 0
-- **Notes:** Protected source — never drop. Check CHANGELOG and releases, not just commits.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-23 | **Pattern hits:** 1
+- **Notes:** Protected source — never drop. Check CHANGELOG and releases, not just commits. v2.1.81: --bare flag (issue #63).
 
 ### garrytan/gstack
 - **Why:** Harness engineering patterns — skills, slash commands, review protocols, agent orchestration
 - **Look for:** New skill files, workflow patterns, agent guardrails, PR review techniques, structured output formats
-- **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 5
-- **Notes:** Most productive source so far. v0.9.7-v0.11.3 yielded adversarial review, structured tables, anti-sycophancy, pre-merge gate, security patterns.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-23 | **Pattern hits:** 7
+- **Notes:** Most productive source so far. v0.9.7-v0.11.3 yielded adversarial review, structured tables, anti-sycophancy, pre-merge gate, security patterns. v0.9.9.1: cross-model outside voice (issue #64). v0.11.6.0: /cso v2 infrastructure-first security audit (covered by #17). v0.11.10.0: CI evals with parallel runners (no evals framework yet).
 
 ### affaan-m/everything-claude-code
 - **Why:** Community harness patterns, skill collections, optimization techniques
 - **Look for:** New skills, CLAUDE.md patterns, workflow architectures, instinct files
-- **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 1
-- **Notes:** Large community repo — watch for novel patterns emerging from contributors.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-23 | **Pattern hits:** 1
+- **Notes:** Large community repo. skill-comply (behavioral compliance), santa-method (multi-agent adversarial verification), Kiro IDE integration — interesting but not immediately adoptable.
 
 ### hesreallyhim/awesome-claude-code
 - **Why:** Curated ecosystem catalog — discover new tools, libraries, and patterns
@@ -44,8 +44,8 @@
 ### VoltAgent/awesome-claude-code-subagents
 - **Why:** Subagent patterns and skill registry — how others structure agent delegation
 - **Look for:** New subagent types, skill file formats, delegation patterns
-- **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 0
-- **Notes:** Community-curated list of subagent implementations.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-23 | **Pattern hits:** 0
+- **Notes:** Community-curated list of subagent implementations. Mostly framework-specific experts (Rails, Expo, FastAPI) — not harness patterns.
 
 ### actions/runner
 - **Why:** CI/CD runtime we depend on — deprecation notices, new features, security fixes
