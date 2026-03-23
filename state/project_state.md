@@ -1,14 +1,14 @@
 # Project State
-Last updated: 2026-03-23T11:55:00Z
-Updated by: watcher.yml (health check)
+Last updated: 2026-03-23T12:28:00Z
+Updated by: evolve.yml (self-evolution run)
 
 ## Last Session
-Action: watcher.yml — health check. All clear, no new failures since 06:26. All workflows healthy and succeeding. PR #55 approved 12h+ awaiting human merge. 0 corrective actions.
+Action: evolve.yml — self-evolution run. 1 source change (awesome-claude-code automated ticker update, not relevant). SEO check at hour 12: meta tags and robots.txt current, repo topics comprehensive. README minor inaccuracy noted (10 vs 12 sources). No new pipeline failures. 0 issues created.
 
 System health:
 - Evolve: SEVERELY SATURATED (88% exceed max-turns=45) — structural, workflows succeeding
 - Watcher: SEVERELY SATURATED (58.3% exceed max-turns=30, improving from 70%) — structural, completing work
-- Weekly Analysis: 1 FAILURE (06:26 stale branch) — #59 closed, fix deployed, awaiting next scheduled run
+- Weekly Analysis: RECOVERED — succeeded at 12:19 (stale branch fix confirmed)
 - Reviewer Agent: HEALTHY — succeeded at 06:06
 - Feedback Learner: HEALTHY — succeeded at 07:38 (idle, no merged PRs to process)
 - Coder: HEALTHY (87.5%/40)
@@ -17,7 +17,7 @@ System health:
 - All other workflows: healthy
 
 ## Current Priorities (ordered)
-1. **[PR]** PR #55: fix reviewer.yml state reset — APPROVED 8h+, awaiting human merge (workflow YAML)
+1. **[PR]** PR #55: fix reviewer.yml state reset — APPROVED 12h+, awaiting human merge (workflow YAML)
 2. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
 3. **[WAITING]** Issue #22: Submit to awesome-claude-code — 7-day cooldown expires ~March 28
 
@@ -45,11 +45,10 @@ System health:
 - Evolve lightweight mode gate now deployed (commit ce1994c) — skips Steps 2b-2h when sources unchanged 2+ consecutive runs
 - Reviewer.yml skips pull_request events — only runs via workflow_dispatch (watcher triggers)
 - Reviewer.yml has a bug: README sync step doesn't handle dirty working tree (issue #53 closed, PR #55 APPROVED — awaiting human merge)
-- PR #55 approved by reviewer — human merge needed for workflow YAML change (8h+ pending)
-- analyze.yml stale branch bug fixed (issue #59 closed, fix deployed — awaiting next analyze run to confirm)
-- Evolve severely saturated (89.5% exceed max-turns=45) — lightweight gate helps when sources unchanged but not when sources change; workflows still succeeding
-- Watcher severely saturated (70% exceed max-turns=30) — stable, completing work
+- PR #55 approved by reviewer — human merge needed for workflow YAML change (12h+ pending)
+- analyze.yml stale branch bug fixed (issue #59 closed, fix deployed — Weekly Analysis succeeded at 12:19, confirming fix)
+- Evolve severely saturated (88% exceed max-turns=45) — lightweight gate helps when sources unchanged but not when sources change; workflows still succeeding
+- Watcher severely saturated (58.3% exceed max-turns=30) — stable, completing work
 - Feedback Learner healthy — succeeded 07:38, idle when no merged PRs (expected)
 - Site content updated: hero headline now action-oriented, pac-man branding, broken logo removed, SSL/CNAME for tokenman.io
-- deer-flow introduced pre-tool-call guardrails middleware (#1240) — interesting agent safety pattern, noted for future reference
-- everything-claude-code added 6 gap-closing skills (browser QA, design system, product lens, canary watch, benchmark, safety guard) — competitive vs gstack, not directly applicable to tokenman harness
+- README minor inaccuracy: says "10 external sources across rotating tiers" — actually 12 sources, all checked every run (no rotation). Not issueworthy given existing #38 coverage.
