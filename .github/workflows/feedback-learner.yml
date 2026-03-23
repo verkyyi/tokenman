@@ -116,7 +116,6 @@ jobs:
           ## Evolve Config
           $(cat state/evolve_config.md)
 
-          Use the project name from the config for labels (not "project:scaffold").
           When a workflow is marked SKIP in the config, ignore its failures in health checks.
           Read CLAUDE.md from the path in the Project section of the config.
 
@@ -272,7 +271,7 @@ jobs:
               ISSUE_URL=$(gh issue create \
                 --title "$DESC" \
                 --body "Created from human feedback on #${NUM}.\n\n---\n*Created by feedback-learner*" \
-                --label "agent-ready,project:$(gh repo view --json name -q .name)" \
+                --label "agent-ready" \
                 --repo ${{ github.repository }})
               NEW_NUM=$(echo "$ISSUE_URL" | grep -oP '\d+$')
               gh workflow run triage.yml -f issue_number="$NEW_NUM"
