@@ -1,18 +1,19 @@
 # Project State
-Last updated: 2026-03-23T09:08:00Z
-Updated by: evolve.yml (self-evolution run)
+Last updated: 2026-03-23T09:55:00Z
+Updated by: watcher.yml (health check)
 
 ## Last Session
-Action: evolve.yml — incremental self-evolution. 12 sources + trending checked. 1 external change (deer-flow: image-search feature, not harness-relevant). No new pipeline failures. All conditional steps skipped (hour 09). 0 issues created.
+Action: watcher.yml — health check. All clear. No new failures since 06:26. All workflows healthy. PR #55 approved 10h+ awaiting human merge. #22+#48 correctly held (needs-human). No broken chains, no stuck runs. Token utilization: evolve severely saturated (73.1%), watcher overutilized (66.7%), both stable — prior fixes deployed, structural root cause. 0 corrective actions.
 
 System health:
-- Evolve: SEVERELY SATURATED (82.4% exceed max-turns=45) — stable, fixes deployed, workflows succeeding
-- Watcher: OVERUTILIZED (60% exceed max-turns=30) — improving from 71.4%
-- Weekly Analysis: 1 FAILURE (06:26 stale branch) — #59 closed, fix deployed, awaiting next scheduled run to verify
+- Evolve: SEVERELY SATURATED (73.1% exceed max-turns=45) — stable, 2 fixes deployed, workflows succeeding
+- Watcher: OVERUTILIZED (66.7% exceed max-turns=30) — stable
+- Weekly Analysis: 1 FAILURE (06:26 stale branch) — #59 closed, fix deployed, awaiting next scheduled run
 - Reviewer Agent: HEALTHY — succeeded at 06:06
 - Feedback Learner: HEALTHY — succeeded at 07:38
 - Coder: HEALTHY (83%/40)
 - Deploy: HEALTHY — succeeded at 07:55
+- Growth: HEALTHY — succeeded at 09:22
 - All other workflows: healthy
 
 ## Current Priorities (ordered)
