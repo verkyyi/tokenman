@@ -13,8 +13,6 @@ Maturity: Active (100+ commits)
 install: npm ci
 build: npm run build
 test: npm run build
-e2e-setup: npx playwright install --with-deps chromium
-e2e: npx playwright test
 deploy: GitHub Pages via GitHub Actions
 
 ## Workflow Fit
@@ -32,7 +30,7 @@ claude-task: HIGH
 
 ## User Answers
 Deploy: GitHub Pages via deploy.yml
-Tests: npm run build (Astro build validates) + Playwright E2E
+Tests: npm run build (Astro build validates)
 Public: Yes — open-source template
 Bypass permissions confirmed: Yes
 
