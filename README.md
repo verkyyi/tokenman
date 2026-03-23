@@ -64,7 +64,7 @@ Human corrections compound. Say it once and the system remembers permanently.
 
 ---
 
-## The eleven workflows
+## The twelve workflows
 
 | Workflow | Trigger | What it does |
 |---|---|---|
@@ -79,6 +79,7 @@ Human corrections compound. Say it once and the system remembers permanently.
 | `analyze.yml` | Every 6 hours | Strategic analysis of past activity |
 | `discover.yml` | Manual dispatch | Scans apps/ folders, generates project CLAUDE.md |
 | `claude-task.yml` | Manual dispatch | Your dev channel — type any instruction |
+| `test-evolve.yml` | Issue event | Test Evolve |
 
 ---
 
@@ -130,7 +131,7 @@ apps/                     # Projects managed by the scaffold
 ├── scaffold/             # The scaffold manages itself
 └── profile/              # Additional projects
 
-.github/workflows/        # The eleven autonomous workflows
+.github/workflows/        # The twelve autonomous workflows
 skills/                   # Agent skill files (markdown prompts)
 src/                      # Astro site source
 ```
