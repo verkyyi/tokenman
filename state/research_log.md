@@ -483,3 +483,18 @@
 2026-03-23T12:31:25Z | github-trending | 3177 repos (+14 since last run), no breakout | no action
 2026-03-23T12:31:25Z | openai-harness-blog | Cloudflare blocked (persistent) | no action
 2026-03-23T12:31:25Z | pipeline-health | same 10 failed runs, all pre-date last evolve. 0 new failures, 0 issues created | no action
+2026-03-23T12:50:34Z | anthropics/claude-code | 6aadfbd CHANGELOG update (2026-03-20) — unchanged since last run | no action
+2026-03-23T12:50:34Z | garrytan/gstack | 7fbf68b cross-model outside voice v0.9.9.1 — unchanged since last run | no action
+2026-03-23T12:50:34Z | affaan-m/everything-claude-code | df4f2df 6 gap-closing skills — unchanged since last run | no action
+2026-03-23T12:50:34Z | hesreallyhim/awesome-claude-code | 57c29ce automated ticker update — unchanged since last run | no action
+2026-03-23T12:50:34Z | bytedance/deer-flow | 3be1d84 fix(hotkey) open settings — unchanged since last run | no action
+2026-03-23T12:50:34Z | wshobson/agents | 1ad2f00 OCI awareness (stale 2026-03-17) — unchanged since last run | no action
+2026-03-23T12:50:34Z | VoltAgent/awesome-claude-code-subagents | fba002a Rails version-aware expert — unchanged since last run | no action
+2026-03-23T12:50:34Z | godagoo/claude-code-always-on | 00854ad stale (2026-02-03) — unchanged | no action
+2026-03-23T12:50:34Z | humanlayer/humanlayer | bdea199 stale (2026-01-07) — unchanged | no action
+2026-03-23T12:50:34Z | actions/runner | 4259ffb dependabot bump flatted — unchanged since last run | no action
+2026-03-23T12:50:34Z | withastro/astro | f41584a fix(node): recursion fs loop (#15941) — NEW commit | noted — bug fix in node adapter, no harness impact (we use static builds)
+2026-03-23T12:50:34Z | verkyyi/tokenman | 43330db state: evolve (prior run state commit) | no action
+2026-03-23T12:50:34Z | github-trending | 3185 repos (+8 from 3177), top hit everything-claude-code — no breakout | no action
+2026-03-23T12:50:34Z | openai-harness-blog | Cloudflare blocked (persistent) | no action
+2026-03-23T12:50:34Z | pipeline-health | 10 failed runs checked, all pre-date last evolve, 0 new failures, 0 issues created | no action
