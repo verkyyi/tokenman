@@ -1,0 +1,137 @@
+name: Test Evolve
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/evolve.yml'
+      - 'state/research_sources.md'
+      - 'state/evolve_config.md'
+      - 'tests/evolve-*'
+
+permissions:
+  contents: read
+  actions: read
+  issues: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: YAML syntax check
+        run: python3 -c "import yaml; yaml.safe_load(open('.github/workflows/evolve.yml'))" && echo "YAML valid"
+
+      - name: Heredoc structure
+        run: |
+          DELIMITERS=$(grep -c "^          PROMPT" .github/workflows/evolve.yml)
+          if [ "$DELIMITERS" -ne 1 ]; then
+            echo "::error::Expected exactly 1 PROMPT heredoc delimiter, found $DELIMITERS"
+            exit 1
+          fi
+          echo "Heredoc structure: OK"
+
+      - name: Prompt has all 4 postures
+        run: |
+          for POSTURE in "PATTERN HUNT" "PIPELINE WATCH" "HORIZON SCAN" "SYNTHESIS"; do
+            if ! grep -q "## Posture: $POSTURE" .github/workflows/evolve.yml; then
+              echo "::error::Missing posture section: $POSTURE"
+              exit 1
+            fi
+          done
+          echo "All 4 postures present"
+
+      - name: Prompt has required sections
+        run: |
+          REQUIRED=(
+            "## ALWAYS: Quick Health Glance"
+            "## Posture Selection"
+            "## Source Management"
+            "## Issue Creation"
+            "## Logging"
+            "## Rules"
+            "## Previous Evolve Run Summary"
+            "## Research Sources"
+          )
+          for SECTION in "${REQUIRED[@]}"; do
+            if ! grep -q "$SECTION" .github/workflows/evolve.yml; then
+              echo "::error::Missing required section: $SECTION"
+              exit 1
+            fi
+          done
+          echo "All required sections present"
+
+      - name: Posture validation step exists
+        run: |
+          if ! grep -q "Validate posture output" .github/workflows/evolve.yml; then
+            echo "::error::Missing 'Validate posture output' step in evolve.yml"
+            exit 1
+          fi
+          echo "Validation step present"
+
+      - name: research_sources.md has valid structure
+        run: |
+          if [ -f state/research_sources.md ]; then
+            for SECTION in "## Active Sources" "## Watch List" "## Dropped Sources"; do
+              if ! grep -q "$SECTION" state/research_sources.md; then
+                echo "::error::research_sources.md missing section: $SECTION"
+                exit 1
+              fi
+            done
+            ACTIVE=$(sed -n '/^## Active Sources/,/^## /p' state/research_sources.md | grep -c "^### " || echo "0")
+            if [ "$ACTIVE" -lt 5 ]; then
+              echo "::error::research_sources.md has fewer than 5 Active sources ($ACTIVE)"
+              exit 1
+            fi
+            echo "research_sources.md structure: OK ($ACTIVE active sources)"
+          else
+            echo "::warning::research_sources.md not found (will be seeded on first run)"
+          fi
+
+      - name: evolve_config.md has required fields
+        run: |
+          if [ -f state/evolve_config.md ]; then
+            for FIELD in "## Repo Profile" "## Build" "## Workflow Fit" "## Project" "CLAUDE.md:"; do
+              if ! grep -q "$FIELD" state/evolve_config.md; then
+                echo "::error::evolve_config.md missing: $FIELD"
+                exit 1
+              fi
+            done
+            echo "evolve_config.md: OK"
+          fi
+
+  smoke:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check last evolve run health
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # Verify the most recent evolve run succeeded and used postures
+          LAST_RUN=$(gh run list --workflow=evolve.yml --status=success --limit 1 --json databaseId,conclusion -q '.[0].databaseId')
+          if [ -z "$LAST_RUN" ]; then
+            echo "::warning::No recent successful evolve run found — skipping smoke check"
+            exit 0
+          fi
+          echo "Last successful evolve run: $LAST_RUN"
+
+          # Check posture in summary
+          POSTURE=$(grep -oP 'Posture: \K\w+' state/last_evolve_summary.md 2>/dev/null || echo "")
+          if [ -z "$POSTURE" ]; then
+            echo "::warning::No posture found in last_evolve_summary.md — may be pre-posture run"
+          else
+            echo "Last posture: $POSTURE"
+          fi
+
+          # Check agent log format
+          LAST_EVOLVE_LOG=$(grep "evolve.yml" state/agent_log.md | tail -1)
+          if echo "$LAST_EVOLVE_LOG" | grep -qP 'deep:\d+'; then
+            echo "Structured logging: OK"
+          else
+            echo "::warning::Last evolve log entry missing structured format"
+          fi
+
+          echo "Smoke check passed"

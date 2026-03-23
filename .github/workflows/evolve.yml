@@ -335,13 +335,52 @@ jobs:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           GITHUB_TOKEN: ${{ github.token }}
 
-      - name: Snapshot posture before state commit
+      - name: Validate posture output
         if: always()
         run: |
-          # commit-state.sh runs git checkout after API push, wiping local state files.
-          # Snapshot posture/issues to /tmp before that happens.
-          grep -oP 'Posture: \K\w+' state/last_evolve_summary.md > /tmp/evolve_posture.txt 2>/dev/null || echo "unknown" > /tmp/evolve_posture.txt
+          # Runs before commit-state.sh wipes local files via git checkout.
+          # Validates the posture system produced expected output format.
+          ERRORS=0
+
+          # 1. Posture was selected
+          POSTURE=$(grep -oP 'Posture: \K\w+' state/last_evolve_summary.md 2>/dev/null || echo "")
+          if [ -z "$POSTURE" ]; then
+            echo "::warning::Posture not found in last_evolve_summary.md"
+            ERRORS=$((ERRORS + 1))
+          else
+            echo "Posture: $POSTURE"
+          fi
+
+          # 2. Posture counters present
+          COUNTERS=$(grep -cE '^\s+(PATTERN_HUNT|PIPELINE_WATCH|HORIZON_SCAN|SYNTHESIS):' state/last_evolve_summary.md 2>/dev/null || echo "0")
+          if [ "$COUNTERS" -lt 4 ]; then
+            echo "::warning::Expected 4 posture counters, found $COUNTERS"
+            ERRORS=$((ERRORS + 1))
+          fi
+
+          # 3. Structured agent log line
+          LAST_EVOLVE=$(grep "evolve.yml" state/agent_log.md 2>/dev/null | tail -1)
+          if ! echo "$LAST_EVOLVE" | grep -qP 'deep:\d+'; then
+            echo "::warning::Agent log missing structured format (deep:N scan:N issues:N findings:N)"
+            ERRORS=$((ERRORS + 1))
+          fi
+
+          # 4. research_sources.md exists and has Active Sources
+          ACTIVE=$(grep -c '^### ' state/research_sources.md 2>/dev/null || echo "0")
+          if [ "$ACTIVE" -lt 5 ]; then
+            echo "::warning::research_sources.md has fewer than 5 source headings ($ACTIVE)"
+            ERRORS=$((ERRORS + 1))
+          fi
+
+          # 5. Snapshot posture/issues to /tmp for usage logging
+          echo "${POSTURE:-unknown}" > /tmp/evolve_posture.txt
           grep -oP '(\d+) issues created' state/last_evolve_summary.md 2>/dev/null | grep -oP '\d+' > /tmp/evolve_issues.txt 2>/dev/null || echo "0" > /tmp/evolve_issues.txt
+
+          if [ "$ERRORS" -gt 0 ]; then
+            echo "::warning::Posture validation: $ERRORS issues found (non-blocking)"
+          else
+            echo "Posture validation: all checks passed"
+          fi
 
       - name: Log usage metrics
         if: always()
