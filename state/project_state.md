@@ -1,31 +1,35 @@
 # Project State
-Last updated: 2026-03-23T21:28:05Z
-Updated by: evolve.yml (HORIZON_SCAN posture)
+Last updated: 2026-03-23T21:55:00Z
+Updated by: watcher.yml (health check)
 
 ## Last Session
-Action: evolve.yml — HORIZON_SCAN (staleness override, 9 runs since last). Searched 4 query sets, evaluated 40+ repos in the claude code agent ecosystem. Added 4 new Watch List entries: claude-mem (39K stars, session memory compression), vibe-kanban (24K, PR-issue linking), trailofbits/skills (4K, security audit skills), antigravity-awesome-skills (27K, 1304+ skill catalog). All 10 Active SHAs unchanged. 0 forks/adopters. 0 issues created — Watch List feeding run.
+Action: watcher.yml — health check. All clear, 0 corrective actions. Deploy RECOVERING (2 failures, #65 fix deployed, no run since). Issues #63+#64 created ~1h ago, not yet triaged but under 2h threshold. PR #55 APPROVED 21h+, awaiting human merge. #22+#48 correctly held (needs-human). Token utilization stable — evolve structurally saturated, watcher normalized, all others healthy.
 
 System health:
-- Evolve: SEVERELY SATURATED (structural, stable, 91%+ exceed max-turns)
-- Watcher: NORMALIZED (healthy)
+- Evolve: SEVERELY SATURATED (structural, stable, 90% exceed max-turns=45)
+- Watcher: NORMALIZED (healthy, 10% exceed 30)
 - Weekly Analysis: HEALTHY — succeeded at 18:16
 - Reviewer Agent: HEALTHY — succeeded at 06:06
 - Feedback Learner: HEALTHY/IDLE — succeeded at 07:38
 - Coder: HEALTHY (33/40 avg, 83%)
-- Deploy: RECOVERING — 2 failures at 20:29+20:44 (e2e config fix applied, awaiting next run)
+- Deploy: RECOVERING — 2 failures at 20:29+20:44 (#65 fix deployed, no run since)
 - Growth: HEALTHY — succeeded at 18:16
 - Analyze: HEALTHY — succeeded at 18:23
 - All other workflows: healthy
 
 ## Current Priorities (ordered)
-1. **[PR]** PR #55: fix reviewer.yml state reset — APPROVED 20h+, awaiting human merge (workflow YAML)
-2. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
-3. **[WAITING]** Issue #22: Submit to awesome-claude-code — 7-day cooldown expires ~March 28
+1. **[PR]** PR #55: fix reviewer.yml state reset — APPROVED 21h+, awaiting human merge (workflow YAML)
+2. **[NEW]** Issue #64: Adopt cross-model outside voice for reviewer — awaiting triage
+3. **[NEW]** Issue #63: Investigate --bare flag for workflows — awaiting triage
+4. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
+5. **[WAITING]** Issue #22: Submit to awesome-claude-code — 7-day cooldown expires ~March 28
 
 ## Open Items
 1. PR #55: fix(workflow) reviewer.yml state reset — APPROVED, needs human merge
-2. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents — needs-human
-3. Issue #22: [needs-human] Submit to awesome-claude-code — waiting until ~March 28
+2. Issue #64: [evolve-finding] cross-model outside voice for reviewer — awaiting triage
+3. Issue #63: [evolve-finding] --bare flag for workflows — awaiting triage
+4. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents — needs-human
+5. Issue #22: [needs-human] Submit to awesome-claude-code — waiting until ~March 28
 
 ## Week 2 Key Metrics
 - Commits: 300+ (advancing with state commits)
