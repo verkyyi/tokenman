@@ -543,3 +543,18 @@
 2026-03-23T16:10:51Z | github-trending | 3238 repos (+9 from 3229), no breakout | no action
 2026-03-23T16:10:51Z | openai-harness-blog | Cloudflare blocked (persistent) | no action
 2026-03-23T16:10:51Z | pipeline-health | same 10 failed runs, all pre-date last evolve at 15:37. 0 new failures, 0 issues created | no action
+2026-03-23T16:33:38Z | anthropics/claude-code | 6aadfbd unchanged since last run | no action
+2026-03-23T16:33:38Z | garrytan/gstack | ffd9ab2 unchanged since last run | no action
+2026-03-23T16:33:38Z | affaan-m/everything-claude-code | df4f2df unchanged since last run | no action
+2026-03-23T16:33:38Z | hesreallyhim/awesome-claude-code | 57c29ce unchanged since last run | no action
+2026-03-23T16:33:38Z | bytedance/deer-flow | 79acc39 NEW — fix: add error handling for podcast TTS failures (#1257) — not harness-relevant | no action
+2026-03-23T16:33:38Z | wshobson/agents | 1ad2f00 stale (2026-03-17) | no action
+2026-03-23T16:33:38Z | VoltAgent/awesome-claude-code-subagents | fba002a unchanged since last run | no action
+2026-03-23T16:33:38Z | godagoo/claude-code-always-on | 00854ad stale (2026-02-03) | no action
+2026-03-23T16:33:38Z | humanlayer/humanlayer | bdea199 stale (2026-01-07) | no action
+2026-03-23T16:33:38Z | actions/runner | e17e7aa unchanged since last run | no action
+2026-03-23T16:33:38Z | withastro/astro | 08ab586 unchanged since last run | no action
+2026-03-23T16:33:38Z | verkyyi/tokenman | 9345991 state: evolve commits | internal only
+2026-03-23T16:33:38Z | github-trending | 3248 repos (+10 from 3238), no breakout | no action
+2026-03-23T16:33:38Z | openai-harness-blog | Cloudflare blocked (persistent) | no action
+2026-03-23T16:33:38Z | pipeline-health | same 10 failed runs, all pre-date last evolve at 16:10. 0 new failures, 0 issues created | no action
