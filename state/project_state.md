@@ -3,7 +3,7 @@ Last updated: 2026-03-23T22:47:00Z
 Updated by: watcher.yml (health check)
 
 ## Last Session
-Action: watcher.yml — health check. Re-triggered triage for #63 and #64 (both >2h, no triage comments). Deploy RECOVERING (fix deployed, no run since). Evolve haiku fallback at 21:55 indicates rate limit hit. All other workflows healthy.
+Action: coder.yml — implement cross-model outside voice for reviewer agent (issue #64). Added Outside Voice protocol to skills/adversarial-review.md, secondary Sonnet subagent step to reviewer.yml (with tier-based skip for state-only PRs), tension detection and PR commenting, review log persistence to state/review_log.md. Build passes. Opened PR for issue #64.
 
 System health:
 - Evolve: SEVERELY SATURATED (structural, stable, 90% exceed max-turns=45)
