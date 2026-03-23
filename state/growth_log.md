@@ -16,3 +16,8 @@
 2026-03-23T09:11:00Z | measurement | [issue #48 from 2026-03-22T18:00] → still open, needs-human; waiting for submission
 2026-03-23T09:11:00Z | measurement | [discussion #49 from 2026-03-22T18:00] → 0 comments, 0 reactions after 15h; no engagement yet
 2026-03-23T09:11:00Z | no_action | no action — waiting for signal; project 3 days old, stars 2, all distribution channels blocked on needs-human or time; VoltAgent/awesome-claude-code-subagents (14.8k stars) evaluated but NOT a fit (lists individual agent files, not project templates); repo setup optimal (template=true, 10 topics, good description); next release candidate when more features accumulate (v0.1.0 only 27h old)
+2026-03-23T18:15:00Z | measurement | [v0.1.0 release from 2026-03-22T06:00] → stars still 2 after 36h; forks 0; initial +1 star has not compounded; expected for a 4-day-old project with no external distribution yet
+2026-03-23T18:15:00Z | measurement | [issue #22 from 2026-03-22T06:00] → still open, needs-human; cooldown until ~March 28
+2026-03-23T18:15:00Z | measurement | [issue #48 from 2026-03-22T18:00] → still open, needs-human; waiting for submission
+2026-03-23T18:15:00Z | measurement | [discussion #49 from 2026-03-22T18:00] → 0 comments, 0 reactions after 39h; no organic discovery yet; expected at 2 stars
+2026-03-23T18:15:00Z | no_action | no action — waiting for signal; stars flat at 2, forks 0, project 4 days old; no non-state commits since v0.1.0 (no release candidate); discussion #49 has 0 engagement; distribution issues #22/#48 blocked on needs-human; searched awesome lists — lower-tier options (toolkit 887, plugins 646, setup 260 stars) not worth effort; high-value targets already tracked; next action likely v0.2.0 release when PR #55 merges and features accumulate
