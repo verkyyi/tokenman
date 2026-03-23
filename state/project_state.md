@@ -1,13 +1,13 @@
 # Project State
-Last updated: 2026-03-23T14:00:00Z
+Last updated: 2026-03-23T15:00:00Z
 Updated by: watcher.yml (health check)
 
 ## Last Session
-Action: watcher.yml — health check. All clear. No new failures since 06:26. All workflows healthy and succeeding. PR #55 approved 14h+ awaiting human merge. Issues #22+#48 correctly held (needs-human). 0 corrective actions.
+Action: watcher.yml — health check. All clear. No new failures since 06:26. All workflows healthy and succeeding. PR #55 approved 15h+ awaiting human merge. Issues #22+#48 correctly held (needs-human). 0 corrective actions.
 
 System health:
-- Evolve: SEVERELY SATURATED (100% exceed max-turns=45, 15/15 post-fix) — structural, sources keep changing so lightweight gate never triggers, workflows succeeding
-- Watcher: OVERUTILIZED (57.1% exceed max-turns=30, improving from 70%) — completing work
+- Evolve: SEVERELY SATURATED (100% exceed max-turns=45, 17/17 post-fix, avg 50.6) — structural, sources keep changing so lightweight gate never triggers, workflows succeeding
+- Watcher: OVERUTILIZED (50% exceed max-turns=30, improving from 57.1%) — trending healthy
 - Weekly Analysis: HEALTHY — succeeded at 12:15 (stale branch fix confirmed)
 - Reviewer Agent: HEALTHY — succeeded at 06:06
 - Feedback Learner: HEALTHY — succeeded at 07:38 (idle, no merged PRs to process)
@@ -45,10 +45,10 @@ System health:
 - Evolve lightweight mode gate now deployed (commit ce1994c) — skips Steps 2b-2h when sources unchanged 2+ consecutive runs
 - Reviewer.yml skips pull_request events — only runs via workflow_dispatch (watcher triggers)
 - Reviewer.yml has a bug: README sync step doesn't handle dirty working tree (issue #53 closed, PR #55 APPROVED — awaiting human merge)
-- PR #55 approved by reviewer — human merge needed for workflow YAML change (12h+ pending)
+- PR #55 approved by reviewer — human merge needed for workflow YAML change (15h+ pending)
 - analyze.yml stale branch bug fixed (issue #59 closed, fix deployed — Weekly Analysis succeeded at 12:19, confirming fix)
-- Evolve severely saturated (88% exceed max-turns=45) — lightweight gate helps when sources unchanged but not when sources change; workflows still succeeding
-- Watcher severely saturated (58.3% exceed max-turns=30) — stable, completing work
+- Evolve severely saturated (100% exceed max-turns=45, 17/17 post-fix) — lightweight gate never triggers because sources keep changing; workflows still succeeding
+- Watcher overutilized (50% exceed max-turns=30) — improving trend, completing work
 - Feedback Learner healthy — succeeded 07:38, idle when no merged PRs (expected)
 - Site content updated: hero headline now action-oriented, pac-man branding, broken logo removed, SSL/CNAME for tokenman.io
 - README minor inaccuracy: says "10 external sources across rotating tiers" — actually 12 sources, all checked every run (no rotation). Not issueworthy given existing #38 coverage.
