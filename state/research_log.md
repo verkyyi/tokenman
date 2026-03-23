@@ -385,3 +385,8 @@
 2026-03-22T23:54:35Z | github-trending | 3307 repos (+5 from 3302), no breakout | no action
 2026-03-22T23:54:35Z | openai-harness-blog | Cloudflare blocked (persistent) | no action
 2026-03-22T23:54:35Z | pipeline-health | 10 failed runs checked; 1 new: Coder 23:46 (duplicate PR creation for fix/issue-53, PR #55 already exists) — ALREADY-FIXED; 0 issues created | no action
+2026-03-23T00:23:00Z | bytedance/deer-flow | SHA 38ace61 (NEW, was 1c981ea) — feat(web): add conversation export as Markdown and JSON (#1002) | no action — web UI feature, not harness-relevant
+2026-03-23T00:23:00Z | all-other-sources | 11/12 SHAs unchanged since 23:54 run (29 min gap): claude-code 6aadfbd, gstack cc9e6f8, everything-claude-code 0f22cb4, awesome-claude-code ab8fd91, agents 1ad2f00 (stale), subagents b8d6c58 (stale), godagoo 00854ad (stale), humanlayer bdea199 (stale), runner 4259ffb, astro 2dcd8d5, agentfolio 7a5e8a4 (state only) | no action
+2026-03-23T00:23:00Z | github-trending | 3017 repos, no breakout | no action
+2026-03-23T00:23:00Z | openai-harness-blog | Cloudflare blocked (persistent) | no action
+2026-03-23T00:23:00Z | pipeline-health | same 10 failed runs, no new since 23:46; all known (#53 Reviewer, INTERMITTENT Feedback Learner, rest ALREADY-FIXED); 0 issues created | no action
