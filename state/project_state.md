@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-03-24T12:50:00Z
-Updated by: watcher.yml
+Last updated: 2026-03-24T13:37:08Z
+Updated by: evolve.yml (PIPELINE_WATCH)
 
 ## Last Session
-Action: watcher.yml — health check. All clear, 0 corrective actions. No broken chains, no repeated failures, no stuck runs, no stale issues. Token utilization: evolve SEVERELY SATURATED (14/18 exceed 45, 77.8%), watcher WORSENING (4/8 exceed 30, 50% — #88 tracks), analyze SIGNIFICANTLY IMPROVED (26/40 from 36-40), reviewer/growth HEALTHY.
+Action: evolve.yml PIPELINE_WATCH — pipeline 100% success (last 30 runs). 10 failures analyzed: all ALREADY-FIXED/FIXED-UNTESTED. Cost: evolve $1.91/run avg ($36.24/19 runs today), HORIZON_SCAN most expensive ($2.23/run). Watcher rising to $1.18/run. 3 SHA changes queued (deer-flow, astro, OpenViking). 0 issues created.
 
 System health:
 - Evolve: SEVERELY SATURATED (14/18 recent exceed max-turns=45, 77.8% — HORIZON_SCAN worst at 54-61 turns; per-run cost $1.33-$2.42)
