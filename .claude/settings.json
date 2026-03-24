@@ -43,6 +43,17 @@
           }
         ]
       }
+    ],
+    "StopFailure": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/stop-failure.cjs",
+            "timeout": 15
+          }
+        ]
+      }
     ]
   }
 }
