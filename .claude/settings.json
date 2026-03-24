@@ -21,6 +21,28 @@
           }
         ]
       }
+    ],
+    "PostToolUseFailure": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/circuit-breaker.cjs",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/circuit-breaker.cjs",
+            "timeout": 10
+          }
+        ]
+      }
     ]
   }
 }

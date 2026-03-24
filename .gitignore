@@ -22,3 +22,6 @@ Thumbs.db
 # Ephemeral workflow communication files
 .proposed-change.md
 .trigger-discovery.txt
+
+# Circuit breaker runtime state (per-session, not committed)
+.claude/circuit-breaker-state.json
