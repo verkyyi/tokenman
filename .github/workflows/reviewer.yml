@@ -134,6 +134,10 @@ jobs:
             gh pr review ${NUM} --request-changes --body "**Reviewer agent:** ❌ Blocked: [specific reason]. This requires human review." --repo ${{ github.repository }}
             gh pr edit ${NUM} --add-label "needs-review" --repo ${{ github.repository }}
 
+          NEVER run `gh pr close` or close a PR for any reason. You may only
+          approve+merge or request changes. Even if a PR appears redundant or
+          already landed, do NOT close it — leave that decision to humans.
+
           When in doubt, APPROVE. The system self-heals.
 
           PROMPT
@@ -180,6 +184,21 @@ jobs:
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Safety net — reopen PR if reviewer incorrectly closed it
+        if: always()
+        run: |
+          NUM=${{ steps.pr.outputs.NUMBER }}
+          STATE=$(gh pr view "$NUM" --json state --jq '.state' --repo ${{ github.repository }} 2>/dev/null || echo "UNKNOWN")
+          if [ "$STATE" = "CLOSED" ]; then
+            echo "WARNING: PR #$NUM was CLOSED (not merged) — reopening"
+            gh pr reopen "$NUM" --repo ${{ github.repository }}
+            gh pr comment "$NUM" --body "**Safety net:** PR was incorrectly closed by the reviewer agent. Reopened automatically. See issue #90." --repo ${{ github.repository }}
+          else
+            echo "PR #$NUM state is $STATE — no recovery needed"
+          fi
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       - name: Outside voice — secondary model review
         if: steps.tier.outputs.TIER != '0'
