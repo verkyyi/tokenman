@@ -56,12 +56,10 @@ jobs:
           ## Evolve Config
           $(cat state/evolve_config.md)
 
-          Use the project name from the config for labels (not "project:scaffold").
           When a workflow is marked SKIP in the config, ignore its failures in health checks.
           Read CLAUDE.md from the path in the Project section of the config.
 
           Adapt triage categories to match the project described in the Evolve Config.
-          Use the repo name as the project label (e.g., \`project:<reponame>\`) instead of hardcoding \`project:scaffold\`.
 
           ## Learned Rules (from human feedback — MUST follow these)
           ${LEARNED_RULES}

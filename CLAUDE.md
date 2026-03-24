@@ -20,8 +20,7 @@ Deployment:  GitHub Pages (Astro static build)
 
 ## APP_NAME Resolution
 Workflows determine which project they operate on:
-1. Issue/PR-triggered (triage, coder, reviewer): read from issue/PR
-   label (e.g., project:profile, project:scaffold). Default: scaffold.
+1. Issue/PR-triggered (triage, coder, reviewer): read from issue/PR metadata. Default: scaffold.
 2. Cron-triggered (evolve, analyze): iterate all apps/*/ folders,
    or target scaffold for self-evolution tasks.
 3. Manual dispatch (claude-task, discover): accept APP_NAME as input.

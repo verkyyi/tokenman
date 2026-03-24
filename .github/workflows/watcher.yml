@@ -173,8 +173,8 @@ jobs:
           - Re-trigger triage: gh workflow run triage.yml -f issue_number=N
           - Re-trigger coder: gh workflow run coder.yml -f issue_number=N
           - Re-trigger reviewer: gh workflow run reviewer.yml -f pr_number=N
-          - Create issue: use the project label from the Evolve Config (e.g., `project:<reponame>`) — not `project:scaffold`
-            e.g.: gh issue create --title "[pipeline] ..." --body "..." --label "pipeline-fix,project:<reponame>"
+          - Create issue with appropriate labels
+            e.g.: gh issue create --title "[pipeline] ..." --body "..." --label "pipeline-fix"
           - Close issue: gh issue close N
           - Always check for duplicates before creating issues
 
@@ -201,7 +201,7 @@ jobs:
           2. Create at most 1 optimization issue per run:
              gh issue create --title "[pipeline] Optimize [workflow] CLI config — [signal]" \
                --body "## Signal\n[describe the pattern]\n\n## Evidence\n[data from usage_log.md]\n\n## Proposed Change\n[specific flag to change and expected outcome]\n\n---\n*Created by watcher.yml token utilization analysis*" \
-               --label "pipeline-fix,project:<reponame from Evolve Config>"
+               --label "pipeline-fix"
           3. This counts toward the 5 corrective actions per run limit
 
           ## Rules:
@@ -230,7 +230,6 @@ jobs:
           ## Evolve Config
           $(cat state/evolve_config.md)
 
-          Use the project name from the config for labels (not "project:scaffold").
           When checking pipeline health, ignore failures from workflows marked SKIP in the config — these are expected to not run.
           Read CLAUDE.md from the path in the Project section of the config.
 

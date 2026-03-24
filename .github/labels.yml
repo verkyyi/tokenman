@@ -1,0 +1,83 @@
+# .github/labels.yml — single source of truth for all GitHub labels
+# Synced by .github/workflows/sync-labels.yml
+# To add a label: add an entry here and push to main.
+
+# --- Pipeline status ---
+- name: agent-ready
+  color: "0e8a16"
+  description: Ready for coder agent
+
+- name: needs-human
+  color: "d93f0b"
+  description: Requires human action (external platform, secrets, permissions)
+
+- name: needs-review
+  color: "fbca04"
+  description: Needs human review
+
+- name: likely-agent-fixable
+  color: "0e8a16"
+  description: Watcher determined this pipeline issue can be fixed by the coder agent
+
+- name: human-wip
+  color: "d93f0b"
+  description: Human is actively working on this issue
+
+# --- Pipeline origin ---
+- name: evolve-finding
+  color: "7057ff"
+  description: Issue created by evolve.yml
+
+- name: pipeline-fix
+  color: "d73a4a"
+  description: Pipeline failure to fix
+
+- name: adopter-insight
+  color: "1d76db"
+  description: Pattern found from adopter usage
+
+- name: intent-driven
+  color: "5319e7"
+  description: Issue driven by human intent analysis
+
+# --- Issue type ---
+- name: bug
+  color: "d73a4a"
+  description: Something isn't working
+
+- name: feature
+  color: "a2eeef"
+  description: New feature request
+
+- name: question
+  color: "d876e3"
+  description: Further information is requested
+
+- name: ux-request
+  color: "e4e669"
+  description: UX improvement suggestion
+
+- name: growth-action
+  color: "0075ca"
+  description: Growth and distribution action
+
+- name: positive
+  color: "0e8a16"
+  description: Positive feedback
+
+- name: spam
+  color: "e4e669"
+  description: Spam or irrelevant
+
+# --- Workflow meta ---
+- name: auto-merge
+  color: "0e8a16"
+  description: PR approved for automatic merge
+
+- name: agent-error
+  color: "d73a4a"
+  description: Issue created by agent failure handling
+
+- name: feedback
+  color: "1d76db"
+  description: User feedback

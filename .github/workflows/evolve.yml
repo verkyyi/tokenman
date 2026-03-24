@@ -123,7 +123,7 @@ jobs:
              - For ACTIONABLE: check if issue exists
                (`gh issue list --state open --label pipeline-fix --json title -q '.[].title'`),
                create if not:
-               `gh issue create --title "[pipeline] Brief description" --body "..." --label "pipeline-fix,project:$(echo $GITHUB_REPOSITORY | cut -d/ -f2)"`
+               `gh issue create --title "[pipeline] Brief description" --body "..." --label "pipeline-fix"`
           3. Check state/usage_log.md for cost trends or token saturation patterns
           4. Quick SHA scan of all Active sources (note changes, don't deep-dive)
 
@@ -236,7 +236,7 @@ jobs:
           - Title: "[evolve] Adopt X pattern from Y" or "[pipeline] Fix X"
           - Body MUST include: ## Source, ## Pattern, ## Proposed Change, ## Evidence
           - Labels: evolve-finding (research), pipeline-fix (pipeline),
-            intent-driven (human intent) + project:$(echo $GITHUB_REPOSITORY | cut -d/ -f2)
+            intent-driven (human intent)
           - Save issue number: `echo "$ISSUE_NUM" >> .new_issues.txt`
 
           Maximum 3 issues per run (any type). Quality over quantity.
@@ -445,16 +445,3 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
 
-      - name: Ensure labels exist
-        run: |
-          gh label create "evolve-finding" --color "7057ff" --description "Issue created by evolve.yml" --force
-          gh label create "pipeline-fix" --color "d73a4a" --description "Pipeline failure to fix" --force
-          gh label create "adopter-insight" --color "1d76db" --description "Pattern found from adopter usage" --force
-          gh label create "intent-driven" --color "5319e7" --description "Issue driven by human intent analysis" --force
-          gh label create "agent-ready" --color "0e8a16" --description "Ready for coder agent" --force
-          gh label create "needs-review" --color "fbca04" --description "Needs human review" --force
-          gh label create "likely-agent-fixable" --color "0e8a16" --description "Watcher determined this pipeline issue can be fixed by the coder agent" --force
-          REPO_NAME=$(echo "$GITHUB_REPOSITORY" | cut -d/ -f2)
-          gh label create "project:${REPO_NAME}" --color "c5def5" --description "${REPO_NAME} project" --force
-        env:
-          GH_TOKEN: ${{ github.token }}

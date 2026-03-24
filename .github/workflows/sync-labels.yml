@@ -1,0 +1,62 @@
+name: Sync Labels
+
+on:
+  push:
+    branches: [main]
+    paths: ['.github/labels.yml']
+  schedule:
+    - cron: '0 0 * * 1'  # weekly Monday midnight UTC
+  workflow_dispatch:
+    inputs:
+      prune:
+        description: 'Delete labels not in registry'
+        required: false
+        default: 'false'
+        type: choice
+        options: ['false', 'true']
+
+permissions:
+  issues: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install yq
+        run: |
+          sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+          sudo chmod +x /usr/local/bin/yq
+
+      - name: Sync labels
+        run: |
+          COUNT=$(yq '. | length' .github/labels.yml)
+          for i in $(seq 0 $(( COUNT - 1 ))); do
+            NAME=$(yq ".[$i].name" .github/labels.yml)
+            COLOR=$(yq ".[$i].color" .github/labels.yml)
+            DESC=$(yq ".[$i].description" .github/labels.yml)
+            echo "Syncing label: $NAME"
+            gh label create "$NAME" --color "$COLOR" --description "$DESC" --force
+          done
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Prune unlisted labels
+        if: inputs.prune == 'true'
+        run: |
+          # Get labels from registry
+          REGISTRY=$(yq '.[].name' .github/labels.yml)
+
+          # Get labels from GitHub
+          GITHUB_LABELS=$(gh label list --limit 200 --json name -q '.[].name')
+
+          # Delete labels not in registry
+          while IFS= read -r label; do
+            if ! echo "$REGISTRY" | grep -qxF "$label"; then
+              echo "Pruning label: $label"
+              gh label delete "$label" --yes
+            fi
+          done <<< "$GITHUB_LABELS"
+        env:
+          GH_TOKEN: ${{ github.token }}
