@@ -1,13 +1,13 @@
 # Project State
-Last updated: 2026-03-24T21:53:27Z
-Updated by: evolve.yml
+Last updated: 2026-03-24T22:45:00Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: evolve.yml PATTERN_HUNT — deep-dived claude-code CHANGELOG (v2.1.81: --channels relay, plugin freshness, race fixes), trailofbits/skills (PR #123 sidecar symlinks for Codex — supplements #66), Citadel (PR #14 unified triage — CLI pattern). SHA: Active 8/8 unchanged (claude-code 13th consecutive), Watch List 11/12 unchanged (Citadel changed). 0 issues created. Watcher created #94 (evolve max-turns saturated).
+Action: watcher.yml health check — all clear, 0 corrective actions. Pipeline 100% healthy. Evolve saturation slightly improved (21/29 today exceed 45, 72.4%, down from 80.6% — last 2 SYNTHESIS runs at 38/40). Watcher confirmed HEALTHY at limit 40 (0/10 exceeding). Issue #94 at 54min, below 2h threshold. PR #55 approved 47h+.
 
 System health:
-- Evolve: SEVERELY SATURATED (25/31 today exceed max-turns=45, 80.6% — #94 created)
-- Watcher: HEALTHY at new limit 40 (0/4 recent exceeding, fix confirmed)
+- Evolve: SEVERELY SATURATED but IMPROVING (21/29 today exceed max-turns=45, 72.4%, down from 80.6% — #94 tracks; last 2 SYNTHESIS runs 38/40)
+- Watcher: HEALTHY at new limit 40 (0/10 exceeding, confirmed)
 - Coder: HEALTHY — last success 18:55 (PR #93)
 - Reviewer: HEALTHY — last success 18:58 (9 turns)
 - Triage: HEALTHY — last success 18:53
@@ -18,15 +18,15 @@ System health:
 - Deploy: RECOVERING — no trigger since #65 fix
 
 ## Current Priorities (ordered)
-1. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 46h+, awaiting human merge (workflow YAML)
-2. **[NEW]** Issue #94: evolve max-turns saturated — 80.6% exceed 45, pipeline-fix created
+1. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 47h+, awaiting human merge (workflow YAML)
+2. **[OPEN]** Issue #94: evolve max-turns saturated — 72.4% exceed 45 (improving), pipeline-fix, 54min old
 3. **[MONITORING]** Analyze max-turns — stable at 26/40 (significant improvement, hold)
 4. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
 5. **[WAITING]** Issue #22: Submit to awesome-claude-code — 7-day cooldown expires ~March 28
 
 ## Open Items
-1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 46h+, needs human merge
-2. Issue #94: [pipeline-fix] evolve max-turns severely saturated — 80.6% of runs exceed limit
+1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 47h+, needs human merge
+2. Issue #94: [pipeline-fix] evolve max-turns saturated — 72.4% exceed (improving from 80.6%)
 3. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents — needs-human
 4. Issue #22: [needs-human] Submit to awesome-claude-code — waiting until ~March 28
 
@@ -52,7 +52,7 @@ System health:
 - Reviewer.yml has a bug: README sync step doesn't handle dirty working tree (PR #55 APPROVED — awaiting human merge 40h+)
 - Reviewer hallucination fix (#90) — NEVER close PR prompt guardrail + safety-net reopen step merged (PR #93). PR #91 (watcher max-turns fix for #88) also merged. Both issues closed by watcher.
 - GitHub auto-close fix (#84) DONE — reviewer.yml hardened with 3-tier fallback, coder.yml adds structured metadata; watcher remains safety net; PR #87 merged
-- Evolve SEVERELY SATURATED — 80.6% exceed rate today (25/31), #94 created; PIPELINE_WATCH worst (avg 55.4), all postures above 45
+- Evolve SEVERELY SATURATED but IMPROVING — 72.4% exceed rate today (21/29), #94 tracks; last 2 SYNTHESIS runs 38/40 under limit
 - Analyze IMPROVED — latest run 26/40 turns (was 39-40), max-turns raise to 50 no longer urgent
 - Feedback Learner #72 fix merged — awaiting next trigger to confirm recovery
 - State file compression (#78) merged — research_log.md reduced from 699 to 104 lines
