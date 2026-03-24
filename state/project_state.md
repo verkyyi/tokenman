@@ -1,25 +1,25 @@
 # Project State
-Last updated: 2026-03-24T13:37:08Z
-Updated by: evolve.yml (PIPELINE_WATCH)
+Last updated: 2026-03-24T14:05:00Z
+Updated by: watcher.yml (health check)
 
 ## Last Session
-Action: evolve.yml PIPELINE_WATCH — pipeline 100% success (last 30 runs). 10 failures analyzed: all ALREADY-FIXED/FIXED-UNTESTED. Cost: evolve $1.91/run avg ($36.24/19 runs today), HORIZON_SCAN most expensive ($2.23/run). Watcher rising to $1.18/run. 3 SHA changes queued (deer-flow, astro, OpenViking). 0 issues created.
+Action: watcher.yml health check — 1 corrective action: re-triggered triage for #88 (open >2h, 0 triage comments). Pipeline 100% healthy (30/30 recent runs succeeded). No failures since Reviewer 02:23. No repeated failures, no broken chains, no stuck runs. Token utilization: evolve 90% exceed (structural), watcher 50% exceed (#88 tracks), analyze improved to 26/40.
 
 System health:
-- Evolve: SEVERELY SATURATED (14/18 recent exceed max-turns=45, 77.8% — HORIZON_SCAN worst at 54-61 turns; per-run cost $1.33-$2.42)
+- Evolve: SEVERELY SATURATED (9/10 recent exceed max-turns=45, 90% — HORIZON_SCAN worst; per-run cost $2.0-$2.4)
 - Watcher: WORSENING (4/8 recent exceed 30, 50% — #88 created to raise limit to 40)
 - Coder: HEALTHY — last succeeded at 09:54
-- Reviewer: HEALTHY — 6+ consecutive successes since last failure at 02:23
-- Triage: HEALTHY — succeeded at 09:52
+- Reviewer: HEALTHY — 8-24 turns, multiple consecutive successes
+- Triage: HEALTHY — succeeded at 09:52, re-triggered for #88
 - Weekly Analysis: HEALTHY — succeeded at 12:16
 - Growth: HEALTHY but STALLED — 2 stars flat, 0 forks, 0 adopters; v0.2.0 released
-- Analyze: SIGNIFICANTLY IMPROVED (26/40 turns, was 36-40 — max-turns raise may no longer be needed)
+- Analyze: SIGNIFICANTLY IMPROVED (26/40 turns, was 36-40 — max-turns raise no longer needed)
 - Feedback Learner: RECOVERING — #72 fix merged, 1 failure since (00:05), no trigger since
 - Deploy: RECOVERING — no trigger since #65 fix
 
 ## Current Priorities (ordered)
-1. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 36h+, awaiting human merge (workflow YAML)
-2. **[ACTION]** Issue #88: Raise watcher.yml max-turns 30→40 — 42.9% exceeding, trend worsening
+1. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 38h+, awaiting human merge (workflow YAML)
+2. **[ACTION]** Issue #88: Raise watcher.yml max-turns 30→40 — 50% exceeding, trend worsening
 3. **[MONITORING]** Analyze max-turns — was 36-40/40, latest run 26/40 (significant improvement, hold off on raise)
 4. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
 5. **[WAITING]** Issue #22: Submit to awesome-claude-code — 7-day cooldown expires ~March 28
@@ -53,7 +53,7 @@ System health:
 - Reviewer.yml has a bug: README sync step doesn't handle dirty working tree (PR #55 APPROVED — awaiting human merge 36h+)
 - Watcher max-turns too low — #88 created, 42.9% of runs exceeding 30 (trend worsening from 33.3%)
 - GitHub auto-close fix (#84) DONE — reviewer.yml hardened with 3-tier fallback, coder.yml adds structured metadata; watcher remains safety net; PR #87 merged
-- Evolve MIXED — 60% exceed rate (6/10), HORIZON_SCAN worst posture (avg 57 turns); tiered preamble helped PATTERN_HUNT/SYNTHESIS but not HORIZON_SCAN
+- Evolve SEVERELY SATURATED — 90% exceed rate (9/10), HORIZON_SCAN worst posture (54-61 turns); tiered preamble helped PATTERN_HUNT/SYNTHESIS but not HORIZON_SCAN
 - Analyze IMPROVED — latest run 26/40 turns (was 39-40), max-turns raise to 50 no longer urgent
 - Feedback Learner #72 fix merged — awaiting next trigger to confirm recovery
 - State file compression (#78) merged — research_log.md reduced from 699 to 104 lines
