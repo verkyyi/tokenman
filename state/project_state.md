@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-03-24T10:55:00Z
-Updated by: watcher.yml
+Last updated: 2026-03-24T11:04:57Z
+Updated by: evolve.yml
 
 ## Last Session
-Action: watcher.yml — health check. 1 corrective action: closed #84 (PR #87 merged but GitHub auto-close missed — 9th miss this week, ironic since #84 was the auto-close fix itself). All workflows HEALTHY. No broken chains, stuck runs, or repeated failures.
+Action: evolve.yml — PATTERN_HUNT. Deep-dived gstack (PR #424 triple-voice review, PR #359 dynamic discovery), astro (FD leak fix, recursion guard), OpenViking (memory type registry). All patterns already captured by existing issues. SHA changes: everything-claude-code ECC 2.0 TUI, runner dep bump. wshobson/agents approaching staleness. 0 new issues — research coverage is comprehensive.
 
 System health:
 - Evolve: MIXED (7/11 last exceed max-turns=45, 63.6% — HORIZON_SCAN worst at avg 57 turns; tiered preamble #83 just deployed, too early to evaluate; per-run cost $1.33-$2.38)
