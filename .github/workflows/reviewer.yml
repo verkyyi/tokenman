@@ -308,11 +308,34 @@ jobs:
           NUM=${{ steps.pr.outputs.NUMBER }}
           STATE=$(gh pr view "$NUM" --json state --jq '.state' --repo ${{ github.repository }})
           if [ "$STATE" = "MERGED" ]; then
-            ISSUES=$(gh pr view "$NUM" --json closingIssuesReferences --jq '.closingIssuesReferences[].number' --repo ${{ github.repository }})
-            for ISSUE in $ISSUES; do
-              echo "Closing issue #$ISSUE (linked to merged PR #$NUM)"
-              gh issue close "$ISSUE" --comment "Closed by merge of PR #$NUM." --repo ${{ github.repository }} || true
-            done
+            # Primary: use closingIssuesReferences API
+            ISSUES=$(gh pr view "$NUM" --json closingIssuesReferences --jq '.closingIssuesReferences[].number' --repo ${{ github.repository }} 2>/dev/null || echo "")
+
+            # Fallback: parse PR title and body for close/fix keywords and metadata
+            if [ -z "$(echo "$ISSUES" | xargs)" ]; then
+              echo "closingIssuesReferences returned empty — falling back to title/body parsing"
+              PR_DATA=$(gh pr view "$NUM" --json title,body --repo ${{ github.repository }})
+              PR_TITLE=$(echo "$PR_DATA" | jq -r '.title')
+              PR_BODY=$(echo "$PR_DATA" | jq -r '.body')
+              PR_TEXT="${PR_TITLE} ${PR_BODY}"
+
+              # Extract from structured metadata: <!-- linked-issue: N -->
+              META_ISSUES=$(echo "$PR_BODY" | grep -oE 'linked-issue: [0-9]+' | grep -oE '[0-9]+' || true)
+
+              # Extract from keywords: closes #N, fixes #N, resolves #N
+              KEYWORD_ISSUES=$(echo "$PR_TEXT" | grep -oiE '(closes|fixes|resolves) #[0-9]+' | grep -oE '[0-9]+' || true)
+
+              ISSUES=$(printf '%s\n%s' "$META_ISSUES" "$KEYWORD_ISSUES" | sort -un | grep -v '^$' || true)
+            fi
+
+            if [ -z "$(echo "$ISSUES" | xargs)" ]; then
+              echo "No linked issues found for PR #$NUM"
+            else
+              for ISSUE in $ISSUES; do
+                echo "Closing issue #$ISSUE (linked to merged PR #$NUM)"
+                gh issue close "$ISSUE" --comment "Closed by merge of PR #$NUM." --repo ${{ github.repository }} || true
+              done
+            fi
           else
             echo "PR #$NUM not merged — skipping issue close"
           fi

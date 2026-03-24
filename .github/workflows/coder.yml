@@ -281,7 +281,8 @@ jobs:
           ${CHANGED}
           \`\`\`
 
-          *Opened by tokenman coder agent*" \
+          *Opened by tokenman coder agent*
+          <!-- linked-issue: ${ISSUE_NUM} -->" \
             --head "$BRANCH" \
             --base main \
             --repo ${{ github.repository }})
