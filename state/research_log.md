@@ -2,38 +2,6 @@
 # Append-only. Written by evolve.yml during research phase.
 # Entries older than 100 are archived to state/research_log_archive.md by scripts/archive-research-log.sh.
 # Format: ISO_TIMESTAMP | source | finding_summary | action_taken
-# Example: 2026-03-20T03:00:00Z | anthropic-blog | Claude Code 1.5 adds native hooks | no action — noted for future reference
-2026-03-23T18:03:10Z | actions/runner | e17e7aa unchanged since last run | no action
-2026-03-23T18:03:10Z | withastro/astro | 08ab586 unchanged since last run | no action
-2026-03-23T18:03:10Z | verkyyi/tokenman | b0071fe state commits only (internal) | no action
-2026-03-23T18:03:10Z | github-trending | 3278 repos (+11 from 3267), no breakout | no action
-2026-03-23T18:03:10Z | openai-harness-blog | Cloudflare blocked (persistent) | no action
-2026-03-23T18:03:10Z | pipeline-health | same 10 failed runs, all pre-date last evolve at 17:33. 0 new failures, 0 issues created | no action
-2026-03-23T19:07:25Z | anthropics/claude-code | 6aadfbd unchanged since last run | no action
-2026-03-23T19:07:25Z | garrytan/gstack | f4bbfaa unchanged since last run | no action
-2026-03-23T19:07:25Z | affaan-m/everything-claude-code | df4f2df unchanged since last run | no action
-2026-03-23T19:07:25Z | hesreallyhim/awesome-claude-code | 018dc1d NEW (was 57c29ce) — automated ticker data + SVG update [skip ci] | no action (bot commit)
-2026-03-23T19:07:25Z | bytedance/deer-flow | 8b0f3fe unchanged since last run | no action
-2026-03-23T19:07:25Z | wshobson/agents | 1ad2f00 stale (2026-03-17) | no action
-2026-03-23T19:07:25Z | VoltAgent/awesome-claude-code-subagents | fba002a unchanged since last run | no action
-2026-03-23T19:07:25Z | godagoo/claude-code-always-on | 00854ad stale (2026-02-03) | no action
-2026-03-23T19:07:25Z | humanlayer/humanlayer | bdea199 stale (2026-01-07) | no action
-2026-03-23T19:07:25Z | actions/runner | e17e7aa unchanged since last run | no action
-2026-03-23T19:07:25Z | withastro/astro | 08ab586 unchanged since last run | no action
-2026-03-23T19:07:25Z | verkyyi/tokenman | 713b8f0 state commits only (internal) | no action
-2026-03-23T19:07:25Z | github-trending | 3307 repos (+29 from 3278), no breakout | no action
-2026-03-23T19:07:25Z | openai-harness-blog | Cloudflare blocked (persistent) | no action
-2026-03-23T19:07:25Z | pipeline-health | same 10 failed runs, all pre-date last evolve at 18:03. 0 new failures, 0 issues created | no action
-2026-03-23T20:20:51Z | anthropics/claude-code | 6aadfbd unchanged since last run | no action
-2026-03-23T20:20:51Z | garrytan/gstack | f4bbfaa unchanged since last run | no action
-2026-03-23T20:20:51Z | affaan-m/everything-claude-code | df4f2df unchanged since last run | no action
-2026-03-23T20:20:51Z | hesreallyhim/awesome-claude-code | 018dc1d unchanged since last run (automated ticker) | no action
-2026-03-23T20:20:51Z | bytedance/deer-flow | 8b0f3fe unchanged since last run | no action
-2026-03-23T20:20:51Z | wshobson/agents | 1ad2f00 stale (2026-03-17) | no action
-2026-03-23T20:20:51Z | VoltAgent/awesome-claude-code-subagents | fba002a unchanged since last run | no action
-2026-03-23T20:20:51Z | godagoo/claude-code-always-on | 00854ad stale (2026-02-03) | no action
-2026-03-23T20:20:51Z | humanlayer/humanlayer | bdea199 stale (2026-01-07) | no action
-2026-03-23T20:20:51Z | actions/runner | e17e7aa unchanged since last run | no action
 2026-03-23T20:20:51Z | withastro/astro | 47694d0 new SHA ([ci] format commit — not actionable) | no action
 2026-03-23T20:20:51Z | verkyyi/tokenman | 119bba2 state commits only (internal) | no action
 2026-03-23T20:20:51Z | github-trending | 3337 repos (+30 from 3307), no breakout | no action
@@ -129,3 +97,8 @@
 2026-03-24T08:31:09Z | usage-trends | Evolve per-run cost rising: $1.5-2.2/run recent (up from $1.0-1.4). Input tokens 1.0-2.3M. HORIZON_SCAN most expensive ($2.17-2.23). Turn count IMPROVING: last 3 runs at 38/43/43 (all under max-turns=45), down from 75% exceed rate. | cost rising despite fewer turns — context growth
 2026-03-24T08:31:09Z | sha-scan | Active: 7/9 unchanged, 2 changed (gstack dc5e053→3501f5d, astro 846f27f→cb05c9b). Watch List: 11/12 unchanged, 1 changed (OpenViking b85a9ed→2771765). Queue gstack+astro for next PATTERN_HUNT. | noted
 2026-03-24T07:08:25Z | sha-scan | Active: 8/9 unchanged, 1 changed (astro 47694d0→846f27f). Watch List: 10/12 unchanged, 2 changed (OpenViking 79cc248→b85a9ed, claude-plugins-official 7074ac0→79caa0d). Queue changes for next PATTERN_HUNT. | noted
+2026-03-24T10:36:55Z | horizon-scan | HORIZON_SCAN posture: searched 4 GitHub query sets (claude+code+agent, self-evolving+agent+harness, claude+skills+CLAUDE.md, claude+code+hooks+workflow). Evaluated 40+ repos. Ecosystem stable — same top repos as last scan, no breakout discoveries. | horizon scan run
+2026-03-24T10:36:55Z | active-staleness | Dropped VoltAgent/awesome-claude-code-subagents from Active: 0 pattern hits over 11+ runs, multiple deep-dives confirm framework-specific experts only. Active count: 10→9. | dropped to Dropped section
+2026-03-24T10:36:55Z | watch-list-status | Watch List (12 sources): 2 SHA changes (vibe-kanban 83192b3→8a0e4c9 git2 refactor, OpenViking 2771765→f9ccea0 memory extract refactor + API key fix). All first seen within 1-2 days — no promotions possible (need 7+ days). Observations incremented. | observations updated
+2026-03-24T10:36:55Z | sha-scan | Active: 8/9 unchanged, 1 changed (deer-flow c5ddc6a→4b15f14 frontend fix + dep bump, 0 patterns). 2 still queued (gstack 3501f5d, astro cb05c9b). Watch List: 10/12 unchanged, 2 changed (vibe-kanban, OpenViking). | noted
+2026-03-24T10:36:55Z | adoption-check | 0 forks, 0 adopters of verkyyi/tokenman. Growth still flat at 2 stars. | no action

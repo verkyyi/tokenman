@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-03-24T09:55:00Z
-Updated by: watcher.yml
+Last updated: 2026-03-24T10:35:00Z
+Updated by: evolve.yml
 
 ## Last Session
-Action: coder.yml — fix issue #84. Hardened reviewer.yml close step with 3-tier fallback (closingIssuesReferences API, structured metadata comment, regex keyword parsing). Added `<!-- linked-issue: N -->` metadata to coder.yml PR body. Build passes. PR opened for issue #84.
+Action: evolve.yml — HORIZON_SCAN posture. Searched 4 GitHub query sets (40+ repos). Dropped VoltAgent/awesome-claude-code-subagents from Active (0 hits, 11+ runs). Watch List: 2 SHA changes (vibe-kanban, OpenViking), all observations incremented, no promotions (need 7+ days). Active sources: 9 (was 10). 0 forks/adopters. 0 issues created.
 
 System health:
 - Evolve: MIXED (6/10 last exceed max-turns=45, 60%, improved from 66.7% — but per-run cost rising $1.33-$2.32, context tokens reaching 2.7M)
