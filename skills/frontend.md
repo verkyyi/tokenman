@@ -4,6 +4,12 @@ description: >
   Use when modifying src/ files: Astro pages, components, layouts,
   or styles. Also use when working with Tailwind CSS classes,
   Astro content collections in pages, or debugging build issues.
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Bash
+  - Glob
 ---
 
 # Frontend — Astro + Tailwind
@@ -13,6 +19,18 @@ description: >
 - Tailwind CSS (utility classes only, no custom CSS files)
 - No JavaScript framework (Astro islands not used in base scaffold)
 - GitHub Pages deployment (static HTML/CSS only)
+
+## When NOT to Use
+- When working only on workflow YAML or harness architecture — use `github-workflows` or `harness` skill
+- When writing content collection entries in content/ — use `content` skill
+- When the task is only SEO meta tags or structured data — use `seo` skill
+- When modifying state/ files — these are plain markdown with no Astro involvement
+
+## Rationalizations to Reject
+- "I'll add a client-side JS framework for this feature" — static only, no runtime JS frameworks
+- "I need an API endpoint for this data" — no server-side rendering; everything is build-time
+- "I'll use a custom CSS file instead of Tailwind utilities" — utility classes only, no @apply, no custom CSS files
+- "I can use getCollection() in a .ts helper file" — getCollection only works in .astro files
 
 ## Key Constraint: Static Only
 No API routes that execute at runtime. No server-side rendering.

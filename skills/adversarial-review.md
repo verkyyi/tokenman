@@ -4,12 +4,48 @@ description: >
   Use when an agent (especially evolve.yml) has proposed an output or change
   and needs to self-check before finalizing. Implements risk-scaled adversarial
   review inspired by gstack v0.9.5.0 (garrytan/gstack@6c69feb, PR #297).
+allowed-tools:
+  - Bash
+  - Read
+  - Grep
 ---
 
 # Adversarial Self-Review Protocol
 
 Before finalizing any proposed output (issue, PR, code change, or state update),
 run a lightweight self-check scaled to the risk level of the change.
+
+## When NOT to Use
+- Tier 0 state-only updates where the built-in two-item checklist is sufficient (agent_log.md, project_state.md append)
+- Routine build verification — just run `npm run build` directly
+- Mid-writing code review — this skill is for final pre-submit review of proposed outputs
+- Changes already reviewed and approved by a human reviewer
+- Informational queries or read-only exploration (no output to check)
+
+## Rationalizations to Reject
+- "This change is too small to need a review" — even small workflow YAML changes can break the entire pipeline
+- "I already checked this mentally" — the protocol exists because mental checks miss duplicates and regressions
+- "Skipping the duplicate check saves time" — duplicate issues are the #1 noise source in the event bus
+- "The verdict is obviously proceed" — if it's obvious, the checklist takes 10 seconds; run it anyway
+- "I'll do the adversarial check after I create the issue" — the check must happen BEFORE any output
+
+## Anti-Patterns
+
+**Bad — skipping duplicate check:**
+The agent creates a new issue for "add mobile breakpoint fix" without running
+`gh issue list --state open` first. Issue #42 already covers it. Result: duplicate noise.
+
+**Good — running the full protocol:**
+The agent runs `gh issue list --state open --label evolve-finding --json title -q '.[].title'`,
+finds no match, completes the full Tier 2 checklist, then creates the issue.
+
+**Bad — post-hoc rationalization:**
+The agent creates a PR, then fills in the adversarial check with "proceed" after the fact.
+The check provided no actual gate — it just documented a decision already made.
+
+**Good — check-then-act:**
+The agent fills in the adversarial check block, evaluates the verdict, and only
+then proceeds to create the PR (or aborts if the verdict says so).
 
 ## Risk Tiers
 

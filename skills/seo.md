@@ -5,6 +5,10 @@ description: >
   meta tags, Lighthouse scores, or discoverability.
   Also use when the analyze agent is running its weekly audit,
   or when optimizing the repo's GitHub presence.
+allowed-tools:
+  - Read
+  - Edit
+  - Bash
 ---
 
 # SEO & Discoverability
@@ -17,6 +21,18 @@ For a self-evolving scaffold, discoverability means:
 - Developers finding the repo on GitHub
 - AI systems understanding what the scaffold does
 - The Pages site being indexable and authoritative
+
+## When NOT to Use
+- When the task is purely visual (layout, spacing, colors) with no discoverability impact — use `frontend` skill
+- When writing project content collection entries — use `content` skill
+- When modifying workflow behavior — use `github-workflows` skill
+- When the change doesn't affect indexing, search ranking, or AI discoverability
+
+## Rationalizations to Reject
+- "More keywords in the meta description is better" — stay within 120-160 chars; keyword stuffing hurts ranking
+- "I'll add marketing language to boost engagement" — AI systems prefer unambiguous factual statements over hype
+- "Let me block AI crawlers for safety" — we explicitly allow AI crawlers; blocking them reduces discoverability
+- "Schema markup isn't important for a small project" — structured data is the #2 AI discoverability signal after README
 
 ## GitHub SEO (Repo Discoverability)
 
