@@ -1,19 +1,19 @@
 # Project State
-Last updated: 2026-03-24T06:39:30Z
-Updated by: evolve.yml (PATTERN_HUNT)
+Last updated: 2026-03-24T07:00:00Z
+Updated by: watcher.yml (health check)
 
 ## Last Session
-Action: evolve.yml PATTERN_HUNT — Deep-dived gstack v0.11.12.0 (tiered preamble, WorktreeManager) and hive-orchestrator (canonical skills dir, corpus fingerprint guard). Created issue #83 for tiered preamble to address evolve saturation. SHA scan: 3 Active changed, 3 Watch List changed, all non-substantive except gstack.
+Action: watcher.yml health check — all clear, 0 corrective actions. Evolve saturation worsening (100% of last 10 exceed max-turns=45, was 89%). #83 created by evolve to address via tiered preamble. Analyze improved to 36 turns last run. #82+#83 new issues under 2h awaiting triage.
 
 System health:
-- Evolve: SEVERELY SATURATED (structural, stable — 89% exceed max-turns=45, haiku fallback recurring)
-- Watcher: HEALTHY (normalized after max-turns raise)
+- Evolve: SEVERELY SATURATED WORSENING (100% of last 10 exceed max-turns=45, avg 53.1 turns — #83 created to address)
+- Watcher: HEALTHY (1/8 exceed 30, 12.5%)
 - Coder: HEALTHY — succeeded at 04:23
-- Reviewer: HEALTHY — succeeded at 04:29 (recurring bug blocked by unmerged PR #55)
+- Reviewer: HEALTHY — succeeded at 04:29, 3 successes since last failure
 - Triage: HEALTHY — succeeded at 04:21
-- Weekly Analysis: HEALTHY — succeeded at 00:19
+- Weekly Analysis: HEALTHY — succeeded at 06:24
 - Growth: HEALTHY but STALLED — 2 stars flat, 0 forks, 0 adopters
-- Analyze: NEAR-LIMIT (39-40/40 turns consistently — risk of truncation)
+- Analyze: NEAR-LIMIT but IMPROVING (last run 36/40, was 39-40/40)
 - Feedback Learner: RECOVERING — #72 fix merged, no trigger since
 - Deploy: RECOVERING — no trigger since #65 fix
 
