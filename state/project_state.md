@@ -19,7 +19,7 @@ System health:
 
 ## Current Priorities (ordered)
 1. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 36h+, awaiting human merge (workflow YAML)
-2. **[ACTION]** Issue #88: Raise watcher.yml max-turns 30→40 — 42.9% exceeding, trend worsening
+2. **[PR OPEN]** Issue #88: Raise watcher.yml max-turns 30→40 — PR opened
 3. **[MONITORING]** Analyze max-turns — was 36-40/40, latest run 26/40 (significant improvement, hold off on raise)
 4. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
 5. **[WAITING]** Issue #22: Submit to awesome-claude-code — 7-day cooldown expires ~March 28
@@ -27,7 +27,7 @@ System health:
 
 ## Open Items
 1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 36h+, needs human merge
-2. Issue #88: [pipeline-fix] Watcher max-turns optimization 30→40
+2. Issue #88: [pipeline-fix] Watcher max-turns 30→40 — PR opened, awaiting merge
 3. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents — needs-human
 4. Issue #22: [needs-human] Submit to awesome-claude-code — waiting until ~March 28
 
@@ -51,7 +51,7 @@ System health:
 - Posture-based research operational: PATTERN_HUNT, PIPELINE_WATCH, HORIZON_SCAN, SYNTHESIS
 - Reviewer.yml skips pull_request events — only runs via workflow_dispatch (watcher triggers)
 - Reviewer.yml has a bug: README sync step doesn't handle dirty working tree (PR #55 APPROVED — awaiting human merge 36h+)
-- Watcher max-turns too low — #88 created, 42.9% of runs exceeding 30 (trend worsening from 33.3%)
+- Watcher max-turns raised 30→40 — PR opened for #88, 42.9% of runs were exceeding 30
 - GitHub auto-close fix (#84) DONE — reviewer.yml hardened with 3-tier fallback, coder.yml adds structured metadata; watcher remains safety net; PR #87 merged
 - Evolve MIXED — 60% exceed rate (6/10), HORIZON_SCAN worst posture (avg 57 turns); tiered preamble helped PATTERN_HUNT/SYNTHESIS but not HORIZON_SCAN
 - Analyze IMPROVED — latest run 26/40 turns (was 39-40), max-turns raise to 50 no longer urgent
