@@ -1,1 +1,1 @@
-fix(workflow): raise watcher.yml max-turns 30→40 (closes #88)
+fix(workflow): prevent reviewer from closing PRs — add prompt guardrail and safety-net reopen step (closes #90)
