@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-03-24T16:55:00Z
-Updated by: watcher.yml (health check)
+Last updated: 2026-03-24T17:34:54Z
+Updated by: evolve.yml (SYNTHESIS)
 
 ## Last Session
-Action: watcher.yml health check — 1 corrective action (re-queued #88 for coder after discovering PR #89 was incorrectly closed by reviewer — fix never merged, max-turns still 30). Issue #90 new (reviewer close bug), under 2h. All workflows healthy.
+Action: evolve.yml SYNTHESIS — 5 convergent signals identified across 109 research_log entries. 6 source SHAs changed (weekend lull ended). gstack v0.11.15.0 E2E skill tests noted for #68. Watch List at 12 sources, first promotions possible Mar 30+. Reviewer remains weakest link (4 issues). No human activity 2+ days. 0 issues created.
 
 System health:
 - Evolve: SATURATED (10/17 today exceed max-turns=45, 58.8% — HORIZON_SCAN worst avg 55, PIPELINE_WATCH improving)
