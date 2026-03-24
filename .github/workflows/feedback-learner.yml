@@ -43,36 +43,36 @@ jobs:
       - name: Collect feedback context
         id: context
         run: |
-          EVENT="${{ github.event_name }}"
+          EVENT="$INPUT_EVENT_NAME"
           echo "EVENT=$EVENT" >> $GITHUB_OUTPUT
 
           if [ "$EVENT" = "issue_comment" ]; then
-            BODY="${{ github.event.comment.body }}"
-            SOURCE="issue #${{ github.event.issue.number }}: ${{ github.event.issue.title }}"
-            AUTHOR="${{ github.event.comment.user.login }}"
+            BODY="$INPUT_COMMENT_BODY"
+            SOURCE="issue #${INPUT_ISSUE_NUMBER}: ${INPUT_ISSUE_TITLE}"
+            AUTHOR="$INPUT_COMMENT_USER_LOGIN"
           elif [ "$EVENT" = "pull_request_review" ]; then
-            BODY="${{ github.event.review.body }}"
-            SOURCE="PR #${{ github.event.pull_request.number }}: ${{ github.event.pull_request.title }}"
-            AUTHOR="${{ github.event.review.user.login }}"
-            STATE="${{ github.event.review.state }}"
+            BODY="$INPUT_REVIEW_BODY"
+            SOURCE="PR #${INPUT_PR_NUMBER}: ${INPUT_PR_TITLE}"
+            AUTHOR="$INPUT_REVIEW_USER_LOGIN"
+            STATE="$INPUT_REVIEW_STATE"
             echo "REVIEW_STATE=$STATE" >> $GITHUB_OUTPUT
           elif [ "$EVENT" = "pull_request_review_comment" ]; then
-            BODY="${{ github.event.comment.body }}"
-            SOURCE="PR #${{ github.event.pull_request.number }}: ${{ github.event.pull_request.title }}"
-            AUTHOR="${{ github.event.comment.user.login }}"
+            BODY="$INPUT_COMMENT_BODY"
+            SOURCE="PR #${INPUT_PR_NUMBER}: ${INPUT_PR_TITLE}"
+            AUTHOR="$INPUT_COMMENT_USER_LOGIN"
           elif [ "$EVENT" = "issues" ]; then
-            BODY="Issue closed as ${{ github.event.issue.state_reason }}"
-            SOURCE="issue #${{ github.event.issue.number }}: ${{ github.event.issue.title }}"
-            AUTHOR="${{ github.event.sender.login }}"
-            LABELS=$(gh issue view ${{ github.event.issue.number }} --json labels -q '[.labels[].name] | join(",")')
+            BODY="Issue closed as ${INPUT_ISSUE_STATE_REASON}"
+            SOURCE="issue #${INPUT_ISSUE_NUMBER}: ${INPUT_ISSUE_TITLE}"
+            AUTHOR="$INPUT_SENDER_LOGIN"
+            LABELS=$(gh issue view "$INPUT_ISSUE_NUMBER" --json labels -q '[.labels[].name] | join(",")')
             echo "LABELS=$LABELS" >> $GITHUB_OUTPUT
           elif [ "$EVENT" = "pull_request" ]; then
-            PR_NUM="${{ github.event.pull_request.number }}"
+            PR_NUM="$INPUT_PR_NUMBER"
             LINKED_ISSUE=$(gh pr view "$PR_NUM" --json body -q '.body' | grep -oP '(?:Fixes|Closes|Resolves)\s+#\K\d+' | head -1 || echo "")
             PR_COMMENTS=$(gh pr view "$PR_NUM" --json comments,reviews --jq '([.comments[] | "[\(.author.login)] \(.body)"] + [.reviews[] | "[\(.author.login)] (\(.state)) \(.body)"]) | .[]' 2>/dev/null | tail -20)
             BODY="PR #${PR_NUM} closed without merge. Rejection context: ${PR_COMMENTS}"
-            SOURCE="PR #${PR_NUM}: ${{ github.event.pull_request.title }}"
-            AUTHOR="${{ github.event.sender.login }}"
+            SOURCE="PR #${PR_NUM}: ${INPUT_PR_TITLE}"
+            AUTHOR="$INPUT_SENDER_LOGIN"
             echo "LINKED_ISSUE=$LINKED_ISSUE" >> $GITHUB_OUTPUT
           fi
 
@@ -80,9 +80,21 @@ jobs:
           echo "SOURCE=$SOURCE" >> $GITHUB_OUTPUT
 
           # Write body to file to handle multiline/special chars
-          echo "$BODY" > /tmp/feedback_body.txt
+          printf '%s\n' "$BODY" > /tmp/feedback_body.txt
         env:
           GH_TOKEN: ${{ github.token }}
+          INPUT_EVENT_NAME: ${{ github.event_name }}
+          INPUT_COMMENT_BODY: ${{ github.event.comment.body }}
+          INPUT_REVIEW_BODY: ${{ github.event.review.body }}
+          INPUT_ISSUE_NUMBER: ${{ github.event.issue.number }}
+          INPUT_ISSUE_TITLE: ${{ github.event.issue.title }}
+          INPUT_ISSUE_STATE_REASON: ${{ github.event.issue.state_reason }}
+          INPUT_PR_NUMBER: ${{ github.event.pull_request.number }}
+          INPUT_PR_TITLE: ${{ github.event.pull_request.title }}
+          INPUT_COMMENT_USER_LOGIN: ${{ github.event.comment.user.login }}
+          INPUT_REVIEW_USER_LOGIN: ${{ github.event.review.user.login }}
+          INPUT_REVIEW_STATE: ${{ github.event.review.state }}
+          INPUT_SENDER_LOGIN: ${{ github.event.sender.login }}
 
       - name: Install Claude Code
         run: npm install -g @anthropic-ai/claude-code
