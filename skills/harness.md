@@ -5,6 +5,13 @@ description: >
   state file management, event routing, approval gates, GitHub Actions
   YAML, or the overall harness architecture. Also use when the agent
   needs to understand how the system works before making changes.
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Bash
+  - Glob
+  - Grep
 ---
 
 # Tokenman Harness
@@ -15,6 +22,36 @@ description: >
 - Event bus: GitHub Issues with labels
 - CMS: content/ folder — Astro content collections
 - Deployment: GitHub Pages (Astro static build)
+
+## When NOT to Use
+- When working only on frontend/Astro files (src/) — use the `frontend` skill instead
+- When writing or updating content collection entries in content/ — use the `content` skill
+- When debugging SEO, meta tags, or structured data — use the `seo` skill
+- When the task is a pure GitHub API operation with no harness context — use `github-workflows` skill
+- When making simple state file appends that don't require understanding the architecture
+
+## Rationalizations to Reject
+- "I'll just modify the workflow YAML directly in this run" — workflow YAML changes always need a PR
+- "State file format doesn't matter much" — malformed agent_log.md breaks the activity badge on the site
+- "I can skip reading project_state.md this time" — session protocol requires reading state on start, every time
+- "One more structural change won't hurt" — max one structural PR per evolve.yml run, no exceptions
+
+## Anti-Patterns
+
+**Bad — editing workflow YAML inside a workflow run:**
+During a coder.yml run, the agent edits `.github/workflows/coder.yml` directly and commits.
+This bypasses the PR review gate and can cause self-triggering loops.
+
+**Good — opening a PR for workflow changes:**
+The agent creates a branch, commits the workflow YAML change, and opens a `needs-review` PR.
+The reviewer workflow validates the change before merge.
+
+**Bad — rewriting agent_log.md:**
+The agent rewrites existing lines in `state/agent_log.md` to "clean up" formatting.
+This destroys the append-only audit trail and may break downstream consumers.
+
+**Good — append-only state writes:**
+The agent appends a new pipe-delimited line to `state/agent_log.md` without touching existing entries.
 
 ## Workflows
 1. **deploy.yml** — triggered on push to main; builds and publishes Pages site

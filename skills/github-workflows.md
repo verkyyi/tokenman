@@ -5,9 +5,28 @@ description: >
   understanding workflow triggers, using the GitHub API inside workflows,
   managing permissions, or understanding how GITHUB_TOKEN works.
   Also use when the agent needs to make GitHub API calls.
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Bash
+  - Glob
+  - Grep
 ---
 
 # GitHub Workflows & API
+
+## When NOT to Use
+- When the task is frontend/Astro source changes only — use `frontend` skill
+- When writing content collection entries — use `content` skill
+- When the task is README structural sync — use `readme-sync` skill
+- When debugging Astro build failures unrelated to workflows — use `frontend` skill
+
+## Rationalizations to Reject
+- "I'll modify the workflow YAML directly in this workflow run" — workflow YAML changes always need a PR (needs-review)
+- "GITHUB_TOKEN can trigger other workflows" — it cannot; use `gh workflow run` for chaining
+- "I'll use GITHUB_TOKEN for pushing to .github/workflows/" — use WORKFLOW_PAT which has the `workflows` permission
+- "I can skip the concurrency group" — concurrency groups prevent duplicate workflow runs; always include them
 
 ## GITHUB_TOKEN
 Automatically injected into every workflow run. No setup needed.

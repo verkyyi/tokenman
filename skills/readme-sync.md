@@ -4,6 +4,10 @@ description: >
   Use when README.md needs to reflect current repo structure.
   Covers workflow count, workflow table, and architecture section.
   Referenced by reviewer.yml post-merge step and evolve.yml Step 2e.
+allowed-tools:
+  - Read
+  - Edit
+  - Bash
 ---
 
 # README Sync
@@ -11,6 +15,28 @@ description: >
 ## Purpose
 Keep README.md consistent with the actual repo structure. Prevent
 drift between workflow count, table, architecture section, and reality.
+
+## When NOT to Use
+- When README content is already accurate — don't rewrite for style preferences alone
+- When the change is to workflow behavior (not structure) — only sync on structural additions/removals
+- When manually crafting README marketing copy or narrative sections
+- When the README change is purely cosmetic (badge color, link format) with no structural drift
+
+## Rationalizations to Reject
+- "The README could use a full rewrite" — surgical changes only; preserve human-written descriptions
+- "I'll update the README while I'm fixing this other thing" — only sync when structure actually changed
+- "The style of the auto-inserted row doesn't match perfectly" — the daily evolve check refines descriptions; don't block on style
+- "I should reorder the workflow table rows" — preserve existing order; only add/remove rows
+
+## Anti-Patterns
+
+**Bad — full table rewrite for style consistency:**
+The agent rewrites all 8 rows of the workflow table to normalize description length,
+destroying human-written descriptions that were accurate and well-phrased.
+
+**Good — surgical row addition:**
+A new workflow file was added. The agent inserts one new row with basic info
+extracted from the YAML, leaving all existing rows untouched.
 
 ## Auto-maintained sections
 These README sections are kept in sync automatically:

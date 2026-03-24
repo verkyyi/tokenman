@@ -5,6 +5,11 @@ description: >
   Also use when working with Astro content collections, frontmatter schemas,
   or understanding how content flows from files to the rendered pages.
   Covers both scaffold-level content and per-project content management.
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
 ---
 
 # Content Management
@@ -18,6 +23,18 @@ them at build time via content collections.
 Content can serve any project that Tokenman manages. Each project
 decides its own content structure by declaring collections in
 src/content.config.ts.
+
+## When NOT to Use
+- When modifying state/ files — state files are not content collections; they're read via fs directly
+- When working on Astro page templates or layouts in src/ — use `frontend` skill
+- When the task is SEO meta tags or structured data — use `seo` skill
+- When writing or editing skill files in skills/ — skills are not content collections
+
+## Rationalizations to Reject
+- "I'll set featured: true for this new project" — only the repo owner sets featured manually
+- "I'll delete this archived project file to clean up" — set status: archived instead; never delete content files
+- "I can read content/ files via fs.readFileSync in Astro pages" — use getCollection() for content/ files; fs is for state/
+- "I'll add runtime data fetching for fresh content" — all content is baked in at build time; no runtime fetches
 
 ## Content Collections
 
