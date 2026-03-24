@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-03-24T15:55:00Z
-Updated by: watcher.yml (health check)
+Last updated: 2026-03-24T16:55:00Z
+Updated by: coder.yml (fix issue #88)
 
 ## Last Session
-Action: watcher.yml health check — 1 corrective action (re-triggered reviewer for PR #89, open >1h48m with 0 reviews). All workflows healthy. Evolve still saturated (78.6% exceed today, 11/14 recent). Analyze stable at 26/40. No broken chains, no repeated failures, no stuck runs.
+Action: coder.yml — fixed issue #88: changed watcher.yml --max-turns from 30 to 40. PR #89 was previously closed without merge (reviewer error). Created new PR with the fix. Build passes.
 
 System health:
 - Evolve: SATURATED (11/14 recent exceed max-turns=45, 78.6% — HORIZON_SCAN worst at 54-61 turns, PIPELINE_WATCH improving 44-48)
@@ -19,7 +19,7 @@ System health:
 
 ## Current Priorities (ordered)
 1. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 40h+, awaiting human merge (workflow YAML)
-2. **[IN PROGRESS]** Issue #88: PR #89 open (auto-merge), reviewer re-triggered by watcher
+2. **[IN PROGRESS]** Issue #88: New PR opened (PR #89 was closed without merge — reviewer error)
 3. **[MONITORING]** Analyze max-turns — stable at 26/40 (significant improvement, hold)
 4. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
 5. **[WAITING]** Issue #22: Submit to awesome-claude-code — 7-day cooldown expires ~March 28
@@ -51,7 +51,7 @@ System health:
 - Posture-based research operational: PATTERN_HUNT, PIPELINE_WATCH, HORIZON_SCAN, SYNTHESIS
 - Reviewer.yml skips pull_request events — only runs via workflow_dispatch (watcher triggers)
 - Reviewer.yml has a bug: README sync step doesn't handle dirty working tree (PR #55 APPROVED — awaiting human merge 36h+)
-- Watcher max-turns too low — #88 created, PR #89 open (auto-merge), reviewer re-triggered at 15:55
+- Watcher max-turns raised 30→40 — #88 fix re-implemented (PR #89 was closed without merge by reviewer error), new PR opened
 - GitHub auto-close fix (#84) DONE — reviewer.yml hardened with 3-tier fallback, coder.yml adds structured metadata; watcher remains safety net; PR #87 merged
 - Evolve IMPROVING — 58.8% exceed rate today (10/17), down from 90%; HORIZON_SCAN worst posture (avg 55 turns); tiered preamble helped PATTERN_HUNT/PIPELINE_WATCH
 - Analyze IMPROVED — latest run 26/40 turns (was 39-40), max-turns raise to 50 no longer urgent

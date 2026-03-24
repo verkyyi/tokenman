@@ -1,0 +1,1 @@
+fix(workflow): raise watcher.yml max-turns 30→40 (closes #88)
