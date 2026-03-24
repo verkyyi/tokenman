@@ -154,10 +154,4 @@
 2026-03-24T12:36:56Z | evolve | model:claude-opus-4-6 | in:2508476 | out:19991 | turns:54 | cost:2.2227954999999997 | posture:HORIZON_SCAN | issues:0
 2026-03-24T13:01:08Z | evolve | model:claude-opus-4-6 | in:1282691 | out:17097 | turns:48 | cost:1.5400954999999996 | posture:PATTERN_HUNT | issues:0
 2026-03-24T13:38:45Z | evolve | model:claude-opus-4-6 | in:1988542 | out:16601 | turns:46 | cost:1.8825967499999996 | posture:HORIZON_SCAN | issues:0
-2026-03-24T14:07:10Z | coder | model:claude-opus-4-6 | in:912296 | out:4918 | turns:28 | cost:0.8016302500000001
-2026-03-24T14:15:20Z | evolve | model:claude-opus-4-6 | in:822011 | out:11414 | turns:38 | cost:1.055319 | posture:PATTERN_HUNT | issues:0
-2026-03-24T14:49:26Z | evolve | model:claude-opus-4-6 | in:1356320 | out:23851 | turns:50 | cost:2.1473975000000003 | posture:SYNTHESIS | issues:0
-2026-03-24T14:55:30Z | watcher | model:claude-opus-4-6 | in:1085179 | out:11005 | turns:35 | cost:1.276269
-2026-03-24T15:16:20Z | evolve | model:claude-opus-4-6 | in:2224659 | out:18146 | turns:48 | cost:1.98634975 | posture:PIPELINE_WATCH | issues:0
-2026-03-24T15:45:59Z | evolve | model:claude-opus-4-6 | in:1272724 | out:13759 | turns:45 | cost:1.3715607500000004 | posture:PIPELINE_WATCH | issues:0
-2026-03-24T15:55:27Z | watcher | model:claude-opus-4-6 | in:751941 | out:8898 | turns:30 | cost:1.043441
+2026-03-24T15:55:28Z | reviewer | model:claude-opus-4-6 | in:179008 | out:1413 | turns:9 | cost:0.3084875
