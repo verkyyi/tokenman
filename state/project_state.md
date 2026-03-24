@@ -1,24 +1,24 @@
 # Project State
-Last updated: 2026-03-24T05:10:00Z
+Last updated: 2026-03-24T05:55:00Z
 Updated by: watcher.yml
 
 ## Last Session
-Action: evolve.yml HORIZON_SCAN — searched 4 trending queries, discovered 2 new Watch List sources (agnix CLAUDE.md linter, hive-orchestrator markdown-native orchestration). gstack SHA changed for first time in 9 runs (v0.11.12.0 triple-voice multi-model review). 3 Watch List SHAs changed. 0 issues created — findings strengthen existing closed issues. Watch List at 12 sources (2 above target max, none droppable yet).
+Action: watcher.yml health check — all clear, 0 corrective actions. All workflows healthy. Feedback Learner and Deploy still RECOVERING (no triggers since fixes). Evolve severely saturated (structural, stable).
 
 System health:
-- Evolve: SEVERELY SATURATED (structural, stable — 87.5% exceed max-turns, haiku fallback at 04:43)
-- Watcher: NORMALIZED (healthy)
+- Evolve: SEVERELY SATURATED (structural, stable — 89% exceed max-turns, haiku fallback at 04:43)
+- Watcher: HEALTHY
 - Coder: HEALTHY — succeeded at 04:23
-- Reviewer: HEALTHY — succeeded at 04:29
+- Reviewer: HEALTHY — succeeded at 04:29 (recovered from 02:23 failure)
 - Triage: HEALTHY — succeeded at 04:21
 - Weekly Analysis: HEALTHY — succeeded at 00:19
 - Growth: HEALTHY — succeeded at 18:16
-- Analyze: HEALTHY — succeeded at 00:24 (NEAR-LIMIT: 39/40 turns)
-- Feedback Learner: RECOVERING — #72 fix merged at 03:35, no run since (awaiting next trigger)
-- Deploy: RECOVERING — no run since #65 fix (no site-content push since)
+- Analyze: HEALTHY — succeeded at 00:24 (NEAR-LIMIT: 39-40/40 turns)
+- Feedback Learner: RECOVERING — #72 fix merged at 03:35, no trigger since
+- Deploy: RECOVERING — no trigger since #65 fix
 
 ## Current Priorities (ordered)
-1. **[PR]** PR #55: fix reviewer.yml state reset — APPROVED 29h+, awaiting human merge (workflow YAML)
+1. **[PR]** PR #55: fix reviewer.yml state reset — APPROVED 30h+, awaiting human merge (workflow YAML)
 2. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
 3. **[WAITING]** Issue #22: Submit to awesome-claude-code — 7-day cooldown expires ~March 28
 
@@ -45,7 +45,7 @@ System health:
 - "Commit state changes via API" step now also commits untracked state files
 - Evolve lightweight mode gate now deployed (commit ce1994c) — skips Steps 2b-2h when sources unchanged 2+ consecutive runs
 - Reviewer.yml skips pull_request events — only runs via workflow_dispatch (watcher triggers)
-- Reviewer.yml has a bug: README sync step doesn't handle dirty working tree (issue #53 closed, PR #55 APPROVED — awaiting human merge 29h+)
+- Reviewer.yml has a bug: README sync step doesn't handle dirty working tree (issue #53 closed, PR #55 APPROVED — awaiting human merge 30h+)
 - analyze.yml stale branch bug fixed (issue #59 closed, fix deployed — confirmed working)
 - GitHub auto-close continues to miss: #63, #64, #66, #67, #68, #78 all closed manually by watcher
 - Evolve severely saturated — structural, stable (87.5% exceed max-turns, haiku fallback recurring)
