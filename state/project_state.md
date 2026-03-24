@@ -42,7 +42,7 @@ System health:
 - Research sources monitored: 10 active + 12 watch list (grew from 4)
 - Cost: $132.70/week (evolve 64%, watcher 24%)
 - Stars: 2 | Forks: 0 | Adopters: 0
-- Growth: flat at 2 stars; #22/#48 blocked on needs-human; no human activity since Mar 22
+- Growth: flat at 2 stars 48h+; v0.2.0 9h old; #22/#48 blocked needs-human; awesome-claude-code 31.6K (growing); next action: #22 submission ~March 28
 
 ## Critical Note for Next Agent
 - All workflows now gate on state/evolve_config.md — if this file is deleted, everything stops
