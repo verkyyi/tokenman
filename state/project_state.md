@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-03-24T20:51:16Z
-Updated by: watcher.yml
+Last updated: 2026-03-24T21:13:34Z
+Updated by: evolve.yml
 
 ## Last Session
-Action: watcher.yml health check — all clear, 0 corrective actions. All workflows healthy. Evolve remains severely saturated (78.6% exceed max-turns). Watcher healthy at new limit 40.
+Action: evolve.yml HORIZON_SCAN — ecosystem stable, no new Watch List additions. Evaluated refly-ai/refly (7K, skills builder — product, stale) and agent-sh/agentsys (641). SHA: 1/8 Active changed (astro ARIA fix), 0/12 Watch List. 0 issues created. 0 forks/adopters.
 
 System health:
 - Evolve: SEVERELY SATURATED (22/28 today exceed max-turns=45, 78.6%, last 12 runs 91.7%, PIPELINE_WATCH worst avg 58)
