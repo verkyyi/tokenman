@@ -1,26 +1,26 @@
 # Project State
-Last updated: 2026-03-24T12:30:20Z
-Updated by: evolve.yml
+Last updated: 2026-03-24T12:50:00Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: evolve.yml — HORIZON_SCAN posture (cadence balance: HS 1/2 in 8-run window). Searched 4 GitHub query sets, 3300+ repos in ecosystem (stable). Evaluated 4 new repos (oh-my-claudecode 11K, claude-hud 12K, superset 7.9K, VoltAgent/awesome-agent-skills 12.6K) — none added (products/catalogs, not harness patterns). Watch List at 12/10 capacity, no promotions until Mar 30+. 1 Active SHA change (awesome-claude-code ticker-only). 0 issues created.
+Action: watcher.yml — health check. All clear, 0 corrective actions. No broken chains, no repeated failures, no stuck runs, no stale issues. Token utilization: evolve SEVERELY SATURATED (14/18 exceed 45, 77.8%), watcher WORSENING (4/8 exceed 30, 50% — #88 tracks), analyze SIGNIFICANTLY IMPROVED (26/40 from 36-40), reviewer/growth HEALTHY.
 
 System health:
-- Evolve: MIXED (6/10 recent exceed max-turns=45, 60% — brief improvement then regressed; HORIZON_SCAN avg 57 turns, PATTERN_HUNT/SYNTHESIS improved; per-run cost $1.33-$2.38)
-- Watcher: WORSENING (3/7 recent exceed 30, 42.9%, last run hit 40 turns — #88 created to raise limit)
+- Evolve: SEVERELY SATURATED (14/18 recent exceed max-turns=45, 77.8% — HORIZON_SCAN worst at 54-61 turns; per-run cost $1.33-$2.42)
+- Watcher: WORSENING (4/8 recent exceed 30, 50% — #88 created to raise limit to 40)
 - Coder: HEALTHY — last succeeded at 09:54
 - Reviewer: HEALTHY — 6+ consecutive successes since last failure at 02:23
 - Triage: HEALTHY — succeeded at 09:52
-- Weekly Analysis: HEALTHY — succeeded at 06:24
+- Weekly Analysis: HEALTHY — succeeded at 12:16
 - Growth: HEALTHY but STALLED — 2 stars flat, 0 forks, 0 adopters; v0.2.0 released
-- Analyze: IMPROVING (36/40, was 39-40/40)
+- Analyze: SIGNIFICANTLY IMPROVED (26/40 turns, was 36-40 — max-turns raise may no longer be needed)
 - Feedback Learner: RECOVERING — #72 fix merged, 1 failure since (00:05), no trigger since
 - Deploy: RECOVERING — no trigger since #65 fix
 
 ## Current Priorities (ordered)
 1. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 36h+, awaiting human merge (workflow YAML)
 2. **[ACTION]** Issue #88: Raise watcher.yml max-turns 30→40 — 42.9% exceeding, trend worsening
-3. **[ACTION]** Raise analyze.yml max-turns 40→50 — consistently hitting 36-40/40, truncation risk
+3. **[MONITORING]** Analyze max-turns — was 36-40/40, latest run 26/40 (significant improvement, hold off on raise)
 4. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
 5. **[WAITING]** Issue #22: Submit to awesome-claude-code — 7-day cooldown expires ~March 28
 6. **[DONE]** v0.2.0 release — created 2026-03-24, 20 PRs
@@ -54,7 +54,7 @@ System health:
 - Watcher max-turns too low — #88 created, 42.9% of runs exceeding 30 (trend worsening from 33.3%)
 - GitHub auto-close fix (#84) DONE — reviewer.yml hardened with 3-tier fallback, coder.yml adds structured metadata; watcher remains safety net; PR #87 merged
 - Evolve MIXED — 60% exceed rate (6/10), HORIZON_SCAN worst posture (avg 57 turns); tiered preamble helped PATTERN_HUNT/SYNTHESIS but not HORIZON_SCAN
-- Analyze near-limit — 39-40/40 turns consistently, needs max-turns raise to 50
+- Analyze IMPROVED — latest run 26/40 turns (was 39-40), max-turns raise to 50 no longer urgent
 - Feedback Learner #72 fix merged — awaiting next trigger to confirm recovery
 - State file compression (#78) merged — research_log.md reduced from 699 to 104 lines
 - Circuit breaker (#76) merged — PostToolUseFailure hook with 3-failure threshold
