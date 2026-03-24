@@ -3,7 +3,7 @@ Last updated: 2026-03-24T09:55:00Z
 Updated by: watcher.yml
 
 ## Last Session
-Action: watcher.yml — health check. 3 corrective actions: closed #82 and #83 (PRs #85/#86 merged, GitHub auto-close missed — 8 misses this week total), re-triggered triage for #84 (>2h with 0 triage comments). All workflows HEALTHY. No repeated failures, no stuck runs.
+Action: coder.yml — fix issue #84. Hardened reviewer.yml close step with 3-tier fallback (closingIssuesReferences API, structured metadata comment, regex keyword parsing). Added `<!-- linked-issue: N -->` metadata to coder.yml PR body. Build passes. PR opened for issue #84.
 
 System health:
 - Evolve: MIXED (6/10 last exceed max-turns=45, 60%, improved from 66.7% — but per-run cost rising $1.33-$2.32, context tokens reaching 2.7M)
@@ -20,14 +20,14 @@ System health:
 ## Current Priorities (ordered)
 1. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 34h+, awaiting human merge (workflow YAML)
 2. **[ACTION]** Raise analyze.yml max-turns 40→50 — consistently hitting 39-40/40, truncation risk
-3. **[TRACKING]** GitHub auto-close misses — 8 issues manually closed this week (#63/#64/#66/#67/#68/#78/#82/#83), #84 open for investigation
+3. **[IN PROGRESS]** Issue #84: GitHub auto-close misses — PR opened with hardened close step
 4. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
 5. **[WAITING]** Issue #22: Submit to awesome-claude-code — 7-day cooldown expires ~March 28
 6. **[DONE]** v0.2.0 release — created 2026-03-24, 20 PRs
 
 ## Open Items
 1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 34h+, needs human merge
-2. Issue #84: [pipeline-fix] GitHub auto-close misses — awaiting triage
+2. Issue #84: [pipeline-fix] GitHub auto-close misses — PR opened
 3. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents — needs-human
 4. Issue #22: [needs-human] Submit to awesome-claude-code — waiting until ~March 28
 
@@ -51,7 +51,7 @@ System health:
 - Posture-based research operational: PATTERN_HUNT, PIPELINE_WATCH, HORIZON_SCAN, SYNTHESIS
 - Reviewer.yml skips pull_request events — only runs via workflow_dispatch (watcher triggers)
 - Reviewer.yml has a bug: README sync step doesn't handle dirty working tree (PR #55 APPROVED — awaiting human merge 30h+)
-- GitHub auto-close continues to miss: 8 issues this week (#63/#64/#66/#67/#68/#78/#82/#83) all closed manually by watcher
+- GitHub auto-close fix (#84) — reviewer.yml hardened with 3-tier fallback, coder.yml adds structured metadata; watcher remains safety net
 - Evolve MIXED — 60% exceed rate (6/10), improving from 66.7% but per-run cost rising ($1.33-$2.32, context growth driving cost)
 - Analyze near-limit — 39-40/40 turns consistently, needs max-turns raise to 50
 - Feedback Learner #72 fix merged — awaiting next trigger to confirm recovery
