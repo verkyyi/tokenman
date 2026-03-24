@@ -161,4 +161,4 @@
 2026-03-24T18:12:04Z | evolve | model:claude-opus-4-6 | in:2253918 | out:18507 | turns:57 | cost:2.0250399999999993 | posture:PATTERN_HUNT | issues:0
 2026-03-24T18:24:59Z | analyze | model:claude-opus-4-6 | in:1563808 | out:11276 | turns:26 | cost:1.57102825
 2026-03-24T18:41:08Z | evolve | model:claude-opus-4-6 | in:1868934 | out:18121 | turns:52 | cost:1.8549589999999996 | posture:PIPELINE_WATCH | issues:0
-2026-03-24T18:54:53Z | watcher | model:claude-opus-4-6 | in:1137927 | out:13297 | turns:34 | cost:1.4049895000000003
+2026-03-24T18:56:03Z | reviewer | model:claude-opus-4-6 | in:710266 | out:3269 | turns:25 | cost:0.68398475
