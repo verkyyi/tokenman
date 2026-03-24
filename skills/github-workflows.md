@@ -1,17 +1,13 @@
 ---
 name: github-workflows
+version: 1.0.0
 description: >
   Use when reading, writing, or debugging .github/workflows/ YAML files,
   understanding workflow triggers, using the GitHub API inside workflows,
   managing permissions, or understanding how GITHUB_TOKEN works.
   Also use when the agent needs to make GitHub API calls.
-allowed-tools:
-  - Read
-  - Write
-  - Edit
-  - Bash
-  - Glob
-  - Grep
+author: tokenman
+tags: [github-actions, workflows, ci-cd, api]
 ---
 
 # GitHub Workflows & API

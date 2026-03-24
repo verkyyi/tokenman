@@ -1,13 +1,12 @@
 ---
 name: adversarial-review
+version: 1.0.0
 description: >
   Use when an agent (especially evolve.yml) has proposed an output or change
   and needs to self-check before finalizing. Implements risk-scaled adversarial
   review inspired by gstack v0.9.5.0 (garrytan/gstack@6c69feb, PR #297).
-allowed-tools:
-  - Bash
-  - Read
-  - Grep
+author: tokenman
+tags: [review, safety, guardrails, ci, multi-agent]
 ---
 
 # Adversarial Self-Review Protocol

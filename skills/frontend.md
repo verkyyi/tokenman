@@ -1,15 +1,12 @@
 ---
 name: frontend
+version: 1.0.0
 description: >
   Use when modifying src/ files: Astro pages, components, layouts,
   or styles. Also use when working with Tailwind CSS classes,
   Astro content collections in pages, or debugging build issues.
-allowed-tools:
-  - Read
-  - Write
-  - Edit
-  - Bash
-  - Glob
+author: tokenman
+tags: [frontend, astro, tailwind, ui]
 ---
 
 # Frontend — Astro + Tailwind

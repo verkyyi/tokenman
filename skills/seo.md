@@ -1,14 +1,13 @@
 ---
 name: seo
+version: 1.0.0
 description: >
   Use when working on SEO, structured data, sitemap, robots.txt,
   meta tags, Lighthouse scores, or discoverability.
   Also use when the analyze agent is running its weekly audit,
   or when optimizing the repo's GitHub presence.
-allowed-tools:
-  - Read
-  - Edit
-  - Bash
+author: tokenman
+tags: [seo, discoverability, structured-data, lighthouse]
 ---
 
 # SEO & Discoverability

@@ -1,17 +1,13 @@
 ---
 name: harness
+version: 1.0.0
 description: >
   Use when working on the Tokenman harness itself: daemon workflows,
   state file management, event routing, approval gates, GitHub Actions
   YAML, or the overall harness architecture. Also use when the agent
   needs to understand how the system works before making changes.
-allowed-tools:
-  - Read
-  - Write
-  - Edit
-  - Bash
-  - Glob
-  - Grep
+author: tokenman
+tags: [architecture, self-evolution, automation, ci-cd, github-actions]
 ---
 
 # Tokenman Harness

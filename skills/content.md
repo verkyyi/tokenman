@@ -1,15 +1,13 @@
 ---
 name: content
+version: 1.0.0
 description: >
   Use when reading, writing, or modifying content/ files for any project.
   Also use when working with Astro content collections, frontmatter schemas,
   or understanding how content flows from files to the rendered pages.
   Covers both scaffold-level content and per-project content management.
-allowed-tools:
-  - Read
-  - Write
-  - Edit
-  - Glob
+author: tokenman
+tags: [content, astro, cms, collections]
 ---
 
 # Content Management

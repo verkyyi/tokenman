@@ -1,12 +1,13 @@
 ---
 name: feedback-intake
+version: 1.0.0
 description: >
   Use when the developer says "user reported", "got feedback that",
   "someone said", pastes feedback text, or asks Claude to log feedback.
   Also activates on /feedback command. Parses any feedback format into
   a structured GitHub Issue that triggers the triage workflow.
-allowed-tools:
-  - Bash
+author: tokenman
+tags: [feedback, triage, issue-tracking, user-input]
 ---
 
 # Feedback Intake Skill
