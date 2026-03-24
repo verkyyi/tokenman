@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "description": "Deny rules enforcing CLAUDE.md NEVER autonomy rules. Defense in depth.",
+  "deny_rules": [
+    {
+      "id": "no-destructive-rm",
+      "tool": "Bash",
+      "description": "Block recursive/forced file deletion",
+      "arg_field": "command",
+      "patterns": [
+        "rm\\s+-[^\\s]*r",
+        "rm\\s+-[^\\s]*f",
+        "\\brm\\b.*\\s+\\*",
+        "\\brm\\b.*\\s+-rf",
+        "\\brm\\b.*\\s+-fr"
+      ]
+    },
+    {
+      "id": "no-force-push",
+      "tool": "Bash",
+      "description": "Block git force push and hard reset",
+      "arg_field": "command",
+      "patterns": [
+        "git\\s+push\\s+.*--force",
+        "git\\s+push\\s+-f\\b",
+        "git\\s+reset\\s+--hard"
+      ]
+    },
+    {
+      "id": "no-secrets-write",
+      "tool": "Write",
+      "description": "Block writing to secrets/auth files",
+      "arg_field": "file_path",
+      "patterns": [
+        "\\.env$",
+        "\\.env\\.",
+        "credentials",
+        "secrets?\\.json",
+        "secrets?\\.ya?ml",
+        "\\.token$"
+      ]
+    },
+    {
+      "id": "no-secrets-edit",
+      "tool": "Edit",
+      "description": "Block editing secrets/auth files",
+      "arg_field": "file_path",
+      "patterns": [
+        "\\.env$",
+        "\\.env\\.",
+        "credentials",
+        "secrets?\\.json",
+        "secrets?\\.ya?ml",
+        "\\.token$"
+      ]
+    },
+    {
+      "id": "no-workflow-write",
+      "tool": "Write",
+      "description": "Block direct writes to workflow YAML (must go through PR)",
+      "arg_field": "file_path",
+      "patterns": [
+        "\\.github/workflows/"
+      ]
+    },
+    {
+      "id": "no-workflow-edit",
+      "tool": "Edit",
+      "description": "Block direct edits to workflow YAML (must go through PR)",
+      "arg_field": "file_path",
+      "patterns": [
+        "\\.github/workflows/"
+      ]
+    },
+    {
+      "id": "no-autonomy-promotion",
+      "tool": "Edit",
+      "description": "Block edits that modify CLAUDE.md autonomy rules section",
+      "arg_field": "new_string",
+      "patterns": [
+        "NEVER auto-execute"
+      ]
+    }
+  ]
+}
