@@ -68,12 +68,26 @@ description: >
 author: tokenman
 tags: [tag1, tag2, tag3]
 requires: []
+preamble-tier: 2
 ---
 
 # Skill Content
 
 Instructions, protocols, and examples follow here.
 ```
+
+## Preamble Tiers
+
+The `preamble-tier` field controls how much context a workflow injects into its prompt. Lower tiers get less context, reducing token consumption for lightweight workflows.
+
+| Tier | Context included | Assigned to |
+|------|-----------------|-------------|
+| T1 (minimal) | `learned_rules` + `evolve_config` | `feedback-intake` skill, feedback-learner workflow |
+| T2 (standard) | T1 + `project_state` | `session-protocol`, `harness` skills; triage, reviewer workflows |
+| T3 (extended) | T2 + full `CLAUDE.md` + project `CLAUDE.md` + `agent_log` | `adversarial-review` skill; coder, watcher workflows |
+| T4 (full) | T3 + `research_sources` + `research_log` + `last_evolve_summary` | Evolve workflow |
+
+Use `scripts/build-preamble.sh <tier>` to generate the context block for a given tier. See the script header for usage details.
 
 ## Community Catalogs
 

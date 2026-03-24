@@ -125,13 +125,10 @@ jobs:
           Feedback content:
           ${FEEDBACK}
 
-          ## Evolve Config
-          $(cat state/evolve_config.md)
+          ## Context (T1 preamble)
+          $(./scripts/build-preamble.sh 1)
 
-          When a workflow is marked SKIP in the config, ignore its failures in health checks.
-          Read CLAUDE.md from the path in the Project section of the config.
-
-          ## Current learned rules:
+          ## Current learned rules (included in preamble above):
           ${CURRENT_RULES}
 
           ## Your task:

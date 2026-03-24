@@ -8,6 +8,7 @@ description: >
 author: tokenman
 tags: [state-management, session, context, persistence]
 requires: []
+preamble-tier: 2
 ---
 
 # Session Protocol

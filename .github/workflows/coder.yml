@@ -106,25 +106,7 @@ jobs:
           ISSUE_COMMENTS=$(gh issue view "$ISSUE_NUM" --json comments -q '.comments[] | "[\(.author.login)] \(.body)"' | tail -20)
 
           cat > /tmp/coder_prompt.txt << PROMPT
-          $(cat CLAUDE.md)
-
-          ---
-
-          $(cat $(grep '^CLAUDE.md:' state/evolve_config.md | cut -d' ' -f2))
-
-          ---
-
-          ## Current Project State
-          $(cat state/project_state.md)
-
-          ## Evolve Config
-          $(cat state/evolve_config.md)
-
-          Use the Build section for install/build/test commands. Do NOT assume npm.
-          Read CLAUDE.md from the path in the Project section of the config.
-
-          ## Learned Rules (from human feedback — MUST follow these)
-          $(cat state/learned_rules.md)
+          $(./scripts/build-preamble.sh 3)
 
           ---
 

@@ -8,6 +8,7 @@ description: >
 author: tokenman
 tags: [architecture, self-evolution, automation, ci-cd, github-actions]
 requires: []
+preamble-tier: 2
 ---
 
 # Self-Evolving Agent Harness

@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-03-24T08:49:00Z
-Updated by: watcher.yml
+Last updated: 2026-03-24T09:00:00Z
+Updated by: coder.yml
 
 ## Last Session
-Action: watcher.yml health check — 2 corrective actions (re-triggered triage for #82 and #83, both >2h with 0 triage comments). All workflows healthy. Pipeline 96.7% success rate. Evolve turn count significantly improving (last 4 runs all under max-turns=45).
+Action: coder.yml — implemented tiered preamble system for issue #83. Created scripts/build-preamble.sh (T1-T4 context assembly), added preamble-tier field to all 4 SKILL.md files, updated 5 workflows (triage, reviewer, feedback-learner, watcher, coder) to use shared script, documented tier system in skills/README.md. Evolve.yml left as-is (already heaviest, T4 optional). Build passes. Opening PR.
 
 System health:
 - Evolve: IMPROVING (8/12 last exceed max-turns=45, 66.7%, last 4 all under — 43, 43, 38, 43)

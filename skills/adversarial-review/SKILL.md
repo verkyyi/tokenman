@@ -9,6 +9,7 @@ description: >
 author: tokenman
 tags: [review, safety, guardrails, ci, multi-agent]
 requires: []
+preamble-tier: 3
 ---
 
 # Adversarial Self-Review Protocol

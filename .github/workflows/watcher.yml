@@ -81,8 +81,6 @@ jobs:
       - name: Build watcher prompt
         run: |
           SYSTEM_STATE=$(cat /tmp/system_state.txt)
-          LEARNED_RULES=$(cat state/learned_rules.md)
-          AGENT_LOG=$(tail -30 state/agent_log.md)
 
           cat > /tmp/watcher_prompt.txt << 'PROMPTSTART'
           You are the pipeline watcher — the self-healing guardian of Tokenman.
@@ -221,21 +219,10 @@ jobs:
           ## Current system state:
           ${SYSTEM_STATE}
 
-          ## Recent agent log:
-          ${AGENT_LOG}
-
-          ## Learned rules:
-          ${LEARNED_RULES}
-
-          ## Evolve Config
-          $(cat state/evolve_config.md)
+          ## Context (T3 preamble — includes evolve_config, learned_rules, project_state, CLAUDE.md, agent_log)
+          $(./scripts/build-preamble.sh 3)
 
           When checking pipeline health, ignore failures from workflows marked SKIP in the config — these are expected to not run.
-          Read CLAUDE.md from the path in the Project section of the config.
-
-          ## Context:
-          $(cat CLAUDE.md)
-          $(cat $(grep '^CLAUDE.md:' state/evolve_config.md | cut -d' ' -f2))
           PROMPTEND
 
       - name: Run watcher

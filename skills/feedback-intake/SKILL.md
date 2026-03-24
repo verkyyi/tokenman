@@ -8,6 +8,7 @@ description: >
 author: tokenman
 tags: [feedback, triage, issue-tracking, user-input]
 requires: []
+preamble-tier: 1
 ---
 
 # Feedback Intake Skill

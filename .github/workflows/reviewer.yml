@@ -86,8 +86,6 @@ jobs:
           BRANCH="${{ steps.pr.outputs.BRANCH }}"
           CHANGED="${{ steps.diff.outputs.CHANGED_FILES }}"
 
-          LEARNED_RULES=$(cat state/learned_rules.md)
-
           cat > /tmp/review_prompt.txt << PROMPT
           You are the reviewer agent for Tokenman. Your job is to review PRs
           and decide: merge or block. You should be BOLD — approve and merge
@@ -101,11 +99,7 @@ jobs:
           Changed files:
           ${CHANGED}
 
-          ## Evolve Config
-          $(cat state/evolve_config.md)
-
-          Use the Build section for install/build/test commands. Do NOT assume npm.
-          Read CLAUDE.md from the path in the Project section of the config.
+          $(./scripts/build-preamble.sh 2)
 
           ## Review process:
 
@@ -142,8 +136,6 @@ jobs:
 
           When in doubt, APPROVE. The system self-heals.
 
-          ## Learned Rules (from human feedback — MUST follow these)
-          ${LEARNED_RULES}
           PROMPT
 
       - name: Git identity
