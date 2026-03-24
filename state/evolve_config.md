@@ -34,5 +34,34 @@ Tests: npm run build (Astro build validates)
 Public: Yes — open-source template
 Bypass permissions confirmed: Yes
 
+## Degradation Matrix
+Per-workflow and per-posture fallback modes for graceful degradation.
+
+| Workflow         | Normal Mode             | Degraded Mode (80%+ turns used or API errors)      |
+|------------------|-------------------------|-----------------------------------------------------|
+| evolve           | Full research + improve | Skip deep-dive; scan-only mode (Steps 2b-2h)       |
+| analyze          | Full codebase analysis  | Summary-only; skip per-file breakdown               |
+| watcher          | All health checks       | Critical checks only (workflow failures, stale PRs) |
+| coder            | Full implementation     | Commit partial progress; open follow-up issue       |
+| reviewer         | Full review + fix       | Review-only; skip auto-fix attempts                 |
+| triage           | Full triage + label     | Label-only; skip elaboration                        |
+| feedback-learner | Extract + apply rules   | Extract rules only; skip rule application           |
+| growth           | All growth actions      | Metrics update only; skip outreach                  |
+
+Per-posture reduced scope (evolve only):
+
+| Posture        | Normal Scope     | Degraded Scope        |
+|----------------|------------------|-----------------------|
+| PATTERN_HUNT   | 3-4 sources      | 2 sources             |
+| PIPELINE_WATCH | Full pipeline    | Last 3 runs only      |
+| HORIZON_SCAN   | All watch list   | Top 3 sources only    |
+| SYNTHESIS      | Cross-reference  | Single-source summary |
+
+Wind-down threshold: When turns used >= 80% of max-turns, agent should:
+1. Stop starting new research/exploration
+2. Summarize findings so far
+3. Commit state files
+4. Exit cleanly
+
 ## Project
 CLAUDE.md: ./CLAUDE.md
