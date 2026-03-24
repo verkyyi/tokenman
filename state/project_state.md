@@ -1,42 +1,31 @@
 # Project State
-Last updated: 2026-03-24T04:37:42Z
-Updated by: evolve.yml
+Last updated: 2026-03-24T05:10:00Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: evolve.yml PIPELINE_WATCH — full failure analysis of 10 recent failures: 6 ALREADY-FIXED, 3 FIXED-UNTESTED (Deploy/Feedback Learner fixes deployed, awaiting natural triggers), 1 TRANSIENT. Cost analysis: $132.70/7 days, evolve=64%. All 9 Active sources unchanged (9th consecutive). 0 issues created.
+Action: watcher.yml health check — 1 corrective action (closed #78, PR #81 merged, auto-close missed). All workflows healthy. Feedback Learner RECOVERING (#72 fix merged). Deploy RECOVERING (no trigger since fix). Evolve still severely saturated (structural).
 
 System health:
-- Evolve: SEVERELY SATURATED (structural, stable)
+- Evolve: SEVERELY SATURATED (structural, stable — 87.5% exceed max-turns, haiku fallback at 04:43)
 - Watcher: NORMALIZED (healthy)
 - Coder: HEALTHY — succeeded at 04:23
 - Reviewer: HEALTHY — succeeded at 04:29
-- Triage: HEALTHY — succeeded at 00:55
+- Triage: HEALTHY — succeeded at 04:21
 - Weekly Analysis: HEALTHY — succeeded at 00:19
 - Growth: HEALTHY — succeeded at 18:16
-- Analyze: HEALTHY — succeeded at 00:24
-- Feedback Learner: FAILING — script injection in workflow YAML (#72, likely-agent-fixable, awaiting triage)
+- Analyze: HEALTHY — succeeded at 00:24 (NEAR-LIMIT: 39/40 turns)
+- Feedback Learner: RECOVERING — #72 fix merged at 03:35, no run since (awaiting next trigger)
 - Deploy: RECOVERING — no run since #65 fix (no site-content push since)
 
 ## Current Priorities (ordered)
-1. **[FIX]** Issue #72: Feedback Learner script injection — likely-agent-fixable, approaching 2h without triage
-2. **[PR]** PR #71: unified label registry — needs-review, reviewer re-triggered by watcher
-3. **[PR]** PR #55: fix reviewer.yml state reset — APPROVED 26h+, awaiting human merge (workflow YAML)
-4. **[PR]** Issue #78: State file compression — PR opened by coder
-5. **[PR]** Issue #76: Circuit breaker pattern — PR opened by coder
-6. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
-7. **[WAITING]** Issue #22: Submit to awesome-claude-code — 7-day cooldown expires ~March 28
+1. **[PR]** PR #55: fix reviewer.yml state reset — APPROVED 29h+, awaiting human merge (workflow YAML)
+2. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
+3. **[WAITING]** Issue #22: Submit to awesome-claude-code — 7-day cooldown expires ~March 28
 
 ## Open Items
-1. Issue #72: [pipeline-fix] Feedback Learner script injection — likely-agent-fixable, no triage comment (1h36m)
-2. PR #71: [needs-review] unified label registry — reviewer re-triggered (0 reviews, >2h open)
-3. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 26h+, needs human merge
-4. Issue #78: [in-progress] state file compression — PR opened by coder
-5. Issue #76: [in-progress] circuit breaker pattern — PR opened by coder
-6. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents — needs-human
-7. Issue #22: [needs-human] Submit to awesome-claude-code — waiting until ~March 28
-8. Issue #66: CLOSED by watcher (PR #77 merged)
-9. Issue #67: CLOSED by watcher (PR #73 merged)
-10. Issue #68: CLOSED by watcher (PR #74 merged)
+1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 29h+, needs human merge
+2. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents — needs-human
+3. Issue #22: [needs-human] Submit to awesome-claude-code — waiting until ~March 28
 
 ## Week 2 Key Metrics
 - Commits: 300+ (advancing with state commits)
@@ -45,7 +34,7 @@ System health:
 - Workflow runs: ~200+ (evolve dominant)
 - Research sources monitored: 10 active + 10 watch list
 - Stars: 2 | Forks: 0 | Adopters: 0
-- Growth: +1 star since v0.1.0 release (now flat at 2); discussion #49 has 0 engagement after 39h; distribution issues #22/#48 blocked on needs-human; no action taken — next action when features accumulate for v0.2.0
+- Growth: +1 star since v0.1.0 release (now flat at 2); discussion #49 0 engagement; distribution issues #22/#48 blocked on needs-human; no action taken — next action when features accumulate for v0.2.0
 
 ## Critical Note for Next Agent
 - All workflows now gate on state/evolve_config.md — if this file is deleted, everything stops
@@ -56,14 +45,11 @@ System health:
 - "Commit state changes via API" step now also commits untracked state files
 - Evolve lightweight mode gate now deployed (commit ce1994c) — skips Steps 2b-2h when sources unchanged 2+ consecutive runs
 - Reviewer.yml skips pull_request events — only runs via workflow_dispatch (watcher triggers)
-- Reviewer.yml has a bug: README sync step doesn't handle dirty working tree (issue #53 closed, PR #55 APPROVED — awaiting human merge)
-- PR #55 approved by reviewer — human merge needed for workflow YAML change (24h+ pending)
-- analyze.yml stale branch bug fixed (issue #59 closed, fix deployed — Weekly Analysis succeeded at 18:16, fully confirmed)
-- #63 and #64 fully processed: evolve→triage→coder→PR→reviewer→merge. Closed by watcher (GitHub auto-close missed).
-- #66, #67, #68 fully processed: evolve→triage→coder→PR→reviewer→merge. Closed by watcher (GitHub auto-close missed again — recurring pattern).
-- Evolve severely saturated — structural, stable (90% exceed max-turns)
-- Watcher NORMALIZED — healthy (all under 30 turns)
-- Feedback Learner FAILING — script injection in workflow YAML (#72 created, likely-agent-fixable added, approaching 2h without triage)
-- PR #71 had 0 reviews after >2h — reviewer re-triggered by watcher
+- Reviewer.yml has a bug: README sync step doesn't handle dirty working tree (issue #53 closed, PR #55 APPROVED — awaiting human merge 29h+)
+- analyze.yml stale branch bug fixed (issue #59 closed, fix deployed — confirmed working)
+- GitHub auto-close continues to miss: #63, #64, #66, #67, #68, #78 all closed manually by watcher
+- Evolve severely saturated — structural, stable (87.5% exceed max-turns, haiku fallback recurring)
+- Feedback Learner #72 fix merged at 03:35 — awaiting next trigger to confirm recovery
+- State file compression (#78) merged — research_log.md reduced from 699 to 104 lines
+- Circuit breaker (#76) merged — PostToolUseFailure hook with 3-failure threshold
 - Site content updated: hero headline now action-oriented, pac-man branding, broken logo removed, SSL/CNAME for tokenman.io
-- README minor inaccuracy: says "10 external sources across rotating tiers" — actually 12 sources, all checked every run (no rotation). Not issueworthy given existing #38 coverage.
