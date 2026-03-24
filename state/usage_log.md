@@ -154,7 +154,4 @@
 2026-03-24T12:36:56Z | evolve | model:claude-opus-4-6 | in:2508476 | out:19991 | turns:54 | cost:2.2227954999999997 | posture:HORIZON_SCAN | issues:0
 2026-03-24T13:01:08Z | evolve | model:claude-opus-4-6 | in:1282691 | out:17097 | turns:48 | cost:1.5400954999999996 | posture:PATTERN_HUNT | issues:0
 2026-03-24T13:38:45Z | evolve | model:claude-opus-4-6 | in:1988542 | out:16601 | turns:46 | cost:1.8825967499999996 | posture:HORIZON_SCAN | issues:0
-2026-03-24T15:55:28Z | reviewer | model:claude-opus-4-6 | in:179008 | out:1413 | turns:9 | cost:0.3084875
-2026-03-24T16:14:59Z | evolve | model:claude-opus-4-6 | in:1511294 | out:15696 | turns:43 | cost:1.6000620000000005 | posture:PIPELINE_WATCH | issues:0
-2026-03-24T16:42:49Z | evolve | model:claude-opus-4-6 | in:1421319 | out:13769 | turns:48 | cost:1.4767257500000004 | posture:PIPELINE_WATCH | issues:0
-2026-03-24T16:57:36Z | coder | model:claude-opus-4-6 | in:1433951 | out:6615 | turns:35 | cost:1.2400347499999997
+2026-03-24T16:59:21Z | reviewer | model:claude-opus-4-6 | in:180040 | out:1548 | turns:9 | cost:0.31418975
