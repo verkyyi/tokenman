@@ -1,7 +1,7 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-03-24T01:10:47Z
+# Last updated: 2026-03-24T01:54:48Z
 
 ## Active Sources
 
@@ -27,13 +27,13 @@
 - **Why:** Curated ecosystem catalog — discover new tools, libraries, and patterns
 - **Look for:** New entries in Orchestrators/Tools/Skills sections, trending repos referenced
 - **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-23 | **Pattern hits:** 0
-- **Notes:** Categories: Skills, Workflows, Tooling, Hooks, Slash-Commands, CLAUDE.md Files, Status Lines, Alternative Clients. Recent additions: parry (prompt injection scanner), RIPER workflow, ccpm (project management). Value is cross-reference for HORIZON SCAN, not direct patterns. Recent commits are automated ticker updates only.
+- **Notes:** Categories: Skills, Workflows, Tooling, Hooks, Slash-Commands, CLAUDE.md Files, Status Lines, Alternative Clients. Recent additions: parry (prompt injection scanner), RIPER workflow, ccpm (project management). Value is cross-reference for HORIZON SCAN, not direct patterns. SHA 15a1693 NEW (was 018dc1d) — queue for next PATTERN_HUNT deep-dive.
 
 ### bytedance/deer-flow
 - **Why:** Multi-agent orchestration patterns from a major tech company
 - **Look for:** Agent coordination, state management, tool orchestration, LLM provider patterns
 - **Added:** 2026-03-21 (seed) | **Last deep:** 2026-03-23 | **Pattern hits:** 1
-- **Notes:** Very active (5+ commits/day). GuardrailMiddleware: pre-tool-call authorization with pluggable providers (AllowlistProvider, OAP passport, custom class-path), fail-closed option, numbered middleware chain (11 positions). Covered by #67. Also: Cmd+K command palette, podcast TTS error handling, thread cleanup — not harness-relevant.
+- **Notes:** Very active (5+ commits/day). GuardrailMiddleware: pre-tool-call authorization with pluggable providers (AllowlistProvider, OAP passport, custom class-path), fail-closed option, numbered middleware chain (11 positions). Covered by #67. SHA 48a1975 NEW (was 8b0f3fe) — queue for next PATTERN_HUNT deep-dive.
 
 ### wshobson/agents
 - **Why:** Agent framework patterns — autonomous agent architectures
@@ -119,8 +119,8 @@
 ### anthropics/claude-plugins-official
 - **Why:** Official Anthropic plugin directory (14.3K stars) — distribution channel for Claude Code plugins with standard format
 - **Look for:** Plugin format updates, new submission requirements, plugin.json schema changes, new official plugins relevant to harness patterns
-- **Added:** 2026-03-24 (horizon scan) | **Observations:** 1 | **First seen:** 2026-03-24
-- **Notes:** Standard format: .claude-plugin/plugin.json + commands/ + agents/ + skills/. Installation via `/plugin install`. External submission form. 15+ external plugins, 30+ internal (code-review, security-guidance, skill-creator, hookify). Distribution channel for #66.
+- **Added:** 2026-03-24 (horizon scan) | **Observations:** 2 | **First seen:** 2026-03-24
+- **Notes:** SHA 15268f0 (first capture). Standard format: .claude-plugin/plugin.json + commands/ + agents/ + skills/. Installation via `/plugin install`. External submission form. 15+ external plugins, 30+ internal (code-review, security-guidance, skill-creator, hookify). Distribution channel for #66.
 
 ### vibeeval/vibecosystem
 - **Why:** Comprehensive agent team (275 stars) — 119 agents, 208 skills, 49 hooks, 21 rules. Self-learning pattern where errors auto-become rules
