@@ -1,7 +1,7 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-03-23T23:15:56Z
+# Last updated: 2026-03-24T00:00:00Z
 
 ## Active Sources
 
@@ -15,13 +15,13 @@
 - **Why:** Harness engineering patterns — skills, slash commands, review protocols, agent orchestration
 - **Look for:** New skill files, workflow patterns, agent guardrails, PR review techniques, structured output formats
 - **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-23 | **Pattern hits:** 7
-- **Notes:** Most productive source so far. v0.9.7-v0.11.3 yielded adversarial review, structured tables, anti-sycophancy, pre-merge gate, security patterns. v0.9.9.1: cross-model outside voice (issue #64). v0.11.6.0: /cso v2 infrastructure-first security audit (covered by #17). v0.11.10.0: CI evals with parallel runners (no evals framework yet).
+- **Notes:** Most productive source so far. v0.9.7-v0.11.3 yielded adversarial review, structured tables, anti-sycophancy, pre-merge gate, security patterns. v0.9.9.1: cross-model outside voice (issue #64). v0.11.6.0: /cso v2 infrastructure-first security audit (covered by #17). v0.11.10.0: CI evals with parallel runners (no evals framework yet). v0.11.9.0: auto-heal stale installs + Codex 1024-char description guard (build-time validation, not issueworthy). v0.11.7.0: zsh glob compat + /review satisfies ship readiness gate.
 
 ### affaan-m/everything-claude-code
 - **Why:** Community harness patterns, skill collections, optimization techniques
 - **Look for:** New skills, CLAUDE.md patterns, workflow architectures, instinct files
 - **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-23 | **Pattern hits:** 1
-- **Notes:** Large community repo. skill-comply (behavioral compliance), santa-method (multi-agent adversarial verification), Kiro IDE integration — interesting but not immediately adoptable.
+- **Notes:** Large community repo. skill-comply (behavioral compliance), santa-method (multi-agent adversarial verification), Kiro IDE integration — interesting but not immediately adoptable. v2026-03-23: 6 gap-closing skills (safety-guard, canary-watch, benchmark, browser-qa, design-system, product-lens). safety-guard uses PreToolUse hooks for multi-mode guardrails (supports #67). canary-watch has structured alert thresholds (critical/warning/info). Kiro hooks include extract-patterns (agentStop → auto-extract lessons) — similar to feedback-learner. 18 Kiro SKILL.md files added.
 
 ### hesreallyhim/awesome-claude-code
 - **Why:** Curated ecosystem catalog — discover new tools, libraries, and patterns
@@ -50,14 +50,14 @@
 ### actions/runner
 - **Why:** CI/CD runtime we depend on — deprecation notices, new features, security fixes
 - **Look for:** Node.js version deprecation timelines, runner image changes, new action features
-- **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 0
-- **Notes:** Check releases, not just commits. Dependency bumps are usually noise.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-24 | **Pattern hits:** 0
+- **Notes:** Check releases, not just commits. Dependency bumps are usually noise. v2.333.0 (Mar 18). DAP server added (debugging protocol) — not actionable for our harness.
 
 ### withastro/astro
 - **Why:** Web framework we use — security fixes, breaking changes, new features
 - **Look for:** Security advisories, breaking changes in minor/major releases, new content collection features
-- **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 0
-- **Notes:** Only actionable for security fixes or features that affect our site build.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-24 | **Pattern hits:** 0
+- **Notes:** Only actionable for security fixes or features that affect our site build. View transition fix (skip when browser provides one) — Astro internals, not adoptable.
 
 ### verkyyi/tokenman
 - **Why:** Self-reference — track forks, adopters, and how the scaffold is used
