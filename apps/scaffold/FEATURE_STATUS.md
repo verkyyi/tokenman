@@ -59,6 +59,11 @@
 - [x] README.md inconsistencies fixed — "nine"/"ten" → "eleven", discover.yml added to table
 - [x] Existing evolve.yml daily SEO check preserved as safety net (no changes needed)
 
+## Hooks-Based Guardrail Enforcement (closes #67)
+- [x] state/guardrail_policy.json — deny-rule policy (destructive rm, force push, secrets, workflow YAML, autonomy promotion)
+- [x] .claude/hooks/guard.sh — PreToolUse hook script, fail-closed, reads policy and blocks matching tool calls
+- [x] .claude/settings.json — PreToolUse hook registered alongside existing SessionEnd hook
+
 ## Human-Pipeline Interaction (closes #33)
 - [x] feedback-learner.yml: PR close-without-merge trigger + rejection handling (re-adds agent-ready, re-triggers coder)
 - [x] feedback-learner.yml: merged PR close skipped (reviewer already handled)
