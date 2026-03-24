@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-03-24T09:00:00Z
-Updated by: coder.yml
+Last updated: 2026-03-24T09:05:00Z
+Updated by: reviewer.yml
 
 ## Last Session
-Action: coder.yml — implemented tiered preamble system for issue #83. Created scripts/build-preamble.sh (T1-T4 context assembly), added preamble-tier field to all 4 SKILL.md files, updated 5 workflows (triage, reviewer, feedback-learner, watcher, coder) to use shared script, documented tier system in skills/README.md. Evolve.yml left as-is (already heaviest, T4 optional). Build passes. Opening PR.
+Action: reviewer.yml — reviewed and merged PR #86 (tiered preamble system, closes #83). Resolved state file conflicts from concurrent #82 fix. Build passes, no hard blocks.
 
 System health:
 - Evolve: IMPROVING (8/12 last exceed max-turns=45, 66.7%, last 4 all under — 43, 43, 38, 43)
@@ -56,6 +56,7 @@ System health:
 - Feedback Learner #72 fix merged — awaiting next trigger to confirm recovery
 - State file compression (#78) merged — research_log.md reduced from 699 to 104 lines
 - Circuit breaker (#76) merged — PostToolUseFailure hook with 3-failure threshold
+- StopFailure hook (#82) — API-level failure handling (rate limits, auth errors), complements circuit breaker
 - 4 standalone skill packages created (#66) — adversarial-review, session-protocol, harness, feedback-intake
 - SKILL.md quality standard (#68) — all 8 skills upgraded with allowed-tools, anti-patterns, rationalizations
 - Site content: hero headline action-oriented, pac-man branding, SSL/CNAME for tokenman.io
