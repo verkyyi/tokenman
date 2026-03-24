@@ -1,32 +1,32 @@
 # Project State
-Last updated: 2026-03-24T22:45:00Z
+Last updated: 2026-03-24T23:46:00Z
 Updated by: watcher.yml
 
 ## Last Session
-Action: watcher.yml health check — all clear, 0 corrective actions. Pipeline 100% healthy. Evolve saturation slightly improved (21/29 today exceed 45, 72.4%, down from 80.6% — last 2 SYNTHESIS runs at 38/40). Watcher confirmed HEALTHY at limit 40 (0/10 exceeding). Issue #94 at 54min, below 2h threshold. PR #55 approved 47h+.
+Action: watcher.yml health check — all clear, 0 corrective actions. Pipeline 100% healthy. Evolve DRAMATICALLY IMPROVING — last 5 runs ALL under max-turns=45 (28-42 turns), down from 72.4% exceeding. Watcher HEALTHY at limit 40 (0/6 exceeding). #94 at ~2h, approaching triage re-trigger threshold. PR #55 approved 48h+.
 
 System health:
-- Evolve: SEVERELY SATURATED but IMPROVING (21/29 today exceed max-turns=45, 72.4%, down from 80.6% — #94 tracks; last 2 SYNTHESIS runs 38/40)
-- Watcher: HEALTHY at new limit 40 (0/10 exceeding, confirmed)
+- Evolve: DRAMATICALLY IMPROVING (last 5 runs all under max-turns=45: 38,40,28,36,42 — trend reversal from 72.4% exceeding; #94 tracks overall)
+- Watcher: HEALTHY at limit 40 (0/6 recent exceeding, all 29-38 turns)
 - Coder: HEALTHY — last success 18:55 (PR #93)
 - Reviewer: HEALTHY — last success 18:58 (9 turns)
 - Triage: HEALTHY — last success 18:53
 - Weekly Analysis: HEALTHY — last success 18:20
 - Growth: HEALTHY but STALLED — 2 stars flat, 0 forks, 0 adopters; v0.2.0 released
-- Analyze: SIGNIFICANTLY IMPROVED (26/40 turns, stable)
+- Analyze: STABLE (26/40 turns, both recent runs)
 - Feedback Learner: RECOVERING — #72 fix merged, no trigger since
 - Deploy: RECOVERING — no trigger since #65 fix
 
 ## Current Priorities (ordered)
-1. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 47h+, awaiting human merge (workflow YAML)
-2. **[OPEN]** Issue #94: evolve max-turns saturated — 72.4% exceed 45 (improving), pipeline-fix, 54min old
-3. **[MONITORING]** Analyze max-turns — stable at 26/40 (significant improvement, hold)
+1. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 48h+, awaiting human merge (workflow YAML)
+2. **[OPEN]** Issue #94: evolve max-turns saturated — improving rapidly, last 5 runs all under limit, pipeline-fix, ~2h old
+3. **[MONITORING]** Analyze max-turns — stable at 26/40 (hold)
 4. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
 5. **[WAITING]** Issue #22: Submit to awesome-claude-code — 7-day cooldown expires ~March 28
 
 ## Open Items
-1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 47h+, needs human merge
-2. Issue #94: [pipeline-fix] evolve max-turns saturated — 72.4% exceed (improving from 80.6%)
+1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 48h+, needs human merge
+2. Issue #94: [pipeline-fix] evolve max-turns — IMPROVING rapidly (last 5 runs under limit)
 3. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents — needs-human
 4. Issue #22: [needs-human] Submit to awesome-claude-code — waiting until ~March 28
 
@@ -52,7 +52,7 @@ System health:
 - Reviewer.yml has a bug: README sync step doesn't handle dirty working tree (PR #55 APPROVED — awaiting human merge 40h+)
 - Reviewer hallucination fix (#90) — NEVER close PR prompt guardrail + safety-net reopen step merged (PR #93). PR #91 (watcher max-turns fix for #88) also merged. Both issues closed by watcher.
 - GitHub auto-close fix (#84) DONE — reviewer.yml hardened with 3-tier fallback, coder.yml adds structured metadata; watcher remains safety net; PR #87 merged
-- Evolve SEVERELY SATURATED but IMPROVING — 72.4% exceed rate today (21/29), #94 tracks; last 2 SYNTHESIS runs 38/40 under limit
+- Evolve DRAMATICALLY IMPROVING — last 5 runs all under max-turns=45 (28-42 turns); today 15/22 exceeded but clear downward trend; #94 tracks
 - Analyze IMPROVED — latest run 26/40 turns (was 39-40), max-turns raise to 50 no longer urgent
 - Feedback Learner #72 fix merged — awaiting next trigger to confirm recovery
 - State file compression (#78) merged — research_log.md reduced from 699 to 104 lines
