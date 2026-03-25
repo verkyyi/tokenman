@@ -213,6 +213,7 @@ jobs:
           fi
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          CLAUDE_CODE_SUBPROCESS_ENV_SCRUB: "1"
           GITHUB_TOKEN: ${{ github.token }}
 
       - name: Safety net — reopen PR if reviewer incorrectly closed it
@@ -294,6 +295,7 @@ jobs:
           fi
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          CLAUDE_CODE_SUBPROCESS_ENV_SCRUB: "1"
           GITHUB_TOKEN: ${{ github.token }}
 
       - name: Post tensions as PR comments

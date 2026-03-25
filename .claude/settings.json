@@ -55,5 +55,8 @@
         ]
       }
     ]
+  },
+  "sandbox": {
+    "failIfUnavailable": true
   }
 }

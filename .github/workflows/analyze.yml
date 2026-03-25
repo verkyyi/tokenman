@@ -88,6 +88,7 @@ jobs:
             > /tmp/claude_output.json
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          CLAUDE_CODE_SUBPROCESS_ENV_SCRUB: "1"
 
       - name: Log usage metrics
         if: always()

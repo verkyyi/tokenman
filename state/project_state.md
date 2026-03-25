@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-03-25T17:56:00Z
-Updated by: coder.yml (issue #109)
+Last updated: 2026-03-25T19:11:00Z
+Updated by: coder.yml (issue #100)
 
 ## Last Session
-Action: coder.yml — implemented #109: reduced evolve cron from */15 to every 3 hours, watcher from hourly to every 2 hours, updated posture cadence and watcher prompt. PR opened.
+Action: coder.yml — implemented #100: added CLAUDE_CODE_SUBPROCESS_ENV_SCRUB="1" to all 10 workflow files (11 env blocks, reviewer.yml has 2), added sandbox.failIfUnavailable to .claude/settings.json. Build passes. Fresh implementation on rebased branch (prior PR #105 had merge conflicts).
 
 System health:
 - Evolve: WORSENING — 4/10 (40%) last runs exceed max-turns 55. #109 tracks cost/frequency reduction.
