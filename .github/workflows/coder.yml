@@ -92,8 +92,22 @@ jobs:
         run: |
           ISSUE_NUM=${{ steps.issue.outputs.NUMBER }}
           BRANCH="fix/issue-${ISSUE_NUM}"
-          git checkout -b "$BRANCH" 2>/dev/null || git checkout "$BRANCH"
+          # Fetch remote branch if it exists (handles re-triggered coder runs)
+          git fetch origin "$BRANCH" 2>/dev/null || true
+          if git rev-parse --verify "origin/$BRANCH" >/dev/null 2>&1; then
+            # Remote branch exists — start from it to avoid push divergence
+            git checkout -b "$BRANCH" "origin/$BRANCH"
+            # Rebase onto latest main to incorporate new changes
+            if ! git rebase origin/main; then
+              git rebase --abort
+              # Fall back to fresh branch from main
+              git checkout -B "$BRANCH" origin/main
+            fi
+          else
+            git checkout -b "$BRANCH"
+          fi
           echo "BRANCH=$BRANCH" >> $GITHUB_OUTPUT
+
 
       - name: Build coder prompt
         if: steps.human.outputs.SKIP != 'true'
@@ -259,7 +273,13 @@ jobs:
           COMMIT_MSG=$(cat .commit-message 2>/dev/null || \
             echo "fix: address issue #${{ steps.issue.outputs.NUMBER }}")
           git commit -m "$COMMIT_MSG"
-          git push origin ${{ steps.branch.outputs.BRANCH }}
+
+          BRANCH="${{ steps.branch.outputs.BRANCH }}"
+          # Try normal push; fall back to force-with-lease for diverged branches
+          if ! git push origin "$BRANCH" 2>/dev/null; then
+            echo "Push rejected — retrying with force-with-lease"
+            git push --force-with-lease origin "$BRANCH"
+          fi
 
       - name: Open pull request
         if: steps.human.outputs.SKIP != 'true' && steps.check.outputs.FAILED == 'false'
@@ -272,9 +292,24 @@ jobs:
           CHANGED=$(git diff --name-only origin/main...HEAD)
           echo "Changed files: $CHANGED"
 
-          PR_URL=$(gh pr create \
-            --title "fix: ${ISSUE_TITLE} (closes #${ISSUE_NUM})" \
-            --body "Fixes #${ISSUE_NUM}
+          # Check if a PR already exists for this branch
+          EXISTING_PR=$(gh pr list --head "$BRANCH" --base main --json number -q '.[0].number' 2>/dev/null || echo "")
+
+          if [ -n "$EXISTING_PR" ]; then
+            echo "PR #${EXISTING_PR} already exists for $BRANCH — adding comment"
+            gh pr comment "$EXISTING_PR" \
+              --body "**Coder agent:** Updated fix (re-triggered run).
+
+          **Changed files:**
+          \`\`\`
+          ${CHANGED}
+          \`\`\`" \
+              --repo ${{ github.repository }}
+            PR_NUMBER="$EXISTING_PR"
+          else
+            PR_URL=$(gh pr create \
+              --title "fix: ${ISSUE_TITLE} (closes #${ISSUE_NUM})" \
+              --body "Fixes #${ISSUE_NUM}
 
           **Changed files:**
           \`\`\`
@@ -283,11 +318,12 @@ jobs:
 
           *Opened by tokenman coder agent*
           <!-- linked-issue: ${ISSUE_NUM} -->" \
-            --head "$BRANCH" \
-            --base main \
-            --repo ${{ github.repository }})
+              --head "$BRANCH" \
+              --base main \
+              --repo ${{ github.repository }})
+            PR_NUMBER=$(echo "$PR_URL" | grep -oP '(?<=/pull/)\d+')
+          fi
 
-          PR_NUMBER=$(echo "$PR_URL" | grep -oP '(?<=/pull/)\d+')
           echo "PR_NUMBER=$PR_NUMBER" >> $GITHUB_OUTPUT
 
           gh issue comment "$ISSUE_NUM" \

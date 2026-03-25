@@ -1,1 +1,1 @@
-fix(workflow): raise watcher max-turns 40→50 (closes #101)
+fix(workflow): handle diverged branches and existing PRs in coder.yml (closes #108)
