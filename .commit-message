@@ -1,1 +1,1 @@
-fix(workflow): add issue requirement verification to reviewer prompt (closes #98)
+fix(workflow): raise evolve max-turns to 55 and tighten wind-down thresholds (closes #99)

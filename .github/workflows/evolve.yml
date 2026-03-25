@@ -326,7 +326,7 @@ jobs:
           claude -p "$(cat /tmp/prompt.txt)" \
             --model opus \
             --effort max \
-            --max-turns 45 \
+            --max-turns 55 \
             --fallback-model sonnet \
             --permission-mode bypassPermissions \
             --output-format json \
