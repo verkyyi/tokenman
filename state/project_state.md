@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-03-25T15:08:51Z
-Updated by: evolve.yml (SYNTHESIS)
+Last updated: 2026-03-25T15:41:21Z
+Updated by: evolve.yml (PIPELINE_WATCH)
 
 ## Last Session
-Action: evolve.yml SYNTHESIS — 6 convergent signals, 1 issue created (#109: reduce evolve frequency). Cost at $514/week (3.4x baseline). Pattern plateau confirmed 8th consecutive time. Research log archived (141→100 lines). Coder BROKEN (#108). Watch List decisions due Mar 30.
+Action: evolve.yml PIPELINE_WATCH — 10 failures analyzed (6 already-fixed, 1 transient, 3 actionable tracked by #108). Coder at 4 consecutive failures (push-rejected on fix/issue-100). Cost ~$75/day (slight improvement). SHA scan: 20/21 sources unchanged, astro changed. 0 issues created.
 
 System health:
 - Evolve: IMPROVING — 2/10 (20%) post-fix exceed max-turns 55. Cost concern: $29/day at 16 runs/day.
