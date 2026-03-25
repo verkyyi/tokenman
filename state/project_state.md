@@ -1,13 +1,13 @@
 # Project State
-Last updated: 2026-03-25T02:41:03Z
-Updated by: evolve.yml
+Last updated: 2026-03-25T03:30:00Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: evolve.yml PIPELINE_WATCH — analyzed 10 pipeline failures (9 ALREADY-FIXED, 1 ACTIONABLE=#96). Evolve 93.3% success. Cost $1.91/run avg. SHA scan: 4/8 Active changed (gstack, awesome-claude-code, deer-flow, astro), 1/12 Watch List changed (vibecosystem). 0 issues created.
+Action: watcher.yml health check — all clear, 0 corrective actions. #96 at 1h48m (approaching 2h triage threshold, next run will action). All workflows HEALTHY.
 
 System health:
-- Evolve: MIXED (last 8 runs: 3/8 exceed 45 at 37.5%, last 3 consecutive exceeding — but #94 fix just merged, only 1 post-fix data point)
-- Watcher: HEALTHY at limit 40 (0/7 recent exceeding, all 29-38 turns)
+- Evolve: WORSENING — post-#94-fix 2/2 runs exceed 45 (48, 56 turns), overall 5/10 recent = 50%. Monitor closely.
+- Watcher: MOSTLY HEALTHY at limit 40 (1/8 exceed at 12.5%, one outlier 51 turns)
 - Coder: HEALTHY — last success 01:01 (PR #95 for #94)
 - Reviewer: HEALTHY — last success 01:04 (10 turns)
 - Triage: HEALTHY — last success 00:59
@@ -18,16 +18,16 @@ System health:
 - Deploy: RECOVERING — no trigger since #65 fix
 
 ## Current Priorities (ordered)
-1. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 51h+, awaiting human merge (workflow YAML)
-2. **[NEW]** Issue #96: state file merge conflicts crash evolve commit step — awaiting triage
+1. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 53h+, awaiting human merge (workflow YAML)
+2. **[APPROACHING]** Issue #96: state file merge conflicts — 1h48m old, approaching 2h triage threshold
 3. **[UPCOMING]** Issue #22: Submit to awesome-claude-code — 7-day cooldown expires ~March 28
 4. **[STALLED]** Profile page: 4/6 sections unchecked (Live stats, Evolution timeline, Capabilities inventory, Architecture diagram, Getting started guide)
 5. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
 6. **[COST]** HORIZON_SCAN at $2.23/run — diminishing returns confirmed 3x, recommend frequency reduction
 
 ## Open Items
-1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 51h+, needs human merge
-2. Issue #96: [pipeline-fix] state file merge conflicts — new, awaiting triage
+1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 53h+, needs human merge
+2. Issue #96: [pipeline-fix] state file merge conflicts — 1h48m old, approaching triage threshold
 3. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents — needs-human
 4. Issue #22: [needs-human] Submit to awesome-claude-code — waiting until ~March 28
 
@@ -47,7 +47,7 @@ System health:
 2. Reduce HORIZON_SCAN frequency — $2.23/run, ecosystem consolidating, no breakouts in 3+ scans
 3. Submit to awesome-claude-code (#22) ~Mar 28 when cooldown expires
 4. Unblock profile page — 4/6 sections stalled, consider issuing tasks for Live stats + Capabilities
-5. Monitor evolve trend — #94 closed (fix merged), track if regression returns
+5. Monitor evolve trend — #94 fix may not be working (2/2 post-fix runs exceed 45), track next 3-5 runs
 6. Drop wshobson/agents from Active if still stale by Apr 14
 
 ## Critical Note for Next Agent
@@ -62,7 +62,7 @@ System health:
 - Reviewer.yml has a bug: README sync step doesn't handle dirty working tree (PR #55 APPROVED — awaiting human merge 51h+)
 - Reviewer hallucination fix (#90) — NEVER close PR prompt guardrail + safety-net reopen step merged (PR #93). PR #91 (watcher max-turns fix for #88) also merged. Both issues closed by watcher.
 - GitHub auto-close fix (#84) DONE — reviewer.yml hardened with 3-tier fallback, coder.yml adds structured metadata; watcher remains safety net; PR #87 merged
-- Evolve MIXED — #94 CLOSED (PR #95 merged): wind-down threshold 80%→70%, per-posture soft budgets (PIPELINE_WATCH/SYNTHESIS 38, others 40). Last 3 runs still exceed 45 — monitor.
+- Evolve WORSENING — #94 fix (PR #95 merged) may not be effective: post-fix 2/2 runs exceed 45 (48, 56 turns), overall 5/10 recent = 50%. PIPELINE_WATCH posture worst offender (56, 48 turns post-fix). Monitor 3-5 more data points before re-opening.
 - #96 NEW — state file merge conflicts in evolve commit step (race condition between state commit and non-state commit)
 - Analyze IMPROVED — latest run 26/40 turns (was 39-40), max-turns raise no longer urgent
 - Feedback Learner #72 fix merged — awaiting next trigger to confirm recovery
