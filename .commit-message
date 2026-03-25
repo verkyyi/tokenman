@@ -1,1 +1,1 @@
-fix(workflow): prevent reviewer from closing PRs — add prompt guardrail and safety-net reopen step (closes #90)
+fix(config): lower evolve wind-down threshold and add per-posture turn budgets (closes #94)
