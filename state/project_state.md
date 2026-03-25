@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-03-25T10:09:03Z
-Updated by: evolve.yml
+Last updated: 2026-03-25T10:55:00Z
+Updated by: coder.yml
 
 ## Last Session
-Action: evolve.yml PIPELINE_WATCH — 10 failures analyzed (8 fixed, 1 transient, 1 actionable coder #101 empty branch). Watcher WORSENING 85.7%. Evolve IMPROVING 25%. Cost $514/week projected.
+Action: coder.yml fix issue #103 — reduced HORIZON_SCAN cadence from 2x to 1x per 8-run window, raised staleness threshold to 12+ runs, reallocated slot to SYNTHESIS (now 2x). PR opened with needs-review label.
 
 System health:
 - Evolve: IMPROVING — 4/16 (25%) exceed max-turns 55 today. PR #104 fix working. #99 CLOSED.

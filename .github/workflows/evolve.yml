@@ -68,6 +68,7 @@ jobs:
 
           Pick ONE posture for this run:
           1. If any posture hasn't run in 8+ runs → MUST pick it (staleness override)
+             Exception: HORIZON_SCAN threshold is 12+ runs (diminishing returns confirmed)
           2. If 3+ new pipeline failures (from health glance above) → MUST pick PIPELINE_WATCH
           3. Otherwise, pick what's most valuable right now:
              - Many sources have new SHAs since last scan → PATTERN_HUNT
@@ -75,7 +76,7 @@ jobs:
              - Watch List is empty or stale → HORIZON_SCAN
              - Usage costs trending up or recent failures → PIPELINE_WATCH
           4. Suggested cadence per 8-run window: PATTERN_HUNT ×3, PIPELINE_WATCH ×2,
-             HORIZON_SCAN ×2, SYNTHESIS ×1
+             HORIZON_SCAN ×1, SYNTHESIS ×2
 
           If no posture history exists (first run), or the Previous Evolve Run
           Summary does not contain a "Posture:" field (transition from old format):

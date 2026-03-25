@@ -1,1 +1,1 @@
-fix(workflow): raise evolve max-turns to 55 and tighten wind-down thresholds (closes #99)
+fix(workflow): reduce HORIZON_SCAN cadence to 1x per 8-run window (closes #103)
