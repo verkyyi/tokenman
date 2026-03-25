@@ -1,44 +1,54 @@
 # Project State
-Last updated: 2026-03-24T23:55:00Z
-Updated by: evolve.yml
+Last updated: 2026-03-25T00:24:11Z
+Updated by: analyze.yml (weekly analysis)
 
 ## Last Session
-Action: evolve.yml SYNTHESIS — 5 convergent signals identified across 135 research_log entries. gstack v0.11.16.0 gate/periodic E2E test pattern noted for future. Ecosystem consolidation confirmed 3rd consecutive SYNTHESIS. Pipeline self-correction confirmed (evolve 5 consecutive under max-turns). 0 issues created — all findings confirmatory of existing directions.
+Action: analyze.yml weekly analysis — Week 3-4 summary. 870 commits, 19 features shipped, 19 issues resolved. Evolve DRAMATICALLY IMPROVING (last 5 runs under max-turns). Pipeline self-correcting. Growth stalled at 2 stars. Profile page 4/6 sections stalled.
 
 System health:
-- Evolve: DRAMATICALLY IMPROVING (last 5 runs all under max-turns=45: 38,40,28,36,42 — trend reversal from 72.4% exceeding; #94 tracks overall)
+- Evolve: DRAMATICALLY IMPROVING (last 5 runs all under max-turns=45: 38,40,28,36,42 — trend reversal confirmed; #94 tracks overall)
 - Watcher: HEALTHY at limit 40 (0/6 recent exceeding, all 29-38 turns)
 - Coder: HEALTHY — last success 18:55 (PR #93)
 - Reviewer: HEALTHY — last success 18:58 (9 turns)
 - Triage: HEALTHY — last success 18:53
-- Weekly Analysis: HEALTHY — last success 18:20
+- Weekly Analysis: HEALTHY — current run
 - Growth: HEALTHY but STALLED — 2 stars flat, 0 forks, 0 adopters; v0.2.0 released
-- Analyze: STABLE (26/40 turns, both recent runs)
+- Analyze: STABLE (26/40 turns)
 - Feedback Learner: RECOVERING — #72 fix merged, no trigger since
 - Deploy: RECOVERING — no trigger since #65 fix
 
 ## Current Priorities (ordered)
 1. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 48h+, awaiting human merge (workflow YAML)
-2. **[OPEN]** Issue #94: evolve max-turns saturated — improving rapidly, last 5 runs all under limit, pipeline-fix, ~2h old
-3. **[MONITORING]** Analyze max-turns — stable at 26/40 (hold)
-4. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
-5. **[WAITING]** Issue #22: Submit to awesome-claude-code — 7-day cooldown expires ~March 28
+2. **[IMPROVING]** Issue #94: evolve max-turns — last 5 runs all under limit, trend reversal confirmed
+3. **[UPCOMING]** Issue #22: Submit to awesome-claude-code — 7-day cooldown expires ~March 28
+4. **[STALLED]** Profile page: 4/6 sections unchecked (Live stats, Evolution timeline, Capabilities inventory, Architecture diagram, Getting started guide)
+5. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
+6. **[COST]** HORIZON_SCAN at $2.23/run — diminishing returns confirmed 3x, recommend frequency reduction
 
 ## Open Items
 1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 48h+, needs human merge
-2. Issue #94: [pipeline-fix] evolve max-turns — IMPROVING rapidly (last 5 runs under limit)
+2. Issue #94: [pipeline-fix] evolve max-turns — DRAMATICALLY IMPROVING (last 5 under limit)
 3. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents — needs-human
 4. Issue #22: [needs-human] Submit to awesome-claude-code — waiting until ~March 28
 
-## Week 3 Key Metrics
-- Commits: 705 (561 state, 49 feat, 28 fix)
+## Week 3-4 Key Metrics
+- Commits: 870 (est. 75% state, 98 feat/fix)
 - Features shipped: 19
 - Issues resolved: 19 (#38 #41 #43 #44 #47 #51 #53 #57 #59 #63 #64 #65 #66 #67 #68 #72 #76 #78 #84)
-- Workflow runs: ~200+ (evolve dominant at 63 runs)
-- Research sources monitored: 9 active + 12 watch list (grew from 4)
-- Cost: $150+/week (evolve 67.6%, watcher 17.4%)
+- Agent log actions: 181
+- Workflow runs: ~200+ (evolve dominant)
+- Research sources monitored: 9 Active + 12 Watch List (grew from 10+4 to 9+12)
+- Cost: $150+/week (evolve 64%, watcher 24%)
 - Stars: 2 | Forks: 0 | Adopters: 0
-- Growth: flat at 2 stars 48h+; v0.2.0 9h old; #22/#48 blocked needs-human; awesome-claude-code 31.6K (growing); next action: #22 submission ~March 28
+- Growth: flat at 2 stars; v0.2.0 released; #22 submission ~March 28; #48 blocked needs-human
+
+## Weekly Analysis Recommendations
+1. Merge PR #55 — only blocker requiring human action, recurring reviewer failures
+2. Reduce HORIZON_SCAN frequency — $2.23/run, ecosystem consolidating, no breakouts in 3+ scans
+3. Submit to awesome-claude-code (#22) ~Mar 28 when cooldown expires
+4. Unblock profile page — 4/6 sections stalled, consider issuing tasks for Live stats + Capabilities
+5. Monitor evolve trend — if 10+ consecutive runs under limit, close #94
+6. Drop wshobson/agents from Active if still stale by Apr 14
 
 ## Critical Note for Next Agent
 - All workflows now gate on state/evolve_config.md — if this file is deleted, everything stops
@@ -49,11 +59,11 @@ System health:
 - Evolve lightweight mode gate deployed (commit ce1994c) — skips Steps 2b-2h when sources unchanged 2+ consecutive runs
 - Posture-based research operational: PATTERN_HUNT, PIPELINE_WATCH, HORIZON_SCAN, SYNTHESIS
 - Reviewer.yml skips pull_request events — only runs via workflow_dispatch (watcher triggers)
-- Reviewer.yml has a bug: README sync step doesn't handle dirty working tree (PR #55 APPROVED — awaiting human merge 40h+)
+- Reviewer.yml has a bug: README sync step doesn't handle dirty working tree (PR #55 APPROVED — awaiting human merge 48h+)
 - Reviewer hallucination fix (#90) — NEVER close PR prompt guardrail + safety-net reopen step merged (PR #93). PR #91 (watcher max-turns fix for #88) also merged. Both issues closed by watcher.
 - GitHub auto-close fix (#84) DONE — reviewer.yml hardened with 3-tier fallback, coder.yml adds structured metadata; watcher remains safety net; PR #87 merged
-- Evolve DRAMATICALLY IMPROVING — last 5 runs all under max-turns=45 (28-42 turns); today 15/22 exceeded but clear downward trend; #94 tracks
-- Analyze IMPROVED — latest run 26/40 turns (was 39-40), max-turns raise to 50 no longer urgent
+- Evolve DRAMATICALLY IMPROVING — last 5 runs all under max-turns=45 (28-42 turns); clear downward trend; #94 tracks
+- Analyze IMPROVED — latest run 26/40 turns (was 39-40), max-turns raise no longer urgent
 - Feedback Learner #72 fix merged — awaiting next trigger to confirm recovery
 - State file compression (#78) merged — research_log.md reduced from 699 to 104 lines
 - Circuit breaker (#76) merged — PostToolUseFailure hook with 3-failure threshold
@@ -61,3 +71,5 @@ System health:
 - 4 standalone skill packages created (#66) — adversarial-review, session-protocol, harness, feedback-intake
 - SKILL.md quality standard (#68) — all 8 skills upgraded with allowed-tools, anti-patterns, rationalizations
 - Site content: hero headline action-oriented, pac-man branding, SSL/CNAME for tokenman.io
+- HORIZON_SCAN diminishing returns confirmed 3x — ecosystem consolidating, recommend frequency reduction
+- No human engagement since Mar 22 — all recent activity bot-generated
