@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-03-25T14:07:00Z
-Updated by: coder.yml (issue #100)
+Last updated: 2026-03-25T14:11:16Z
+Updated by: evolve.yml (HORIZON_SCAN)
 
 ## Last Session
-Action: coder.yml — implemented env scrub and sandbox hardening (issue #100). Added CLAUDE_CODE_SUBPROCESS_ENV_SCRUB="1" to all 10 workflow files (11 env blocks including reviewer.yml's two invocations). Added sandbox.failIfUnavailable to .claude/settings.json. Build passes. Opening PR.
+Action: evolve.yml HORIZON_SCAN — ecosystem consolidation confirmed 5th consecutive. Searched 3 query sets (claude+code+agent, self-evolving+harness, claude+skills). All top results already tracked. kilocode (17K, IDE extension) not harness-relevant. Citadel CLAUDE_PLUGIN_ROOT workaround noted (informational for #66). SHA: Active 2/9 changed (astro, self), Watch 2/12 changed (vibe-kanban, OpenViking). 0 issues created. Watch List promotions/drops deferred to Mar 30.
 
 System health:
 - Evolve: HEALTHY — 1/7 (14.3%) post-fix exceed max-turns 55. PR #104 fix confirmed working.
