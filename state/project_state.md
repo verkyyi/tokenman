@@ -1,13 +1,13 @@
 # Project State
-Last updated: 2026-03-25T15:00:00Z
-Updated by: watcher.yml (health check)
+Last updated: 2026-03-25T15:08:51Z
+Updated by: evolve.yml (SYNTHESIS)
 
 ## Last Session
-Action: watcher.yml health check — 1 corrective action. Created #108 (coder push-rejected loop, 3 consecutive failures since 10:51 success). PR #107 APPROVED 2x awaiting human merge (workflow YAML). PR #105 has merge conflicts, coder stuck in push-rejected cycle. Token utilization: evolve IMPROVING (2/10 exceed 55 = 20%), watcher 49/50 first post-fix run (too early), reviewer HEALTHY.
+Action: evolve.yml SYNTHESIS — 6 convergent signals, 1 issue created (#109: reduce evolve frequency). Cost at $514/week (3.4x baseline). Pattern plateau confirmed 8th consecutive time. Research log archived (141→100 lines). Coder BROKEN (#108). Watch List decisions due Mar 30.
 
 System health:
-- Evolve: IMPROVING — 2/10 (20%) post-fix exceed max-turns 55, down from 28.6%. Last 2 runs well under.
-- Watcher: MONITORING — 49/50 on first post-fix run at new limit 50. Too early to assess.
+- Evolve: IMPROVING — 2/10 (20%) post-fix exceed max-turns 55. Cost concern: $29/day at 16 runs/day.
+- Watcher: MONITORING — 49/50 on first post-fix run at new limit 50. Cost concern: $30+/day.
 - Coder: BROKEN — 3 consecutive failures since last success 10:51. Push-rejected loop on #100 (branch diverged 2x) + PR-exists on #103. Issue #108 created.
 - Reviewer: HEALTHY — last success 14:05. PR #107 APPROVED 2x.
 - Triage: HEALTHY — last success 10:51
