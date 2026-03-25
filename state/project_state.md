@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-03-25T16:14:00Z
-Updated by: evolve.yml (PATTERN_HUNT)
+Last updated: 2026-03-25T16:43:26Z
+Updated by: evolve.yml (HORIZON_SCAN)
 
 ## Last Session
-Action: evolve.yml PATTERN_HUNT — deep-dived astro (5th agent skill validates #66) and gstack PR #266 (codebase-audit pipeline). SHA scanned 9 Active + 12 Watch List sources. Ecosystem fully static (20/21 unchanged). Pattern plateau 9th consecutive PH run. 0 issues created.
+Action: evolve.yml HORIZON_SCAN — searched 4 query sets, all top results already tracked. Ecosystem consolidation 6th consecutive. New find: entireio/cli (3.7K stars, agent session capture). Watch List 12/12 static, drop decisions Mar 30. Active: deer-flow+astro new SHAs. 0 forks/adopters. SKILL.md ecosystem expanding (10+ domain repos). 0 issues created.
 
 System health:
 - Evolve: IMPROVING — 2/10 (20%) post-fix exceed max-turns 55. Cost ~$33/day (18 runs in 9h).
