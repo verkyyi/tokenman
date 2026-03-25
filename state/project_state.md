@@ -1,16 +1,16 @@
 # Project State
-Last updated: 2026-03-25T10:50:00Z
-Updated by: watcher.yml
+Last updated: 2026-03-25T10:52:00Z
+Updated by: coder.yml
 
 ## Last Session
-Action: watcher.yml health check — 3 corrective actions: re-triggered triage #103 (2h44m untriaged), re-triggered coder #101 (prior empty branch failure), re-added agent-ready to #100 (PR #105 merge conflicts need coder rebase).
+Action: coder.yml fix #101 — raised watcher.yml max-turns 40→50. Build passes. PR opened.
 
 System health:
-- Evolve: IMPROVING — 3/17 (17.6%) exceed max-turns 55 today, down from 25%. PR #104 fix working.
-- Watcher: WORSENING — 6/7 (85.7%) exceed max-turns 40 today. Coder re-triggered for #101.
-- Coder: HEALTHY — last success 08:53 (PRs #104, #105). Re-triggered for #101.
+- Evolve: IMPROVING — 4/16 (25%) exceed max-turns 55 today. PR #104 fix working. #99 CLOSED.
+- Watcher: FIX PENDING — max-turns raised 40→50 (PR for #101). Previous: 85.7% exceeded 40.
+- Coder: HEALTHY — last success 08:53 (PRs #104, #105)
 - Reviewer: HEALTHY — last success 08:57 (reviewed PR #105, noted merge conflicts)
-- Triage: HEALTHY — last success 09:53. Re-triggered for #103.
+- Triage: HEALTHY — last success 08:51
 - Weekly Analysis: HEALTHY — last success 06:23
 - Growth: HEALTHY but STALLED — 2 stars flat, 0 forks, 0 adopters; v0.2.0 released
 - Analyze: STABLE (26/40 turns)
@@ -25,13 +25,12 @@ System health:
 5. **[COST]** HORIZON_SCAN at $2.23/run — diminishing returns confirmed 3x, recommend frequency reduction
 
 ## Open Items
-1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 63h+, needs human merge
-2. Issue #101: [pipeline-fix] Watcher max-turns re-saturated — 85.7% exceed 40, coder re-triggered
-3. Issue #103: [evolve-finding] Reduce HORIZON_SCAN cadence — triage re-triggered (2h44m untriaged)
-4. Issue #100: [agent-ready] Adopt env scrub — PR #105 has merge conflicts, agent-ready re-added for coder rebase
-5. PR #105: [merge-conflicts] Adopt env scrub and sandbox hardening for #100 — needs coder rebase
-6. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents — needs-human
-7. Issue #22: [needs-human] Submit to awesome-claude-code — waiting until ~March 28
+1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 62h+, needs human merge
+2. Issue #103: [evolve-finding] Reduce HORIZON_SCAN cadence — diminishing returns confirmed 4x
+3. Issue #101: [pipeline-fix] Watcher max-turns raised 40→50 — PR opened
+4. PR #105: [merge-conflicts] Adopt env scrub and sandbox hardening for #100 — reviewer approved but conflicts
+5. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents — needs-human
+6. Issue #22: [needs-human] Submit to awesome-claude-code — waiting until ~March 28
 
 ## Week 3-4 Key Metrics
 - Commits: 870+ (est. 75% state, 98 feat/fix)
@@ -65,12 +64,10 @@ System health:
 - Reviewer hallucination fix (#90) — NEVER close PR prompt guardrail + safety-net reopen step merged (PR #93). PR #91 (watcher max-turns fix for #88) also merged. Both issues closed by watcher.
 - GitHub auto-close fix (#84) DONE — reviewer.yml hardened with 3-tier fallback, coder.yml adds structured metadata; watcher remains safety net; PR #87 merged
 - Evolve IMPROVING — max-turns raised 45→55 (PR #104, #99 CLOSED). Post-fix 2/2 under 55 (42, 39 turns).
-- Watcher WORSENING — 5/8 post-fix exceed 40 (62.5%). #101 tracks, triage re-triggered this run.
+- Watcher max-turns raised 40→50 (PR for #101). Previous fix #88 raised 30→40.
 - #99 CLOSED — PR #104 merged, auto-close miss #15 (closed by watcher)
 - PR #105 has merge conflicts — reviewer approved content but can't merge; needs coder rebase
-- #103 triage re-triggered at 2h44m — was untriaged despite being open >2h
-- #100 agent-ready re-added — PR #105 has merge conflicts, nobody assigned to fix; coder needs to rebase
-- Coder re-triggered for #101 — prior attempt failed with "No commits between main and fix/issue-101" (empty branch)
+- #103 at 1h45m, approaching 2h triage threshold — next watcher run will action if untriaged
 - Analyze IMPROVED — latest run 26/40 turns (was 39-40), max-turns raise no longer urgent
 - Feedback Learner #72 fix merged — awaiting next trigger to confirm recovery
 - State file compression (#78) merged — research_log.md reduced from 699 to 104 lines
