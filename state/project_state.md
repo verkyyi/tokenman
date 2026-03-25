@@ -1,5 +1,6 @@
 # Project State
 Last updated: 2026-03-25T01:00:00Z
+<<<<<<< HEAD
 Updated by: watcher.yml
 
 ## Last Session
@@ -8,6 +9,16 @@ Action: watcher.yml health check — 1 corrective action (re-triggered triage fo
 System health:
 - Evolve: MIXED (last 7 runs: 38,40,28,36,42,59,49 — 2/7 exceed 45, better than 80.6% peak but last 2 regressed; #94 tracks)
 - Watcher: HEALTHY at limit 40 (0/7 recent exceeding, all 29-38 turns)
+=======
+Updated by: evolve.yml
+
+## Last Session
+Action: evolve.yml PIPELINE_WATCH — Pipeline excellent (0 new failures, 30+ consecutive successes). Evolve turns mixed: 5/8 recent under 45 but streak broke (59t+49t), #94 still relevant. Cost $96.12 yesterday (63 runs), evolve avg $1.58/run. SHA: 3 Active changed (awesome-claude-code, deer-flow, astro), 0 Watch List changed. 0 issues created. Previous: PATTERN_HUNT deep-dived claude-plugins-official and vibecosystem.
+
+System health:
+- Evolve: MIXED (last 8: 5/8 under 45, avg 43.5t; streak broke with 59t+49t; #94 tracks)
+- Watcher: HEALTHY at limit 40 (0/6 recent exceeding, all 29-38 turns)
+>>>>>>> f8439d3 (state: evolve PIPELINE_WATCH — pipeline excellent, evolve turns mixed, 3 sources changed)
 - Coder: HEALTHY — last success 18:55 (PR #93)
 - Reviewer: HEALTHY — last success 18:58 (9 turns)
 - Triage: HEALTHY — last success 18:53
