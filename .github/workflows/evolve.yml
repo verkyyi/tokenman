@@ -419,7 +419,19 @@ jobs:
           git add CLAUDE.md skills/ README.md public/robots.txt src/layouts/Base.astro src/pages/index.astro
           if ! git diff --cached --quiet; then
             git commit -m "feat: evolve.yml — $(date -u +%Y-%m-%d)"
-            git pull --rebase || true
+            if ! git pull --rebase; then
+              # Auto-resolve state file conflicts (remote version is always newer)
+              if git diff --name-only --diff-filter=U | grep -q '^state/'; then
+                git checkout --theirs state/ && git add state/
+              fi
+              # If non-state conflicts remain, abort rebase and fail loudly
+              if git diff --name-only --diff-filter=U | grep -qv '^state/'; then
+                echo "::error::Non-state file conflicts detected — aborting rebase"
+                git rebase --abort
+                exit 1
+              fi
+              git rebase --continue || true
+            fi
             git push || true
           fi
 

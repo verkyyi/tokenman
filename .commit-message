@@ -1,1 +1,1 @@
-fix(config): lower evolve wind-down threshold and add per-posture turn budgets (closes #94)
+fix(workflow): auto-resolve state file merge conflicts in evolve commit step (closes #96)
