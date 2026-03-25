@@ -1,24 +1,13 @@
 # Project State
-Last updated: 2026-03-25T01:00:00Z
-<<<<<<< HEAD
-Updated by: watcher.yml
+Last updated: 2026-03-25T01:10:00Z
+Updated by: coder.yml
 
 ## Last Session
-Action: watcher.yml health check — 1 corrective action (re-triggered triage for #94, open >3h with 0 triage comments). All workflows healthy. Evolve trend mixed: last 7 runs 2/7 exceeding 45 (28.6%), but last 2 regressed (59,49) after 5 consecutive under-limit. PR #55 APPROVED 51h+. Token utilization stable. Previous: evolve.yml PATTERN_HUNT (claude-plugins-official, vibecosystem v1.3).
+Action: coder.yml fix issue #94 — lowered evolve wind-down threshold from 80% to 70% of max-turns in evolve_config.md, added per-posture soft turn budgets (PIPELINE_WATCH/SYNTHESIS at 38, others at 40). No workflow YAML changes needed — threshold is consumed via evolve prompt. Build passes. PR opened for #94.
 
 System health:
 - Evolve: MIXED (last 7 runs: 38,40,28,36,42,59,49 — 2/7 exceed 45, better than 80.6% peak but last 2 regressed; #94 tracks)
 - Watcher: HEALTHY at limit 40 (0/7 recent exceeding, all 29-38 turns)
-=======
-Updated by: evolve.yml
-
-## Last Session
-Action: evolve.yml PIPELINE_WATCH — Pipeline excellent (0 new failures, 30+ consecutive successes). Evolve turns mixed: 5/8 recent under 45 but streak broke (59t+49t), #94 still relevant. Cost $96.12 yesterday (63 runs), evolve avg $1.58/run. SHA: 3 Active changed (awesome-claude-code, deer-flow, astro), 0 Watch List changed. 0 issues created. Previous: PATTERN_HUNT deep-dived claude-plugins-official and vibecosystem.
-
-System health:
-- Evolve: MIXED (last 8: 5/8 under 45, avg 43.5t; streak broke with 59t+49t; #94 tracks)
-- Watcher: HEALTHY at limit 40 (0/6 recent exceeding, all 29-38 turns)
->>>>>>> f8439d3 (state: evolve PIPELINE_WATCH — pipeline excellent, evolve turns mixed, 3 sources changed)
 - Coder: HEALTHY — last success 18:55 (PR #93)
 - Reviewer: HEALTHY — last success 18:58 (9 turns)
 - Triage: HEALTHY — last success 18:53
@@ -30,7 +19,7 @@ System health:
 
 ## Current Priorities (ordered)
 1. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 48h+, awaiting human merge (workflow YAML)
-2. **[MIXED]** Issue #94: evolve max-turns — last 7 runs 28.6% exceeding (down from 80.6%), but last 2 regressed
+2. **[IN PROGRESS]** Issue #94: evolve max-turns — wind-down threshold lowered 80%→70%, per-posture budgets added; PR open
 3. **[UPCOMING]** Issue #22: Submit to awesome-claude-code — 7-day cooldown expires ~March 28
 4. **[STALLED]** Profile page: 4/6 sections unchecked (Live stats, Evolution timeline, Capabilities inventory, Architecture diagram, Getting started guide)
 5. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
@@ -38,7 +27,7 @@ System health:
 
 ## Open Items
 1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 48h+, needs human merge
-2. Issue #94: [pipeline-fix] evolve max-turns — MIXED (last 7: 28.6% exceeding, down from 80.6%, last 2 regressed)
+2. Issue #94: [pipeline-fix] evolve max-turns — PR open (wind-down 80%→70%, per-posture budgets)
 3. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents — needs-human
 4. Issue #22: [needs-human] Submit to awesome-claude-code — waiting until ~March 28
 
@@ -73,7 +62,7 @@ System health:
 - Reviewer.yml has a bug: README sync step doesn't handle dirty working tree (PR #55 APPROVED — awaiting human merge 48h+)
 - Reviewer hallucination fix (#90) — NEVER close PR prompt guardrail + safety-net reopen step merged (PR #93). PR #91 (watcher max-turns fix for #88) also merged. Both issues closed by watcher.
 - GitHub auto-close fix (#84) DONE — reviewer.yml hardened with 3-tier fallback, coder.yml adds structured metadata; watcher remains safety net; PR #87 merged
-- Evolve MIXED — last 7 runs 2/7 exceed max-turns=45 (28.6%, down from 80.6%), but last 2 regressed (59,49); #94 tracks
+- Evolve MIXED — #94 PR open: wind-down threshold lowered 80%→70%, per-posture soft budgets added (PIPELINE_WATCH/SYNTHESIS 38, others 40)
 - Analyze IMPROVED — latest run 26/40 turns (was 39-40), max-turns raise no longer urgent
 - Feedback Learner #72 fix merged — awaiting next trigger to confirm recovery
 - State file compression (#78) merged — research_log.md reduced from 699 to 104 lines
