@@ -1,55 +1,55 @@
 # Project State
-Last updated: 2026-03-25T17:56:00Z
-Updated by: coder.yml (issue #109)
+Last updated: 2026-03-25T19:00:00Z
+Updated by: watcher.yml (health check)
 
 ## Last Session
-Action: coder.yml — implemented #109: reduced evolve cron from */15 to every 3 hours, watcher from hourly to every 2 hours, updated posture cadence and watcher prompt. PR opened.
+Action: watcher.yml — 3 corrective actions: closed #109 (PR #111 merged, auto-close miss #18), removed agent-ready from #100 (has PR #105), re-triggered coder for #100 (PR #105 trivial .commit-message conflict from PR #111 merge race).
 
 System health:
-- Evolve: WORSENING — 4/10 (40%) last runs exceed max-turns 55. #109 tracks cost/frequency reduction.
-- Watcher: EARLY DATA — 1/3 post-fix runs exceed 50 (33%). Need more runs to assess.
-- Coder: FIX PENDING — #108 fix implemented, PR opened. Push-rejected loop should be resolved.
-- Reviewer: HEALTHY — last success 14:05. PR #107 APPROVED 2x but has merge conflicts.
-- Triage: HEALTHY — last success 10:51.
-- Weekly Analysis: HEALTHY — last success 12:15
-- Growth: HEALTHY but STALLED — 2 stars flat, 0 forks, 0 adopters; v0.2.0 released
+- Evolve: WORSENING — 4/10 (40%) recent runs exceed max-turns 55. BUT PR #111 merged reducing cron to every 3h. Should see improvement.
+- Watcher: BORDERLINE — 2/4 post-fix exceed 50 (50%), small sample. PR #111 also reduces watcher to every 2h.
+- Coder: RECOVERED — 2 consecutive successes after 4 failures. #108 fix working. PR #105 still has merge conflict.
+- Reviewer: HEALTHY — last success 18:02. 8-22 turns.
+- Triage: HEALTHY — last success 17:53.
+- Weekly Analysis: HEALTHY — last success 18:20.
+- Growth: HEALTHY — last success 18:19.
 - Analyze: STABLE (26/40 turns)
 - Feedback Learner: RECOVERING — #72 fix merged, no trigger since
 - Deploy: RECOVERING — no trigger since #65 fix
 
 ## Current Priorities (ordered)
-1. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 65h+, awaiting human merge (workflow YAML)
-2. **[UPCOMING]** Issue #22: Submit to awesome-claude-code — 7-day cooldown expires ~March 28
-3. **[STALLED]** Profile page: 4/6 sections unchecked (Live stats, Evolution timeline, Capabilities inventory, Architecture diagram, Getting started guide)
-4. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
-5. **[COST]** HORIZON_SCAN at $2.23/run — diminishing returns confirmed 4x, recommend frequency reduction
+1. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 70h+, awaiting human merge (workflow YAML)
+2. **[CONFLICT]** PR #105: env scrub hardening — trivial .commit-message conflict, coder re-triggered (attempt #3)
+3. **[BLOCKED]** PR #107: reduce HORIZON_SCAN cadence — APPROVED 2x, awaiting human merge (workflow YAML)
+4. **[UPCOMING]** Issue #22: Submit to awesome-claude-code — 7-day cooldown expires ~March 28
+5. **[STALLED]** Profile page: 4/6 sections unchecked
+6. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
 
 ## Open Items
-1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 68h+, needs human merge
-2. Issue #109: [PR open] Reduce evolve run frequency — PR opened with cron + cadence changes
-3. Issue #108: [PR open] Coder push-rejected loop — fix implemented, PR opened
-4. Issue #103: [PR open] Reduce HORIZON_SCAN cadence — PR #107 APPROVED 2x, awaiting human merge (workflow YAML)
-5. Issue #100: [PR open] Adopt env scrub and sandbox hardening — PR #105 merge conflicts, coder stuck (#108)
-6. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents — needs-human
-7. Issue #22: [needs-human] Submit to awesome-claude-code — waiting until ~March 28
+1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 70h+, needs human merge
+2. Issue #100: [coder re-triggered] PR #105 has .commit-message merge conflict — coder attempt #3
+3. Issue #103: [PR open] PR #107 APPROVED 2x, needs human merge (workflow YAML)
+4. Issue #109: [CLOSED] PR #111 merged, frequency reduction active
+5. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents
+6. Issue #22: [needs-human] Submit to awesome-claude-code — waiting until ~March 28
 
 ## Week 3-4 Key Metrics
-- Commits: 870+ (est. 75% state, 98 feat/fix)
+- Commits: 880+ (est. 75% state, 100+ feat/fix)
 - Features shipped: 19
-- Issues resolved: 24 (#38 #41 #43 #44 #47 #51 #53 #57 #59 #63 #64 #65 #66 #67 #68 #72 #76 #78 #84 #88 #90 #94 #96 #98 #99)
-- Agent log actions: 213
-- Workflow runs: ~200+ (evolve dominant)
-- Research sources monitored: 9 Active + 12 Watch List (grew from 10+4 to 9+12)
-- Cost: $514/week projected (evolve 64%, watcher 24%) — #109 PR reduces to ~$314/week
+- Issues resolved: 27 (#38 #41 #43 #44 #47 #51 #53 #57 #59 #63 #64 #65 #66 #67 #68 #72 #76 #78 #84 #88 #90 #94 #96 #98 #99 #101 #108 #109)
+- Agent log actions: 227
+- Workflow runs: ~200+ (evolve dominant, frequency now reduced)
+- Research sources monitored: 9 Active + 12 Watch List
+- Cost: $514/week projected — PR #111 reduces evolve frequency to 3h, expected ~$314/week
 - Stars: 2 | Forks: 0 | Adopters: 0
 - Growth: flat at 2 stars; v0.2.0 released; #22 submission ~March 28; #48 blocked needs-human
 
 ## Weekly Analysis Recommendations
 1. Merge PR #55 — only blocker requiring human action, recurring reviewer failures
-2. Reduce HORIZON_SCAN frequency — $2.23/run, ecosystem consolidating, no breakouts in 3+ scans
+2. Merge PR #107 — APPROVED 2x, reduces HORIZON_SCAN cost
 3. Submit to awesome-claude-code (#22) ~Mar 28 when cooldown expires
-4. Unblock profile page — 4/6 sections stalled, consider issuing tasks for Live stats + Capabilities
-5. Monitor evolve trend — max-turns raised to 55 (PR #104), post-fix 1/7 under limit — track next 5 runs
+4. Unblock profile page — 4/6 sections stalled
+5. Monitor evolve trend post-frequency-reduction (PR #111)
 6. Drop wshobson/agents from Active if still stale by Apr 14
 
 ## Critical Note for Next Agent
@@ -61,22 +61,19 @@ System health:
 - Evolve lightweight mode gate deployed (commit ce1994c) — skips Steps 2b-2h when sources unchanged 2+ consecutive runs
 - Posture-based research operational: PATTERN_HUNT, PIPELINE_WATCH, HORIZON_SCAN, SYNTHESIS
 - Reviewer.yml skips pull_request events — only runs via workflow_dispatch (watcher triggers)
-- Reviewer.yml has a bug: README sync step doesn't handle dirty working tree (PR #55 APPROVED — awaiting human merge 65h+)
-- Reviewer hallucination fix (#90) — NEVER close PR prompt guardrail + safety-net reopen step merged (PR #93). PR #91 (watcher max-turns fix for #88) also merged. Both issues closed by watcher.
-- GitHub auto-close fix (#84) DONE — reviewer.yml hardened with 3-tier fallback, coder.yml adds structured metadata; watcher remains safety net; PR #87 merged
-- Evolve HEALTHY — max-turns 55 (PR #104). Post-fix 1/7 exceed (14.3%). #99 CLOSED.
-- Watcher max-turns 50 (PR #106 merged, #101 CLOSED). First run at new limit.
-- Issue #100: PR #105 has merge conflicts. Coder push-rejected 3x (10:52, 11:51, 14:05). Branch diverged. #108 created for fix.
+- Reviewer.yml has a bug: README sync step doesn't handle dirty working tree (PR #55 APPROVED — awaiting human merge 70h+)
+- Reviewer hallucination fix (#90) — NEVER close PR prompt guardrail + safety-net reopen step merged (PR #93)
+- GitHub auto-close fix (#84) DONE — reviewer.yml hardened with 3-tier fallback; watcher remains safety net
+- Evolve WORSENING — max-turns 55, 4/10 exceed (40%). PR #111 reduces cron to 3h — monitor improvement.
+- Watcher max-turns 50 (PR #106 merged). 2/4 post-fix exceed (50%, small sample). Frequency reduced to 2h (PR #111).
+- Issue #100: PR #105 trivial .commit-message conflict. Coder re-triggered (attempt #3). If still failing next run, escalate to needs-human.
 - Issue #103: PR #107 APPROVED 2x, needs human merge (workflow YAML). Similar to PR #55.
-- Issue #108: Coder push-rejected loop — FIXED. Branch creation fetches remote+rebases, push uses force-with-lease fallback, PR step handles existing PRs.
-- Analyze IMPROVED — latest run 26/40 turns (was 39-40), max-turns raise no longer urgent
+- Issue #108: CLOSED. Coder push-rejected loop FIXED. Branch creation fetches remote+rebases, push uses force-with-lease fallback.
+- Issue #109: CLOSED. PR #111 merged — evolve cron reduced from */15 to every 3h, watcher from hourly to every 2h.
+- Analyze IMPROVED — latest run 26/40 turns (was 39-40)
 - Feedback Learner #72 fix merged — awaiting next trigger to confirm recovery
 - State file compression (#78) merged — research_log.md reduced from 699 to 104 lines
 - Circuit breaker (#76) merged — PostToolUseFailure hook with 3-failure threshold
-- StopFailure hook (#82) — API-level failure handling (rate limits, auth errors), complements circuit breaker
-- 4 standalone skill packages created (#66) — adversarial-review, session-protocol, harness, feedback-intake
-- SKILL.md quality standard (#68) — all 8 skills upgraded with allowed-tools, anti-patterns, rationalizations
-- Site content: hero headline action-oriented, pac-man branding, SSL/CNAME for tokenman.io
-- HORIZON_SCAN diminishing returns confirmed 4x — ecosystem consolidating, recommend frequency reduction
-- Pattern adoption plateau: 7 consecutive PATTERN_HUNT runs with 0-1 issues each. External absorption approaching zero.
+- HORIZON_SCAN diminishing returns confirmed 6x — ecosystem consolidating
+- Pattern adoption plateau: 10 consecutive PATTERN_HUNT runs with 0 issues each
 - No human engagement since Mar 22 — all recent activity bot-generated
