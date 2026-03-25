@@ -1,1 +1,1 @@
-fix(workflow): add issue requirement verification to reviewer prompt (closes #98)
+fix(workflow): add env scrub and sandbox hardening to all workflows (closes #100)
