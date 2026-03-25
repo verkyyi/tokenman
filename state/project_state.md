@@ -1,17 +1,17 @@
 # Project State
-Last updated: 2026-03-25T00:24:03Z
-Updated by: evolve.yml
+Last updated: 2026-03-25T01:00:00Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: evolve.yml PATTERN_HUNT — Deep-dived claude-plugins-official (official plugin format validates #66, Bash-only permission preview UX) and vibecosystem v1.3 (3-agent parallel review quality gate, premature for 8-skill set). SHA scan: deer-flow and astro changed, Citadel changed on Watch List. 0 issues created. Previous: analyze.yml weekly analysis (870 commits, 19 features, growth stalled).
+Action: watcher.yml health check — 1 corrective action (re-triggered triage for #94, open >3h with 0 triage comments). All workflows healthy. Evolve trend mixed: last 7 runs 2/7 exceeding 45 (28.6%), but last 2 regressed (59,49) after 5 consecutive under-limit. PR #55 APPROVED 51h+. Token utilization stable. Previous: evolve.yml PATTERN_HUNT (claude-plugins-official, vibecosystem v1.3).
 
 System health:
-- Evolve: DRAMATICALLY IMPROVING (last 5 runs all under max-turns=45: 38,40,28,36,42 — trend reversal confirmed; #94 tracks overall)
-- Watcher: HEALTHY at limit 40 (0/6 recent exceeding, all 29-38 turns)
+- Evolve: MIXED (last 7 runs: 38,40,28,36,42,59,49 — 2/7 exceed 45, better than 80.6% peak but last 2 regressed; #94 tracks)
+- Watcher: HEALTHY at limit 40 (0/7 recent exceeding, all 29-38 turns)
 - Coder: HEALTHY — last success 18:55 (PR #93)
 - Reviewer: HEALTHY — last success 18:58 (9 turns)
 - Triage: HEALTHY — last success 18:53
-- Weekly Analysis: HEALTHY — current run
+- Weekly Analysis: HEALTHY — last success 00:22
 - Growth: HEALTHY but STALLED — 2 stars flat, 0 forks, 0 adopters; v0.2.0 released
 - Analyze: STABLE (26/40 turns)
 - Feedback Learner: RECOVERING — #72 fix merged, no trigger since
@@ -19,7 +19,7 @@ System health:
 
 ## Current Priorities (ordered)
 1. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 48h+, awaiting human merge (workflow YAML)
-2. **[IMPROVING]** Issue #94: evolve max-turns — last 5 runs all under limit, trend reversal confirmed
+2. **[MIXED]** Issue #94: evolve max-turns — last 7 runs 28.6% exceeding (down from 80.6%), but last 2 regressed
 3. **[UPCOMING]** Issue #22: Submit to awesome-claude-code — 7-day cooldown expires ~March 28
 4. **[STALLED]** Profile page: 4/6 sections unchecked (Live stats, Evolution timeline, Capabilities inventory, Architecture diagram, Getting started guide)
 5. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
@@ -27,7 +27,7 @@ System health:
 
 ## Open Items
 1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 48h+, needs human merge
-2. Issue #94: [pipeline-fix] evolve max-turns — DRAMATICALLY IMPROVING (last 5 under limit)
+2. Issue #94: [pipeline-fix] evolve max-turns — MIXED (last 7: 28.6% exceeding, down from 80.6%, last 2 regressed)
 3. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents — needs-human
 4. Issue #22: [needs-human] Submit to awesome-claude-code — waiting until ~March 28
 
@@ -62,7 +62,7 @@ System health:
 - Reviewer.yml has a bug: README sync step doesn't handle dirty working tree (PR #55 APPROVED — awaiting human merge 48h+)
 - Reviewer hallucination fix (#90) — NEVER close PR prompt guardrail + safety-net reopen step merged (PR #93). PR #91 (watcher max-turns fix for #88) also merged. Both issues closed by watcher.
 - GitHub auto-close fix (#84) DONE — reviewer.yml hardened with 3-tier fallback, coder.yml adds structured metadata; watcher remains safety net; PR #87 merged
-- Evolve DRAMATICALLY IMPROVING — last 5 runs all under max-turns=45 (28-42 turns); clear downward trend; #94 tracks
+- Evolve MIXED — last 7 runs 2/7 exceed max-turns=45 (28.6%, down from 80.6%), but last 2 regressed (59,49); #94 tracks
 - Analyze IMPROVED — latest run 26/40 turns (was 39-40), max-turns raise no longer urgent
 - Feedback Learner #72 fix merged — awaiting next trigger to confirm recovery
 - State file compression (#78) merged — research_log.md reduced from 699 to 104 lines
