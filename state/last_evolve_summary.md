@@ -1,42 +1,45 @@
 # Last Evolve Summary
-Timestamp: 2026-03-25T17:12:11Z
-Main HEAD: 9f10a9b
-Posture: PATTERN_HUNT (deer-flow + astro have new SHAs, 8-run window needs 3rd PH for cadence)
-Posture history: [PATTERN_HUNT, HORIZON_SCAN, PATTERN_HUNT, PIPELINE_WATCH, SYNTHESIS, HORIZON_SCAN, PATTERN_HUNT, PIPELINE_WATCH, SYNTHESIS, PATTERN_HUNT, PIPELINE_WATCH]
+Timestamp: 2026-03-25T21:15:51Z
+Main HEAD: 25d48db
+Posture: SYNTHESIS (4 runs since last, signals accumulating: pattern plateau 11th, Watch List decisions approaching Mar 30, PR #111 frequency reduction needs evaluation, no human engagement 3+ days)
+Posture history: [SYNTHESIS, PATTERN_HUNT, HORIZON_SCAN, PATTERN_HUNT, PIPELINE_WATCH, SYNTHESIS, HORIZON_SCAN, PATTERN_HUNT, PIPELINE_WATCH, SYNTHESIS, PATTERN_HUNT, PIPELINE_WATCH]
 Runs since each:
-  PATTERN_HUNT: 0
-  PIPELINE_WATCH: 3
-  HORIZON_SCAN: 2
-  SYNTHESIS: 4
-Open issues: #22, #48, #100, #103, #108, #109
+  PATTERN_HUNT: 1
+  PIPELINE_WATCH: 4
+  HORIZON_SCAN: 3
+  SYNTHESIS: 0
+Open issues: #22, #48, #100, #103
 
 ## Source Digests
-anthropics/claude-code: a542f1b | last-deep: 2026-03-25T07:41 | unchanged (24th+ consecutive)
+anthropics/claude-code: a542f1b | last-deep: 2026-03-25T07:41 | unchanged (25th+ consecutive)
 garrytan/gstack: 9870a4e | last-deep: 2026-03-25T16:14 | unchanged
 affaan-m/everything-claude-code: 678fb6f | last-deep: 2026-03-25T13:32 | unchanged
-hesreallyhim/awesome-claude-code: 63d7605 | last-deep: 2026-03-25T07:41 | unchanged (ticker only)
-bytedance/deer-flow: ac97dc6 | last-deep: 2026-03-25T17:12 | deep-dived (0 harness patterns)
+hesreallyhim/awesome-claude-code: ea42499 | last-deep: 2026-03-25T07:41 | ticker only
+bytedance/deer-flow: ac97dc6 | last-deep: 2026-03-25T17:12 | unchanged
 wshobson/agents: 1ad2f00 | last-deep: 2026-03-24 | stale 17d+ (drop candidate Apr 14)
-actions/runner: 9728019 | last-deep: 2026-03-24 | unchanged, no new releases
-withastro/astro: 6683086 | last-deep: 2026-03-25T17:12 | deep-dived (domain-specific skill loading, validates approach)
-verkyyi/tokenman: 9f10a9b | last-deep: never | self-update
+actions/runner: 9728019 | last-deep: 2026-03-24 | unchanged
+withastro/astro: 87fd6a4 | last-deep: 2026-03-25T17:12 | changed (Vite 8 warning)
+verkyyi/tokenman: 25d48db | last-deep: never | self-update
 
 ## Watch List Status
-thedotmack/claude-mem: e2a2302 | obs: 23 | unchanged
-BloopAI/vibe-kanban: 76c818f | obs: 22 | unchanged
-trailofbits/skills: 9df4731 | obs: 22 | unchanged
-sickn33/antigravity-awesome-skills: 0afb519 | obs: 29 | unchanged
-volcengine/OpenViking: d56d7d4 | obs: 31 | unchanged (drop candidate Mar 30: 0 patterns)
-OthmanAdi/planning-with-files: bb3a21a | obs: 20 | unchanged
-ruvnet/ruflo: 0590bf2 | obs: 20 | unchanged
-SethGammon/Citadel: 8d96785 | obs: 23 | unchanged
-anthropics/claude-plugins-official: b10b583 | obs: 21 | unchanged
-vibeeval/vibecosystem: 57d9c66 | obs: 19 | unchanged
-agent-sh/agnix: 55adfcb | obs: 18 | unchanged
-intertwine/hive-orchestrator: 51494de | obs: 19 | unchanged
+thedotmack/claude-mem: e2a2302 | obs: 24 | unchanged
+BloopAI/vibe-kanban: 76c818f | obs: 23 | unchanged
+trailofbits/skills: 9df4731 | obs: 23 | unchanged
+sickn33/antigravity-awesome-skills: 0afb519 | obs: 30 | unchanged
+volcengine/OpenViking: d56d7d4 | obs: 32 | unchanged (drop candidate Mar 30: 0 patterns)
+OthmanAdi/planning-with-files: bb3a21a | obs: 21 | unchanged
+ruvnet/ruflo: a1c4c08 | obs: 21 | changed (docs: update install URLs)
+SethGammon/Citadel: 8d96785 | obs: 24 | unchanged
+anthropics/claude-plugins-official: b10b583 | obs: 22 | unchanged
+vibeeval/vibecosystem: 57d9c66 | obs: 20 | unchanged
+agent-sh/agnix: 55adfcb | obs: 19 | unchanged
+intertwine/hive-orchestrator: 51494de | obs: 20 | unchanged
 
 ## Findings This Run
-- deer-flow: shared skill installer extraction (#1202) + TodoMiddleware context-loss detection tests (#1307) — all Python/LangGraph-specific, 0 harness patterns.
-- astro: #16087 domain-specific skill loading in triage diagnose/fix steps — validates our approach of contextual skill loading, not directly actionable.
-- Pattern plateau confirmed 10th consecutive PATTERN_HUNT with 0 issues created. External pattern absorption approaching zero.
+- Post-frequency-reduction first evaluation: PR #111 merged (evolve 3h, watcher 2h). Need 48-72h data for cost savings evaluation.
+- Workflow YAML merge conflict cascade: 3 PRs blocked on human merge, compounding conflicts over 3+ days of no human engagement.
+- Pattern adoption plateau confirmed 11th observation. External pattern absorption stopped. Harness fully mature for current source portfolio.
+- Source portfolio restructuring window approaches Mar 30 — Watch List decisions pending.
+- Astro Vite 8 compatibility signal (87fd6a4) — low-urgency monitor.
+- No human engagement since Mar 22 — growth stalled, distribution blocked.
 0 issues created.
