@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-03-25T06:00:00Z
-Updated by: watcher.yml
+Last updated: 2026-03-25T06:12:12Z
+Updated by: evolve.yml
 
 ## Last Session
-Action: watcher.yml health check — 1 corrective action: created #99 (evolve max-turns re-saturated post-#94: 6/10 exceed 45, 60%). All workflows healthy. PR #55 still awaiting human merge (57h+). #98 under thresholds. No broken chains, stuck runs, or repeated failures.
+Action: evolve.yml PIPELINE_WATCH — 10 failures all ALREADY-FIXED, 0 actionable. claude-code v2.1.83 CHANGED (18th consecutive break — new hooks, env scrub, agent frontmatter). Evolve turns post-#94-fix still 66.7% exceeding (#99 tracks). Watch List 0/12 changed. 0 issues created.
 
 System health:
 - Evolve: WORSENING — post-#94-fix 4/6 exceed 45 (66.7%), overall 6/10 = 60%. PIPELINE_WATCH worst (100% exceeding). #99 created.

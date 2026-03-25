@@ -1,15 +1,15 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-03-25T05:45:08Z
+# Last updated: 2026-03-25T06:12:12Z
 
 ## Active Sources
 
 ### anthropics/claude-code
 - **Why:** The runtime we build on — releases, breaking changes, new hooks, CLI flags
 - **Look for:** CHANGELOG entries, new hook types, permission changes, SDK updates
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-23 | **Pattern hits:** 1
-- **Notes:** Protected source — never drop. Check CHANGELOG and releases, not just commits. v2.1.81: --bare flag (issue #63), --channels permission relay, plugin freshness re-clone, background agent race fix, worktree resume. SHA 6aadfbd unchanged 16th consecutive.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-23 | **Pattern hits:** 1 | **SHA:** cada21c
+- **Notes:** Protected source — never drop. Check CHANGELOG and releases, not just commits. v2.1.83 (SHA cada21c, 2026-03-25): CwdChanged/FileChanged hook events, CLAUDE_CODE_SUBPROCESS_ENV_SCRUB=1, managed-settings.d/ drop-in policy, sandbox.failIfUnavailable, agent initialPrompt frontmatter, MCP policy bypass fix. Previous: v2.1.81 --bare flag (issue #63), --channels permission relay, plugin freshness re-clone, background agent race fix, worktree resume. Priority deep-dive for next PATTERN_HUNT.
 
 ### garrytan/gstack
 - **Why:** Harness engineering patterns — skills, slash commands, review protocols, agent orchestration
