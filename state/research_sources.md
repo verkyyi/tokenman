@@ -1,7 +1,7 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-03-25T05:13:34Z
+# Last updated: 2026-03-25T05:45:08Z
 
 ## Active Sources
 
@@ -21,7 +21,7 @@
 - **Why:** Community harness patterns, skill collections, optimization techniques
 - **Look for:** New skills, CLAUDE.md patterns, workflow architectures, instinct files
 - **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-24 | **Pattern hits:** 1
-- **Notes:** Large community repo. skill-comply (behavioral compliance), santa-method (multi-agent adversarial verification), Kiro IDE integration — interesting but not immediately adoptable. v2026-03-23: 6 gap-closing skills (safety-guard, canary-watch, benchmark, browser-qa, design-system, product-lens). safety-guard uses PreToolUse hooks for multi-mode guardrails (supports #67). canary-watch has structured alert thresholds (critical/warning/info). Kiro hooks include extract-patterns (agentStop → auto-extract lessons) — similar to feedback-learner. 18 Kiro SKILL.md files added. SHA df4f2df→2166d80: ECC 2.0 Rust TUI agentic IDE scaffold (session manager, worktree orchestration, SQLite mailbox for inter-agent communication, risk scoring for tool calls). Competitive landscape, not harness patterns.
+- **Notes:** Large community repo. skill-comply (behavioral compliance), santa-method (multi-agent adversarial verification), Kiro IDE integration — interesting but not immediately adoptable. v2026-03-23: 6 gap-closing skills (safety-guard, canary-watch, benchmark, browser-qa, design-system, product-lens). safety-guard uses PreToolUse hooks for multi-mode guardrails (supports #67). canary-watch has structured alert thresholds (critical/warning/info). Kiro hooks include extract-patterns (agentStop → auto-extract lessons) — similar to feedback-learner. 18 Kiro SKILL.md files added. SHA df4f2df→2166d80: ECC 2.0 Rust TUI agentic IDE scaffold (session manager, worktree orchestration, SQLite mailbox for inter-agent communication, risk scoring for tool calls). SHA 2166d80→7f7e319: ECC2 token/cost meter widget (#884), session lifecycle (#881). Rust TUI work, 0 harness patterns.
 
 ### hesreallyhim/awesome-claude-code
 - **Why:** Curated ecosystem catalog — discover new tools, libraries, and patterns
@@ -90,7 +90,7 @@
 - **Why:** Self-evolving context database (18.4K stars) — unified context management (memory, resources, skills) via file system paradigm, hierarchical context delivery
 - **Look for:** "ov doctor" diagnostic patterns, loop memory optimization, context/memory/loop separation, self-evolving architecture
 - **Added:** 2026-03-23 (horizon scan) | **Observations:** 20 | **First seen:** 2026-03-23
-- **Notes:** Very active (5+ commits/day). SHA 08b278d→b4a49de (new commits). Deep-dived 2026-03-24T14:11: tool pruning (-229 lines from ov_file.py, #929), actionable 422 error helper (#928), embedding dimension validation (#930), uninstall script (#933). Tool pruning good hygiene but premature for our 8-skill set. 0 harness patterns. Previous: circuit breaker (#772) validates #76, config validation (#904), "ov doctor" (#851).
+- **Notes:** Very active (5+ commits/day). SHA 08b278d→b4a49de→55a0c0e. Deep-dived 2026-03-24T14:11: tool pruning (-229 lines from ov_file.py, #929), actionable 422 error helper (#928), embedding dimension validation (#930), uninstall script (#933). Tool pruning good hygiene but premature for our 8-skill set. 0 harness patterns. Previous: circuit breaker (#772) validates #76, config validation (#904), "ov doctor" (#851). 2026-03-25: memory extractor templating (#952, YAML MemoryTypeRegistry + ReAct phases), security hardening (#937 litellm disabled). Python-specific, 0 harness patterns.
 
 ### OthmanAdi/planning-with-files
 - **Why:** Persistent markdown planning skill (16.9K stars) — Manus-style file-based planning for Claude Code
@@ -108,7 +108,7 @@
 - **Why:** Agent orchestration harness (242 stars) — closest architecture to tokenman. Campaign persistence, parallel worktrees, circuit breaker, quality gate hooks
 - **Look for:** Circuit breaker implementation, quality gate patterns, campaign persistence, fleet coordination, lifecycle hooks
 - **Added:** 2026-03-24 (horizon scan) | **Observations:** 16 | **First seen:** 2026-03-24
-- **Notes:** SHA 729f417→867a468 (new commits). PR #18: stale skill path fix. PR #17: plugin arch cleanup. Previous: PR #15 install docs, PR #14 unified triage. 26 skills, 3 agents, 10 hooks. PostToolUseFailure circuit breaker (3 failures → suggest alternative, 5 trips → hard stop). PreCompact/Restore-Compact for context preservation. Pattern hit: circuit breaker (issue #76). External-action-gate covered by #67.
+- **Notes:** SHA 729f417→867a468. PR #21: install docs update (--plugin-dir method). PR #18: stale skill path fix. PR #17: plugin arch cleanup. Previous: PR #15 install docs, PR #14 unified triage. 26 skills, 3 agents, 10 hooks. PostToolUseFailure circuit breaker (3 failures → suggest alternative, 5 trips → hard stop). PreCompact/Restore-Compact for context preservation. Pattern hit: circuit breaker (issue #76). External-action-gate covered by #67. Recent activity: housekeeping only, 0 new patterns.
 
 ### anthropics/claude-plugins-official
 - **Why:** Official Anthropic plugin directory (14.3K stars) — distribution channel for Claude Code plugins with standard format
