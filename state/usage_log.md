@@ -234,4 +234,4 @@
 2026-03-25T18:00:26Z | reviewer | model:claude-opus-4-6 | in:526639 | out:3744 | turns:18 | cost:0.667979
 2026-03-25T18:02:52Z | reviewer | model:claude-opus-4-6 | in:600694 | out:5269 | turns:22 | cost:0.698881
 2026-03-25T18:25:51Z | analyze | model:claude-opus-4-6 | in:1368686 | out:12046 | turns:42 | cost:1.3634310000000003
-2026-03-25T19:09:37Z | watcher | model:claude-opus-4-6 | in:1876340 | out:24326 | turns:47 | cost:2.5043462499999993
+2026-03-25T19:14:19Z | coder | model:claude-opus-4-6 | in:2320183 | out:13265 | turns:41 | cost:2.188213249999999
