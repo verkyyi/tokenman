@@ -1,7 +1,7 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-03-24T21:53:27Z
+# Last updated: 2026-03-24T23:55:00Z
 
 ## Active Sources
 
@@ -9,13 +9,13 @@
 - **Why:** The runtime we build on — releases, breaking changes, new hooks, CLI flags
 - **Look for:** CHANGELOG entries, new hook types, permission changes, SDK updates
 - **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-23 | **Pattern hits:** 1
-- **Notes:** Protected source — never drop. Check CHANGELOG and releases, not just commits. v2.1.81: --bare flag (issue #63), --channels permission relay, plugin freshness re-clone, background agent race fix, worktree resume. SHA 6aadfbd unchanged 13th consecutive.
+- **Notes:** Protected source — never drop. Check CHANGELOG and releases, not just commits. v2.1.81: --bare flag (issue #63), --channels permission relay, plugin freshness re-clone, background agent race fix, worktree resume. SHA 6aadfbd unchanged 14th consecutive.
 
 ### garrytan/gstack
 - **Why:** Harness engineering patterns — skills, slash commands, review protocols, agent orchestration
 - **Look for:** New skill files, workflow patterns, agent guardrails, PR review techniques, structured output formats
 - **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-24T18:04 | **Pattern hits:** 8
-- **Notes:** Most productive source so far. v0.9.7-v0.11.3 yielded adversarial review, structured tables, anti-sycophancy, pre-merge gate, security patterns. v0.9.9.1: cross-model outside voice (issue #64). v0.11.6.0: /cso v2 infrastructure-first security audit (covered by #17). v0.11.10.0: CI evals with parallel runners (no evals framework yet). v0.11.9.0: auto-heal stale installs + Codex 1024-char description guard (build-time validation, not issueworthy). v0.11.7.0: zsh glob compat + /review satisfies ship readiness gate. v0.11.12.0 (SHA dc5e053, PR #425): tiered preamble system (T1-T4) — skills pay for only needed context, ~40% token reduction for lightweight skills. WorktreeManager for E2E test isolation with SHA-256 dedup. Modular resolver arch. Token budget dashboard. Issue #83 (tiered preamble). v0.11.12.0 PR #424: triple-voice multi-model review with cascading context + consensus tables + degradation matrix (evolution of #64). PR #359 (v0.11.6.0): dynamic skill discovery (filesystem scan), three-dot scope drift (our reviewer already uses this), --local install flag. v0.11.15.0 (SHA 6156122, PR #449): E2E skill testing framework (runSkillTest with temp dirs, output verification, cost tracking, concurrent execution) + gen:skill-docs template regeneration. Strengthens #68 quality direction. Premature for our 8-skill set.
+- **Notes:** Most productive source so far. v0.9.7-v0.11.3 yielded adversarial review, structured tables, anti-sycophancy, pre-merge gate, security patterns. v0.9.9.1: cross-model outside voice (issue #64). v0.11.6.0: /cso v2 infrastructure-first security audit (covered by #17). v0.11.10.0: CI evals with parallel runners (no evals framework yet). v0.11.9.0: auto-heal stale installs + Codex 1024-char description guard (build-time validation, not issueworthy). v0.11.7.0: zsh glob compat + /review satisfies ship readiness gate. v0.11.12.0 (SHA dc5e053, PR #425): tiered preamble system (T1-T4) — skills pay for only needed context, ~40% token reduction for lightweight skills. WorktreeManager for E2E test isolation with SHA-256 dedup. Modular resolver arch. Token budget dashboard. Issue #83 (tiered preamble). v0.11.12.0 PR #424: triple-voice multi-model review with cascading context + consensus tables + degradation matrix (evolution of #64). PR #359 (v0.11.6.0): dynamic skill discovery (filesystem scan), three-dot scope drift (our reviewer already uses this), --local install flag. v0.11.15.0 (SHA 6156122, PR #449): E2E skill testing framework (runSkillTest with temp dirs, output verification, cost tracking, concurrent execution) + gen:skill-docs template regeneration. Strengthens #68 quality direction. Premature for our 8-skill set. v0.11.16.0 (SHA 315c172, PR #450): 2-tier E2E test system — gate/periodic split with granular touchfiles (9→3 global deps, scoped per-test). Supabase RLS lockdown + edge function routing (#460). Flaky test fixes (#462). Testing maturity wave continues.
 
 ### affaan-m/everything-claude-code
 - **Why:** Community harness patterns, skill collections, optimization techniques
@@ -65,74 +65,74 @@
 ### thedotmack/claude-mem
 - **Why:** Session memory plugin (40K stars) — auto-captures sessions, AI-compresses context, injects relevance-filtered memory into future sessions
 - **Look for:** Compression strategies, relevance filtering, context injection patterns, memory lifecycle management
-- **Added:** 2026-03-23 (horizon scan) | **Observations:** 12 | **First seen:** 2026-03-23
+- **Added:** 2026-03-23 (horizon scan) | **Observations:** 14 | **First seen:** 2026-03-23
 - **Notes:** v10.6.2 active (Mar 21). SHA e2a2302 unchanged. Their compress-filter-inject pipeline is more sophisticated than our simple state/ read/write. Could improve how we manage project_state.md context.
 
 ### BloopAI/vibe-kanban
 - **Why:** Agent management platform (24K stars) — PR-issue linking, multi-provider orchestration, kanban-style agent task management
 - **Look for:** PR-issue linking automation, relay architecture, agent task queuing, multi-model coordination
-- **Added:** 2026-03-23 (horizon scan) | **Observations:** 13 | **First seen:** 2026-03-23
-- **Notes:** v0.1.36+, very active. SHA d9a2c4f deep-dived: #3252 pins all GitHub Actions to commit SHAs for supply chain security (9 workflow files). #3240 isolates git2 behind GitService wrappers (clean dependency isolation, not adoptable for CLI-based harness). #3199 self-host improvements. Pattern hit: SHA pinning (covered by existing security issue).
+- **Added:** 2026-03-23 (horizon scan) | **Observations:** 15 | **First seen:** 2026-03-23
+- **Notes:** v0.1.36+, very active. SHA d9a2c4f unchanged. #3252 pins all GitHub Actions to commit SHAs for supply chain security (9 workflow files). #3240 isolates git2 behind GitService wrappers (clean dependency isolation, not adoptable for CLI-based harness). #3199 self-host improvements. Pattern hit: SHA pinning (covered by existing security issue).
 
 ### trailofbits/skills
 - **Why:** Security-focused Claude Code skills (4K stars) from top security firm — audit workflows, vulnerability detection, semgrep rules
 - **Look for:** Security audit skill structure, semgrep rule patterns, skill-improver tooling, SKILL.md format conventions
-- **Added:** 2026-03-23 (horizon scan) | **Observations:** 13 | **First seen:** 2026-03-23
+- **Added:** 2026-03-23 (horizon scan) | **Observations:** 15 | **First seen:** 2026-03-23
 - **Notes:** Last commit Mar 17 (SHA 5c15f4f unchanged). 34 plugins with formal SKILL.md standard: YAML frontmatter (name, description, allowed-tools), structured sections (When to Use, When NOT to Use, Rationalizations to Reject, Anti-Patterns, Strictness Level). skill-improver: automated quality loop (Review->Categorize->Fix->Evaluate->Repeat) with Critical/Major/Minor severity. Codex compatibility layer. PR #123: cross-platform sidecar symlink distribution (.codex/skills/ backed by same plugin content, 61 symlinks via installer). Pattern hit: SKILL.md quality standard (issue #68).
 
 ### sickn33/antigravity-awesome-skills
 - **Why:** Largest skill catalog (27K stars, 1309+ skills) — installable via CLI, bundles, multi-platform (Claude Code, Codex, Gemini CLI, Cursor)
 - **Look for:** Skill packaging/distribution model, CLI installer patterns, bundle organization, cross-platform skill format
-- **Added:** 2026-03-23 (horizon scan) | **Observations:** 14 | **First seen:** 2026-03-23
-- **Notes:** v8.7.1 (Mar 23), SHA 2e12db8 (was 8f5b56a). NPX installer (`npx antigravity-awesome-skills`) installs to target directory. Bundles by role (Web Wizard, Security Engineer, Essentials). Registry sync metadata in README. Confirms direction of #66. Distribution model: npm package + GitHub catalog + curated bundles.
+- **Added:** 2026-03-23 (horizon scan) | **Observations:** 16 | **First seen:** 2026-03-23
+- **Notes:** v8.7.1 (Mar 23), SHA 2e12db8 unchanged. NPX installer (`npx antigravity-awesome-skills`) installs to target directory. Bundles by role (Web Wizard, Security Engineer, Essentials). Registry sync metadata in README. Confirms direction of #66. Distribution model: npm package + GitHub catalog + curated bundles.
 
 ### volcengine/OpenViking
 - **Why:** Self-evolving context database (18.4K stars) — unified context management (memory, resources, skills) via file system paradigm, hierarchical context delivery
 - **Look for:** "ov doctor" diagnostic patterns, loop memory optimization, context/memory/loop separation, self-evolving architecture
-- **Added:** 2026-03-23 (horizon scan) | **Observations:** 15 | **First seen:** 2026-03-23
-- **Notes:** Very active (5+ commits/day). SHA 08b278d (was df8ba97). Deep-dived 2026-03-24T14:11: tool pruning (-229 lines from ov_file.py, #929), actionable 422 error helper (#928), embedding dimension validation (#930), uninstall script (#933). Tool pruning good hygiene but premature for our 8-skill set. 0 harness patterns. Previous: circuit breaker (#772) validates #76, config validation (#904), "ov doctor" (#851).
+- **Added:** 2026-03-23 (horizon scan) | **Observations:** 17 | **First seen:** 2026-03-23
+- **Notes:** Very active (5+ commits/day). SHA 08b278d unchanged. Deep-dived 2026-03-24T14:11: tool pruning (-229 lines from ov_file.py, #929), actionable 422 error helper (#928), embedding dimension validation (#930), uninstall script (#933). Tool pruning good hygiene but premature for our 8-skill set. 0 harness patterns. Previous: circuit breaker (#772) validates #76, config validation (#904), "ov doctor" (#851).
 
 ### OthmanAdi/planning-with-files
 - **Why:** Persistent markdown planning skill (16.9K stars) — Manus-style file-based planning for Claude Code
 - **Look for:** SKILL.md format, planning file structure, state persistence patterns, i18n skill variants
-- **Added:** 2026-03-23 (horizon scan) | **Observations:** 11 | **First seen:** 2026-03-23
-- **Notes:** v2.29.0. SHA bb3a21a deep-dived: #115 adds analytics workflow templates (analytics_findings.md + analytics_task_plan.md) with phase-gated tasks, WHAT/WHY/WHEN self-documenting comments, and init-session script integration. Validates our markdown-as-memory approach. Uses SKILL.md format with i18n variants (zh-TW). Active community (115+ PRs).
+- **Added:** 2026-03-23 (horizon scan) | **Observations:** 13 | **First seen:** 2026-03-23
+- **Notes:** v2.29.0. SHA bb3a21a unchanged. Deep-dived: #115 adds analytics workflow templates (analytics_findings.md + analytics_task_plan.md) with phase-gated tasks, WHAT/WHY/WHEN self-documenting comments, and init-session script integration. Validates our markdown-as-memory approach. Uses SKILL.md format with i18n variants (zh-TW). Active community (115+ PRs).
 
 ### ruvnet/ruflo
 - **Why:** Agent orchestration platform (24.2K stars, v3.5.42) — multi-agent swarms, hive-mind coordination, RAG, native Claude Code integration
 - **Look for:** Hive-mind real status reporting, agent coordination patterns, security audit responses, MCP resilience
-- **Added:** 2026-03-23 (horizon scan) | **Observations:** 11 | **First seen:** 2026-03-23
+- **Added:** 2026-03-23 (horizon scan) | **Observations:** 13 | **First seen:** 2026-03-23
 - **Notes:** SHA 0590bf2 unchanged. "hive-mind_status reads real agent state instead of hardcoded values" — agents report actual status. Security audit: SQL injection fixes in 9 queries. MCP server self-kill prevention on startup.
 
 ### SethGammon/Citadel
 - **Why:** Agent orchestration harness (242 stars) — closest architecture to tokenman. Campaign persistence, parallel worktrees, circuit breaker, quality gate hooks
 - **Look for:** Circuit breaker implementation, quality gate patterns, campaign persistence, fleet coordination, lifecycle hooks
-- **Added:** 2026-03-24 (horizon scan) | **Observations:** 12 | **First seen:** 2026-03-24
-- **Notes:** SHA 2e77f57 (was 9da7c72). PR #14: unified /triage for issues+PRs with mode dispatch (/triage pr 13, /triage prs). CLI-focused pattern — our separated GH Actions workflows are architecturally appropriate. 26 skills, 3 agents, 10 hooks. PostToolUseFailure circuit breaker (3 failures → suggest alternative, 5 trips → hard stop). PreCompact/Restore-Compact for context preservation. Protect-files on Edit/Write. Pattern hit: circuit breaker (issue #76). External-action-gate covered by #67.
+- **Added:** 2026-03-24 (horizon scan) | **Observations:** 13 | **First seen:** 2026-03-24
+- **Notes:** SHA 9567210 (was 2e77f57). PR #15: install instruction improvements (settings.json backup warnings). PR #14: unified /triage for issues+PRs with mode dispatch (/triage pr 13, /triage prs). CLI-focused pattern — our separated GH Actions workflows are architecturally appropriate. 26 skills, 3 agents, 10 hooks. PostToolUseFailure circuit breaker (3 failures → suggest alternative, 5 trips → hard stop). PreCompact/Restore-Compact for context preservation. Protect-files on Edit/Write. Pattern hit: circuit breaker (issue #76). External-action-gate covered by #67.
 
 ### anthropics/claude-plugins-official
 - **Why:** Official Anthropic plugin directory (14.3K stars) — distribution channel for Claude Code plugins with standard format
 - **Look for:** Plugin format updates, new submission requirements, plugin.json schema changes, new official plugins relevant to harness patterns
-- **Added:** 2026-03-24 (horizon scan) | **Observations:** 12 | **First seen:** 2026-03-24
-- **Notes:** SHA 79caa0d. Inline buttons for Telegram/Discord permission approval (#945) — UI, not harness. Standard format: .claude-plugin/plugin.json + commands/ + agents/ + skills/. Installation via `/plugin install`. External submission form. 15+ external plugins, 30+ internal (code-review, security-guidance, skill-creator, hookify). Distribution channel for #66.
+- **Added:** 2026-03-24 (horizon scan) | **Observations:** 14 | **First seen:** 2026-03-24
+- **Notes:** SHA b10b583 (was 79caa0d). Inline buttons for Telegram/Discord permission approval (#945) — UI, not harness. Standard format: .claude-plugin/plugin.json + commands/ + agents/ + skills/. Installation via `/plugin install`. External submission form. 15+ external plugins, 30+ internal (code-review, security-guidance, skill-creator, hookify). Distribution channel for #66.
 
 ### vibeeval/vibecosystem
 - **Why:** Comprehensive agent team (275 stars) — 119 agents, 208 skills, 49 hooks, 21 rules. Self-learning pattern where errors auto-become rules
 - **Look for:** Self-learning implementation, session evaluation patterns, skill gateway for external catalogs, workflow routing
-- **Added:** 2026-03-24 (horizon scan) | **Observations:** 10 | **First seen:** 2026-03-24
-- **Notes:** SHA b3e8890 unchanged. v1.2 released with Skill Gateway + Pyxel integration. evaluate-session.sh quantifies session outcomes. "One-question rule" for workflow routing. CI validation workflow. Self-learning pattern similar to our feedback-learner.
+- **Added:** 2026-03-24 (horizon scan) | **Observations:** 12 | **First seen:** 2026-03-24
+- **Notes:** SHA 717b2c1 (was b3e8890). v1.3 released with SaaS Skill Pack (6 new skills, 2 enriched). v1.2 had Skill Gateway + Pyxel integration. evaluate-session.sh quantifies session outcomes. "One-question rule" for workflow routing. CI validation workflow. Self-learning pattern similar to our feedback-learner.
 
 ### agent-sh/agnix
 - **Why:** CLAUDE.md/SKILL.md linter and LSP (103 stars) — validates AI coding assistant config files, autofixes, IDE plugins
 - **Look for:** Validation rules for CLAUDE.md, SKILL.md format standards, CI integration patterns, autofix capabilities
-- **Added:** 2026-03-24 (horizon scan) | **Observations:** 9 | **First seen:** 2026-03-24
+- **Added:** 2026-03-24 (horizon scan) | **Observations:** 11 | **First seen:** 2026-03-24
 - **Notes:** SHA 55adfcb. Rust. v0.16.5 (Mar 23). Active development (675+ PRs). Could validate our CLAUDE.md and SKILL.md files in CI or pre-commit hooks. Supports multiple formats: CLAUDE.md, AGENTS.md, SKILL.md, hooks, MCP configs.
 
 ### intertwine/hive-orchestrator
 - **Why:** Markdown-native agent orchestration (14 stars) — closest architecture to tokenman. Git-native, GitHub Actions, markdown shared memory
 - **Look for:** Markdown-as-memory patterns, vendor-agnostic coordination, hybrid retrieval, skills directory structure
-- **Added:** 2026-03-24 (horizon scan) | **Observations:** 10 | **First seen:** 2026-03-24
-- **Notes:** SHA 51494de. Python. v2.3.1. Very active (5 commits this week). Deep-dived: hybrid dense retrieval with LanceDB + FastEmbed + reciprocal rank fusion (#162) — not adoptable (no retrieval layer). Canonical skills/ dir with symlinks to .agents/.claude/.opencode (#159) — validates our #66 packaging. Corpus fingerprint guard (SHA-256 skip when docs unchanged). Sandbox propagation (#161). Low stars but architecturally most similar to tokenman.
+- **Added:** 2026-03-24 (horizon scan) | **Observations:** 12 | **First seen:** 2026-03-24
+- **Notes:** SHA 51494de unchanged. Python. v2.3.1. Very active (5 commits this week). Deep-dived: hybrid dense retrieval with LanceDB + FastEmbed + reciprocal rank fusion (#162) — not adoptable (no retrieval layer). Canonical skills/ dir with symlinks to .agents/.claude/.opencode (#159) — validates our #66 packaging. Corpus fingerprint guard (SHA-256 skip when docs unchanged). Sandbox propagation (#161). Low stars but architecturally most similar to tokenman.
 
 ## Dropped Sources
 <!-- Removed sources with reason. Kept for history so we don't re-discover them. -->

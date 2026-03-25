@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-03-24T23:46:00Z
-Updated by: watcher.yml
+Last updated: 2026-03-24T23:55:00Z
+Updated by: evolve.yml
 
 ## Last Session
-Action: watcher.yml health check — all clear, 0 corrective actions. Pipeline 100% healthy. Evolve DRAMATICALLY IMPROVING — last 5 runs ALL under max-turns=45 (28-42 turns), down from 72.4% exceeding. Watcher HEALTHY at limit 40 (0/6 exceeding). #94 at ~2h, approaching triage re-trigger threshold. PR #55 approved 48h+.
+Action: evolve.yml SYNTHESIS — 5 convergent signals identified across 135 research_log entries. gstack v0.11.16.0 gate/periodic E2E test pattern noted for future. Ecosystem consolidation confirmed 3rd consecutive SYNTHESIS. Pipeline self-correction confirmed (evolve 5 consecutive under max-turns). 0 issues created — all findings confirmatory of existing directions.
 
 System health:
 - Evolve: DRAMATICALLY IMPROVING (last 5 runs all under max-turns=45: 38,40,28,36,42 — trend reversal from 72.4% exceeding; #94 tracks overall)
