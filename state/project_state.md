@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-03-25T17:07:00Z
-Updated by: coder.yml (CLI session)
+Last updated: 2026-03-25T17:12:11Z
+Updated by: evolve.yml (PATTERN_HUNT)
 
 ## Last Session
-Action: coder.yml fix issue #108 — fixed coder push-rejected loop. Three changes to coder.yml: (1) branch creation step now fetches remote branch and rebases onto main, with fallback to fresh branch; (2) commit/push step tries normal push first, falls back to force-with-lease for diverged branches; (3) PR creation step checks for existing PR and adds comment instead of failing. Build passes.
+Action: evolve.yml PATTERN_HUNT — deep-dived deer-flow (shared skill installer, TodoMiddleware context-loss tests — Python-specific, 0 harness patterns) and astro (domain-specific skill loading in triage — validates approach). SHA scan: all 21 sources unchanged. Pattern plateau 10th consecutive PH with 0 issues.
 
 System health:
 - Evolve: WORSENING — 4/10 (40%) last runs exceed max-turns 55. #109 tracks cost/frequency reduction.
