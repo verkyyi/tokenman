@@ -1,1 +1,1 @@
-fix(workflow): raise evolve max-turns to 55 and tighten wind-down thresholds (closes #99)
+fix(workflow): raise watcher max-turns 40→50 (closes #101)
