@@ -1,16 +1,16 @@
 # Project State
-Last updated: 2026-03-25T16:43:26Z
-Updated by: evolve.yml (HORIZON_SCAN)
+Last updated: 2026-03-25T16:55:00Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: evolve.yml HORIZON_SCAN — searched 4 query sets, all top results already tracked. Ecosystem consolidation 6th consecutive. New find: entireio/cli (3.7K stars, agent session capture). Watch List 12/12 static, drop decisions Mar 30. Active: deer-flow+astro new SHAs. 0 forks/adopters. SKILL.md ecosystem expanding (10+ domain repos). 0 issues created.
+Action: watcher.yml health check — 2 corrective actions: re-triggered triage for #108 (approaching 2h, 0 triage comments, coder BROKEN), removed agent-ready from #100 (has open PR #105). Evolve WORSENING (4/10 exceed 55 = 40%, up from 20%). PR #107 has merge conflicts per reviewer. No needs-human unblocked.
 
 System health:
-- Evolve: IMPROVING — 2/10 (20%) post-fix exceed max-turns 55. Cost ~$33/day (18 runs in 9h).
-- Watcher: EARLY DATA — 1/2 post-fix runs exceed 50 (54 turns). Need more runs to assess.
-- Coder: BROKEN — 4 consecutive failures since last success 10:51. Push-rejected loop tracked by #108. Awaiting #108 triage+fix.
-- Reviewer: HEALTHY — last success 14:05. PR #107 APPROVED 2x.
-- Triage: HEALTHY — last success 10:51. #108/#109 under 2h threshold.
+- Evolve: WORSENING — 4/10 (40%) last runs exceed max-turns 55. PATTERN_HUNT dominant offender. #109 tracks cost/frequency reduction.
+- Watcher: EARLY DATA — 1/3 post-fix runs exceed 50 (33%). Need more runs to assess.
+- Coder: BROKEN — 3 consecutive failures since last success 10:51. Push-rejected loop tracked by #108 (triage re-triggered this run).
+- Reviewer: HEALTHY — last success 14:05. PR #107 APPROVED 2x but has merge conflicts.
+- Triage: HEALTHY — last success 10:51. #108 triage re-triggered.
 - Weekly Analysis: HEALTHY — last success 12:15
 - Growth: HEALTHY but STALLED — 2 stars flat, 0 forks, 0 adopters; v0.2.0 released
 - Analyze: STABLE (26/40 turns)
@@ -26,8 +26,8 @@ System health:
 
 ## Open Items
 1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 68h+, needs human merge
-2. Issue #109: [new] Reduce evolve run frequency — evolve-finding, awaiting triage (<1h old)
-3. Issue #108: [new] Coder push-rejected loop — pipeline-fix, likely-agent-fixable, awaiting triage (<1h old)
+2. Issue #109: [new] Reduce evolve run frequency — evolve-finding, awaiting triage (1h40m old)
+3. Issue #108: [triage re-triggered] Coder push-rejected loop — pipeline-fix, likely-agent-fixable, triage re-triggered at ~2h
 4. Issue #103: [PR open] Reduce HORIZON_SCAN cadence — PR #107 APPROVED 2x, awaiting human merge (workflow YAML)
 5. Issue #100: [PR open] Adopt env scrub and sandbox hardening — PR #105 merge conflicts, coder stuck (#108)
 6. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents — needs-human
