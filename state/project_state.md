@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-03-25T05:10:00Z
-Updated by: watcher.yml
+Last updated: 2026-03-25T05:13:34Z
+Updated by: evolve.yml
 
 ## Last Session
-Action: watcher.yml health check — 1 corrective action: closed #96 (PR #97 merged 04:30Z, auto-close missed, 13th this week). Full pipeline chain completed for #96: triage (04:25) → coder (04:27, PR #97) → reviewer (04:29, merged). All workflows healthy. 0 open pipeline-fix issues.
+Action: evolve.yml PATTERN_HUNT — deep-dived gstack v0.11.18.0-v0.11.18.2 (plan completion audit, one-decision-per-question, Completeness Principle), deer-flow (all Python-specific), awesome-claude-code (ticker only). Created issue #98 for reviewer issue-requirement verification pattern. SHA scan: 4/8 Active unchanged, 10/12 Watch List unchanged.
 
 System health:
 - Evolve: MIXED — post-#94-fix 2/4 exceed 45 (50%), overall 4/10 recent = 40%. Latest run 40 turns. PIPELINE_WATCH worst offender (48, 56 turns).
@@ -26,8 +26,9 @@ System health:
 
 ## Open Items
 1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 57h+, needs human merge
-2. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents — needs-human
-3. Issue #22: [needs-human] Submit to awesome-claude-code — waiting until ~March 28
+2. Issue #98: [evolve-finding] Adopt issue-requirement verification in reviewer (gstack v0.11.18.0)
+3. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents — needs-human
+4. Issue #22: [needs-human] Submit to awesome-claude-code — waiting until ~March 28
 
 ## Week 3-4 Key Metrics
 - Commits: 870+ (est. 75% state, 98 feat/fix)

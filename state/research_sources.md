@@ -1,7 +1,7 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-03-25T02:41:03Z
+# Last updated: 2026-03-25T05:13:34Z
 
 ## Active Sources
 
@@ -14,8 +14,8 @@
 ### garrytan/gstack
 - **Why:** Harness engineering patterns — skills, slash commands, review protocols, agent orchestration
 - **Look for:** New skill files, workflow patterns, agent guardrails, PR review techniques, structured output formats
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-24T18:04 | **Pattern hits:** 8
-- **Notes:** Most productive source so far. v0.9.7-v0.11.3 yielded adversarial review, structured tables, anti-sycophancy, pre-merge gate, security patterns. v0.9.9.1: cross-model outside voice (issue #64). v0.11.6.0: /cso v2 infrastructure-first security audit (covered by #17). v0.11.10.0: CI evals with parallel runners (no evals framework yet). v0.11.9.0: auto-heal stale installs + Codex 1024-char description guard (build-time validation, not issueworthy). v0.11.7.0: zsh glob compat + /review satisfies ship readiness gate. v0.11.12.0 (SHA dc5e053, PR #425): tiered preamble system (T1-T4) — skills pay for only needed context, ~40% token reduction for lightweight skills. WorktreeManager for E2E test isolation with SHA-256 dedup. Modular resolver arch. Token budget dashboard. Issue #83 (tiered preamble). v0.11.12.0 PR #424: triple-voice multi-model review with cascading context + consensus tables + degradation matrix (evolution of #64). PR #359 (v0.11.6.0): dynamic skill discovery (filesystem scan), three-dot scope drift (our reviewer already uses this), --local install flag. v0.11.15.0 (SHA 6156122, PR #449): E2E skill testing framework (runSkillTest with temp dirs, output verification, cost tracking, concurrent execution) + gen:skill-docs template regeneration. Strengthens #68 quality direction. Premature for our 8-skill set. v0.11.16.0 (SHA 315c172, PR #450): 2-tier E2E test system — gate/periodic split with granular touchfiles (9→3 global deps, scoped per-test). Supabase RLS lockdown + edge function routing (#460). Flaky test fixes (#462). Testing maturity wave continues. SHA 315c172→8500136: new commits, queue for next PATTERN_HUNT deep-dive.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-25T05:13 | **Pattern hits:** 9
+- **Notes:** Most productive source so far. v0.9.7-v0.11.3 yielded adversarial review, structured tables, anti-sycophancy, pre-merge gate, security patterns. v0.9.9.1: cross-model outside voice (issue #64). v0.11.6.0: /cso v2 infrastructure-first security audit (covered by #17). v0.11.10.0: CI evals with parallel runners (no evals framework yet). v0.11.9.0: auto-heal stale installs + Codex 1024-char description guard (build-time validation, not issueworthy). v0.11.7.0: zsh glob compat + /review satisfies ship readiness gate. v0.11.12.0 (SHA dc5e053, PR #425): tiered preamble system (T1-T4) — skills pay for only needed context, ~40% token reduction for lightweight skills. WorktreeManager for E2E test isolation with SHA-256 dedup. Modular resolver arch. Token budget dashboard. Issue #83 (tiered preamble). v0.11.12.0 PR #424: triple-voice multi-model review with cascading context + consensus tables + degradation matrix (evolution of #64). PR #359 (v0.11.6.0): dynamic skill discovery (filesystem scan), three-dot scope drift (our reviewer already uses this), --local install flag. v0.11.15.0 (SHA 6156122, PR #449): E2E skill testing framework (runSkillTest with temp dirs, output verification, cost tracking, concurrent execution) + gen:skill-docs template regeneration. Strengthens #68 quality direction. Premature for our 8-skill set. v0.11.16.0 (SHA 315c172, PR #450): 2-tier E2E test system — gate/periodic split with granular touchfiles (9→3 global deps, scoped per-test). Supabase RLS lockdown + edge function routing (#460). Flaky test fixes (#462). Testing maturity wave continues. v0.11.18.0 (SHA 7e0b879, PR #428): "Ship With Teeth" — plan completion audit (requirement extraction + diff cross-ref + DONE/PARTIAL/NOT DONE/CHANGED), test coverage gate (graduated thresholds 60/80%), plan-aware scope drift, auto-verification via /qa-only. Issue #98 (requirement verification for reviewer). v0.11.18.1 (SHA 70c51d5, PR #427): universal "one decision per question" AskUserQuestion rule + Completeness Principle (recommend thorough option, compression ratios). v0.11.18.2 (SHA 9870a4e): Windows browse fix (not relevant).
 
 ### affaan-m/everything-claude-code
 - **Why:** Community harness patterns, skill collections, optimization techniques
@@ -26,14 +26,14 @@
 ### hesreallyhim/awesome-claude-code
 - **Why:** Curated ecosystem catalog — discover new tools, libraries, and patterns
 - **Look for:** New entries in Orchestrators/Tools/Skills sections, trending repos referenced
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-24T20:21 | **Pattern hits:** 0
-- **Notes:** Categories: Skills, Workflows, Tooling, Hooks, Slash-Commands, CLAUDE.md Files, Status Lines, Alternative Clients. Cross-reference value for HORIZON SCAN, not direct patterns. SHA e438b93→d9780f4: new commits, check if non-ticker content. 0 pattern hits across 5+ observations.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-25T05:13 | **Pattern hits:** 0
+- **Notes:** Categories: Skills, Workflows, Tooling, Hooks, Slash-Commands, CLAUDE.md Files, Status Lines, Alternative Clients. Cross-reference value for HORIZON SCAN, not direct patterns. SHA d9780f4: confirmed all-ticker (automated SVGs), no content changes. 0 pattern hits across 7+ observations. Low-value for PATTERN_HUNT; retain for HORIZON_SCAN cross-reference only.
 
 ### bytedance/deer-flow
 - **Why:** Multi-agent orchestration patterns from a major tech company
 - **Look for:** Agent coordination, state management, tool orchestration, LLM provider patterns
-- **Added:** 2026-03-21 (seed) | **Last deep:** 2026-03-24T18:04 | **Pattern hits:** 1
-- **Notes:** Very active (5+ commits/day). GuardrailMiddleware covered by #67. Deep-dived 2026-03-24T14:11: symlink-aware skill scanning (#1292, followlinks=True in os.walk for custom skills dir — relevant to future #66 but not adoptable now) + subprocess security fix (#1289, os.system→subprocess, Python-specific). Deep-dived 2026-03-24T18:04: Windows Makefile compat (#1297), MCP sync wrapper (#1287, async-to-sync with ThreadPoolExecutor). Both platform-specific, 0 harness patterns. SHA 16ed797→ec46ae0: new commits, queue for next PATTERN_HUNT. Python/LangGraph specific, historically 0 harness patterns.
+- **Added:** 2026-03-21 (seed) | **Last deep:** 2026-03-25T05:13 | **Pattern hits:** 1
+- **Notes:** Very active (5+ commits/day). GuardrailMiddleware covered by #67. Deep-dived 2026-03-24T14:11: symlink-aware skill scanning (#1292, followlinks=True in os.walk for custom skills dir — relevant to future #66 but not adoptable now) + subprocess security fix (#1289, os.system→subprocess, Python-specific). Deep-dived 2026-03-24T18:04: Windows Makefile compat (#1297), MCP sync wrapper (#1287, async-to-sync with ThreadPoolExecutor). Both platform-specific, 0 harness patterns. Deep-dived 2026-03-25T05:13: SubagentLimitMiddleware tests (#1306), skills parser tests (#1308), null checks for runtime.context (#1269), LoopDetectionMiddleware Anthropic compat fix (#1300 — SystemMessage→HumanMessage). All Python/LangChain-specific. 0 harness patterns across 4 consecutive deep-dives. Python/LangGraph specific — consider reducing deep-dive priority.
 
 ### wshobson/agents
 - **Why:** Agent framework patterns — autonomous agent architectures
@@ -89,8 +89,8 @@
 ### volcengine/OpenViking
 - **Why:** Self-evolving context database (18.4K stars) — unified context management (memory, resources, skills) via file system paradigm, hierarchical context delivery
 - **Look for:** "ov doctor" diagnostic patterns, loop memory optimization, context/memory/loop separation, self-evolving architecture
-- **Added:** 2026-03-23 (horizon scan) | **Observations:** 17 | **First seen:** 2026-03-23
-- **Notes:** Very active (5+ commits/day). SHA 08b278d unchanged. Deep-dived 2026-03-24T14:11: tool pruning (-229 lines from ov_file.py, #929), actionable 422 error helper (#928), embedding dimension validation (#930), uninstall script (#933). Tool pruning good hygiene but premature for our 8-skill set. 0 harness patterns. Previous: circuit breaker (#772) validates #76, config validation (#904), "ov doctor" (#851).
+- **Added:** 2026-03-23 (horizon scan) | **Observations:** 20 | **First seen:** 2026-03-23
+- **Notes:** Very active (5+ commits/day). SHA 08b278d→b4a49de (new commits). Deep-dived 2026-03-24T14:11: tool pruning (-229 lines from ov_file.py, #929), actionable 422 error helper (#928), embedding dimension validation (#930), uninstall script (#933). Tool pruning good hygiene but premature for our 8-skill set. 0 harness patterns. Previous: circuit breaker (#772) validates #76, config validation (#904), "ov doctor" (#851).
 
 ### OthmanAdi/planning-with-files
 - **Why:** Persistent markdown planning skill (16.9K stars) — Manus-style file-based planning for Claude Code
@@ -107,8 +107,8 @@
 ### SethGammon/Citadel
 - **Why:** Agent orchestration harness (242 stars) — closest architecture to tokenman. Campaign persistence, parallel worktrees, circuit breaker, quality gate hooks
 - **Look for:** Circuit breaker implementation, quality gate patterns, campaign persistence, fleet coordination, lifecycle hooks
-- **Added:** 2026-03-24 (horizon scan) | **Observations:** 13 | **First seen:** 2026-03-24
-- **Notes:** SHA 729f417 (was 9567210). PR #18: stale skill path fix. PR #17: plugin arch cleanup. Previous: PR #15 install docs, PR #14 unified triage. 26 skills, 3 agents, 10 hooks. PostToolUseFailure circuit breaker (3 failures → suggest alternative, 5 trips → hard stop). PreCompact/Restore-Compact for context preservation. Pattern hit: circuit breaker (issue #76). External-action-gate covered by #67.
+- **Added:** 2026-03-24 (horizon scan) | **Observations:** 16 | **First seen:** 2026-03-24
+- **Notes:** SHA 729f417→867a468 (new commits). PR #18: stale skill path fix. PR #17: plugin arch cleanup. Previous: PR #15 install docs, PR #14 unified triage. 26 skills, 3 agents, 10 hooks. PostToolUseFailure circuit breaker (3 failures → suggest alternative, 5 trips → hard stop). PreCompact/Restore-Compact for context preservation. Pattern hit: circuit breaker (issue #76). External-action-gate covered by #67.
 
 ### anthropics/claude-plugins-official
 - **Why:** Official Anthropic plugin directory (14.3K stars) — distribution channel for Claude Code plugins with standard format
