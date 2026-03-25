@@ -53,15 +53,15 @@ Per-posture reduced scope (evolve only):
 | Posture        | Normal Scope     | Degraded Scope        | Turn Budget |
 |----------------|------------------|-----------------------|-------------|
 | PATTERN_HUNT   | 3-4 sources      | 2 sources             | 40          |
-| PIPELINE_WATCH | Full pipeline    | Last 3 runs only      | 38          |
+| PIPELINE_WATCH | Full pipeline    | Last 3 runs only      | 35          |
 | HORIZON_SCAN   | All watch list   | Top 3 sources only    | 40          |
-| SYNTHESIS      | Cross-reference  | Single-source summary | 38          |
+| SYNTHESIS      | Cross-reference  | Single-source summary | 35          |
 
 Per-posture turn budgets are soft caps. When a posture approaches its budget,
 prioritize wrapping up over starting new deep-dives. PIPELINE_WATCH and SYNTHESIS
 have lower budgets because they historically consume the most turns.
 
-Wind-down threshold: When turns used >= 70% of max-turns, agent should:
+Wind-down threshold: When turns used >= 60% of max-turns, agent should:
 1. Stop starting new research/exploration
 2. Summarize findings so far
 3. Commit state files
