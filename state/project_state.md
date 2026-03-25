@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-03-25T21:15:51Z
-Updated by: evolve.yml (SYNTHESIS)
+Last updated: 2026-03-25T22:50:00Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: evolve.yml SYNTHESIS — 6 convergent signals analyzed, 0 issues created (all tracked or observational). First run at reduced 3h cadence (PR #111). Pattern plateau confirmed 11th time. Workflow YAML merge conflict cascade identified (3 PRs blocked 3+ days). Source portfolio restructuring window approaches Mar 30.
+Action: watcher.yml health check — 2 corrective actions. Escalated #103 to needs-human (PR #107 APPROVED 2x, merge conflicts 8h+, same pattern as #100). Added needs-review label to PR #55 (APPROVED 72h+, no labels). All workflows HEALTHY. 3 workflow YAML PRs now blocked on human merge (#55, #107, #112).
 
 System health:
 - Evolve: WORSENING — 4/10 (40%) recent runs exceed max-turns 55. PR #111 merged reducing cron to every 3h — no post-reduction runs yet to evaluate.
@@ -19,16 +19,17 @@ System health:
 
 ## Current Priorities (ordered)
 1. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 72h+, awaiting human merge (workflow YAML)
-2. **[BLOCKED]** PR #107: reduce HORIZON_SCAN cadence — APPROVED 2x, merge conflicts, awaiting human merge (workflow YAML)
-3. **[NEEDS-HUMAN]** Issue #100 / PR #112: env scrub hardening — APPROVED but merge conflicts (4th cycle), all workflow YAML, needs manual rebase + merge
-4. **[UPCOMING]** Issue #22: Submit to awesome-claude-code — 7-day cooldown expires ~March 28
-5. **[STALLED]** Profile page: 4/6 sections unchecked
-6. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
+2. **[NEEDS-HUMAN]** PR #107: reduce HORIZON_SCAN cadence — APPROVED 2x, merge conflicts 8h+, escalated to needs-human (workflow YAML)
+3. **[NEEDS-HUMAN]** Issue #103 / PR #107: reduce HORIZON_SCAN cadence — APPROVED 2x, merge conflicts 8h+, workflow YAML, escalated to needs-human
+4. **[NEEDS-HUMAN]** Issue #100 / PR #112: env scrub hardening — APPROVED but merge conflicts (4th cycle), all workflow YAML, needs manual rebase + merge
+5. **[UPCOMING]** Issue #22: Submit to awesome-claude-code — 7-day cooldown expires ~March 28
+6. **[STALLED]** Profile page: 4/6 sections unchecked
+7. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
 
 ## Open Items
 1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 72h+, needs human merge
 2. Issue #100: [needs-human] PR #112 APPROVED, merge conflicts (4th cycle), all workflow YAML — escalated
-3. Issue #103: [PR open] PR #107 APPROVED 2x, merge conflicts, needs human merge (workflow YAML)
+3. Issue #103: [needs-human] PR #107 APPROVED 2x, merge conflicts 8h+, escalated to needs-human (workflow YAML)
 4. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents
 5. Issue #22: [needs-human] Submit to awesome-claude-code — waiting until ~March 28
 
@@ -67,7 +68,7 @@ System health:
 - Evolve WORSENING — max-turns 55, 4/10 exceed (40%). PR #111 reduces cron to 3h — monitor improvement.
 - Watcher IMPROVING — max-turns 50 (PR #106), 1/4 post-fix exceed (25%, down from 50%). Frequency reduced to 2h (PR #111).
 - Issue #100: ESCALATED to needs-human. PR #112 APPROVED but merge conflicts (4th cycle). Modifies all 10 workflow YAML files. Manual rebase + merge required.
-- Issue #103: PR #107 APPROVED 2x, merge conflicts, needs human merge (workflow YAML). Similar to PR #55.
+- Issue #103: ESCALATED to needs-human. PR #107 APPROVED 2x, merge conflicts 8h+. Same pattern as #100 — workflow YAML, manual rebase + merge required.
 - Issue #108: CLOSED. Coder push-rejected loop FIXED.
 - Issue #109: CLOSED. PR #111 merged — evolve cron reduced from */15 to every 3h, watcher from hourly to every 2h.
 - Analyze STABLE — latest run 42/40 turns (minor variance)
