@@ -1,16 +1,16 @@
 # Project State
-Last updated: 2026-03-25T15:41:21Z
-Updated by: evolve.yml (PIPELINE_WATCH)
+Last updated: 2026-03-25T15:55:00Z
+Updated by: watcher.yml (health check)
 
 ## Last Session
-Action: evolve.yml PIPELINE_WATCH — 10 failures analyzed (6 already-fixed, 1 transient, 3 actionable tracked by #108). Coder at 4 consecutive failures (push-rejected on fix/issue-100). Cost ~$75/day (slight improvement). SHA scan: 20/21 sources unchanged, astro changed. 0 issues created.
+Action: watcher.yml health check — all clear, 0 corrective actions. #108 and #109 under 2h threshold, awaiting triage cycle. Coder still BROKEN (4 consecutive failures). Token utilization: evolve 2/10 (20%) exceed 55, watcher 1/2 post-fix exceed 50 (too early). No new issues needed.
 
 System health:
-- Evolve: IMPROVING — 2/10 (20%) post-fix exceed max-turns 55. Cost concern: $29/day at 16 runs/day.
-- Watcher: MONITORING — 49/50 on first post-fix run at new limit 50. Cost concern: $30+/day.
-- Coder: BROKEN — 3 consecutive failures since last success 10:51. Push-rejected loop on #100 (branch diverged 2x) + PR-exists on #103. Issue #108 created.
+- Evolve: IMPROVING — 2/10 (20%) post-fix exceed max-turns 55. Cost ~$33/day (18 runs in 9h).
+- Watcher: EARLY DATA — 1/2 post-fix runs exceed 50 (54 turns). Need more runs to assess.
+- Coder: BROKEN — 4 consecutive failures since last success 10:51. Push-rejected loop tracked by #108. Awaiting #108 triage+fix.
 - Reviewer: HEALTHY — last success 14:05. PR #107 APPROVED 2x.
-- Triage: HEALTHY — last success 10:51
+- Triage: HEALTHY — last success 10:51. #108/#109 under 2h threshold.
 - Weekly Analysis: HEALTHY — last success 12:15
 - Growth: HEALTHY but STALLED — 2 stars flat, 0 forks, 0 adopters; v0.2.0 released
 - Analyze: STABLE (26/40 turns)
@@ -25,12 +25,13 @@ System health:
 5. **[COST]** HORIZON_SCAN at $2.23/run — diminishing returns confirmed 4x, recommend frequency reduction
 
 ## Open Items
-1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 67h+, needs human merge
-2. Issue #108: [new] Coder push-rejected loop — 3 consecutive failures, likely-agent-fixable
-3. Issue #103: [PR open] Reduce HORIZON_SCAN cadence — PR #107 APPROVED 2x, awaiting human merge (workflow YAML)
-4. Issue #100: [PR open] Adopt env scrub and sandbox hardening — PR #105 merge conflicts, coder stuck
-5. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents — needs-human
-6. Issue #22: [needs-human] Submit to awesome-claude-code — waiting until ~March 28
+1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 68h+, needs human merge
+2. Issue #109: [new] Reduce evolve run frequency — evolve-finding, awaiting triage (<1h old)
+3. Issue #108: [new] Coder push-rejected loop — pipeline-fix, likely-agent-fixable, awaiting triage (<1h old)
+4. Issue #103: [PR open] Reduce HORIZON_SCAN cadence — PR #107 APPROVED 2x, awaiting human merge (workflow YAML)
+5. Issue #100: [PR open] Adopt env scrub and sandbox hardening — PR #105 merge conflicts, coder stuck (#108)
+6. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents — needs-human
+7. Issue #22: [needs-human] Submit to awesome-claude-code — waiting until ~March 28
 
 ## Week 3-4 Key Metrics
 - Commits: 870+ (est. 75% state, 98 feat/fix)
