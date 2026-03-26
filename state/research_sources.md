@@ -1,7 +1,7 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-03-26T12:26:35Z
+# Last updated: 2026-03-26T15:34:00Z
 
 ## Active Sources
 
@@ -14,7 +14,7 @@
 ### garrytan/gstack
 - **Why:** Harness engineering patterns — skills, slash commands, review protocols, agent orchestration
 - **Look for:** New skill files, workflow patterns, agent guardrails, PR review techniques, structured output formats
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-26T09:28 | **Pattern hits:** 9 | **SHA:** aa7daf0
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-26T09:28 | **Pattern hits:** 9 | **SHA:** 997f7b1
 - **Notes:** Most productive source so far. 9 pattern hits across v0.9.7-v0.11.18.2. v0.11.19.0: Codex description 900-char guard test, -C flag for multi-workspace git root, proactive skill routing (workflow-stage suggestions). All Codex-specific or interactive-session. Pattern yield declining — 12th consecutive PH with 0 adoptable patterns from this source.
 
 ### affaan-m/everything-claude-code
@@ -32,7 +32,7 @@
 ### bytedance/deer-flow
 - **Why:** Multi-agent orchestration patterns from a major tech company
 - **Look for:** Agent coordination, state management, tool orchestration, LLM provider patterns
-- **Added:** 2026-03-21 (seed) | **Last deep:** 2026-03-26T09:28 | **Pattern hits:** 1 | **SHA:** 0d3cefa
+- **Added:** 2026-03-21 (seed) | **Last deep:** 2026-03-26T09:28 | **Pattern hits:** 1 | **SHA:** e1853df
 - **Notes:** Very active (5+ commits/day). GuardrailMiddleware covered by #67. ACP agent tool integration (auto_approve_permissions, harness/app split) — Python/LangGraph-specific. 0 harness patterns across 8+ consecutive deep-dives. Lowest deep-dive priority.
 
 ### wshobson/agents
@@ -50,7 +50,7 @@
 ### withastro/astro
 - **Why:** Web framework we use — security fixes, breaking changes, new features
 - **Look for:** Security advisories, breaking changes in minor/major releases, new content collection features
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-25T17:12 | **Pattern hits:** 0 | **SHA:** 4fad14a
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-25T17:12 | **Pattern hits:** 0 | **SHA:** 88fcc98
 - **Notes:** Only actionable for security fixes or features that affect our site build. SHA 6683086→87fd6a4: Vite 8 warning + pin Vite 7 for Cloudflare adapter. Astro now has 5+ agent skills — validates #66 convention. 0 harness patterns across 10+ deep-dives. Monitor Vite 8 compatibility.
 
 ### verkyyi/tokenman
@@ -65,68 +65,68 @@
 ### thedotmack/claude-mem
 - **Why:** Session memory plugin (40K stars) — auto-captures sessions, AI-compresses context, injects relevance-filtered memory into future sessions
 - **Look for:** Compression strategies, relevance filtering, context injection patterns, memory lifecycle management
-- **Added:** 2026-03-23 (horizon scan) | **Observations:** 28 | **First seen:** 2026-03-23
+- **Added:** 2026-03-23 (horizon scan) | **Observations:** 29 | **First seen:** 2026-03-23
 - **Notes:** v10.6.2 active (Mar 21). SHA a656af2 unchanged. Their compress-filter-inject pipeline is more sophisticated than our simple state/ read/write. Could improve how we manage project_state.md context.
 
 ### BloopAI/vibe-kanban
 - **Why:** Agent management platform (24K stars) — PR-issue linking, multi-provider orchestration, kanban-style agent task management
 - **Look for:** PR-issue linking automation, relay architecture, agent task queuing, multi-model coordination
-- **Added:** 2026-03-23 (horizon scan) | **Observations:** 27 | **First seen:** 2026-03-23
-- **Notes:** v0.1.36+, very active. SHA 9a0fb95→ce59de9 changed. UI-focused. 1 pattern hit (SHA pinning). No new harness patterns.
+- **Added:** 2026-03-23 (horizon scan) | **Observations:** 28 | **First seen:** 2026-03-23
+- **Notes:** v0.1.36+, very active. SHA ce59de9 unchanged. UI-focused. 1 pattern hit (SHA pinning). No new harness patterns.
 
 ### trailofbits/skills
 - **Why:** Security-focused Claude Code skills (4K stars) from top security firm — audit workflows, vulnerability detection, semgrep rules
 - **Look for:** Security audit skill structure, semgrep rule patterns, skill-improver tooling, SKILL.md format conventions
-- **Added:** 2026-03-23 (horizon scan) | **Observations:** 27 | **First seen:** 2026-03-23
-- **Notes:** SHA 9df4731 unchanged (3rd consecutive). 34+ plugins with formal SKILL.md standard. skill-improver quality loop. Codex compatibility layer. PR #123: cross-platform sidecar symlink distribution. Pattern hit: SKILL.md quality standard (issue #68).
+- **Added:** 2026-03-23 (horizon scan) | **Observations:** 28 | **First seen:** 2026-03-23
+- **Notes:** SHA 9df4731 unchanged (4th consecutive). 34+ plugins with formal SKILL.md standard. skill-improver quality loop. Codex compatibility layer. PR #123: cross-platform sidecar symlink distribution. Pattern hit: SKILL.md quality standard (issue #68).
 
 ### sickn33/antigravity-awesome-skills
 - **Why:** Largest skill catalog (27K stars, 1309+ skills) — installable via CLI, bundles, multi-platform (Claude Code, Codex, Gemini CLI, Cursor)
 - **Look for:** Skill packaging/distribution model, CLI installer patterns, bundle organization, cross-platform skill format
-- **Added:** 2026-03-23 (horizon scan) | **Observations:** 34 | **First seen:** 2026-03-23
-- **Notes:** SHA b868448→d0dd613 (changed). NPX installer, bundles by role. Confirms direction of #66.
+- **Added:** 2026-03-23 (horizon scan) | **Observations:** 35 | **First seen:** 2026-03-23
+- **Notes:** SHA d0dd613→eaebf3e (changed). NPX installer, bundles by role. Confirms direction of #66.
 
 ### OthmanAdi/planning-with-files
 - **Why:** Persistent markdown planning skill (16.9K stars) — Manus-style file-based planning for Claude Code
 - **Look for:** SKILL.md format, planning file structure, state persistence patterns, i18n skill variants
-- **Added:** 2026-03-23 (horizon scan) | **Observations:** 25 | **First seen:** 2026-03-23
-- **Notes:** v2.29.0. SHA bb3a21a unchanged (3rd consecutive). Validates markdown-as-memory, SKILL.md format with i18n. Active community (115+ PRs).
+- **Added:** 2026-03-23 (horizon scan) | **Observations:** 26 | **First seen:** 2026-03-23
+- **Notes:** v2.29.0. SHA bb3a21a unchanged (4th consecutive). Validates markdown-as-memory, SKILL.md format with i18n. Active community (115+ PRs).
 
 ### ruvnet/ruflo
 - **Why:** Agent orchestration platform (24.2K stars, v3.5.42) — multi-agent swarms, hive-mind coordination, RAG, native Claude Code integration
 - **Look for:** Hive-mind real status reporting, agent coordination patterns, security audit responses, MCP resilience
-- **Added:** 2026-03-23 (horizon scan) | **Observations:** 26 | **First seen:** 2026-03-23
+- **Added:** 2026-03-23 (horizon scan) | **Observations:** 27 | **First seen:** 2026-03-23
 - **Notes:** SHA f547cec unchanged. Deep-dived 2026-03-26. ruflo-specific architecture, not directly adoptable. 0 harness patterns.
 
 ### SethGammon/Citadel
 - **Why:** Agent orchestration harness (242 stars) — closest architecture to tokenman. Campaign persistence, parallel worktrees, circuit breaker, quality gate hooks
 - **Look for:** Circuit breaker implementation, quality gate patterns, campaign persistence, fleet coordination, lifecycle hooks
-- **Added:** 2026-03-24 (horizon scan) | **Observations:** 28 | **First seen:** 2026-03-24
-- **Notes:** SHA 8d96785 unchanged (4th consecutive). 1 pattern hit (circuit breaker #76). Informational for #66.
+- **Added:** 2026-03-24 (horizon scan) | **Observations:** 29 | **First seen:** 2026-03-24
+- **Notes:** SHA 8d96785 unchanged (5th consecutive). 1 pattern hit (circuit breaker #76). Informational for #66.
 
 ### anthropics/claude-plugins-official
 - **Why:** Official Anthropic plugin directory (14.3K stars) — distribution channel for Claude Code plugins with standard format
 - **Look for:** Plugin format updates, new submission requirements, plugin.json schema changes, new official plugins relevant to harness patterns
-- **Added:** 2026-03-24 (horizon scan) | **Observations:** 26 | **First seen:** 2026-03-24
-- **Notes:** SHA b10b583 unchanged (4th consecutive). Standard plugin format: .claude-plugin/plugin.json + commands/ + agents/ + skills/. Distribution channel for #66. 1 pattern hit (official plugin format).
+- **Added:** 2026-03-24 (horizon scan) | **Observations:** 27 | **First seen:** 2026-03-24
+- **Notes:** SHA b10b583 unchanged (5th consecutive). Standard plugin format: .claude-plugin/plugin.json + commands/ + agents/ + skills/. Distribution channel for #66. 1 pattern hit (official plugin format).
 
 ### vibeeval/vibecosystem
 - **Why:** Comprehensive agent team (275 stars) — 119 agents, 208 skills, 49 hooks, 21 rules. Self-learning pattern where errors auto-become rules
 - **Look for:** Self-learning implementation, session evaluation patterns, skill gateway for external catalogs, workflow routing
-- **Added:** 2026-03-24 (horizon scan) | **Observations:** 24 | **First seen:** 2026-03-24
-- **Notes:** SHA 49840c2 unchanged (4th consecutive). 1 pattern hit (multi-agent review quality gate). Self-learning pattern similar to our feedback-learner. evaluate-session.sh for session outcomes.
+- **Added:** 2026-03-24 (horizon scan) | **Observations:** 25 | **First seen:** 2026-03-24
+- **Notes:** SHA 49840c2 unchanged (5th consecutive). 1 pattern hit (multi-agent review quality gate). Self-learning pattern similar to our feedback-learner. evaluate-session.sh for session outcomes.
 
 ### agent-sh/agnix
 - **Why:** CLAUDE.md/SKILL.md linter and LSP (103 stars) — validates AI coding assistant config files, autofixes, IDE plugins
 - **Look for:** Validation rules for CLAUDE.md, SKILL.md format standards, CI integration patterns, autofix capabilities
-- **Added:** 2026-03-24 (horizon scan) | **Observations:** 23 | **First seen:** 2026-03-24
-- **Notes:** SHA 55adfcb unchanged (4th consecutive). Rust. v0.16.5 (Mar 23). Active development (675+ PRs). Could validate CLAUDE.md/SKILL.md in CI. 0 pattern hits.
+- **Added:** 2026-03-24 (horizon scan) | **Observations:** 24 | **First seen:** 2026-03-24
+- **Notes:** SHA 55adfcb unchanged (5th consecutive). Rust. v0.16.5 (Mar 23). Active development (675+ PRs). Could validate CLAUDE.md/SKILL.md in CI. 0 pattern hits.
 
 ### intertwine/hive-orchestrator
 - **Why:** Markdown-native agent orchestration (14 stars) — closest architecture to tokenman. Git-native, GitHub Actions, markdown shared memory
 - **Look for:** Markdown-as-memory patterns, vendor-agnostic coordination, hybrid retrieval, skills directory structure
-- **Added:** 2026-03-24 (horizon scan) | **Observations:** 24 | **First seen:** 2026-03-24
-- **Notes:** SHA 51494de unchanged (4th consecutive). Python. v2.3.1. Validates #66 packaging (skills/ dir with symlinks). Architecturally most similar to tokenman. 0 direct pattern hits.
+- **Added:** 2026-03-24 (horizon scan) | **Observations:** 25 | **First seen:** 2026-03-24
+- **Notes:** SHA 51494de unchanged (5th consecutive). Python. v2.3.1. Validates #66 packaging (skills/ dir with symlinks). Architecturally most similar to tokenman. 0 direct pattern hits.
 
 ## Dropped Sources
 <!-- Removed sources with reason. Kept for history so we don't re-discover them. -->
