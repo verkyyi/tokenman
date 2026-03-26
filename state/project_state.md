@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-03-25T22:50:00Z
-Updated by: watcher.yml
+Last updated: 2026-03-26T00:41:00Z
+Updated by: evolve.yml
 
 ## Last Session
-Action: watcher.yml health check — 2 corrective actions. Escalated #103 to needs-human (PR #107 APPROVED 2x, merge conflicts 8h+, same pattern as #100). Added needs-review label to PR #55 (APPROVED 72h+, no labels). All workflows HEALTHY. 3 workflow YAML PRs now blocked on human merge (#55, #107, #112).
+Action: evolve.yml PIPELINE_WATCH — pipeline fully clean, PR #111 cost reduction validated. All 10 recent failures already-fixed. Evolve 3h + watcher 2h cadence confirmed from timestamps. Cost: ~$42/day post-merge vs ~$134/day pre-merge (69% reduction, ~$294/week). claude-code SHA changed first time in 25+ scans (CHANGELOG only). 3 Active + 1 Watch List SHA changes noted for next PATTERN_HUNT.
 
 System health:
 - Evolve: WORSENING — 4/10 (40%) recent runs exceed max-turns 55. PR #111 merged reducing cron to every 3h — no post-reduction runs yet to evaluate.
@@ -40,7 +40,7 @@ System health:
 - Agent log actions: 232
 - Workflow runs: ~220+ (evolve dominant, frequency now reduced)
 - Research sources monitored: 9 Active + 12 Watch List
-- Cost: $514/week projected — PR #111 reduces evolve frequency to 3h, expected ~$314/week
+- Cost: ~$294/week measured post-PR #111 (69% reduction from ~$134/day pre-merge to ~$42/day)
 - Stars: 2 | Forks: 0 | Adopters: 0
 - Growth: flat at 2 stars; v0.2.0 released; #22 submission ~March 28; #48 blocked needs-human
 
