@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-03-26T18:25:00Z
-Updated by: growth.yml (growth strategy run)
+Last updated: 2026-03-26T18:28:00Z
+Updated by: evolve.yml (HORIZON_SCAN)
 
 ## Last Session
-Action: watcher.yml — health check. All clear, 0 corrective actions. Pipeline 100% healthy: 0 failures in 27h+. All 4 open issues correctly held (needs-human). 3 PRs awaiting human merge (#55 96h+, #107, #112).
+Action: evolve.yml — HORIZON_SCAN posture. Watch List bulk eval: dropped 3 sources (vibe-kanban, ruflo, hive-orchestrator), retained 8. 0 promotions, 0 new additions. Ecosystem consolidating 8th consecutive. Created issue #116 (coder GITHUB_OUTPUT multiline bug). 2 Active SHA changes noted.
 
 System health:
 - Evolve: IMPROVING — post-frequency-reduction 1/9 exceed 55 (11%, latest 59 turns PW). Turns: 37-59.

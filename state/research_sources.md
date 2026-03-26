@@ -1,7 +1,7 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-03-26T15:34:00Z
+# Last updated: 2026-03-26T18:28:00Z
 
 ## Active Sources
 
@@ -14,8 +14,8 @@
 ### garrytan/gstack
 - **Why:** Harness engineering patterns — skills, slash commands, review protocols, agent orchestration
 - **Look for:** New skill files, workflow patterns, agent guardrails, PR review techniques, structured output formats
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-26T09:28 | **Pattern hits:** 9 | **SHA:** 997f7b1
-- **Notes:** Most productive source so far. 9 pattern hits across v0.9.7-v0.11.18.2. v0.11.19.0: Codex description 900-char guard test, -C flag for multi-workspace git root, proactive skill routing (workflow-stage suggestions). All Codex-specific or interactive-session. Pattern yield declining — 12th consecutive PH with 0 adoptable patterns from this source.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-26T09:28 | **Pattern hits:** 9 | **SHA:** 4f435e4
+- **Notes:** Most productive source so far. 9 pattern hits across v0.9.7-v0.11.18.2. v0.11.19.0: Codex description 900-char guard test, -C flag for multi-workspace git root, proactive skill routing (workflow-stage suggestions). All Codex-specific or interactive-session. Pattern yield declining — 13th consecutive PH with 0 adoptable patterns from this source. SHA 997f7b1→4f435e4 (changed, not deep-dived).
 
 ### affaan-m/everything-claude-code
 - **Why:** Community harness patterns, skill collections, optimization techniques
@@ -26,8 +26,8 @@
 ### hesreallyhim/awesome-claude-code
 - **Why:** Curated ecosystem catalog — discover new tools, libraries, and patterns
 - **Look for:** New entries in Orchestrators/Tools/Skills sections, trending repos referenced
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-26T09:28 | **Pattern hits:** 0 | **SHA:** a1c4015
-- **Notes:** SHA 2e0f345→a1c4015. Confirmed ticker (15th+ consecutive content-free change). 0 pattern hits across 15+ observations. Low-value for PATTERN_HUNT; retain for HORIZON_SCAN cross-reference only.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-26T09:28 | **Pattern hits:** 0 | **SHA:** 00fb183
+- **Notes:** SHA a1c4015→00fb183 (changed, likely ticker). Confirmed ticker (16th+ consecutive content-free change). 0 pattern hits across 16+ observations. Low-value for PATTERN_HUNT; retain for HORIZON_SCAN cross-reference only.
 
 ### bytedance/deer-flow
 - **Why:** Multi-agent orchestration patterns from a major tech company
@@ -39,7 +39,7 @@
 - **Why:** Agent framework patterns — autonomous agent architectures
 - **Look for:** Retry patterns, memory management, tool selection, agent lifecycle
 - **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-24 | **Pattern hits:** 0
-- **Notes:** 32K stars, 3504 forks. Plugin/skill catalog for Claude Code. SHA 1ad2f00 unchanged 19d+ (last commit Mar 10). 0 pattern hits. Drop candidate Apr 7 (4-week staleness threshold).
+- **Notes:** 32K stars, 3504 forks. Plugin/skill catalog for Claude Code. SHA 1ad2f00 unchanged 16d+ (last commit Mar 10). 0 pattern hits. Drop candidate Apr 7 (4-week staleness threshold).
 
 ### actions/runner
 - **Why:** CI/CD runtime we depend on — deprecation notices, new features, security fixes
@@ -57,7 +57,7 @@
 - **Why:** Self-reference — track forks, adopters, and how the scaffold is used
 - **Look for:** New forks, adopter modifications, issues filed by users
 - **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 0 | **SHA:** 25d48db
-- **Notes:** Used during HORIZON SCAN for adoption tracking. 0 forks, 0 adopters as of 2026-03-25.
+- **Notes:** Used during HORIZON SCAN for adoption tracking. 0 forks, 0 adopters as of 2026-03-26.
 
 ## Watch List
 <!-- Sources under evaluation. Promoted to Active or Dropped after 3+ observations over 7+ days. -->
@@ -65,71 +65,62 @@
 ### thedotmack/claude-mem
 - **Why:** Session memory plugin (40K stars) — auto-captures sessions, AI-compresses context, injects relevance-filtered memory into future sessions
 - **Look for:** Compression strategies, relevance filtering, context injection patterns, memory lifecycle management
-- **Added:** 2026-03-23 (horizon scan) | **Observations:** 29 | **First seen:** 2026-03-23
-- **Notes:** v10.6.2 active (Mar 21). SHA a656af2 unchanged. Their compress-filter-inject pipeline is more sophisticated than our simple state/ read/write. Could improve how we manage project_state.md context.
-
-### BloopAI/vibe-kanban
-- **Why:** Agent management platform (24K stars) — PR-issue linking, multi-provider orchestration, kanban-style agent task management
-- **Look for:** PR-issue linking automation, relay architecture, agent task queuing, multi-model coordination
-- **Added:** 2026-03-23 (horizon scan) | **Observations:** 28 | **First seen:** 2026-03-23
-- **Notes:** v0.1.36+, very active. SHA ce59de9 unchanged. UI-focused. 1 pattern hit (SHA pinning). No new harness patterns.
+- **Added:** 2026-03-23 (horizon scan) | **Observations:** 30 | **First seen:** 2026-03-23
+- **Notes:** v10.6.2 active (Mar 21). SHA a656af2 unchanged (pushed today). Compress-filter-inject pipeline more sophisticated than our state/ read/write. Could improve project_state.md context management. 0 concrete patterns after 30 obs — fundamentally different approach.
 
 ### trailofbits/skills
 - **Why:** Security-focused Claude Code skills (4K stars) from top security firm — audit workflows, vulnerability detection, semgrep rules
 - **Look for:** Security audit skill structure, semgrep rule patterns, skill-improver tooling, SKILL.md format conventions
-- **Added:** 2026-03-23 (horizon scan) | **Observations:** 28 | **First seen:** 2026-03-23
-- **Notes:** SHA 9df4731 unchanged (4th consecutive). 34+ plugins with formal SKILL.md standard. skill-improver quality loop. Codex compatibility layer. PR #123: cross-platform sidecar symlink distribution. Pattern hit: SKILL.md quality standard (issue #68).
+- **Added:** 2026-03-23 (horizon scan) | **Observations:** 29 | **First seen:** 2026-03-23
+- **Notes:** SHA 9df4731 unchanged (5th consecutive). 34+ plugins with formal SKILL.md standard. skill-improver quality loop. Codex compatibility layer. Pattern hit: SKILL.md quality standard (issue #68). Key reference for #66.
 
 ### sickn33/antigravity-awesome-skills
 - **Why:** Largest skill catalog (27K stars, 1309+ skills) — installable via CLI, bundles, multi-platform (Claude Code, Codex, Gemini CLI, Cursor)
 - **Look for:** Skill packaging/distribution model, CLI installer patterns, bundle organization, cross-platform skill format
-- **Added:** 2026-03-23 (horizon scan) | **Observations:** 35 | **First seen:** 2026-03-23
-- **Notes:** SHA d0dd613→eaebf3e (changed). NPX installer, bundles by role. Confirms direction of #66.
+- **Added:** 2026-03-23 (horizon scan) | **Observations:** 36 | **First seen:** 2026-03-23
+- **Notes:** SHA eaebf3e→367c4e0 (changed). NPX installer, bundles by role. Confirms direction of #66. 1326+ skills.
 
 ### OthmanAdi/planning-with-files
 - **Why:** Persistent markdown planning skill (16.9K stars) — Manus-style file-based planning for Claude Code
 - **Look for:** SKILL.md format, planning file structure, state persistence patterns, i18n skill variants
-- **Added:** 2026-03-23 (horizon scan) | **Observations:** 26 | **First seen:** 2026-03-23
-- **Notes:** v2.29.0. SHA bb3a21a unchanged (4th consecutive). Validates markdown-as-memory, SKILL.md format with i18n. Active community (115+ PRs).
-
-### ruvnet/ruflo
-- **Why:** Agent orchestration platform (24.2K stars, v3.5.42) — multi-agent swarms, hive-mind coordination, RAG, native Claude Code integration
-- **Look for:** Hive-mind real status reporting, agent coordination patterns, security audit responses, MCP resilience
 - **Added:** 2026-03-23 (horizon scan) | **Observations:** 27 | **First seen:** 2026-03-23
-- **Notes:** SHA f547cec unchanged. Deep-dived 2026-03-26. ruflo-specific architecture, not directly adoptable. 0 harness patterns.
+- **Notes:** v2.29.0. SHA bb3a21a unchanged (5th consecutive). Validates markdown-as-memory, SKILL.md format with i18n. Active community (115+ PRs).
 
 ### SethGammon/Citadel
 - **Why:** Agent orchestration harness (242 stars) — closest architecture to tokenman. Campaign persistence, parallel worktrees, circuit breaker, quality gate hooks
 - **Look for:** Circuit breaker implementation, quality gate patterns, campaign persistence, fleet coordination, lifecycle hooks
-- **Added:** 2026-03-24 (horizon scan) | **Observations:** 29 | **First seen:** 2026-03-24
-- **Notes:** SHA 8d96785 unchanged (5th consecutive). 1 pattern hit (circuit breaker #76). Informational for #66.
+- **Added:** 2026-03-24 (horizon scan) | **Observations:** 30 | **First seen:** 2026-03-24
+- **Notes:** SHA 8d96785→fda6bab (changed — hook bug fixes: path quoting, backslash escaping). 1 pattern hit (circuit breaker #76). Informational for #66.
 
 ### anthropics/claude-plugins-official
 - **Why:** Official Anthropic plugin directory (14.3K stars) — distribution channel for Claude Code plugins with standard format
 - **Look for:** Plugin format updates, new submission requirements, plugin.json schema changes, new official plugins relevant to harness patterns
-- **Added:** 2026-03-24 (horizon scan) | **Observations:** 27 | **First seen:** 2026-03-24
-- **Notes:** SHA b10b583 unchanged (5th consecutive). Standard plugin format: .claude-plugin/plugin.json + commands/ + agents/ + skills/. Distribution channel for #66. 1 pattern hit (official plugin format).
+- **Added:** 2026-03-24 (horizon scan) | **Observations:** 28 | **First seen:** 2026-03-24
+- **Notes:** SHA b10b583 unchanged (6th consecutive). Standard plugin format: .claude-plugin/plugin.json + commands/ + agents/ + skills/. Distribution channel for #66. 1 pattern hit (official plugin format).
 
 ### vibeeval/vibecosystem
 - **Why:** Comprehensive agent team (275 stars) — 119 agents, 208 skills, 49 hooks, 21 rules. Self-learning pattern where errors auto-become rules
 - **Look for:** Self-learning implementation, session evaluation patterns, skill gateway for external catalogs, workflow routing
-- **Added:** 2026-03-24 (horizon scan) | **Observations:** 25 | **First seen:** 2026-03-24
-- **Notes:** SHA 49840c2 unchanged (5th consecutive). 1 pattern hit (multi-agent review quality gate). Self-learning pattern similar to our feedback-learner. evaluate-session.sh for session outcomes.
+- **Added:** 2026-03-24 (horizon scan) | **Observations:** 26 | **First seen:** 2026-03-24
+- **Notes:** SHA 49840c2 unchanged (6th consecutive). 1 pattern hit (multi-agent review quality gate). Self-learning pattern similar to our feedback-learner. evaluate-session.sh for session outcomes.
 
 ### agent-sh/agnix
 - **Why:** CLAUDE.md/SKILL.md linter and LSP (103 stars) — validates AI coding assistant config files, autofixes, IDE plugins
 - **Look for:** Validation rules for CLAUDE.md, SKILL.md format standards, CI integration patterns, autofix capabilities
-- **Added:** 2026-03-24 (horizon scan) | **Observations:** 24 | **First seen:** 2026-03-24
-- **Notes:** SHA 55adfcb unchanged (5th consecutive). Rust. v0.16.5 (Mar 23). Active development (675+ PRs). Could validate CLAUDE.md/SKILL.md in CI. 0 pattern hits.
-
-### intertwine/hive-orchestrator
-- **Why:** Markdown-native agent orchestration (14 stars) — closest architecture to tokenman. Git-native, GitHub Actions, markdown shared memory
-- **Look for:** Markdown-as-memory patterns, vendor-agnostic coordination, hybrid retrieval, skills directory structure
 - **Added:** 2026-03-24 (horizon scan) | **Observations:** 25 | **First seen:** 2026-03-24
-- **Notes:** SHA 51494de unchanged (5th consecutive). Python. v2.3.1. Validates #66 packaging (skills/ dir with symlinks). Architecturally most similar to tokenman. 0 direct pattern hits.
+- **Notes:** SHA 55adfcb unchanged (6th consecutive). Rust. v0.16.5 (Mar 23). Active development (675+ PRs). Could validate CLAUDE.md/SKILL.md in CI. 0 pattern hits.
 
 ## Dropped Sources
 <!-- Removed sources with reason. Kept for history so we don't re-discover them. -->
+
+### BloopAI/vibe-kanban
+- **Dropped:** 2026-03-26 | **Reason:** 28 observations, 1 pattern hit (SHA pinning, already adopted). UI-focused agent management platform — no remaining harness patterns. Active but irrelevant to our architecture.
+
+### ruvnet/ruflo
+- **Dropped:** 2026-03-26 | **Reason:** 27 observations, 0 harness patterns after deep-dive. ruflo-specific multi-agent swarm architecture fundamentally different from our single-agent harness. No transferable patterns.
+
+### intertwine/hive-orchestrator
+- **Dropped:** 2026-03-26 | **Reason:** 25 observations, 0 direct pattern hits. Only 14 stars, low activity (last pushed Mar 24). Architecturally similar concept but too small/inactive to yield patterns. Validates #66 packaging but so do larger sources.
 
 ### volcengine/OpenViking
 - **Dropped:** 2026-03-26 | **Reason:** 35+ observations, 0 harness pattern hits. Very active but all Python-specific (openclaw-plugin, Windows wheel packaging, Chinese docs). Circuit breaker pattern already adopted via #76 before Watch List period. No transferable patterns despite extensive monitoring.
