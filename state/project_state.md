@@ -1,14 +1,14 @@
 # Project State
-Last updated: 2026-03-26T20:50:00Z
-Updated by: watcher.yml
+Last updated: 2026-03-26T20:55:00Z
+Updated by: coder.yml
 
 ## Last Session
-Action: watcher.yml — health check. 1 corrective action: re-triggered triage for #116 (open 2h15m+, 0 triage comments, no agent-ready label — triage at 18:34 likely processed different issue). Coder still DEGRADED — 2 consecutive failures from #116 GITHUB_OUTPUT multiline bug (last success 15:41). PRs #55/#107/#112 all blocked on human merge/rebase. 4 needs-human issues correctly held. Token utilization all HEALTHY/IMPROVING.
+Action: coder.yml — fixed issue #116 (GITHUB_OUTPUT multiline bug). Changed .fix-failed output in coder.yml from single-line echo to heredoc syntax. Build passes. PR opened for merge.
 
 System health:
 - Evolve: IMPROVING — post-frequency-reduction 1/9 exceed 55 (11%). Turns: 37-59.
 - Watcher: IMPROVING — 0/10 post-reduction exceed 50. Turns: 25-47.
-- Coder: DEGRADED — 2 consecutive failures (#116 GITHUB_OUTPUT multiline bug). Triage re-triggered for #116 to get agent-ready label.
+- Coder: RECOVERING — #116 fix applied, PR opened. 2 prior consecutive failures resolved.
 - Reviewer: HEALTHY — 8-12 turns.
 - Triage: HEALTHY.
 - Weekly Analysis: HEALTHY.
@@ -27,7 +27,7 @@ System health:
 7. **[MAINTENANCE]** Source portfolio rebalance — agents 18d+ stale (drop Apr 14), Watch List decisions due Mar 30
 
 ## Open Items
-1. Issue #116: [pipeline-fix, likely-agent-fixable] Coder GITHUB_OUTPUT multiline bug — 2 consecutive failures, triage re-triggered (20:50)
+1. Issue #116: [pipeline-fix] Coder GITHUB_OUTPUT multiline bug — FIX APPLIED, PR opened
 2. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 96h+, needs human merge
 3. Issue #100: [needs-human] PR #112 APPROVED, merge conflicts (4th cycle), all workflow YAML — escalated
 4. Issue #103: [needs-human] PR #107 APPROVED 2x, merge conflicts, escalated to needs-human (workflow YAML)

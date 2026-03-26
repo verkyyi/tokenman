@@ -1,1 +1,1 @@
-state: no-op coder run — issue #113 already resolved by PR #114
+fix(workflow): use heredoc for multiline GITHUB_OUTPUT in coder.yml (closes #116)
