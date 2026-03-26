@@ -1,13 +1,13 @@
 # Project State
-Last updated: 2026-03-26T04:01:03Z
-Updated by: evolve.yml
+Last updated: 2026-03-26T05:20:00Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: evolve.yml PATTERN_HUNT — deep-dived 3 sources (claude-code, gstack, ruflo). claude-code v2.1.84 released with paths: glob frontmatter for skills (relevant to #66), TaskCreated hook, idle watchdog env var. gstack plan completion audit already adopted (#98). ruflo security hardening (atomic writes, stall detection) architecture-specific. 11th consecutive PATTERN_HUNT with 0 issues — pattern adoption plateau confirmed. 2 Watch List SHA changes noted (OpenViking, vibecosystem). All Active source SHAs unchanged.
+Action: watcher.yml health check — all clear. 0 corrective actions. All workflows HEALTHY. Post-frequency-reduction trend continues: evolve 3/3 under 55, watcher 6/6 under 50 (turns trending down: 42→45→28→25). 4 issues correctly held at needs-human (#103, #100, #48, #22). 3 PRs awaiting human merge (#55 82h+, #107 18h+, #112 10h+). No broken chains, stuck runs, or repeated failures.
 
 System health:
-- Evolve: IMPROVING — 2/10 (20%) recent runs exceed max-turns 55, down from 30%. Post-frequency-reduction: 2/2 under limit.
-- Watcher: IMPROVING — 1/7 (14%) exceed 50, down from 22%. Post-frequency-reduction: 4/4 under limit.
+- Evolve: IMPROVING — 2/10 (20%) exceed max-turns 55. Post-frequency-reduction: 3/3 under limit.
+- Watcher: IMPROVING — 1/7 (14%) exceed 50. Post-frequency-reduction: 6/6 under limit. Turns trending down.
 - Coder: RECOVERED — 4 consecutive successes after 4 failures. #108 fix working.
 - Reviewer: HEALTHY — last success 19:14. 14-22 turns.
 - Triage: HEALTHY — last success 17:53.
@@ -18,16 +18,16 @@ System health:
 - Deploy: RECOVERING — no trigger since #65 fix
 
 ## Current Priorities (ordered)
-1. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 72h+, awaiting human merge (workflow YAML)
-2. **[NEEDS-HUMAN]** PR #107: reduce HORIZON_SCAN cadence — APPROVED 2x, merge conflicts 8h+, escalated to needs-human (workflow YAML)
-3. **[NEEDS-HUMAN]** Issue #103 / PR #107: reduce HORIZON_SCAN cadence — APPROVED 2x, merge conflicts 8h+, workflow YAML, escalated to needs-human
+1. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 82h+, awaiting human merge (workflow YAML)
+2. **[NEEDS-HUMAN]** PR #107: reduce HORIZON_SCAN cadence — APPROVED 2x, merge conflicts 18h+, escalated to needs-human (workflow YAML)
+3. **[NEEDS-HUMAN]** Issue #103 / PR #107: reduce HORIZON_SCAN cadence — APPROVED 2x, merge conflicts 18h+, workflow YAML, escalated to needs-human
 4. **[NEEDS-HUMAN]** Issue #100 / PR #112: env scrub hardening — APPROVED but merge conflicts (4th cycle), all workflow YAML, needs manual rebase + merge
 5. **[UPCOMING]** Issue #22: Submit to awesome-claude-code — 7-day cooldown expires ~March 28
 6. **[STALLED]** Profile page: 4/6 sections unchecked
 7. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
 
 ## Open Items
-1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 72h+, needs human merge
+1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 82h+, needs human merge
 2. Issue #100: [needs-human] PR #112 APPROVED, merge conflicts (4th cycle), all workflow YAML — escalated
 3. Issue #103: [needs-human] PR #107 APPROVED 2x, merge conflicts 8h+, escalated to needs-human (workflow YAML)
 4. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents
@@ -65,8 +65,8 @@ System health:
 - Reviewer.yml has a bug: README sync step doesn't handle dirty working tree (PR #55 APPROVED — awaiting human merge 72h+)
 - Reviewer hallucination fix (#90) — NEVER close PR prompt guardrail + safety-net reopen step merged (PR #93)
 - GitHub auto-close fix (#84) DONE — reviewer.yml hardened with 3-tier fallback; watcher remains safety net
-- Evolve IMPROVING — max-turns 55, 2/10 exceed (20%, down from 30%). PR #111 frequency reduction confirmed working. Post-reduction runs 2/2 under limit.
-- Watcher IMPROVING — max-turns 50 (PR #106), 1/7 exceed (14%, down from 22%). Frequency reduced to 2h (PR #111). Post-reduction 4/4 under limit.
+- Evolve IMPROVING — max-turns 55, 2/10 exceed (20%, down from 30%). PR #111 frequency reduction confirmed working. Post-reduction runs 3/3 under limit.
+- Watcher IMPROVING — max-turns 50 (PR #106), 1/7 exceed (14%, down from 22%). Frequency reduced to 2h (PR #111). Post-reduction 6/6 under limit. Turns trending down.
 - Issue #100: ESCALATED to needs-human. PR #112 APPROVED but merge conflicts (4th cycle). Modifies all 10 workflow YAML files. Manual rebase + merge required.
 - Issue #103: ESCALATED to needs-human. PR #107 APPROVED 2x, merge conflicts 8h+. Same pattern as #100 — workflow YAML, manual rebase + merge required.
 - Issue #108: CLOSED. Coder push-rejected loop FIXED.
