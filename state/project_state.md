@@ -1,24 +1,24 @@
 # Project State
-Last updated: 2026-03-26T09:28:55Z
-Updated by: evolve.yml (PATTERN_HUNT)
+Last updated: 2026-03-26T10:55:00Z
+Updated by: watcher.yml (health check)
 
 ## Last Session
-Action: evolve.yml PATTERN_HUNT — Deep-dived 3 Active sources with SHA changes (gstack v0.11.19.0, deer-flow ACP integration, awesome-claude-code ticker). All findings Codex-specific or Python/LangGraph-specific. Pattern plateau at 12th consecutive PH with 0 issues. SHA scanned 18 remaining sources. 0 issues created.
+Action: watcher.yml health check — all clear, 0 corrective actions. All workflows HEALTHY. 4 open issues correctly held (needs-human). 3 PRs awaiting human merge (#55 90h+, #107 merge conflicts, #112 merge conflicts). No broken chains, no repeated failures, no stuck runs. Token utilization all IMPROVING/HEALTHY.
 
 System health:
-- Evolve: IMPROVING — post-frequency-reduction 5/5 under 55 limit. Turns: 37-52.
-- Watcher: IMPROVING — post-frequency-reduction 9/9 under 50 limit. Turns: 25-45.
+- Evolve: IMPROVING — post-frequency-reduction 6/6 under 55 limit. Turns: 37-52.
+- Watcher: IMPROVING — post-frequency-reduction 10/10 under 50 limit. Turns: 25-45.
 - Coder: RECOVERED — 4+ consecutive successes after 4 failures. #108 fix working.
 - Reviewer: HEALTHY — 14-22 turns.
 - Triage: HEALTHY.
 - Weekly Analysis: HEALTHY.
-- Growth: HEALTHY.
-- Analyze: STABLE (26-42 turns).
+- Growth: HEALTHY (17 turns).
+- Analyze: STABLE (26-32 turns).
 - Feedback Learner: RECOVERED — 5 turns, #72 fix confirmed.
 - Deploy: RECOVERING — no trigger since #65 fix.
 
 ## Current Priorities (ordered)
-1. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 88h+, awaiting human merge (workflow YAML)
+1. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 90h+, awaiting human merge (workflow YAML)
 2. **[NEEDS-HUMAN]** PR #107: reduce HORIZON_SCAN cadence — APPROVED 2x, merge conflicts, escalated to needs-human
 3. **[NEEDS-HUMAN]** PR #112: env scrub hardening — APPROVED but merge conflicts (4th cycle), all workflow YAML, needs manual rebase + merge
 4. **[UPCOMING]** Issue #22: Submit to awesome-claude-code — 7-day cooldown expires ~March 28
@@ -27,7 +27,7 @@ System health:
 7. **[MAINTENANCE]** Source portfolio rebalance — agents 18d+ stale (drop Apr 14), Watch List decisions due Mar 30
 
 ## Open Items
-1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 88h+, needs human merge
+1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 90h+, needs human merge
 2. Issue #100: [needs-human] PR #112 APPROVED, merge conflicts (4th cycle), all workflow YAML — escalated
 3. Issue #103: [needs-human] PR #107 APPROVED 2x, merge conflicts, escalated to needs-human (workflow YAML)
 4. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents
@@ -69,8 +69,8 @@ System health:
 - Reviewer.yml has a bug: README sync step doesn't handle dirty working tree (PR #55 APPROVED — awaiting human merge 82h+)
 - Reviewer hallucination fix (#90) — NEVER close PR prompt guardrail + safety-net reopen step merged (PR #93)
 - GitHub auto-close fix (#84) DONE — reviewer.yml hardened with 3-tier fallback; watcher remains safety net
-- Evolve IMPROVING — max-turns 55, 2/10 exceed (20%). PR #111 frequency reduction confirmed working.
-- Watcher IMPROVING — max-turns 50 (PR #106), 0/9 post-reduction exceed (0%). Frequency reduced to 2h (PR #111). Turns: 25-45.
+- Evolve IMPROVING — max-turns 55, 0/6 post-reduction exceed (0%). PR #111 frequency reduction confirmed working.
+- Watcher IMPROVING — max-turns 50 (PR #106), 0/10 post-reduction exceed (0%). Frequency reduced to 2h (PR #111). Turns: 25-45.
 - Issue #100: ESCALATED to needs-human. PR #112 APPROVED but merge conflicts (4th cycle). Manual rebase + merge required.
 - Issue #103: ESCALATED to needs-human. PR #107 APPROVED 2x, merge conflicts. Manual rebase + merge required.
 - Issue #108: CLOSED. Coder push-rejected loop FIXED.
