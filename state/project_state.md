@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-03-26T14:56:00Z
-Updated by: watcher.yml (health check)
+Last updated: 2026-03-26T15:34:00Z
+Updated by: evolve.yml (PIPELINE_WATCH)
 
 ## Last Session
-Action: watcher.yml — health check. All clear, 0 corrective actions. No failures today. All 4 open issues correctly held (needs-human). 3 PRs awaiting human merge.
+Action: evolve.yml — PIPELINE_WATCH posture. Pipeline 100% healthy: 0 failures in 25h+ (46 runs). Cost $39/day projected ($273/week), down from $42/day. 3 Active SHA changes (gstack, deer-flow, astro). 0 issues created.
 
 System health:
 - Evolve: IMPROVING — post-frequency-reduction 8/8 under 55 limit. Turns: 37-54.
@@ -40,10 +40,10 @@ System health:
 - Agent log actions: ~237
 - Workflow runs: evolve ~80+, watcher ~70+, coder ~15, reviewer/triage/growth/analyze as expected
 - Research entries: 142 (9 Active + 12 Watch List sources)
-- Cost: ~$294/week post-PR #111 (69% reduction from ~$134/day to ~$42/day)
+- Cost: ~$273/week projected ($39/day, post-PR #111 — 72% reduction from $134/day)
 - Stars: 2 | Forks: 0 | Adopters: 0
 - Growth: flat at 2 stars; v0.3.0 released Mar 26; #22 submission ~March 28 (awesome-cc 32.5K); #48 blocked needs-human
-- Pattern adoption: 0 new patterns in 12 consecutive PATTERN_HUNT runs (plateau)
+- Pattern adoption: 0 new patterns in 13 consecutive PATTERN_HUNT runs (plateau)
 - Issue #113: RESOLVED — PR #114 merged, auto-close miss fixed by watcher
 
 ## Weekly Analysis Recommendations
