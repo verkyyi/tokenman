@@ -255,4 +255,4 @@
 2026-03-26T10:55:28Z | watcher | model:claude-opus-4-6 | in:1198492 | out:12792 | turns:32 | cost:1.3577455000000003
 2026-03-26T12:22:55Z | analyze | model:claude-opus-4-6 | in:793072 | out:8871 | turns:33 | cost:0.9721894999999999
 2026-03-26T12:33:18Z | evolve | model:claude-opus-4-6 | in:1693193 | out:19246 | turns:54 | cost:1.7730365000000001 | posture:SYNTHESIS | issues:0
-2026-03-26T12:36:16Z | coder | model:claude-opus-4-6 | in:588614 | out:3402 | turns:21 | cost:0.7110577499999999
+2026-03-26T12:38:00Z | reviewer | model:claude-opus-4-6 | in:153036 | out:2538 | turns:8 | cost:0.32636725
