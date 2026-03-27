@@ -1,19 +1,19 @@
 # Project State
-Last updated: 2026-03-27T12:22:00Z
-Updated by: evolve.yml
+Last updated: 2026-03-27T12:55:00Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: evolve.yml HORIZON_SCAN — ecosystem research. New discovery: oh-my-openagent (44K stars, added Watch List). Citadel V2 shipped skill-bench + skill-lint (convergent with deer-flow frontmatter tests — ecosystem-wide skill validation signal). antigravity v9.0.0 released. Watch List decisions deferred to Mar 30 (7-day threshold). 0 forks/adopters. 0 issues created.
+Action: watcher.yml health check — 1 corrective action: re-triggered triage for #122 (open 3.5h+, 0 triage comments, triage skipped processing on initial dispatch). All workflows HEALTHY. No repeated failures. No stuck runs. 4 needs-human issues correctly held. 3 PRs awaiting human merge. 0 open pipeline-fix issues.
 
 System health:
-- Evolve: WATCH — 3/8 recent exceed 55 (37.5%), overall 4/14 post-reduction (28.6%, under 30%). Latest 63 turns (highest). Turns: 39-63.
-- Watcher: HEALTHY — 0/14 post-reduction exceed 50. Turns: 25-46. 1 transient failure (08:49 SHA conflict).
+- Evolve: WATCH — 3/8 recent exceed 55 (37.5%), overall 4/15 post-reduction (26.7%, under 30%). Latest 49 turns (down from 63 peak). Turns: 44-63.
+- Watcher: HEALTHY — 0/15 post-reduction exceed 50. Turns: 13-46. 1 transient failure (08:49 SHA conflict).
 - Coder: HEALTHY — 4 consecutive successes. Turns: 6-12.
-- Reviewer: HEALTHY — 9-12 turns.
+- Reviewer: HEALTHY — 8-12 turns.
 - Triage: HEALTHY.
 - Weekly Analysis: HEALTHY.
-- Growth: HEALTHY (17-26 turns).
-- Analyze: STABLE (26-33 turns).
+- Growth: HEALTHY (26-35 turns).
+- Analyze: STABLE (27-33 turns).
 - Feedback Learner: RECOVERED — 5 turns, #72 fix confirmed.
 - Deploy: RECOVERING — no trigger since #65 fix.
 
@@ -28,7 +28,7 @@ System health:
 
 ## Open Items
 1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 112h+, needs human merge
-2. Issue #122: [untriaged] Adopt hook conditional if filtering — triage skipped processing, monitoring
+2. Issue #122: [re-triaging] Adopt hook conditional if filtering — triage re-triggered by watcher (3.5h stale)
 3. Issue #100: [needs-human] PR #112 APPROVED, merge conflicts (4th cycle), all workflow YAML — escalated
 4. Issue #103: [needs-human] PR #107 APPROVED 2x, merge conflicts, escalated to needs-human (workflow YAML)
 5. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents
@@ -91,6 +91,7 @@ System health:
 - Coder RECOVERED — 2 successes (20:53, 21:19) after #116 fix. 2 prior failures (18:25, 18:35) from multiline GITHUB_OUTPUT bug.
 - Issue #120: RESOLVED — PR #121 merged (03:44), auto-close miss fixed by watcher (05:20). Full pipeline chain: triage→coder→PR #121→reviewer→merge. 3rd consecutive auto-close miss caught by watcher.
 - Evolve SYNTHESIS posture stabilizing: 52→54→60→44 turns. Latest 44-turn run broke uptrend. Root cause of occasional max-turns hits likely prompt depth per recommendation #10.
-- Issue #122: Created by evolve PATTERN_HUNT (09:27). Triage dispatched and ran (09:38) but SKIPPED processing — "Build triage prompt" and "Run triage" steps skipped. Issue has 0 comments, only "evolve-finding" label. Watcher will re-trigger triage at 2h threshold on next run (~12:49).
-- Evolve turn usage trending up: latest PH run hit 63 turns (highest recorded). Overall post-reduction 4/14 (28.6%) — under 30% threshold but approaching. Monitor closely.
+- Issue #122: Created by evolve PATTERN_HUNT (09:27). Triage skipped initial dispatch (09:38). Watcher re-triggered triage (12:55). Monitoring for completion.
+- Evolve turn usage: latest HS run 49 turns (down from 63 peak). Overall 4/15 post-reduction (26.7%) — under 30%, trending down. Continue monitoring.
 - Usage log posture mismatch: agent log says PH for 09:22 run but usage log records SYNTHESIS. Minor logging inconsistency.
+- PR #112: 0 formal GH reviews but reviewer approved via comments (merge conflicts are the real blocker). Tracked via needs-human on #100.
