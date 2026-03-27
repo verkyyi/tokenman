@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-03-27T03:40:00Z
-Updated by: watcher.yml
+Last updated: 2026-03-27T04:00:00Z
+Updated by: coder.yml
 
 ## Last Session
-Action: watcher.yml health check — 1 corrective action. Re-triggered triage for #120 (open 2.5h, 0 triage comments). All workflows HEALTHY. 4 needs-human issues correctly held. 3 PRs awaiting human merge.
+Action: coder.yml fix issue #120 — added 3-layer defense against duplicate triage for closed issues. Layer 1: evolve.yml dispatch gate checks issue state before triggering triage. Layer 2: evolve.yml prompt clarifies .new_issues.txt is for newly created issues only. Layer 3: triage.yml early-exit skips closed issues. Opened PR for #120.
 
 System health:
 - Evolve: IMPROVING — 1/8 post-reduction exceed 55 (12.5%). Turns: 39-59.
