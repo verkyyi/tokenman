@@ -38,10 +38,24 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
 
+
+      - name: Skip closed issues
+        id: check_state
+        run: |
+          NUM=${{ steps.issue.outputs.NUMBER }}
+          STATE=$(gh issue view "$NUM" --json state -q '.state')
+          echo "STATE=$STATE" >> $GITHUB_OUTPUT
+          if [ "$STATE" != "OPEN" ]; then
+            echo "::notice::Issue #$NUM is $STATE — skipping triage"
+          fi
+        env:
+          GH_TOKEN: ${{ github.token }}
       - name: Install Claude Code
+        if: steps.check_state.outputs.STATE == 'OPEN'
         run: npm install -g @anthropic-ai/claude-code
 
       - name: Build triage prompt
+        if: steps.check_state.outputs.STATE == 'OPEN'
         run: |
           NUM=${{ steps.issue.outputs.NUMBER }}
           TITLE=$(jq -r '.title' /tmp/issue.json)
@@ -175,6 +189,7 @@ jobs:
           PROMPT
 
       - name: Run triage
+        if: steps.check_state.outputs.STATE == 'OPEN'
         run: |
           claude -p "$(cat /tmp/triage_prompt.txt)" \
             --model opus \
@@ -219,6 +234,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
 
       - name: Trigger coder if agent-ready
+        if: steps.check_state.outputs.STATE == 'OPEN'
         run: |
           NUM=${{ steps.issue.outputs.NUMBER }}
           LABELS=$(gh issue view "$NUM" --json labels -q '.labels[].name')

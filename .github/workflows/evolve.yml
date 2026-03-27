@@ -237,7 +237,8 @@ jobs:
           - Body MUST include: ## Source, ## Pattern, ## Proposed Change, ## Evidence
           - Labels: evolve-finding (research), pipeline-fix (pipeline),
             intent-driven (human intent)
-          - Save issue number: `echo "$ISSUE_NUM" >> .new_issues.txt`
+          - Save NEWLY CREATED issue number: `echo "$ISSUE_NUM" >> .new_issues.txt`
+            (Only for issues you create in THIS run. Never add existing/discovered issue numbers.)
 
           Maximum 3 issues per run (any type). Quality over quantity.
 
@@ -439,8 +440,16 @@ jobs:
         run: |
           if [ -f .new_issues.txt ]; then
             while read -r NUM; do
-              echo "Triggering triage for issue #$NUM"
-              gh workflow run triage.yml -f issue_number="$NUM"
+              # Skip empty lines
+              [ -z "$NUM" ] && continue
+              # Only dispatch triage for issues that are still OPEN
+              STATE=$(gh issue view "$NUM" --json state -q '.state' 2>/dev/null || echo "UNKNOWN")
+              if [ "$STATE" = "OPEN" ]; then
+                echo "Triggering triage for issue #$NUM (state: OPEN)"
+                gh workflow run triage.yml -f issue_number="$NUM"
+              else
+                echo "Skipping issue #$NUM (state: $STATE) — not open"
+              fi
             done < .new_issues.txt
           else
             echo "No new issues created this run"

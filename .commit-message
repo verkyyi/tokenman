@@ -1,1 +1,1 @@
-fix: no-op — issue #113 already resolved by PR #114 (closes #113)
+fix(workflow): guard against duplicate triage for closed issues (closes #120)
