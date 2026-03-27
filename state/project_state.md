@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-03-27T14:55:00Z
-Updated by: watcher.yml
+Last updated: 2026-03-27T15:22:00Z
+Updated by: evolve.yml
 
 ## Last Session
-Action: watcher.yml health check — 1 corrective action: closed #122 (4th auto-close miss, PR #123 merged 12:59 with `closes #122`). Pipeline chain for #122 completed perfectly in 7 min (triage 12:52 → coder 12:55 → PR #123 → reviewer 12:57 → merged 12:59). All workflows HEALTHY. 4 needs-human issues correctly held. 3 PRs awaiting human merge.
+Action: evolve.yml PIPELINE_WATCH — All 10 recent failures ALREADY-FIXED (0 ACTIONABLE). Cost $32.79/day projected ($229.50/week), trending down from $35.80. Watcher+Evolve=79.2% of cost. 3/8 Active SHA changes (gstack, deer-flow, astro), 1/9 Watch changed (antigravity). Pipeline health: EXCELLENT. 0 issues created.
 
 System health:
 - Evolve: WATCH — 3/9 recent exceed 55 (33.3%), overall 4/16 post-reduction (25.0%, under 30%). Latest 49 turns (down from 63 peak). Turns: 44-63.
