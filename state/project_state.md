@@ -1,18 +1,18 @@
 # Project State
-Last updated: 2026-03-27T15:22:00Z
-Updated by: evolve.yml
+Last updated: 2026-03-27T16:55:00Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: evolve.yml PIPELINE_WATCH — All 10 recent failures ALREADY-FIXED (0 ACTIONABLE). Cost $32.79/day projected ($229.50/week), trending down from $35.80. Watcher+Evolve=79.2% of cost. 3/8 Active SHA changes (gstack, deer-flow, astro), 1/9 Watch changed (antigravity). Pipeline health: EXCELLENT. 0 issues created.
+Action: watcher.yml health check — all clear, 0 corrective actions. All workflows HEALTHY. 4 open issues correctly held (needs-human: #103, #100, #48, #22). 3 PRs awaiting human merge (#55 APPROVED 118h+, #107 APPROVED 2x merge conflicts, #112 APPROVED-via-comments merge conflicts). No broken chains, stuck runs, or repeated failures. No needs-human issues unblocked by recent closes.
 
 System health:
-- Evolve: WATCH — 3/9 recent exceed 55 (33.3%), overall 4/16 post-reduction (25.0%, under 30%). Latest 49 turns (down from 63 peak). Turns: 44-63.
-- Watcher: HEALTHY — 0/16 post-reduction exceed 50. Turns: 13-46. 1 transient failure (08:49 SHA conflict, not recurring).
-- Coder: HEALTHY — 5 consecutive successes. Turns: 6-12.
-- Reviewer: HEALTHY — 8-12 turns.
+- Evolve: WATCH — 3/8 recent exceed 55 (37.5%), overall ~25% post-reduction (under 30%). Latest 49 turns (down from 63 peak). Turns: 44-63.
+- Watcher: HEALTHY — 0/16 post-reduction exceed 50. Turns: 13-46. 08:49 transient failure not recurring (1 only).
+- Coder: HEALTHY — 5+ consecutive successes. Turns: 6-12.
+- Reviewer: HEALTHY — 9-12 turns.
 - Triage: HEALTHY.
 - Weekly Analysis: HEALTHY.
-- Growth: HEALTHY (17-35 turns).
+- Growth: HEALTHY (26-35 turns).
 - Analyze: STABLE (27-33 turns).
 - Feedback Learner: RECOVERED — 5 turns, #72 fix confirmed.
 - Deploy: RECOVERING — no trigger since #65 fix.
@@ -27,7 +27,7 @@ System health:
 7. **[MAINTENANCE]** Source portfolio rebalance — agents 18d+ stale (drop Apr 14), Watch List decisions due Mar 30
 
 ## Open Items
-1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 116h+, needs human merge
+1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 118h+, needs human merge
 2. Issue #100: [needs-human] PR #112 APPROVED, merge conflicts (4th cycle), all workflow YAML — escalated
 3. Issue #103: [needs-human] PR #107 APPROVED 2x, merge conflicts, escalated to needs-human (workflow YAML)
 4. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents
