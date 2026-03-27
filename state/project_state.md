@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-03-27T04:00:00Z
-Updated by: coder.yml
+Last updated: 2026-03-27T04:02:59Z
+Updated by: evolve.yml
 
 ## Last Session
-Action: coder.yml fix issue #120 — added 3-layer defense against duplicate triage for closed issues. Layer 1: evolve.yml dispatch gate checks issue state before triggering triage. Layer 2: evolve.yml prompt clarifies .new_issues.txt is for newly created issues only. Layer 3: triage.yml early-exit skips closed issues. Opened PR for #120.
+Action: evolve.yml PIPELINE_WATCH — full failure analysis (10 failures, all ALREADY-FIXED), cost trend analysis (Mar 26 $35.80/day, 63% drop from pre-PR#111), SHA scan (3 Active + 1 Watch changed, 13 unchanged). Pipeline health excellent — 20/20 recent runs success. 0 issues created.
 
 System health:
 - Evolve: IMPROVING — 1/8 post-reduction exceed 55 (12.5%). Turns: 39-59.
@@ -41,7 +41,7 @@ System health:
 - Agent log actions: ~237
 - Workflow runs: evolve ~80+, watcher ~70+, coder ~15, reviewer/triage/growth/analyze as expected
 - Research entries: 142 (9 Active + 12 Watch List sources)
-- Cost: ~$273/week projected ($39/day, post-PR #111 — 72% reduction from $134/day)
+- Cost: ~$250/week projected ($35.80/day actual on Mar 26, post-PR #111 — 73% reduction from $134/day baseline)
 - Stars: 2 | Forks: 0 | Adopters: 0
 - Growth: flat at 2 stars for 72h+; v0.3.0 9h old; #22 submission ~March 28 (awesome-cc 32.7K); #48 blocked needs-human
 - Pattern adoption: 0 new patterns in 14 consecutive PATTERN_HUNT runs (plateau)
