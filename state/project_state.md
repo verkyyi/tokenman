@@ -1,19 +1,19 @@
 # Project State
-Last updated: 2026-03-27T04:02:59Z
-Updated by: evolve.yml
+Last updated: 2026-03-27T05:20:00Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: evolve.yml PIPELINE_WATCH — full failure analysis (10 failures, all ALREADY-FIXED), cost trend analysis (Mar 26 $35.80/day, 63% drop from pre-PR#111), SHA scan (3 Active + 1 Watch changed, 13 unchanged). Pipeline health excellent — 20/20 recent runs success. 0 issues created.
+Action: watcher.yml health check — 1 corrective action: closed #120 (auto-close miss, PR #121 merged at 03:44). Pipeline excellent — 20/20 recent runs success, 0 failures in 8+ hours. Issue #120 fully resolved (triage→coder→PR #121→reviewer→merge chain completed). 3 PRs and 4 issues still need human action.
 
 System health:
-- Evolve: IMPROVING — 1/8 post-reduction exceed 55 (12.5%). Turns: 39-59.
-- Watcher: HEALTHY — 0/12 post-reduction exceed 50. Turns: 25-46.
-- Coder: HEALTHY — 3 consecutive successes (20:53, 21:19, 00:48). Turns: 6-12.
+- Evolve: IMPROVING — 2/10 post-reduction exceed 55 (20%, up from 12.5%). SYNTHESIS trending up (52→54→60). Turns: 39-60.
+- Watcher: HEALTHY — 0/13 post-reduction exceed 50. Turns: 25-46.
+- Coder: HEALTHY — 4 consecutive successes. Turns: 6-12.
 - Reviewer: HEALTHY — 8-12 turns.
 - Triage: HEALTHY.
 - Weekly Analysis: HEALTHY.
 - Growth: HEALTHY (17-26 turns).
-- Analyze: STABLE (32-33 turns).
+- Analyze: STABLE (26-33 turns).
 - Feedback Learner: RECOVERED — 5 turns, #72 fix confirmed.
 - Deploy: RECOVERING — no trigger since #65 fix.
 
@@ -27,12 +27,11 @@ System health:
 7. **[MAINTENANCE]** Source portfolio rebalance — agents 18d+ stale (drop Apr 14), Watch List decisions due Mar 30
 
 ## Open Items
-1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 104h+, needs human merge
+1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 108h+, needs human merge
 2. Issue #100: [needs-human] PR #112 APPROVED, merge conflicts (4th cycle), all workflow YAML — escalated
 3. Issue #103: [needs-human] PR #107 APPROVED 2x, merge conflicts, escalated to needs-human (workflow YAML)
-4. Issue #120: [agent-ready] Evolve triggers duplicate triage/coder/reviewer for closed #113 — pipeline-fix, likely-agent-fixable
-5. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents
-6. Issue #22: [needs-human] Submit to awesome-claude-code — waiting until ~March 28
+4. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents
+5. Issue #22: [needs-human] Submit to awesome-claude-code — waiting until ~March 28
 
 ## Week of Mar 19-26 Key Metrics
 - Commits: 1072 (907 state, 165 feat/fix)
@@ -89,4 +88,5 @@ System health:
 - claude-code v2.1.84: paths: glob frontmatter for skills — relevant to #66
 - Issue #116: RESOLVED — PR #117 merged (20:56), auto-close miss fixed by watcher (22:50). Full pipeline chain worked: triage→coder→PR→reviewer→merge.
 - Coder RECOVERED — 2 successes (20:53, 21:19) after #116 fix. 2 prior failures (18:25, 18:35) from multiline GITHUB_OUTPUT bug.
-- Issue #120: NEW — evolve writes closed issue #113 to .new_issues.txt, triggering duplicate triage→coder→reviewer chains. PRs #118 and #119 both merged as duplicates of PR #114. Fix: add issue state check in evolve.yml "Trigger triage" step.
+- Issue #120: RESOLVED — PR #121 merged (03:44), auto-close miss fixed by watcher (05:20). Full pipeline chain: triage→coder→PR #121→reviewer→merge. 3rd consecutive auto-close miss caught by watcher.
+- Evolve SYNTHESIS posture trending up: 52→54→60 turns (latest hit max-turns ceiling). Root cause likely prompt depth per recommendation #10.
