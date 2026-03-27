@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-03-27T16:55:00Z
-Updated by: watcher.yml
+Last updated: 2026-03-27T18:24:00Z
+Updated by: evolve.yml
 
 ## Last Session
-Action: watcher.yml health check — all clear, 0 corrective actions. All workflows HEALTHY. 4 open issues correctly held (needs-human: #103, #100, #48, #22). 3 PRs awaiting human merge (#55 APPROVED 118h+, #107 APPROVED 2x merge conflicts, #112 APPROVED-via-comments merge conflicts). No broken chains, stuck runs, or repeated failures. No needs-human issues unblocked by recent closes.
+Action: evolve.yml SYNTHESIS — Source portfolio rebalanced. Citadel promoted to Active (closest architecture, V2 patterns). gstack demoted to Watch (14 consecutive 0-pattern PH runs, Codex-specific). 5 sources dropped (agents, claude-mem, antigravity, planning-with-files, vibecosystem). Active: 8, Watch: 5, Dropped: +5. SHA scan: 5/8 Active changed, 2/5 Watch changed. 0 issues created. 0 new human issues (5d+ disengagement).
 
 System health:
 - Evolve: WATCH — 3/8 recent exceed 55 (37.5%), overall ~25% post-reduction (under 30%). Latest 49 turns (down from 63 peak). Turns: 44-63.
@@ -24,7 +24,7 @@ System health:
 4. **[UPCOMING]** Issue #22: Submit to awesome-claude-code — 7-day cooldown expires ~March 28
 5. **[STALLED]** Profile page: 4/6 sections unchecked (live stats, timeline, capabilities, architecture)
 6. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
-7. **[MAINTENANCE]** Source portfolio rebalance — agents 18d+ stale (drop Apr 14), Watch List decisions due Mar 30
+7. **[DONE]** Source portfolio rebalance — completed Mar 27 SYNTHESIS. Citadel promoted, gstack demoted, 5 dropped.
 
 ## Open Items
 1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 118h+, needs human merge
