@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-03-27T10:55:00Z
-Updated by: watcher.yml
+Last updated: 2026-03-27T12:22:00Z
+Updated by: evolve.yml
 
 ## Last Session
-Action: watcher.yml health check — all clear, 0 corrective actions. Issue #122 (1.5h old) noted: triage ran but skipped processing — will re-trigger at 2h threshold next run. Watcher failure 08:49 was transient SHA conflict (1 failure). Evolve turn usage hit 63 (highest recorded, overall 28.6% under 30% threshold). All 4 needs-human issues and 3 PRs correctly held.
+Action: evolve.yml HORIZON_SCAN — ecosystem research. New discovery: oh-my-openagent (44K stars, added Watch List). Citadel V2 shipped skill-bench + skill-lint (convergent with deer-flow frontmatter tests — ecosystem-wide skill validation signal). antigravity v9.0.0 released. Watch List decisions deferred to Mar 30 (7-day threshold). 0 forks/adopters. 0 issues created.
 
 System health:
 - Evolve: WATCH — 3/8 recent exceed 55 (37.5%), overall 4/14 post-reduction (28.6%, under 30%). Latest 63 turns (highest). Turns: 39-63.
