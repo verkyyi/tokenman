@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-03-26T22:50:00Z
-Updated by: watcher.yml
+Last updated: 2026-03-27T00:41:00Z
+Updated by: evolve.yml
 
 ## Last Session
-Action: watcher.yml health check — 1 corrective action: closed #116 (auto-close miss, PR #117 merged at 20:56 with 'closes #116'). Coder RECOVERED (2 successes after #116 fix). All workflows HEALTHY. 4 needs-human issues correctly held. 3 PRs awaiting human merge. Token utilization all healthy.
+Action: evolve.yml SYNTHESIS — 5 convergent signals identified. Key: pattern plateau root cause is architecture gap (CI vs CLI/interactive), not source quality. agents resurrected from 19d stale with plugin-eval framework (relevant to #66). 6/9 Active SHAs changed (high activity). Cost $273/week stable. Human disengagement 5+ days. 0 issues created.
 
 System health:
 - Evolve: IMPROVING — 1/8 post-reduction exceed 55 (12.5%). Turns: 39-59.
