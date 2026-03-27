@@ -1,26 +1,26 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-03-27T06:32:56Z
+# Last updated: 2026-03-27T09:27:45Z
 
 ## Active Sources
 
 ### anthropics/claude-code
 - **Why:** The runtime we build on — releases, breaking changes, new hooks, CLI flags
 - **Look for:** CHANGELOG entries, new hook types, permission changes, SDK updates
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-26T04:01 | **Pattern hits:** 1 | **SHA:** f75b613
-- **Notes:** Protected source — never drop. Check CHANGELOG and releases, not just commits. SHA a0d9b87→f75b613: CHANGELOG-only updates (routine). v2.1.84 deep-dived: TaskCreated hook, `paths:` YAML glob frontmatter for skills/rules (relevant to #66), CLAUDE_STREAM_IDLE_TIMEOUT_MS idle watchdog, MCP 2KB description cap, allowedChannelPlugins managed setting, idle-return prompt (75min→/clear nudge). Many bug fixes including cold-start race, MCP cache leak. No breaking changes. Previous: v2.1.83 security patterns (#100), v2.1.81 --bare flag (#63).
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-27T09:27 | **Pattern hits:** 2 | **SHA:** f75b613
+- **Notes:** Protected source — never drop. Check CHANGELOG and releases, not just commits. v2.1.85 deep-dived: conditional `if` field for hooks (permission rule syntax, reduces process spawning — issue #122), PreToolUse can satisfy AskUserQuestion (headless integrations), MCP OAuth RFC 9728, /compact fix, --worktree fix, ECONNRESET retry fix, memory leak fix. Previous: v2.1.84 TaskCreated hook + paths: frontmatter (#66), v2.1.83 security patterns (#100), v2.1.81 --bare flag (#63).
 
 ### garrytan/gstack
 - **Why:** Harness engineering patterns — skills, slash commands, review protocols, agent orchestration
 - **Look for:** New skill files, workflow patterns, agent guardrails, PR review techniques, structured output formats
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-26T21:16 | **Pattern hits:** 9 | **SHA:** 60061d0
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-26T21:16 | **Pattern hits:** 9 | **SHA:** 5319b8a
 - **Notes:** Most productive source so far. 9 pattern hits across v0.9.7-v0.11.18.2. SHA 3d52382→60061d0: changed. All recent patterns Codex/interactive-session specific. 14th consecutive PH with 0 adoptable patterns from this source. Pattern yield exhausted for our CI-based harness.
 
 ### affaan-m/everything-claude-code
 - **Why:** Community harness patterns, skill collections, optimization techniques
 - **Look for:** New skills, CLAUDE.md patterns, workflow architectures, instinct files
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-25T13:32 | **Pattern hits:** 1 | **SHA:** 678fb6f
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-25T13:32 | **Pattern hits:** 1 | **SHA:** cc60bf6
 - **Notes:** Large community repo. 1 pattern hit (safety-guard PreToolUse hooks). SHA 401e26a→678fb6f: desktop-notify-hook (macOS, PR #846), ecc2 risk-scoring (Rust TUI, PR #888), ecc2 tool-logging (PR #887). All platform-specific or ecc2 TUI. 0 harness patterns across 7+ consecutive observations. Retaining for community skill discoveries but lowest deep-dive priority.
 
 ### hesreallyhim/awesome-claude-code
@@ -32,14 +32,14 @@
 ### bytedance/deer-flow
 - **Why:** Multi-agent orchestration patterns from a major tech company
 - **Look for:** Agent coordination, state management, tool orchestration, LLM provider patterns
-- **Added:** 2026-03-21 (seed) | **Last deep:** 2026-03-26T09:28 | **Pattern hits:** 1 | **SHA:** a4e4bb2
+- **Added:** 2026-03-21 (seed) | **Last deep:** 2026-03-26T09:28 | **Pattern hits:** 1 | **SHA:** 43a19f9
 - **Notes:** Very active (5+ commits/day). SHA 8ae0235→a4e4bb2. GuardrailMiddleware covered by #67. ACP agent tool integration (auto_approve_permissions, harness/app split) — Python/LangGraph-specific. 0 harness patterns across 9+ consecutive deep-dives. Lowest deep-dive priority.
 
 ### wshobson/agents
 - **Why:** Agent framework patterns — autonomous agent architectures, plugin evaluation
 - **Look for:** Plugin eval framework, retry patterns, memory management, tool selection, agent lifecycle
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-24 | **Pattern hits:** 0 | **SHA:** 91fe43e
-- **Notes:** 32K stars, 3504 forks. SHA 1ad2f00→91fe43e: RESURRECTED from 19d stale. New plugin-eval framework (PR #464) — CLAUDE.md, evaluation docs, README updates. Potentially relevant to #66 (skill packaging/quality). Drop deferred. Deep-dive priority elevated for next PATTERN_HUNT.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-27T09:27 | **Pattern hits:** 0 | **SHA:** 91fe43e
+- **Notes:** 32K stars, 3504 forks. Deep-dived PR #464: PluginEval 3-layer quality framework (L1 static, L2 LLM judge, L3 Monte Carlo). 10 quality dimensions, anti-pattern detection, Elo ranking. 40+ skill improvements. Python/uv/Pydantic stack too heavy for our bash harness. Validates already-closed #66/#68. SKILL.md frontmatter + references/ dir pattern already adopted. 0 new adoptable patterns. Drop candidate Apr 14 if no new patterns emerge.
 
 ### actions/runner
 - **Why:** CI/CD runtime we depend on — deprecation notices, new features, security fixes
@@ -50,7 +50,7 @@
 ### withastro/astro
 - **Why:** Web framework we use — security fixes, breaking changes, new features
 - **Look for:** Security advisories, breaking changes in minor/major releases, new content collection features
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-25T17:12 | **Pattern hits:** 0 | **SHA:** a60cbb6
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-25T17:12 | **Pattern hits:** 0 | **SHA:** 9117cac
 - **Notes:** Only actionable for security fixes or features that affect our site build. SHA f649ae0→a60cbb6. 0 harness patterns across 10+ deep-dives. Monitor Vite 8 compatibility.
 
 ### verkyyi/tokenman
@@ -78,7 +78,7 @@
 - **Why:** Largest skill catalog (27K stars, 1309+ skills) — installable via CLI, bundles, multi-platform (Claude Code, Codex, Gemini CLI, Cursor)
 - **Look for:** Skill packaging/distribution model, CLI installer patterns, bundle organization, cross-platform skill format
 - **Added:** 2026-03-23 (horizon scan) | **Observations:** 40 | **First seen:** 2026-03-23
-- **Notes:** SHA 3503d95→8eff08b (changed). v8.10.0+: 1,328+ skills. NPX installer, bundles by role. Confirms direction of #66. 0 harness patterns.
+- **Notes:** SHA 8eff08b→4c0cc5f (changed). v8.10.0+: 1,328+ skills. NPX installer, bundles by role. New: plugin-safe compatibility filtering, repo-local plugin marketplace, editorial bundles. Confirms direction of #66. 0 harness patterns.
 
 ### OthmanAdi/planning-with-files
 - **Why:** Persistent markdown planning skill (16.9K stars) — Manus-style file-based planning for Claude Code
