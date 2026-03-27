@@ -1,13 +1,13 @@
 # Project State
-Last updated: 2026-03-27T09:27:45Z
-Updated by: evolve.yml
+Last updated: 2026-03-27T10:55:00Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: evolve.yml PATTERN_HUNT — deep-dived wshobson/agents (PR #464 plugin-eval framework, validates #66/#68 but Python-heavy, 0 new patterns) and anthropics/claude-code (v2.1.85: hook conditional `if` field directly adoptable). Created issue #122 for hook if-field adoption. First issue in 15 PATTERN_HUNT runs, breaking the plateau. 1 transient watcher failure noted (ALREADY-FIXED). SHA scan: 4 Active + 1 Watch changed.
+Action: watcher.yml health check — all clear, 0 corrective actions. Issue #122 (1.5h old) noted: triage ran but skipped processing — will re-trigger at 2h threshold next run. Watcher failure 08:49 was transient SHA conflict (1 failure). Evolve turn usage hit 63 (highest recorded, overall 28.6% under 30% threshold). All 4 needs-human issues and 3 PRs correctly held.
 
 System health:
-- Evolve: IMPROVING — 2/11 post-reduction exceed 55 (18%, down from 20%). SYNTHESIS trend stabilizing (52→54→60→44). Turns: 39-60.
-- Watcher: HEALTHY — 0/14 post-reduction exceed 50. Turns: 25-46.
+- Evolve: WATCH — 3/8 recent exceed 55 (37.5%), overall 4/14 post-reduction (28.6%, under 30%). Latest 63 turns (highest). Turns: 39-63.
+- Watcher: HEALTHY — 0/14 post-reduction exceed 50. Turns: 25-46. 1 transient failure (08:49 SHA conflict).
 - Coder: HEALTHY — 4 consecutive successes. Turns: 6-12.
 - Reviewer: HEALTHY — 9-12 turns.
 - Triage: HEALTHY.
@@ -18,7 +18,7 @@ System health:
 - Deploy: RECOVERING — no trigger since #65 fix.
 
 ## Current Priorities (ordered)
-1. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 104h+, awaiting human merge (workflow YAML)
+1. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 112h+, awaiting human merge (workflow YAML)
 2. **[NEEDS-HUMAN]** PR #107: reduce HORIZON_SCAN cadence — APPROVED 2x, merge conflicts, escalated to needs-human
 3. **[NEEDS-HUMAN]** PR #112: env scrub hardening — APPROVED but merge conflicts (4th cycle), all workflow YAML, needs manual rebase + merge
 4. **[UPCOMING]** Issue #22: Submit to awesome-claude-code — 7-day cooldown expires ~March 28
@@ -27,11 +27,12 @@ System health:
 7. **[MAINTENANCE]** Source portfolio rebalance — agents 18d+ stale (drop Apr 14), Watch List decisions due Mar 30
 
 ## Open Items
-1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 108h+, needs human merge
-2. Issue #100: [needs-human] PR #112 APPROVED, merge conflicts (4th cycle), all workflow YAML — escalated
-3. Issue #103: [needs-human] PR #107 APPROVED 2x, merge conflicts, escalated to needs-human (workflow YAML)
-4. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents
-5. Issue #22: [needs-human] Submit to awesome-claude-code — waiting until ~March 28
+1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 112h+, needs human merge
+2. Issue #122: [untriaged] Adopt hook conditional if filtering — triage skipped processing, monitoring
+3. Issue #100: [needs-human] PR #112 APPROVED, merge conflicts (4th cycle), all workflow YAML — escalated
+4. Issue #103: [needs-human] PR #107 APPROVED 2x, merge conflicts, escalated to needs-human (workflow YAML)
+5. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents
+6. Issue #22: [needs-human] Submit to awesome-claude-code — waiting until ~March 28
 
 ## Week of Mar 19-26 Key Metrics
 - Commits: 1072 (907 state, 165 feat/fix)
@@ -90,3 +91,6 @@ System health:
 - Coder RECOVERED — 2 successes (20:53, 21:19) after #116 fix. 2 prior failures (18:25, 18:35) from multiline GITHUB_OUTPUT bug.
 - Issue #120: RESOLVED — PR #121 merged (03:44), auto-close miss fixed by watcher (05:20). Full pipeline chain: triage→coder→PR #121→reviewer→merge. 3rd consecutive auto-close miss caught by watcher.
 - Evolve SYNTHESIS posture stabilizing: 52→54→60→44 turns. Latest 44-turn run broke uptrend. Root cause of occasional max-turns hits likely prompt depth per recommendation #10.
+- Issue #122: Created by evolve PATTERN_HUNT (09:27). Triage dispatched and ran (09:38) but SKIPPED processing — "Build triage prompt" and "Run triage" steps skipped. Issue has 0 comments, only "evolve-finding" label. Watcher will re-trigger triage at 2h threshold on next run (~12:49).
+- Evolve turn usage trending up: latest PH run hit 63 turns (highest recorded). Overall post-reduction 4/14 (28.6%) — under 30% threshold but approaching. Monitor closely.
+- Usage log posture mismatch: agent log says PH for 09:22 run but usage log records SYNTHESIS. Minor logging inconsistency.
