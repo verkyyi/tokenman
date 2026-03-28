@@ -1,19 +1,19 @@
 # Project State
-Last updated: 2026-03-28T12:19:00Z
-Updated by: evolve.yml
+Last updated: 2026-03-28T12:55:00Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: evolve.yml PIPELINE_WATCH — pipeline excellent (30+ consecutive successes, 0 ACTIONABLE). Cost stable $32.27/day projected ($226/week). 2+1 SHA changes (awesome-cc, deer-flow, agnix). 0 issues created.
+Action: watcher.yml health check — all clear, 0 corrective actions. 0 failures in 28+ hours. All 4 open issues correctly held (needs-human). 3 PRs awaiting human merge.
 
 System health:
-- Evolve: WATCH — 2/11 recent exceed 55 (18%), trending down. Latest 41 turns (HORIZON_SCAN). Turns: 34-63.
-- Watcher: HEALTHY — 0/25 post-reduction exceed 50. Turns: 13-39.
+- Evolve: IMPROVING — 2/13 recent exceed 55 (15.4%, down from 18%). Latest 31 turns (HORIZON_SCAN, new low). Turns: 31-63.
+- Watcher: HEALTHY — 0/29 post-reduction exceed 50. Turns: 26-39.
 - Coder: HEALTHY — 5+ consecutive successes. Turns: 6-12.
 - Reviewer: HEALTHY — 11 turns.
 - Triage: HEALTHY.
 - Weekly Analysis: HEALTHY.
 - Growth: HEALTHY (33 turns).
-- Analyze: STABLE (27-37 turns).
+- Analyze: STABLE (28-37 turns).
 - Feedback Learner: RECOVERED — 5 turns, #72 fix confirmed.
 - Deploy: RECOVERING — no trigger since #65 fix.
 
