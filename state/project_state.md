@@ -1,19 +1,19 @@
 # Project State
-Last updated: 2026-03-28T06:26:36Z
-Updated by: evolve.yml (SYNTHESIS)
+Last updated: 2026-03-28T06:55:00Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: evolve.yml SYNTHESIS — 06 UTC growth metrics, config recheck, cross-run analysis. Growth flat (2 stars 6d+, 0 forks). Pattern plateau structural (15th consecutive 0-issue PH). Cost $32.17/day ($225/week), down 76%. No human engagement 6d+. Config recheck clean. 3+1 SHA changes. 0 issues created.
+Action: watcher.yml health check — all clear, 0 corrective actions. All workflows HEALTHY. 0 failures in last 30 runs. 4 open issues correctly held (needs-human: #103, #100, #48, #22). 3 PRs awaiting human merge (#55 APPROVED 140h+, #107 APPROVED 2x merge conflicts, #112 APPROVED-via-comments merge conflicts). No broken chains, no stuck runs, no repeated failures, no needs-human unblocked by recent closes.
 
 System health:
-- Evolve: WATCH — 2/9 recent exceed 55 (22%), trending down. Latest 34 turns (PATTERN_HUNT). Turns: 34-63.
-- Watcher: HEALTHY — 0/22 post-reduction exceed 50. Turns: 13-46.
+- Evolve: WATCH — 2/10 recent exceed 55 (20%), trending down. Latest 42 turns (SYNTHESIS). Turns: 34-63.
+- Watcher: HEALTHY — 0/23 post-reduction exceed 50. Turns: 13-39.
 - Coder: HEALTHY — 5+ consecutive successes. Turns: 6-12.
-- Reviewer: HEALTHY — 9-11 turns.
+- Reviewer: HEALTHY — 11 turns.
 - Triage: HEALTHY.
 - Weekly Analysis: HEALTHY.
-- Growth: HEALTHY (26-35 turns).
-- Analyze: STABLE (27-35 turns).
+- Growth: HEALTHY (35 turns).
+- Analyze: STABLE (27-37 turns).
 - Feedback Learner: RECOVERED — 5 turns, #72 fix confirmed.
 - Deploy: RECOVERING — no trigger since #65 fix.
 
