@@ -1,15 +1,15 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-03-27T21:18:00Z
+# Last updated: 2026-03-28T00:39:00Z
 
 ## Active Sources
 
 ### anthropics/claude-code
 - **Why:** The runtime we build on — releases, breaking changes, new hooks, CLI flags
 - **Look for:** CHANGELOG entries, new hook types, permission changes, SDK updates
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-27T09:27 | **Pattern hits:** 2 | **SHA:** f75b613
-- **Notes:** Protected source — never drop. Check CHANGELOG and releases, not just commits. v2.1.85 deep-dived: conditional `if` field for hooks (permission rule syntax, reduces process spawning — issue #122), PreToolUse can satisfy AskUserQuestion (headless integrations), MCP OAuth RFC 9728, /compact fix, --worktree fix, ECONNRESET retry fix, memory leak fix. Previous: v2.1.84 TaskCreated hook + paths: frontmatter (#66), v2.1.83 security patterns (#100), v2.1.81 --bare flag (#63).
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-27T09:27 | **Pattern hits:** 2 | **SHA:** 2923bc8
+- **Notes:** Protected source — never drop. Check CHANGELOG and releases, not just commits. v2.1.86 (Mar 27): bug-fix/polish release — Read tool compact line-numbers + dedup (automatic token savings), --bare mode fix (reinforces #63 non-adoption), plugin permission fix since v2.1.83 (relevant to #66), skill descriptions capped 250 chars, @-mention token reduction. No harness-actionable changes. Previous: v2.1.85 hook `if` field (#122), v2.1.84 paths: frontmatter (#66), v2.1.83 security patterns (#100), v2.1.81 --bare flag (#63).
 
 ### affaan-m/everything-claude-code
 - **Why:** Community harness patterns, skill collections, optimization techniques
@@ -20,7 +20,7 @@
 ### hesreallyhim/awesome-claude-code
 - **Why:** Curated ecosystem catalog — discover new tools, libraries, and patterns
 - **Look for:** New entries in Orchestrators/Tools/Skills sections, trending repos referenced
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-26T09:28 | **Pattern hits:** 0 | **SHA:** 7f0aafc
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-26T09:28 | **Pattern hits:** 0 | **SHA:** 7b60cab
 - **Notes:** SHA 22d444f→7f0aafc (changed). 0 pattern hits across 20+ observations. Low-value for PATTERN_HUNT; retain for HORIZON_SCAN cross-reference only.
 
 ### bytedance/deer-flow
@@ -32,7 +32,7 @@
 ### SethGammon/Citadel
 - **Why:** Agent orchestration harness (354 stars) — closest architecture to tokenman. Campaign persistence, parallel worktrees, circuit breaker, quality gate hooks, skill benchmarking
 - **Look for:** Skill benchmarking patterns, skill linting, governance hooks, testing infrastructure, fleet coordination
-- **Added:** 2026-03-24 (watch) | **Promoted:** 2026-03-27 (synthesis — 35 obs, closest architecture, V2 patterns) | **Last deep:** 2026-03-27T21:18 | **Pattern hits:** 1 | **SHA:** 830b63b
+- **Added:** 2026-03-24 (watch) | **Promoted:** 2026-03-27 (synthesis — 35 obs, closest architecture, V2 patterns) | **Last deep:** 2026-03-27T21:18 | **Pattern hits:** 1 | **SHA:** 4111623
 - **Notes:** Promoted from Watch List. First deep-dive: 21-hook ecosystem (governance audit log, quality-gate Stop hook, external-action-gate PreToolUse, intake-scanner SessionStart, stop-failure meta-hook, circuit-breaker, worktree-setup/remove, protect-files, doc-sync, etc.). V2 quality: ReDoS heuristic for custom regex, repo-slug validation, execFileSync over execSync. Validates our guard.sh approach. Patterns are interactive-session focused (CLI, not CI) — low direct adoption potential. 1 pattern hit (circuit breaker #76, pre-promotion). Rich reference for hook architecture evolution.
 
 ### actions/runner
@@ -50,7 +50,7 @@
 ### verkyyi/tokenman
 - **Why:** Self-reference — track forks, adopters, and how the scaffold is used
 - **Look for:** New forks, adopter modifications, issues filed by users
-- **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 0 | **SHA:** 733efef
+- **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 0 | **SHA:** 61881cf
 - **Notes:** Used during HORIZON SCAN for adoption tracking. 0 forks, 0 adopters as of 2026-03-27.
 
 ## Watch List
@@ -72,7 +72,7 @@
 ### anthropics/claude-plugins-official
 - **Why:** Official Anthropic plugin directory (14.3K stars) — distribution channel for Claude Code plugins with standard format
 - **Look for:** Plugin format updates, new submission requirements, plugin.json schema changes, new official plugins relevant to harness patterns
-- **Added:** 2026-03-24 (horizon scan) | **Observations:** 33 | **First seen:** 2026-03-24 | **SHA:** 451c481
+- **Added:** 2026-03-24 (horizon scan) | **Observations:** 33 | **First seen:** 2026-03-24 | **SHA:** 548bfa8
 - **Notes:** SHA 72b9754→451c481 (changed). Standard plugin format: .claude-plugin/plugin.json + commands/ + agents/ + skills/. Distribution channel for #66. 1 pattern hit (official plugin format).
 
 ### agent-sh/agnix

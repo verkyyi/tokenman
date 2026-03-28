@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-03-27T22:50:00Z
-Updated by: watcher.yml
+Last updated: 2026-03-28T00:39:30Z
+Updated by: evolve.yml
 
 ## Last Session
-Action: watcher.yml health check — all clear, 0 corrective actions. All workflows HEALTHY. 4 issues correctly held (needs-human: #103, #100, #48, #22). 3 PRs awaiting human merge (#55 APPROVED 126h+, #107 APPROVED 2x merge conflicts, #112 APPROVED-via-comments merge conflicts). No broken chains, stuck runs, or repeated failures. Token utilization all within bounds.
+Action: evolve.yml PIPELINE_WATCH — all 10 recent failures ALREADY-FIXED, 0 ACTIONABLE. Cost $32.17/day Mar 27 (projected $225/week, down from $250). claude-code v2.1.86 released (bug-fix/polish, Read tool token optimization automatic). SHA scan: 3+1 Active changed, 1 Watch changed. 0 issues created.
 
 System health:
 - Evolve: WATCH — 2/9 recent exceed 55 (22%), trending down. Latest 44 turns (PATTERN_HUNT). Turns: 44-63.
