@@ -1,7 +1,7 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-03-28T00:39:00Z
+# Last updated: 2026-03-28T03:54:00Z
 
 ## Active Sources
 
@@ -20,20 +20,20 @@
 ### hesreallyhim/awesome-claude-code
 - **Why:** Curated ecosystem catalog — discover new tools, libraries, and patterns
 - **Look for:** New entries in Orchestrators/Tools/Skills sections, trending repos referenced
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-26T09:28 | **Pattern hits:** 0 | **SHA:** 7b60cab
-- **Notes:** SHA 22d444f→7f0aafc (changed). 0 pattern hits across 20+ observations. Low-value for PATTERN_HUNT; retain for HORIZON_SCAN cross-reference only.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-28T03:54 | **Pattern hits:** 0 | **SHA:** f970924
+- **Notes:** SHA 7b60cab→f970924 (changed). New resources: agnix (Config Managers — cross-refs Watch List), Codebase to Course (Agent Skills). 0 pattern hits across 22+ observations. Retain for HORIZON_SCAN cross-reference only.
 
 ### bytedance/deer-flow
 - **Why:** Multi-agent orchestration patterns from a major tech company
 - **Look for:** Agent coordination, state management, tool orchestration, LLM provider patterns
-- **Added:** 2026-03-21 (seed) | **Last deep:** 2026-03-26T09:28 | **Pattern hits:** 1 | **SHA:** ca20b48
-- **Notes:** Very active (5+ commits/day). SHA 03b144f→ca20b48 (changed). Skill frontmatter validation tests (PR #1309). Converges with Citadel V2 skill-lint pattern. 0 harness patterns across 9+ consecutive deep-dives. Lowest deep-dive priority.
+- **Added:** 2026-03-21 (seed) | **Last deep:** 2026-03-26T09:28 | **Pattern hits:** 1 | **SHA:** 43ef369
+- **Notes:** Very active (5+ commits/day). SHA ca20b48→43ef369 (changed). OAuth billing header fix (#1442). 0 harness patterns across 10+ consecutive deep-dives. Lowest deep-dive priority.
 
 ### SethGammon/Citadel
 - **Why:** Agent orchestration harness (354 stars) — closest architecture to tokenman. Campaign persistence, parallel worktrees, circuit breaker, quality gate hooks, skill benchmarking
 - **Look for:** Skill benchmarking patterns, skill linting, governance hooks, testing infrastructure, fleet coordination
-- **Added:** 2026-03-24 (watch) | **Promoted:** 2026-03-27 (synthesis — 35 obs, closest architecture, V2 patterns) | **Last deep:** 2026-03-27T21:18 | **Pattern hits:** 1 | **SHA:** 4111623
-- **Notes:** Promoted from Watch List. First deep-dive: 21-hook ecosystem (governance audit log, quality-gate Stop hook, external-action-gate PreToolUse, intake-scanner SessionStart, stop-failure meta-hook, circuit-breaker, worktree-setup/remove, protect-files, doc-sync, etc.). V2 quality: ReDoS heuristic for custom regex, repo-slug validation, execFileSync over execSync. Validates our guard.sh approach. Patterns are interactive-session focused (CLI, not CI) — low direct adoption potential. 1 pattern hit (circuit breaker #76, pre-promotion). Rich reference for hook architecture evolution.
+- **Added:** 2026-03-24 (watch) | **Promoted:** 2026-03-27 (synthesis — 35 obs, closest architecture, V2 patterns) | **Last deep:** 2026-03-28T03:54 | **Pattern hits:** 1 | **SHA:** cac5244
+- **Notes:** Promoted from Watch List. V3 hardening (cac5244): telemetry-schema.js (canonical event schema v1 with validation, 135 lines), health.js (6-subsystem JSON health blob), telemetry-stats.js (shared read logic, 234 lines), token-economics-methodology.md, YAML frontmatter templates, CITADEL_UI dual output across all hooks, 19 integration tests. All V3 patterns are interactive-CLI/UI focused. Previous: 21-hook ecosystem (V2). 1 pattern hit (circuit breaker #76, pre-promotion). Rich reference for structured observability but low CI adoption potential.
 
 ### actions/runner
 - **Why:** CI/CD runtime we depend on — deprecation notices, new features, security fixes
@@ -50,8 +50,8 @@
 ### verkyyi/tokenman
 - **Why:** Self-reference — track forks, adopters, and how the scaffold is used
 - **Look for:** New forks, adopter modifications, issues filed by users
-- **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 0 | **SHA:** 61881cf
-- **Notes:** Used during HORIZON SCAN for adoption tracking. 0 forks, 0 adopters as of 2026-03-27.
+- **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 0 | **SHA:** b5b220d
+- **Notes:** Used during HORIZON SCAN for adoption tracking. 0 forks, 0 adopters as of 2026-03-28.
 
 ## Watch List
 <!-- Sources under evaluation. Promoted to Active or Dropped after 3+ observations over 7+ days. -->
@@ -60,7 +60,7 @@
 - **Why:** Harness engineering patterns — skills, slash commands, review protocols, agent orchestration
 - **Look for:** Non-Codex workflow patterns, CI-transferable techniques
 - **Demoted:** 2026-03-27 (synthesis — 14 consecutive PH with 0 adoptable patterns, all Codex/interactive-session specific)
-- **Observations:** 35+ | **First seen:** 2026-03-20 | **SHA:** 11695e3
+- **Observations:** 36+ | **First seen:** 2026-03-20 | **SHA:** 78bc1d1
 - **Notes:** Historically most productive source (9 pattern hits across v0.9.7-v0.11.18.2). Demoted because pattern yield exhausted for CI-based harness — all recent changes Codex/interactive-session specific. Monitor for CI-relevant patterns. Re-promote if non-Codex patterns emerge.
 
 ### trailofbits/skills

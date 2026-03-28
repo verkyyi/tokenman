@@ -1,28 +1,27 @@
 # Last Evolve Summary
-Timestamp: 2026-03-28T00:39:30Z
-Main HEAD: 61881cf
-Posture: PIPELINE_WATCH (2 runs since last PW; cost trend tracking due; pipeline health verification)
-Posture history: [PIPELINE_WATCH, PATTERN_HUNT, SYNTHESIS, PIPELINE_WATCH, HORIZON_SCAN, PATTERN_HUNT, SYNTHESIS, PIPELINE_WATCH, SYNTHESIS, PATTERN_HUNT, HORIZON_SCAN, PIPELINE_WATCH, SYNTHESIS, PATTERN_HUNT, HORIZON_SCAN, PIPELINE_WATCH, SYNTHESIS, PATTERN_HUNT, HORIZON_SCAN, PATTERN_HUNT, PIPELINE_WATCH]
+Timestamp: 2026-03-28T03:54:59Z
+Main HEAD: b5b220d
+Posture: PATTERN_HUNT (3 Active SHAs changed, Citadel V3 worth deeper exploration, PH momentum after breaking plateau)
+Posture history: [PATTERN_HUNT, PIPELINE_WATCH, PATTERN_HUNT, SYNTHESIS, PIPELINE_WATCH, HORIZON_SCAN, PATTERN_HUNT, SYNTHESIS, PIPELINE_WATCH, SYNTHESIS, PATTERN_HUNT, HORIZON_SCAN, PIPELINE_WATCH, SYNTHESIS, PATTERN_HUNT, HORIZON_SCAN, PIPELINE_WATCH, SYNTHESIS, PATTERN_HUNT, HORIZON_SCAN, PATTERN_HUNT, PIPELINE_WATCH]
 Runs since each:
-  PATTERN_HUNT: 1
-  PIPELINE_WATCH: 0
-  HORIZON_SCAN: 4
-  SYNTHESIS: 2
-Open issues: #22, #48, #100, #103
+  PATTERN_HUNT: 0
+  PIPELINE_WATCH: 1
+  HORIZON_SCAN: 5
+  SYNTHESIS: 3
+Open issues: #103,100,48,22
 
 ## Source Digests
-anthropics/claude-code: 2923bc8 | last-deep: 2026-03-27T09:27 | changed (was f75b613, v2.1.86 released)
+anthropics/claude-code: 2923bc8 | last-deep: 2026-03-27T09:27 | unchanged
 affaan-m/everything-claude-code: 8b6140d | last-deep: 2026-03-25T13:32 | unchanged
-hesreallyhim/awesome-claude-code: 7b60cab | last-deep: 2026-03-26T09:28 | changed (was 7f0aafc)
-bytedance/deer-flow: ca20b48 | last-deep: 2026-03-26T09:28 | unchanged
-SethGammon/Citadel: 4111623 | last-deep: 2026-03-27T21:18 | changed (was 830b63b)
+hesreallyhim/awesome-claude-code: f970924 | last-deep: 2026-03-28T03:54 | changed (was 7b60cab, new resources: agnix, Codebase to Course)
+bytedance/deer-flow: 43ef369 | last-deep: 2026-03-26T09:28 | changed (was ca20b48, OAuth billing fix)
+SethGammon/Citadel: cac5244 | last-deep: 2026-03-28T03:54 | changed (was 4111623, V3 hardening)
 actions/runner: f0c2286 | last-deep: 2026-03-24 | unchanged
 withastro/astro: 0d24e3b | last-deep: 2026-03-25T17:12 | unchanged
-verkyyi/tokenman: 61881cf | last-deep: never | self, 0 forks
+verkyyi/tokenman: b5b220d | last-deep: never | self, 0 forks
 
 ## Findings This Run
-- All 10 recent failures ALREADY-FIXED. 0 ACTIONABLE. Pipeline excellent.
-- Cost trending down: $32.17/day Mar 27 (projected $225/week), from $35.80 prior day. Watcher+Evolve=82.8%.
-- claude-code v2.1.86 released: Read tool token optimization (automatic benefit), --bare fix (reinforces #63), plugin permission fix (relevant to #66). No actionable changes.
-- SHA scan: 3/8 Active changed (claude-code, awesome-cc, Citadel), 1/5 Watch changed (plugins-official).
+- Citadel V3 hardening: telemetry schema validation, unified health blob, token economics, YAML frontmatter templates, CITADEL_UI dual output, 19 integration tests — all CLI/UI patterns, 0 adoptable for CI
+- awesome-cc: agnix listed in Config Managers (confirms Watch List relevance), Codebase to Course skill added
+- deer-flow: OAuth billing header fix (platform-specific, not adoptable)
 0 issues created.
