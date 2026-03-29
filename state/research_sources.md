@@ -1,7 +1,7 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-03-28T18:13:02Z
+# Last updated: 2026-03-29T00:44:35Z
 
 ## Active Sources
 
@@ -14,14 +14,14 @@
 ### affaan-m/everything-claude-code
 - **Why:** Community harness patterns, skill collections, optimization techniques
 - **Look for:** New skills, CLAUDE.md patterns, workflow architectures, instinct files
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-25T13:32 | **Pattern hits:** 1 | **SHA:** f077975
-- **Notes:** Large community repo. 1 pattern hit (safety-guard PreToolUse hooks). SHA 8b6140d→f077975: installer fixes (PR #931, #963). All platform-specific. 0 harness patterns across 8+ consecutive observations. Lowest deep-dive priority.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-25T13:32 | **Pattern hits:** 1 | **SHA:** a8e088a
+- **Notes:** Large community repo. 1 pattern hit (safety-guard PreToolUse hooks). SHA f077975→a8e088a: Laravel plugin skill (PR #923). All platform-specific. 0 harness patterns across 9+ consecutive observations. Lowest deep-dive priority.
 
 ### hesreallyhim/awesome-claude-code
 - **Why:** Curated ecosystem catalog — discover new tools, libraries, and patterns
 - **Look for:** New entries in Orchestrators/Tools/Skills sections, trending repos referenced
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-28T03:54 | **Pattern hits:** 0 | **SHA:** a511f96
-- **Notes:** SHA 753921c→a511f96 (changed). 0 pattern hits across 25+ observations. Retain for HORIZON_SCAN cross-reference only.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-28T03:54 | **Pattern hits:** 0 | **SHA:** b092ca6
+- **Notes:** SHA a511f96→b092ca6 (ticker data). 0 pattern hits across 26+ observations. Retain for HORIZON_SCAN cross-reference only.
 
 ### bytedance/deer-flow
 - **Why:** Multi-agent orchestration patterns from a major tech company
@@ -32,8 +32,8 @@
 ### SethGammon/Citadel
 - **Why:** Agent orchestration harness (354 stars) — closest architecture to tokenman. Campaign persistence, parallel worktrees, circuit breaker, quality gate hooks, skill benchmarking
 - **Look for:** Skill benchmarking patterns, skill linting, governance hooks, testing infrastructure, fleet coordination
-- **Added:** 2026-03-24 (watch) | **Promoted:** 2026-03-27 (synthesis — 35 obs, closest architecture, V2 patterns) | **Last deep:** 2026-03-28T03:54 | **Pattern hits:** 1 | **SHA:** 2b3f87d
-- **Notes:** Promoted from Watch List. SHA cac5244→2b3f87d (changed). V3 hardening deep-dived: telemetry schema, health blob, token economics — all CLI/UI focused. 21-hook ecosystem (V2). 1 pattern hit (circuit breaker #76). Rich reference for structured observability but low CI adoption potential.
+- **Added:** 2026-03-24 (watch) | **Promoted:** 2026-03-27 (synthesis — 35 obs, closest architecture, V2 patterns) | **Last deep:** 2026-03-28T03:54 | **Pattern hits:** 1 | **SHA:** 82909b7
+- **Notes:** Promoted from Watch List. SHA 2b3f87d→82909b7 (PR #59: three-pass health scan + repo cleanup, .planning/ directory). 21-hook ecosystem (V2). 1 pattern hit (circuit breaker #76). Rich reference for structured observability but low CI adoption potential.
 
 ### actions/runner
 - **Why:** CI/CD runtime we depend on — deprecation notices, new features, security fixes
@@ -50,8 +50,8 @@
 ### verkyyi/tokenman
 - **Why:** Self-reference — track forks, adopters, and how the scaffold is used
 - **Look for:** New forks, adopter modifications, issues filed by users
-- **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 0 | **SHA:** b5b220d
-- **Notes:** Used during HORIZON SCAN for adoption tracking. 0 forks, 0 adopters as of 2026-03-28.
+- **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 0 | **SHA:** 2c72334
+- **Notes:** Used during HORIZON SCAN for adoption tracking. 0 forks, 0 adopters as of 2026-03-29.
 
 ## Watch List
 <!-- Sources under evaluation. Promoted to Active or Dropped after 3+ observations over 7+ days. -->
@@ -78,15 +78,14 @@
 ### agent-sh/agnix
 - **Why:** CLAUDE.md/SKILL.md linter and LSP (103 stars) — validates AI coding assistant config files, autofixes, IDE plugins
 - **Look for:** Validation rules for CLAUDE.md, SKILL.md format standards, CI integration patterns, autofix capabilities
-- **Added:** 2026-03-24 (horizon scan) | **Observations:** 33 | **First seen:** 2026-03-24 | **SHA:** 018c2bb
-- **Notes:** SHA 7ffdf76→018c2bb (changed). SKILL.md schema enforcement (XP-SK-001), org matured avifenesh→agent-sh. Rust. Active (693+ PRs). Formal SKILL.md validation relevant to #66/#68. 0 pattern hits (pre-adoption). Retain.
+- **Added:** 2026-03-24 (horizon scan) | **Observations:** 34 | **First seen:** 2026-03-24 | **SHA:** 371142c
+- **Notes:** SHA 018c2bb→371142c (v0.17.0: 44 new rules, HTTP hook support, 385 total rules, 124 auto-fixes). Strongest promotion candidate — eligible Mar 31 (7-day threshold). Relevant to #66/#68. 0 pattern hits (pre-adoption). Retain.
 
 ### code-yeongyu/oh-my-openagent
 - **Why:** Largest agent harness repo (44K stars, 3273 forks) — TypeScript TUI, multi-model orchestration, subagent management, plugin discovery, hook isolation
 - **Look for:** Hook isolation patterns, subagent lifecycle management, plugin discovery architecture, runtime fallback patterns
-- **Added:** 2026-03-27 (horizon scan) | **Observations:** 5 | **First seen:** 2026-03-27 | **SHA:** 9cbcf17
-- **Observations:** 7 | **First seen:** 2026-03-27 | **SHA:** 9fc56ab
-- **Notes:** Very active (2900+ PRs, multiple commits/day). SHA 448a8dc→9fc56ab (changed). Architecture fundamentally different (interactive TUI vs CI workflows). Low direct adoption potential but large ecosystem influence. Monitor for transferable patterns.
+- **Added:** 2026-03-27 (horizon scan) | **Observations:** 8 | **First seen:** 2026-03-27 | **SHA:** 5d4e57c
+- **Notes:** Very active (2900+ PRs, multiple commits/day). SHA 9fc56ab→5d4e57c (CLA + 3 community bug fixes #2915/#2917/#2918). Architecture fundamentally different (interactive TUI vs CI workflows). Low direct adoption potential but large ecosystem influence. Monitor for transferable patterns.
 
 ## Dropped Sources
 <!-- Removed sources with reason. Kept for history so we don't re-discover them. -->

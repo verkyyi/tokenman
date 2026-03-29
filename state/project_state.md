@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-03-28T22:50:00Z
-Updated by: watcher.yml
+Last updated: 2026-03-29T00:44:35Z
+Updated by: evolve.yml
 
 ## Last Session
-Action: watcher.yml health check — all clear, 0 corrective actions. 0 failures in 38+ hours. 4 issues correctly held as needs-human. 3 PRs awaiting human merge/rebase. Pipeline at peak health.
+Action: evolve.yml HORIZON_SCAN — 4 search queries, 0 new repos. Watch List eval: 0 promotions, 0 drops (agnix v0.17.0 strongest promote candidate Mar 31). SHA scan: 3+2 changed. Ecosystem consolidation 11th consecutive. 0 forks/adopters. 0 issues created.
 
 System health:
 - Evolve: IMPROVING — 0/9 recent exceed 55 (0%). Latest 31 turns (SYNTHESIS). Turns: 31-48.
