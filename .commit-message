@@ -1,12 +1,1 @@
-fix(harness): add conditional if filtering to PreToolUse guard hook (closes #122)
-
-Add `if: "Bash(*),Write(*),Edit(*)"` to the PreToolUse guard.sh hook
-in .claude/settings.json, matching the three tools with deny rules in
-guardrail_policy.json. This skips ~50-60% of process spawns per run
-(Read, Glob, Grep calls no longer spawn bash+jq for guard.sh).
-
-PostToolUse circuit-breaker left unfiltered intentionally: filtering
-would prevent successful non-Bash/Write/Edit calls from resetting the
-consecutive-failure counter, causing false circuit-breaker trips.
-PostToolUseFailure, SessionEnd, and StopFailure also left unfiltered
-(already scoped to infrequent events).
+fix(workflow): use unique heredoc delimiter in coder.yml .fix-failed output (closes #125)
