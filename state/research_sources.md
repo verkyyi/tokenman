@@ -1,7 +1,7 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-03-29T04:05:05Z
+# Last updated: 2026-03-29T06:34:46Z
 
 ## Active Sources
 
@@ -14,19 +14,19 @@
 ### affaan-m/everything-claude-code
 - **Why:** Community harness patterns, skill collections, optimization techniques
 - **Look for:** New skills, CLAUDE.md patterns, workflow architectures, instinct files
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-25T13:32 | **Pattern hits:** 1 | **SHA:** c5e3658
-- **Notes:** Large community repo. 1 pattern hit (safety-guard PreToolUse hooks). SHA f077975→a8e088a: Laravel plugin skill (PR #923). All platform-specific. 0 harness patterns across 9+ consecutive observations. Lowest deep-dive priority.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-29T06:34 | **Pattern hits:** 1 | **SHA:** 527c793
+- **Notes:** Large community repo. 1 pattern hit (safety-guard PreToolUse hooks). PRs #998-#1000: Codex context7 compat, CLV2 config override, token-budget-advisor trigger. All Codex/CLV2-specific. 0 harness patterns across 10+ consecutive observations. Lowest deep-dive priority.
 
 ### hesreallyhim/awesome-claude-code
 - **Why:** Curated ecosystem catalog — discover new tools, libraries, and patterns
 - **Look for:** New entries in Orchestrators/Tools/Skills sections, trending repos referenced
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-28T03:54 | **Pattern hits:** 0 | **SHA:** b092ca6
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-28T03:54 | **Pattern hits:** 0 | **SHA:** ca3bf52
 - **Notes:** SHA a511f96→b092ca6 (ticker data). 0 pattern hits across 26+ observations. Retain for HORIZON_SCAN cross-reference only.
 
 ### bytedance/deer-flow
 - **Why:** Multi-agent orchestration patterns from a major tech company
 - **Look for:** Agent coordination, state management, tool orchestration, LLM provider patterns
-- **Added:** 2026-03-21 (seed) | **Last deep:** 2026-03-28T15:14 | **Pattern hits:** 1 | **SHA:** 481494b
+- **Added:** 2026-03-21 (seed) | **Last deep:** 2026-03-28T15:14 | **Pattern hits:** 1 | **SHA:** 7eb3a15
 - **Notes:** Very active (5+ commits/day). Latest: memory middleware thread_id fallback, channel assistant IDs, Docker fixes. All application-specific. 0 harness patterns across 11+ consecutive deep-dives. Lowest deep-dive priority.
 
 ### SethGammon/Citadel
@@ -60,8 +60,8 @@
 - **Why:** Harness engineering patterns — skills, slash commands, review protocols, agent orchestration
 - **Look for:** Non-Codex workflow patterns, CI-transferable techniques
 - **Demoted:** 2026-03-27 (synthesis — 14 consecutive PH with 0 adoptable patterns, all Codex/interactive-session specific)
-- **Observations:** 38+ | **First seen:** 2026-03-20 | **SHA:** cd66fc2
-- **Notes:** Historically most productive source (9 pattern hits across v0.9.7-v0.11.18.2). Demoted because pattern yield exhausted for CI-based harness — all recent changes Codex/interactive-session specific. Monitor for CI-relevant patterns. Re-promote if non-Codex patterns emerge.
+- **Observations:** 39+ | **First seen:** 2026-03-20 | **SHA:** ea7dbc9
+- **Notes:** Historically most productive source (9 pattern hits across v0.9.7-v0.11.18.2). Demoted because pattern yield exhausted for CI-based harness. v0.13.4.0: prompt injection defense (XML framing, trust boundaries, command allowlist) — interesting security pattern but CI risk lower than interactive sessions, #17 covers domain. Monitor for CI-relevant patterns. Re-promote if non-Codex patterns emerge.
 
 ### trailofbits/skills
 - **Why:** Security-focused Claude Code skills (4K stars) from top security firm — audit workflows, vulnerability detection, semgrep rules
@@ -72,14 +72,14 @@
 ### anthropics/claude-plugins-official
 - **Why:** Official Anthropic plugin directory (14.3K stars) — distribution channel for Claude Code plugins with standard format
 - **Look for:** Plugin format updates, new submission requirements, plugin.json schema changes, new official plugins relevant to harness patterns
-- **Added:** 2026-03-24 (horizon scan) | **Observations:** 33 | **First seen:** 2026-03-24 | **SHA:** 548bfa8
-- **Notes:** SHA 72b9754→451c481 (changed). Standard plugin format: .claude-plugin/plugin.json + commands/ + agents/ + skills/. Distribution channel for #66. 1 pattern hit (official plugin format).
+- **Added:** 2026-03-24 (horizon scan) | **Observations:** 34 | **First seen:** 2026-03-24 | **SHA:** 183a6ca
+- **Notes:** PR #1115: bash prefix for .sh hooks (fixes #993 permission denied). Validates our `bash scripts/...` approach. Version field added for cache invalidation. Standard plugin format: .claude-plugin/plugin.json + commands/ + agents/ + skills/. Distribution channel for #66. 1 pattern hit (official plugin format).
 
 ### agent-sh/agnix
 - **Why:** CLAUDE.md/SKILL.md linter and LSP (103 stars) — validates AI coding assistant config files, autofixes, IDE plugins
 - **Look for:** Validation rules for CLAUDE.md, SKILL.md format standards, CI integration patterns, autofix capabilities
-- **Added:** 2026-03-24 (horizon scan) | **Observations:** 34 | **First seen:** 2026-03-24 | **SHA:** 371142c
-- **Notes:** SHA 018c2bb→371142c (v0.17.0: 44 new rules, HTTP hook support, 385 total rules, 124 auto-fixes). Strongest promotion candidate — eligible Mar 31 (7-day threshold). Relevant to #66/#68. 0 pattern hits (pre-adoption). Retain.
+- **Added:** 2026-03-24 (horizon scan) | **Observations:** 35 | **First seen:** 2026-03-24 | **SHA:** 371142c
+- **Notes:** v0.17.0 deep-dived: perf consolidation (11 JSON traversals→2 passes, copilot parse reduction, serde caching), 44 new rules, HTTP hook validation, 385 total rules, 124 auto-fixes. Architecture-specific optimizations, 0 CI-adoptable. Strongest promotion candidate — eligible Mar 31. Relevant to #66/#68. 0 pattern hits. Retain.
 
 ### code-yeongyu/oh-my-openagent
 - **Why:** Largest agent harness repo (44K stars, 3273 forks) — TypeScript TUI, multi-model orchestration, subagent management, plugin discovery, hook isolation
