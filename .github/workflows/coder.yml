@@ -209,9 +209,9 @@ jobs:
         run: |
           if [ -f ".fix-failed" ]; then
             echo "FAILED=true" >> $GITHUB_OUTPUT
-            echo "REASON<<EOF" >> $GITHUB_OUTPUT
+            echo "REASON<<EOFCODER_FIXFAILED" >> $GITHUB_OUTPUT
             cat .fix-failed >> $GITHUB_OUTPUT
-            echo "EOF" >> $GITHUB_OUTPUT
+            echo "EOFCODER_FIXFAILED" >> $GITHUB_OUTPUT
           else
             echo "FAILED=false" >> $GITHUB_OUTPUT
           fi
