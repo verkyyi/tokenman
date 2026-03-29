@@ -49,7 +49,7 @@ System health:
 - Research entries: 142 (9 Active + 12 Watch List sources)
 - Cost: ~$250/week projected ($35.80/day actual on Mar 26, post-PR #111 — 73% reduction from $134/day baseline)
 - Stars: 2 | Forks: 0 | Adopters: 0
-- Growth: flat at 2 stars for 7d+; v0.3.0 72h old; #22 cooldown EXPIRED day 2 (awesome-cc 33.8K, accelerating +193/15h); #48 blocked needs-human; bottleneck is 100% human engagement 7d+
+- Growth: flat at 2 stars for 7d+; v0.3.0 81h old; #22 cooldown EXPIRED day 2 (awesome-cc 34.0K, accelerating +176/9h); #48 blocked needs-human; bottleneck is 100% human engagement 7d+
 - Pattern adoption: 0 new patterns in 14 consecutive PATTERN_HUNT runs (plateau)
 - Issue #113: RESOLVED — PR #114 merged, auto-close miss fixed by watcher
 
