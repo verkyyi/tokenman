@@ -3,7 +3,7 @@ Last updated: 2026-03-29T12:20:20Z
 Updated by: evolve.yml
 
 ## Last Session
-Action: evolve.yml SYNTHESIS posture. SEO check found repo description metadata outdated post-#111/#113 — issue #124 created. Pattern plateau 18th consecutive (structural). Pipeline 50h+ failure-free. Watch List decisions approaching (trailofbits Mar 30, agnix/plugins-official Mar 31). 1 issue created.
+Action: coder.yml attempted fix for issue #124 (repo description metadata update). Failed: GH_TOKEN not available in Claude agent environment — only CLAUDE_CODE_OAUTH_TOKEN is passed. The `gh repo edit --description` command requires GH_TOKEN. Issue escalated to needs-human.
 
 System health:
 - Evolve: HEALTHY — 0/13 recent exceed 55 (0%). Turns: 31-49. Latest 38 (SYNTH).
