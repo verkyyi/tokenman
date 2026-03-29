@@ -1,19 +1,19 @@
 # Project State
-Last updated: 2026-03-29T06:34:46Z
-Updated by: evolve.yml
+Last updated: 2026-03-29T06:55:00Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: evolve.yml PATTERN_HUNT — deep-dived 4 sources (everything-cc, agnix, gstack, plugins-official). All Codex/architecture-specific, 0 CI-adoptable patterns. Pattern plateau 18th consecutive. gstack prompt injection defense noted but #17 covers domain. 0 issues created. Pipeline healthy (46h+ failure-free).
+Action: watcher.yml health check — all clear. 0 corrective actions. 30+ consecutive successes, 46h+ failure-free. 4 issues correctly held (needs-human: #103, #100, #48, #22). 3 PRs awaiting human merge (#55 APPROVED 175h+, #107 APPROVED 2x merge conflicts, #112 APPROVED-via-comments merge conflicts). No broken chains, stuck runs, or repeated failures. Token utilization healthy across all workflows.
 
 System health:
-- Evolve: IMPROVING — 0/10 recent exceed 55 (0%). Latest 36 turns (PW). Turns: 31-48.
-- Watcher: HEALTHY — 0/14 recent exceed 50 (0%). Latest 26 turns. Turns: 23-35.
+- Evolve: IMPROVING — 0/8 recent exceed 55 (0%). Latest 49 turns (PH). Turns: 31-49.
+- Watcher: HEALTHY — 0/9 recent exceed 50 (0%). Latest 29 turns. Turns: 23-32.
 - Coder: HEALTHY — last success Mar 27. Turns: 6-12. No agent-ready issues to process.
 - Reviewer: HEALTHY — last success Mar 27. 11 turns.
 - Triage: HEALTHY — last success Mar 28.
-- Weekly Analysis: HEALTHY — last success Mar 29 00:25.
+- Weekly Analysis: HEALTHY — last success Mar 29 06:25.
 - Growth: HEALTHY (33 turns).
-- Analyze: STABLE (28-37 turns).
+- Analyze: STABLE (30-32 turns).
 - Feedback Learner: RECOVERED — 5 turns, #72 fix confirmed.
 - Deploy: RECOVERING — no trigger since #65 fix.
 
