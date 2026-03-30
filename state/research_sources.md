@@ -1,7 +1,7 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-03-30T00:44:26Z
+# Last updated: 2026-03-30T04:05:23Z
 
 ## Active Sources
 
@@ -14,26 +14,26 @@
 ### affaan-m/everything-claude-code
 - **Why:** Community harness patterns, skill collections, optimization techniques
 - **Look for:** New skills, CLAUDE.md patterns, workflow architectures, instinct files
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-29T06:34 | **Pattern hits:** 1 | **SHA:** 527c793
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-29T06:34 | **Pattern hits:** 1 | **SHA:** cff28ef
 - **Notes:** Large community repo. 1 pattern hit (safety-guard PreToolUse hooks). PRs #998-#1000: Codex context7 compat, CLV2 config override, token-budget-advisor trigger. All Codex/CLV2-specific. 0 harness patterns across 10+ consecutive observations. Lowest deep-dive priority.
 
 ### hesreallyhim/awesome-claude-code
 - **Why:** Curated ecosystem catalog — discover new tools, libraries, and patterns
 - **Look for:** New entries in Orchestrators/Tools/Skills sections, trending repos referenced
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-28T03:54 | **Pattern hits:** 0 | **SHA:** e477e6a
-- **Notes:** SHA 508ef48→e477e6a (ticker data). 0 pattern hits across 29+ observations. Retain for HORIZON_SCAN cross-reference only.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-28T03:54 | **Pattern hits:** 0 | **SHA:** 2a4825b
+- **Notes:** SHA e477e6a→2a4825b (ticker data). 0 pattern hits across 30+ observations. Retain for HORIZON_SCAN cross-reference only.
 
 ### bytedance/deer-flow
 - **Why:** Multi-agent orchestration patterns from a major tech company
 - **Look for:** Agent coordination, state management, tool orchestration, LLM provider patterns
-- **Added:** 2026-03-21 (seed) | **Last deep:** 2026-03-28T15:14 | **Pattern hits:** 1 | **SHA:** 9aa3ff7
-- **Notes:** Very active (5+ commits/day). SHA fc7de7f→9aa3ff7. All application-specific. 0 harness patterns across 14+ consecutive deep-dives. Lowest deep-dive priority.
+- **Added:** 2026-03-21 (seed) | **Last deep:** 2026-03-28T15:14 | **Pattern hits:** 1 | **SHA:** 7db9592
+- **Notes:** Very active (5+ commits/day). SHA 9aa3ff7→7db9592. All application-specific. 0 harness patterns across 15+ consecutive deep-dives. Lowest deep-dive priority.
 
 ### SethGammon/Citadel
 - **Why:** Agent orchestration harness (400 stars) — closest architecture to tokenman. Campaign persistence, parallel worktrees, circuit breaker, quality gate hooks, skill benchmarking, daemon factory
 - **Look for:** Skill benchmarking patterns, skill linting, governance hooks, testing infrastructure, fleet coordination, daemon factory patterns
-- **Added:** 2026-03-24 (watch) | **Promoted:** 2026-03-27 (synthesis — 35 obs, closest architecture, V2 patterns) | **Last deep:** 2026-03-28T03:54 | **Pattern hits:** 1 | **SHA:** b07c41f
-- **Notes:** Promoted from Watch List. V3 post-release: PR #61 restructured skills flat→nested SKILL.md for plugin scanner (validates our `skills/{name}/SKILL.md` format). PR #63 docs: routing tiers, "What Is Citadel" section. 39 skills, daemon factory, skill-lint.js. 1 pattern hit (circuit breaker #76).
+- **Added:** 2026-03-24 (watch) | **Promoted:** 2026-03-27 (synthesis — 35 obs, closest architecture, V2 patterns) | **Last deep:** 2026-03-30T04:05 | **Pattern hits:** 1 | **SHA:** b07c41f
+- **Notes:** Promoted from Watch List. V3 post-release: PR #61 restructured skills flat→nested SKILL.md for plugin scanner (validates our `skills/{name}/SKILL.md` format). PR #63 docs: routing tiers, "What Is Citadel" section. 39 skills, daemon factory, skill-lint.js. rules-summary.md: HANDOFF block pattern + timeout wrapper + scope enforcement — validates our state/ system. 1 pattern hit (circuit breaker #76).
 
 ### actions/runner
 - **Why:** CI/CD runtime we depend on — deprecation notices, new features, security fixes
@@ -50,7 +50,7 @@
 ### verkyyi/tokenman
 - **Why:** Self-reference — track forks, adopters, and how the scaffold is used
 - **Look for:** New forks, adopter modifications, issues filed by users
-- **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 0 | **SHA:** 7c60e9c
+- **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 0 | **SHA:** 67970c3
 - **Notes:** Used during HORIZON SCAN for adoption tracking. 0 forks, 0 adopters as of 2026-03-29.
 
 ## Watch List
@@ -60,45 +60,45 @@
 - **Why:** Harness engineering patterns — skills, slash commands, review protocols, agent orchestration
 - **Look for:** Non-Codex workflow patterns, CI-transferable techniques
 - **Demoted:** 2026-03-27 (synthesis — 14 consecutive PH with 0 adoptable patterns, all Codex/interactive-session specific)
-- **Observations:** 41+ | **First seen:** 2026-03-20 | **SHA:** ae0a9ad
+- **Observations:** 42+ | **First seen:** 2026-03-20 | **SHA:** cdd6f78
 - **Notes:** Historically most productive source (9 pattern hits across v0.9.7-v0.11.18.2). Demoted because pattern yield exhausted for CI-based harness. v0.13.5.0: Factory Droid compat (multi-host generation). v0.13.4.0: prompt injection defense. CI risk lower than interactive sessions, #17 covers domain. Monitor for CI-relevant patterns.
 
 ### trailofbits/skills
 - **Why:** Security-focused Claude Code skills (4K stars) from top security firm — audit workflows, vulnerability detection, semgrep rules
 - **Look for:** Security audit skill structure, semgrep rule patterns, skill-improver tooling, SKILL.md format conventions
-- **Added:** 2026-03-23 (horizon scan) | **Observations:** 35 | **First seen:** 2026-03-23 | **SHA:** 4b9a4e9
+- **Added:** 2026-03-23 (horizon scan) | **Observations:** 36 | **First seen:** 2026-03-23 | **SHA:** 4b9a4e9
 - **Decision (2026-03-30):** RETAIN on Watch List. 35 obs, 7+ days, 1 pattern hit (SKILL.md standard → #68, closed). 4K stars, 362 forks, active (last commit Mar 27). Low pattern yield (1/35) — not promoting to Active. Actively maintained — not dropping. Serves as reference for future skill format work.
 - **Notes:** 34+ plugins with formal SKILL.md standard. skill-improver quality loop. Codex compatibility layer. 1 pattern hit: SKILL.md quality standard (issue #68, closed). Key reference for skill format. SHA unchanged.
 
 ### anthropics/claude-plugins-official
 - **Why:** Official Anthropic plugin directory (14.3K stars) — distribution channel for Claude Code plugins with standard format
 - **Look for:** Plugin format updates, new submission requirements, plugin.json schema changes, new official plugins relevant to harness patterns
-- **Added:** 2026-03-24 (horizon scan) | **Observations:** 35 | **First seen:** 2026-03-24 | **SHA:** 183a6ca
+- **Added:** 2026-03-24 (horizon scan) | **Observations:** 36 | **First seen:** 2026-03-24 | **SHA:** 183a6ca
 - **Notes:** PR #1115: bash prefix for .sh hooks (fixes #993 permission denied). Validates our `bash scripts/...` approach. Version field added for cache invalidation. Standard plugin format: .claude-plugin/plugin.json + commands/ + agents/ + skills/. Distribution channel for #66. 1 pattern hit (official plugin format). SHA unchanged.
 
 ### agent-sh/agnix
 - **Why:** CLAUDE.md/SKILL.md linter and LSP (103 stars) — validates AI coding assistant config files, autofixes, IDE plugins
 - **Look for:** Validation rules for CLAUDE.md, SKILL.md format standards, CI integration patterns, autofix capabilities
-- **Added:** 2026-03-24 (horizon scan) | **Observations:** 36 | **First seen:** 2026-03-24 | **SHA:** 371142c
+- **Added:** 2026-03-24 (horizon scan) | **Observations:** 37 | **First seen:** 2026-03-24 | **SHA:** 371142c
 - **Notes:** v0.17.0 deep-dived: perf consolidation (11 JSON traversals→2 passes, copilot parse reduction, serde caching), 44 new rules, HTTP hook validation, 385 total rules, 124 auto-fixes. Architecture-specific optimizations, 0 CI-adoptable. Strongest promotion candidate — eligible Mar 31. Relevant to #66/#68. 0 pattern hits. Retain.
 
 ### code-yeongyu/oh-my-openagent
 - **Why:** Largest agent harness repo (44K stars, 3273 forks) — TypeScript TUI, multi-model orchestration, subagent management, plugin discovery, hook isolation
 - **Look for:** Hook isolation patterns, subagent lifecycle management, plugin discovery architecture, runtime fallback patterns
-- **Added:** 2026-03-27 (horizon scan) | **Observations:** 13 | **First seen:** 2026-03-27 | **SHA:** 7bf7b20
+- **Added:** 2026-03-27 (horizon scan) | **Observations:** 14 | **First seen:** 2026-03-27 | **SHA:** 51194e9
 - **Notes:** Very active (2900+ PRs, multiple commits/day). SHA 71e5160→7bf7b20 (CLA signatures only). Architecture fundamentally different (interactive TUI vs CI workflows). Low direct adoption potential but large ecosystem influence. Monitor for transferable patterns.
 
 ### agent-sh/agentsys
 - **Why:** Comprehensive plugin/agent/skill system (672 stars, 69 forks) from same org as agnix — 19 plugins, 47 agents, 39 skills
 - **Look for:** Plugin marketplace patterns, repo-intel tooling, CI-transferable agent coordination, skill management architecture
-- **Added:** 2026-03-29 (horizon scan) | **Observations:** 2 | **First seen:** 2026-03-29 | **SHA:** 94326af
-- **Notes:** Same org as agnix (Watch List). v5.8.1 (Mar 28). Has repo-intel marketplace plugin. JavaScript. Active development. Companion to agnix linter — agentsys is the product, agnix is the validator.
+- **Added:** 2026-03-29 (horizon scan) | **Observations:** 3 | **First seen:** 2026-03-29 | **SHA:** 94326af
+- **Notes:** Same org as agnix (Watch List). v5.8.1 (Mar 28). 19-plugin marketplace (drift-detect, deslop, skillers, repo-intel, audit-project, etc). Deep-dived marketplace.json: validates our evolve/feedback-learner/watcher approach. CI vs plugin ecosystem mismatch. JavaScript. Active development.
 
 ### shinpr/claude-code-workflows
 - **Why:** Production-ready multi-agent workflows (257 stars, 44 forks) — specialized agents (technical-designer, document-reviewer, work-planner)
 - **Look for:** Multi-agent workflow organization, dependency verification patterns, role-based agent coordination
-- **Added:** 2026-03-29 (horizon scan) | **Observations:** 2 | **First seen:** 2026-03-29 | **SHA:** f4d10db
-- **Notes:** PR #91 (Mar 29): dependency existence verification for design workflow. Specialized agents with role assignments. Markdown-only (no language). Active. Worth monitoring for workflow organization patterns.
+- **Added:** 2026-03-29 (horizon scan) | **Observations:** 3 | **First seen:** 2026-03-29 | **SHA:** f4d10db
+- **Notes:** PR #91 (Mar 29): dependency existence verification for design workflow (3-case: found/external/needs-creation). PR #89: recipe isolation (removed recipe-to-recipe deps). Deep-dived: dependency verification interesting but marginal for coder.yml. Specialized agents with role assignments. Markdown-only. Active.
 
 ## Dropped Sources
 <!-- Removed sources with reason. Kept for history so we don't re-discover them. -->
