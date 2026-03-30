@@ -1,7 +1,7 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-03-30T06:47:00Z
+# Last updated: 2026-03-30T09:41:00Z
 
 ## Active Sources
 
@@ -14,8 +14,8 @@
 ### affaan-m/everything-claude-code
 - **Why:** Community harness patterns, skill collections, optimization techniques
 - **Look for:** New skills, CLAUDE.md patterns, workflow architectures, instinct files
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-29T06:34 | **Pattern hits:** 1 | **SHA:** a4d4b1d
-- **Notes:** Large community repo. 1 pattern hit (safety-guard PreToolUse hooks). PRs #998-#1000: Codex context7 compat, CLV2 config override, token-budget-advisor trigger. All Codex/CLV2-specific. 0 harness patterns across 10+ consecutive observations. Lowest deep-dive priority.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-29T06:34 | **Pattern hits:** 1 | **SHA:** 656cf4c
+- **Notes:** Large community repo. 1 pattern hit (safety-guard PreToolUse hooks). PR #833: gitagent format for cross-harness portability (agent.yaml/SOUL.md/RULES.md). All Codex/CLV2-specific or cross-platform distribution — 0 CI-harness patterns across 10+ consecutive observations. Lowest deep-dive priority.
 
 ### hesreallyhim/awesome-claude-code
 - **Why:** Curated ecosystem catalog — discover new tools, libraries, and patterns
@@ -26,8 +26,8 @@
 ### bytedance/deer-flow
 - **Why:** Multi-agent orchestration patterns from a major tech company
 - **Look for:** Agent coordination, state management, tool orchestration, LLM provider patterns
-- **Added:** 2026-03-21 (seed) | **Last deep:** 2026-03-28T15:14 | **Pattern hits:** 1 | **SHA:** 7db9592
-- **Notes:** Very active (5+ commits/day). SHA 9aa3ff7→7db9592. All application-specific. 0 harness patterns across 15+ consecutive deep-dives. Lowest deep-dive priority.
+- **Added:** 2026-03-21 (seed) | **Last deep:** 2026-03-28T15:14 | **Pattern hits:** 1 | **SHA:** 9a55775
+- **Notes:** Very active (5+ commits/day). Memory import/export (#1521), LangGraph Platform API gateway. All application-specific. 0 harness patterns across 15+ consecutive deep-dives. Lowest deep-dive priority.
 
 ### SethGammon/Citadel
 - **Why:** Agent orchestration harness (400 stars) — closest architecture to tokenman. Campaign persistence, parallel worktrees, circuit breaker, quality gate hooks, skill benchmarking, daemon factory
@@ -60,7 +60,7 @@
 - **Why:** Harness engineering patterns — skills, slash commands, review protocols, agent orchestration
 - **Look for:** Non-Codex workflow patterns, CI-transferable techniques
 - **Demoted:** 2026-03-27 (synthesis — 14 consecutive PH with 0 adoptable patterns, all Codex/interactive-session specific)
-- **Observations:** 43+ | **First seen:** 2026-03-20 | **SHA:** 403637f
+- **Observations:** 44+ | **First seen:** 2026-03-20 | **SHA:** b2b380b
 - **Notes:** Historically most productive source (9 pattern hits across v0.9.7-v0.11.18.2). Demoted because pattern yield exhausted for CI-based harness. v0.13.5.0: Factory Droid compat (multi-host generation). v0.13.4.0: prompt injection defense. CI risk lower than interactive sessions, #17 covers domain. Monitor for CI-relevant patterns.
 
 ### trailofbits/skills
