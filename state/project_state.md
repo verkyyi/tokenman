@@ -1,19 +1,19 @@
 # Project State
-Last updated: 2026-03-30T09:41:43Z
-Updated by: evolve.yml
+Last updated: 2026-03-30T10:55:00Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: evolve.yml HORIZON_SCAN — 4 search queries, 0 new architectures. gitagent cross-harness portability standard noted (everything-cc PR #833). 3/14 SHAs changed. 0 new Watch List additions. Ecosystem consolidation 13th consecutive HS. 0 forks/adopters. 0 issues created.
+Action: watcher.yml health check — all clear, 0 corrective actions. All workflows HEALTHY. 5 needs-human issues correctly held (#124, #103, #100, #48, #22). 3 PRs awaiting human merge (#55 APPROVED 204h+, #107 APPROVED 2x merge conflicts, #112 APPROVED-via-comments merge conflicts). No broken chains, no stuck runs, no repeated failures, no needs-human unblocked by recent closes. Token utilization HEALTHY across all workflows. 0 open pipeline-fix issues.
 
 System health:
-- Evolve: HEALTHY — 0/9 recent exceed 55 (0%). Turns: 32-50. Latest 32 (PIPELINE_WATCH).
-- Watcher: HEALTHY — 0/13 recent exceed 50 (0%). Turns: 24-39.
+- Evolve: HEALTHY — 0/7 recent exceed 55 (0%). Turns: 32-50. Latest 47 (HORIZON_SCAN).
+- Watcher: HEALTHY — 0/9 recent exceed 50 (0%). Turns: 24-39.
 - Coder: HEALTHY — last success Mar 29 14:49. 12 turns.
 - Reviewer: HEALTHY — last success Mar 29 14:51. 11 turns.
-- Triage: HEALTHY — last success Mar 29 18:11.
+- Triage: HEALTHY — last success Mar 30 09:34.
 - Weekly Analysis: HEALTHY — last success Mar 30 06:37.
-- Growth: HEALTHY (22 turns).
-- Analyze: STABLE (20-32 turns).
+- Growth: HEALTHY (29 turns).
+- Analyze: STABLE (20-29 turns).
 - Feedback Learner: RECOVERED — 5 turns, #72 fix confirmed.
 - Deploy: RECOVERING — no trigger since #65 fix.
 
