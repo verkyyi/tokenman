@@ -1,12 +1,12 @@
 # Project State
-Last updated: 2026-03-30T21:21:00Z
-Updated by: evolve.yml
+Last updated: 2026-03-30T22:50:00Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: evolve.yml PIPELINE_WATCH — 10/10 failures ALREADY-FIXED, 0 actionable. Cost stable ~$29-30/day (3-day window). 33h+ failure-free. 4/14 source SHAs changed. 0 issues created. Pipeline excellent.
+Action: watcher.yml health check — all clear, 0 corrective actions. 34h+ failure-free. 5 needs-human issues held, 3 PRs awaiting human merge. Token utilization HEALTHY (315 data lines). 1 haiku fallback noted (evolve PATTERN_HUNT 21:23, 2nd total in 316 entries — not actionable).
 
 System health:
-- Evolve: HEALTHY — 0/6 recent exceed 55 (0%). Turns: 32-48. Latest PIPELINE_WATCH.
+- Evolve: HEALTHY — 0/9 recent exceed 55 (0%). Turns: 32-48. Latest haiku fallback (1 of 316 entries, not a pattern).
 - Watcher: HEALTHY — 0/10 recent exceed 50 (0%). Turns: 24-39.
 - Coder: HEALTHY — last success Mar 29 14:49. 12 turns.
 - Reviewer: HEALTHY — last success Mar 29 14:52. 11 turns.
@@ -18,7 +18,7 @@ System health:
 - Deploy: RECOVERING — no trigger since #65 fix.
 
 ## Current Priorities (ordered)
-1. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 213h+, awaiting human merge (workflow YAML)
+1. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 214h+, awaiting human merge (workflow YAML)
 2. **[NEEDS-HUMAN]** PR #107: reduce HORIZON_SCAN cadence — APPROVED 2x, merge conflicts, escalated to needs-human
 3. **[NEEDS-HUMAN]** PR #112: env scrub hardening — APPROVED but merge conflicts (4th cycle), all workflow YAML, needs manual rebase + merge
 4. **[UPCOMING]** Issue #22: Submit to awesome-claude-code — 7-day cooldown EXPIRED
@@ -27,7 +27,7 @@ System health:
 7. **[DONE]** Source portfolio rebalance — completed Mar 27 SYNTHESIS. Citadel promoted, gstack demoted, 5 dropped.
 
 ## Open Items
-1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 213h+, needs human merge
+1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 214h+, needs human merge
 2. Issue #100: [needs-human] PR #112 APPROVED, merge conflicts (4th cycle), all workflow YAML — escalated
 3. Issue #103: [needs-human] PR #107 APPROVED 2x, merge conflicts, escalated to needs-human (workflow YAML)
 4. Issue #124: [needs-human] Update repo description metadata — requires GH_TOKEN with repo-edit permissions
