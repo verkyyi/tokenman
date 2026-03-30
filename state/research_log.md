@@ -109,3 +109,6 @@
 2026-03-30T06:47:34Z | pipeline-health | 10 failed runs (all ALREADY-FIXED), 0 actionable, 0 issues created. 26h+ failure-free. | no action
 2026-03-30T06:47:34Z | cost-trend | Mar 29: $29.74/28 runs, Mar 30: $8.39/7 runs (projected ~$30). Stable at ~$29-30/day. | no action
 2026-03-30T06:47:34Z | sha-scan | Active: 2/7 changed (everything-cc cff28ef→a4d4b1d, awesome-cc 2a4825b→6612770). 5 unchanged. Watch: 1/7 changed (gstack cdd6f78→403637f). 6 unchanged. | SHAs updated
+2026-03-30T09:41:43Z | horizon-scan | 4 search queries, 0 genuinely new architectures. gitagent cross-harness portability standard emerged (everything-cc PR #833: agent.yaml/SOUL.md/RULES.md for multi-platform export). Relevant to #66 but low priority (0 adopters). | noted
+2026-03-30T09:41:43Z | sha-scan | Active: 2/7 changed (everything-cc a4d4b1d→656cf4c gitagent format, deer-flow 7db9592→9a55775 memory import/export). 5 unchanged. Watch: 1/7 changed (gstack 403637f→b2b380b v0.14.0.0). 6 unchanged. | SHAs updated
+2026-03-30T09:41:43Z | ecosystem-status | Ecosystem consolidation 13th consecutive HS. Watch List: agnix/plugins-official eligible Mar 31 (defer to next HS). 0 forks/adopters for tokenman (13th consecutive). | no action
