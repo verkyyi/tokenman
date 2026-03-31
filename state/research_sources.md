@@ -1,14 +1,14 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-03-31T12:27:00Z
+# Last updated: 2026-03-31T15:34:00Z
 
 ## Active Sources
 
 ### anthropics/claude-code
 - **Why:** The runtime we build on — releases, breaking changes, new hooks, CLI flags
 - **Look for:** CHANGELOG entries, new hook types, permission changes, SDK updates
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-27T09:27 | **Pattern hits:** 2 | **SHA:** 4411cba
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-27T09:27 | **Pattern hits:** 2 | **SHA:** 66ab4ae
 - **Notes:** Protected source — never drop. Check CHANGELOG and releases, not just commits. v2.1.88 (Mar 30): PermissionDenied hook (18th event), fixed StructuredOutput 50% failure rate, prompt cache misses, nested CLAUDE.md re-injection, hooks `if` compound commands. Major stability release. Previous: v2.1.87 Cowork Dispatch (N/A), v2.1.86 plugin/memory fixes, v2.1.85 hook `if` field (#122), v2.1.84 paths: frontmatter (#66), v2.1.83 security patterns (#100). CC now has 18 hook events.
 
 ### affaan-m/everything-claude-code
@@ -20,14 +20,14 @@
 ### hesreallyhim/awesome-claude-code
 - **Why:** Curated ecosystem catalog — discover new tools, libraries, and patterns
 - **Look for:** New entries in Orchestrators/Tools/Skills sections, trending repos referenced
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-31T06:38 | **Pattern hits:** 0 | **SHA:** c9e6c0b
-- **Notes:** SHA 8983e13→c9e6c0b (ticker data only). 0 pattern hits across 32+ observations. Retain for HORIZON_SCAN cross-reference only.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-31T06:38 | **Pattern hits:** 0 | **SHA:** 946bffd
+- **Notes:** SHA c9e6c0b→946bffd (ticker/auto-update). 0 pattern hits across 33+ observations. Retain for HORIZON_SCAN cross-reference only.
 
 ### bytedance/deer-flow
 - **Why:** Multi-agent orchestration patterns from a major tech company
 - **Look for:** Agent coordination, state management, tool orchestration, LLM provider patterns
-- **Added:** 2026-03-21 (seed) | **Last deep:** 2026-03-28T15:14 | **Pattern hits:** 1 | **SHA:** ac9a6ee
-- **Notes:** Very active (5+ commits/day). SHA 64e0f53→ac9a6ee (Docker config fix). All application-specific. 0 harness patterns across 16+ consecutive deep-dives. Lowest deep-dive priority.
+- **Added:** 2026-03-21 (seed) | **Last deep:** 2026-03-28T15:14 | **Pattern hits:** 1 | **SHA:** a3bfea6
+- **Notes:** Very active (5+ commits/day). SHA ac9a6ee→a3bfea6. All application-specific. 0 harness patterns across 17+ consecutive deep-dives. Lowest deep-dive priority.
 
 ### SethGammon/Citadel
 - **Why:** Agent orchestration harness (400 stars) — closest architecture to tokenman. Campaign persistence, parallel worktrees, circuit breaker, quality gate hooks, skill benchmarking, daemon factory
@@ -44,8 +44,8 @@
 ### withastro/astro
 - **Why:** Web framework we use — security fixes, breaking changes, new features
 - **Look for:** Security advisories, breaking changes in minor/major releases, new content collection features
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-25T17:12 | **Pattern hits:** 0 | **SHA:** 9a50757
-- **Notes:** Only actionable for security fixes or features that affect our site build. SHA 4198232→6464425 (changed). 0 harness patterns across 10+ deep-dives. Monitor Vite 8 compatibility.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-25T17:12 | **Pattern hits:** 0 | **SHA:** 34c6b3a
+- **Notes:** Only actionable for security fixes or features that affect our site build. SHA 9a50757→34c6b3a. 0 harness patterns across 11+ deep-dives. Monitor Vite 8 compatibility.
 
 ### verkyyi/tokenman
 - **Why:** Self-reference — track forks, adopters, and how the scaffold is used
@@ -87,7 +87,7 @@
 ### code-yeongyu/oh-my-openagent
 - **Why:** Largest agent harness repo (44K stars, 3273 forks) — TypeScript TUI, multi-model orchestration, subagent management, plugin discovery, hook isolation
 - **Look for:** Hook isolation patterns, subagent lifecycle management, plugin discovery architecture, runtime fallback patterns
-- **Added:** 2026-03-27 (horizon scan) | **Observations:** 17 | **First seen:** 2026-03-27 | **SHA:** 95c6a8f
+- **Added:** 2026-03-27 (horizon scan) | **Observations:** 18 | **First seen:** 2026-03-27 | **SHA:** d459cff
 - **Notes:** Deep-dived PR #2931 (tmux session isolation — N/A CI), PR #2929 (rules-injector config gating — validates our separate-workflow isolation), PR #2912 (fallback matrix testing), PR #2919 (configurable TDD). Architecture fundamentally different (interactive TUI vs CI). Low direct adoption. 0 pattern hits.
 
 ### agent-sh/agentsys
