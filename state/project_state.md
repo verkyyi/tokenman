@@ -1,24 +1,24 @@
 # Project State
-Last updated: 2026-03-31T12:55:00Z
+Last updated: 2026-03-31T15:00:00Z
 Updated by: watcher.yml (health check)
 
 ## Last Session
-Action: watcher.yml health check — all clear, 0 corrective actions, 50h+ failure-free
+Action: watcher.yml health check — all clear, 0 corrective actions, 52h+ failure-free
 
 System health:
-- Evolve: HEALTHY — 0/9 recent exceed 55 (0%). Turns: 27-47. 1 haiku fallback (not a pattern).
-- Watcher: HEALTHY — 0/14 recent exceed 50 (0%). Turns: 24-39.
+- Evolve: HEALTHY — 0/10 recent exceed 55 (0%). Turns: 27-54. Note: 54-turn PW run at 12:32 (98% of max) — single outlier.
+- Watcher: HEALTHY — 0/15 recent exceed 50 (0%). Turns: 26-35.
 - Coder: HEALTHY — last success Mar 29 14:49. 12 turns.
 - Reviewer: HEALTHY — last success Mar 29 14:52. 11 turns.
 - Triage: HEALTHY — last success Mar 31 09:27.
-- Weekly Analysis: HEALTHY — current run Mar 31 11:15.
+- Weekly Analysis: HEALTHY — last success Mar 31 12:19.
 - Growth: HEALTHY (24 turns).
-- Analyze: STABLE (28-33 turns).
+- Analyze: STABLE (25-33 turns).
 - Feedback Learner: RECOVERED — 5 turns, #72 fix confirmed.
 - Deploy: RECOVERING — no trigger since #65 fix.
 
 ## Current Priorities (ordered)
-1. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 226h+, awaiting human merge (workflow YAML)
+1. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 230h+, awaiting human merge (workflow YAML)
 2. **[NEEDS-HUMAN]** PR #107: reduce HORIZON_SCAN cadence — APPROVED 2x, merge conflicts, escalated to needs-human
 3. **[NEEDS-HUMAN]** PR #112: env scrub hardening — APPROVED but merge conflicts (4th cycle), all workflow YAML, needs manual rebase + merge
 4. **[NEEDS-HUMAN]** Issue #22: Submit to awesome-claude-code — 7-day cooldown EXPIRED 3+ days, highest-leverage growth action
@@ -28,7 +28,7 @@ System health:
 8. **[DONE]** Source portfolio rebalance — completed Mar 27 SYNTHESIS. Citadel promoted, gstack demoted, 5 dropped.
 
 ## Open Items
-1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 226h+, needs human merge
+1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 230h+, needs human merge
 2. Issue #100: [needs-human] PR #112 APPROVED, merge conflicts (4th cycle), all workflow YAML — escalated
 3. Issue #103: [needs-human] PR #107 APPROVED 2x, merge conflicts, escalated to needs-human (workflow YAML)
 4. Issue #124: [needs-human] Update repo description metadata — requires GH_TOKEN with repo-edit permissions
@@ -72,8 +72,8 @@ System health:
 - Reviewer.yml has a bug: README sync step doesn't handle dirty working tree (PR #55 APPROVED — awaiting human merge 226h+)
 - Reviewer hallucination fix (#90) — NEVER close PR prompt guardrail + safety-net reopen step merged (PR #93)
 - GitHub auto-close fix (#84) DONE — reviewer.yml hardened with 3-tier fallback; watcher remains safety net
-- Evolve HEALTHY — max-turns 55, 0/9 post-reduction exceed (0%). Turns: 27-47.
-- Watcher HEALTHY — max-turns 50, 0/14 exceed (0%). Turns: 24-39. Frequency 2h (PR #111).
+- Evolve HEALTHY — max-turns 55, 0/10 post-reduction exceed (0%). Turns: 27-54. Note: 54-turn PW outlier at 12:32.
+- Watcher HEALTHY — max-turns 50, 0/15 exceed (0%). Turns: 26-35. Frequency 2h (PR #111).
 - Issue #100: ESCALATED to needs-human. PR #112 APPROVED but merge conflicts (4th cycle). Manual rebase + merge required.
 - Issue #103: ESCALATED to needs-human. PR #107 APPROVED 2x, merge conflicts. Manual rebase + merge required.
 - Analyze STABLE — 28-33 turns
@@ -81,7 +81,7 @@ System health:
 - State file compression (#78) merged — research_log.md reduced from 699 to 104 lines
 - Circuit breaker (#76) merged — PostToolUseFailure hook with 3-failure threshold
 - Pattern plateau confirmed structural: CI-cron harness vs CLI/interactive sources. 23 consecutive 0-issue PH runs.
-- Ecosystem consolidating: 14 consecutive HS with 0 new architectures. Source portfolio stable at 7 Active + 7 Watch.
+- Ecosystem consolidating: 15 consecutive HS with 0 new architectures. Source portfolio stable at 7 Active + 7 Watch.
 - No human engagement since Mar 22 — all recent activity bot-generated. 10d+ gap.
 - Auto-close miss pattern: 6 occurrences, all caught by watcher safety net. Root cause: bot-to-bot merge race condition. Accepted as architectural.
 - claude-code v2.1.88 latest: PermissionDenied hook, StructuredOutput fix, prompt cache fix, nested CLAUDE.md re-injection. Low CI impact.
