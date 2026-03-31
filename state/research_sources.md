@@ -1,15 +1,15 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-03-30T21:21:00Z
+# Last updated: 2026-03-31T00:40:15Z
 
 ## Active Sources
 
 ### anthropics/claude-code
 - **Why:** The runtime we build on — releases, breaking changes, new hooks, CLI flags
 - **Look for:** CHANGELOG entries, new hook types, permission changes, SDK updates
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-27T09:27 | **Pattern hits:** 2 | **SHA:** 78a44f1
-- **Notes:** Protected source — never drop. Check CHANGELOG and releases, not just commits. SHA unchanged since v2.1.87 (Mar 29). v2.1.87: Cowork Dispatch fix (N/A). v2.1.86 (Mar 27): plugin permission fix, memory growth fix. Previous: v2.1.85 hook `if` field (#122), v2.1.84 paths: frontmatter (#66), v2.1.83 security patterns (#100). Agnix v0.17.0 spec tracking reveals CC now has 17 hook events (PostCompact, InstructionsLoaded, ConfigChange, CwdChanged, FileChanged, TaskCreated, WorktreeCreate, WorktreeRemove, Elicitation, ElicitationResult, StopFailure + original 6), HTTP hooks, once/async fields.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-27T09:27 | **Pattern hits:** 2 | **SHA:** 2d5c1ba
+- **Notes:** Protected source — never drop. Check CHANGELOG and releases, not just commits. v2.1.88 (Mar 30): PermissionDenied hook (18th event), fixed StructuredOutput 50% failure rate, prompt cache misses, nested CLAUDE.md re-injection, hooks `if` compound commands. Major stability release. Previous: v2.1.87 Cowork Dispatch (N/A), v2.1.86 plugin/memory fixes, v2.1.85 hook `if` field (#122), v2.1.84 paths: frontmatter (#66), v2.1.83 security patterns (#100). CC now has 18 hook events.
 
 ### affaan-m/everything-claude-code
 - **Why:** Community harness patterns, skill collections, optimization techniques
@@ -20,7 +20,7 @@
 ### hesreallyhim/awesome-claude-code
 - **Why:** Curated ecosystem catalog — discover new tools, libraries, and patterns
 - **Look for:** New entries in Orchestrators/Tools/Skills sections, trending repos referenced
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-28T03:54 | **Pattern hits:** 0 | **SHA:** 4b3c275
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-28T03:54 | **Pattern hits:** 0 | **SHA:** e6a1b78
 - **Notes:** SHA 6612770→43610cb (ticker data only). 0 pattern hits across 30+ observations. Retain for HORIZON_SCAN cross-reference only.
 
 ### bytedance/deer-flow
@@ -44,13 +44,13 @@
 ### withastro/astro
 - **Why:** Web framework we use — security fixes, breaking changes, new features
 - **Look for:** Security advisories, breaking changes in minor/major releases, new content collection features
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-25T17:12 | **Pattern hits:** 0 | **SHA:** 4978165
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-25T17:12 | **Pattern hits:** 0 | **SHA:** 9a50757
 - **Notes:** Only actionable for security fixes or features that affect our site build. SHA 4198232→6464425 (changed). 0 harness patterns across 10+ deep-dives. Monitor Vite 8 compatibility.
 
 ### verkyyi/tokenman
 - **Why:** Self-reference — track forks, adopters, and how the scaffold is used
 - **Look for:** New forks, adopter modifications, issues filed by users
-- **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 0 | **SHA:** 5d2e9ca
+- **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 0 | **SHA:** 1166dfc
 - **Notes:** Used during HORIZON SCAN for adoption tracking. 0 forks, 0 adopters as of 2026-03-29.
 
 ## Watch List
@@ -67,20 +67,22 @@
 - **Why:** Security-focused Claude Code skills (4K stars) from top security firm — audit workflows, vulnerability detection, semgrep rules
 - **Look for:** Security audit skill structure, semgrep rule patterns, skill-improver tooling, SKILL.md format conventions
 - **Added:** 2026-03-23 (horizon scan) | **Observations:** 36 | **First seen:** 2026-03-23 | **SHA:** 4b9a4e9
-- **Decision (2026-03-30):** RETAIN on Watch List. 35 obs, 7+ days, 1 pattern hit (SKILL.md standard → #68, closed). 4K stars, 362 forks, active (last commit Mar 27). Low pattern yield (1/35) — not promoting to Active. Actively maintained — not dropping. Serves as reference for future skill format work.
+- **Decision (2026-03-31):** RETAIN on Watch List. 37 obs, 7+ days, 1 pattern hit (SKILL.md standard → #68, closed). 4K stars, 362 forks. SHA unchanged. Low pattern yield (1/37) — not promoting to Active. Actively maintained — not dropping. Serves as reference for future skill format work.
 - **Notes:** 34+ plugins with formal SKILL.md standard. skill-improver quality loop. Codex compatibility layer. 1 pattern hit: SKILL.md quality standard (issue #68, closed). Key reference for skill format. SHA unchanged.
 
 ### anthropics/claude-plugins-official
 - **Why:** Official Anthropic plugin directory (14.3K stars) — distribution channel for Claude Code plugins with standard format
 - **Look for:** Plugin format updates, new submission requirements, plugin.json schema changes, new official plugins relevant to harness patterns
-- **Added:** 2026-03-24 (horizon scan) | **Observations:** 37 | **First seen:** 2026-03-24 | **SHA:** 31e7200
-- **Notes:** PR #1115: bash prefix for .sh hooks (fixes #993 permission denied). Validates our `bash scripts/...` approach. Version field added for cache invalidation. Standard plugin format: .claude-plugin/plugin.json + commands/ + agents/ + skills/. Distribution channel for #66. 1 pattern hit (official plugin format). SHA unchanged.
+- **Added:** 2026-03-24 (horizon scan) | **Observations:** 38 | **First seen:** 2026-03-24 | **SHA:** 52e95f6
+- **Decision (2026-03-31):** RETAIN on Watch List. 38 obs, 7+ days, 1 pattern hit (plugin format). 14.3K stars. Active (MongoDB, SAP UI5 plugins added). Distribution channel for #66. Low pattern yield (1/38) — not promoting. Still relevant as plugin ecosystem reference.
+- **Notes:** PR #1115: bash prefix for .sh hooks. Version field for cache invalidation. Standard plugin format: .claude-plugin/plugin.json + commands/ + agents/ + skills/. Distribution channel for #66. 1 pattern hit (official plugin format).
 
 ### agent-sh/agnix
 - **Why:** CLAUDE.md/SKILL.md linter and LSP (103 stars) — validates AI coding assistant config files, autofixes, IDE plugins
 - **Look for:** Validation rules for CLAUDE.md, SKILL.md format standards, CI integration patterns, autofix capabilities
-- **Added:** 2026-03-24 (horizon scan) | **Observations:** 38 | **First seen:** 2026-03-24 | **SHA:** 371142c
-- **Notes:** Deep-dived v0.17.0 P0 fix: revealed CC now has 17 hook events (was 4), HTTP hook type, once/async fields, expanded agent schema (maxTurns, effort, background, isolation, mcpServers). 385 rules, 124 auto-fixes. Key CC spec tracker. Promotion candidate — eligible Mar 31. Relevant to #66/#68. 0 pattern hits (informational, not adoptable for CI). Retain.
+- **Added:** 2026-03-24 (horizon scan) | **Observations:** 39 | **First seen:** 2026-03-24 | **SHA:** 371142c
+- **Decision (2026-03-31):** RETAIN on Watch List. 39 obs, 7+ days, 0 pattern hits. Key CC spec tracker but 0 adoptable CI patterns — not promoting. Active and useful — not dropping.
+- **Notes:** v0.17.0: CC now has 18 hook events (PermissionDenied added in v2.1.88), HTTP hooks, once/async fields. 385 rules, 124 auto-fixes. Relevant to #66/#68.
 
 ### code-yeongyu/oh-my-openagent
 - **Why:** Largest agent harness repo (44K stars, 3273 forks) — TypeScript TUI, multi-model orchestration, subagent management, plugin discovery, hook isolation
