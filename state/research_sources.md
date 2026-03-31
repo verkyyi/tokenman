@@ -1,14 +1,14 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-03-31T15:34:00Z
+# Last updated: 2026-03-31T18:30:38Z
 
 ## Active Sources
 
 ### anthropics/claude-code
 - **Why:** The runtime we build on — releases, breaking changes, new hooks, CLI flags
 - **Look for:** CHANGELOG entries, new hook types, permission changes, SDK updates
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-27T09:27 | **Pattern hits:** 2 | **SHA:** 66ab4ae
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-31T18:30 | **Pattern hits:** 2 | **SHA:** 66ab4ae
 - **Notes:** Protected source — never drop. Check CHANGELOG and releases, not just commits. v2.1.88 (Mar 30): PermissionDenied hook (18th event), fixed StructuredOutput 50% failure rate, prompt cache misses, nested CLAUDE.md re-injection, hooks `if` compound commands. Major stability release. Previous: v2.1.87 Cowork Dispatch (N/A), v2.1.86 plugin/memory fixes, v2.1.85 hook `if` field (#122), v2.1.84 paths: frontmatter (#66), v2.1.83 security patterns (#100). CC now has 18 hook events.
 
 ### affaan-m/everything-claude-code
@@ -32,20 +32,20 @@
 ### SethGammon/Citadel
 - **Why:** Agent orchestration harness (400 stars) — closest architecture to tokenman. Campaign persistence, parallel worktrees, circuit breaker, quality gate hooks, skill benchmarking, daemon factory
 - **Look for:** Skill benchmarking patterns, skill linting, governance hooks, testing infrastructure, fleet coordination, daemon factory patterns
-- **Added:** 2026-03-24 (watch) | **Promoted:** 2026-03-27 (synthesis — 35 obs, closest architecture, V2 patterns) | **Last deep:** 2026-03-30T18:25 | **Pattern hits:** 1 | **SHA:** aa8ac8c
-- **Notes:** Promoted from Watch List. PR #67: real token telemetry from session JSONL (scripts/session-tokens.js), external pricing.json config, consent pattern (configurable external action policy with protected branches). Our simpler usage_log.md + CLAUDE.md autonomy rules approach sufficient. 1 pattern hit (circuit breaker #76).
+- **Added:** 2026-03-24 (watch) | **Promoted:** 2026-03-27 (synthesis — 35 obs, closest architecture, V2 patterns) | **Last deep:** 2026-03-31T18:30 | **Pattern hits:** 1 | **SHA:** aeb9a37
+- **Notes:** Promoted from Watch List. PR #72: runtime-agnostic migration backlog + foundation stack (#73-#87). Interesting architectural direction but unnecessary for single-runtime harness. Previous: PR #67 token telemetry, consent pattern. 1 pattern hit (circuit breaker #76).
 
 ### actions/runner
 - **Why:** CI/CD runtime we depend on — deprecation notices, new features, security fixes
 - **Look for:** Node.js version deprecation timelines, runner image changes, new action features
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-24 | **Pattern hits:** 0 | **SHA:** b9275b5
-- **Notes:** Check releases, not just commits. v2.333.1 (Mar 27): removed AllowCaseFunction feature flag only. 0 pattern hits across 9+ observations.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-31T18:30 | **Pattern hits:** 0 | **SHA:** 7ff994b
+- **Notes:** Check releases, not just commits. PR #4296 (Mar 31): batch/dedup action resolution — 78x fewer API calls for composite trees (merged, unreleased). v2.333.1 (Mar 27): removed AllowCaseFunction. Node 20.20.2/24.14.1. 0 pattern hits across 10+ observations.
 
 ### withastro/astro
 - **Why:** Web framework we use — security fixes, breaking changes, new features
 - **Look for:** Security advisories, breaking changes in minor/major releases, new content collection features
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-25T17:12 | **Pattern hits:** 0 | **SHA:** 34c6b3a
-- **Notes:** Only actionable for security fixes or features that affect our site build. SHA 9a50757→34c6b3a. 0 harness patterns across 11+ deep-dives. Monitor Vite 8 compatibility.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-31T18:30 | **Pattern hits:** 0 | **SHA:** 6b6751d
+- **Notes:** Only actionable for security fixes or features that affect our site build. Bug fixes: content collection stale imports (#16124), CSS page boundary (#16116), inter-chunk JS (#16110). 0 harness patterns across 12+ deep-dives.
 
 ### verkyyi/tokenman
 - **Why:** Self-reference — track forks, adopters, and how the scaffold is used
@@ -87,7 +87,7 @@
 ### code-yeongyu/oh-my-openagent
 - **Why:** Largest agent harness repo (44K stars, 3273 forks) — TypeScript TUI, multi-model orchestration, subagent management, plugin discovery, hook isolation
 - **Look for:** Hook isolation patterns, subagent lifecycle management, plugin discovery architecture, runtime fallback patterns
-- **Added:** 2026-03-27 (horizon scan) | **Observations:** 18 | **First seen:** 2026-03-27 | **SHA:** d459cff
+- **Added:** 2026-03-27 (horizon scan) | **Observations:** 18 | **First seen:** 2026-03-27 | **SHA:** 5b990c8
 - **Notes:** Deep-dived PR #2931 (tmux session isolation — N/A CI), PR #2929 (rules-injector config gating — validates our separate-workflow isolation), PR #2912 (fallback matrix testing), PR #2919 (configurable TDD). Architecture fundamentally different (interactive TUI vs CI). Low direct adoption. 0 pattern hits.
 
 ### agent-sh/agentsys
