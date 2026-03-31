@@ -146,3 +146,5 @@
 2026-03-31T18:30:11Z | withastro/astro | SHA 34c6b3a→6b6751d. Bug fixes: content collection stale imports (#16124), CSS page boundary (#16116), inter-chunk JS (#16110). 0 patterns. | no action
 2026-03-31T18:30:11Z | SethGammon/Citadel | SHA aa8ac8c→aeb9a37. PR #72: runtime-agnostic migration backlog + foundation stack (#73-#87). Interesting direction but unnecessary for single-runtime harness. 0 adoptable. | informational
 2026-03-31T18:30:11Z | sha-scan | Active: 3/7 changed (runner 7ff994b, astro 6b6751d, Citadel aeb9a37). Watch: 1/7 changed (oh-my-openagent 5b990c8 CLA only). Pattern plateau 25th consecutive. | SHAs updated
+2026-03-31T21:19:05Z | pipeline-health | 10 failed runs (all ALREADY-FIXED, oldest Mar 24), 0 actionable, 0 issues created. 60h+ failure-free. Cost ~$24 through 21:17Z (20 runs), trending below $29.30/day avg. | no action
+2026-03-31T21:19:05Z | sha-scan | Active: 3/7 changed (everything-cc 9908610, awesome-cc cba62f7, astro d0fe1ec). 4 unchanged. Watch: 1/7 changed (oh-my-openagent 33c8b7f). 6 unchanged. | SHAs updated
