@@ -96,3 +96,8 @@
 2026-04-01T09:30:00Z | measurement | [issue #48 from 2026-03-22T18:00] → still open, needs-human 10d+; awesome-ai-agents at 26,992 (stable)
 2026-04-01T09:30:00Z | measurement | [discussion #49 from 2026-03-22T18:00] → 0 comments, 0 reactions after 252h+ (10.5 days); no organic discovery
 2026-04-01T09:30:00Z | release | Created v0.4.0 — "Security & Pipeline Hardening" — new security-scan.yml (runner-guard), triage closed-issue guard, evolve triage filter, coder multiline fix, README updates | expected: release provides anchor for distribution; real security feature differentiates from other scaffolds
+2026-04-01T18:30:00Z | measurement | [v0.4.0 release from 2026-04-01T09:28] → stars still 2 after 9h; forks 0; too early to measure; only state commits since
+2026-04-01T18:30:00Z | measurement | [issue #22 from 2026-03-22T06:00] → still open, needs-human 10d+; awesome-claude-code now at 35,446 stars (up from 35,277 — +169/9h; accelerating); READY FOR SUBMISSION
+2026-04-01T18:30:00Z | measurement | [issue #48 from 2026-03-22T18:00] → still open, needs-human 10d+; awesome-ai-agents at 27,002 (stable +10)
+2026-04-01T18:30:00Z | measurement | [discussion #49 from 2026-03-22T18:00] → 0 comments, 0 reactions after 264h+ (11 days); no organic discovery
+2026-04-01T18:30:00Z | no_action | no action — waiting for signal; stars flat at 2 for 11+ days; v0.4.0 only 9h old (only state commits since — no release candidate); discussion #49 0 engagement 11d; #22 cooldown EXPIRED day 4+ — ready for human submission (awesome-cc 35.4K, accelerating +169/9h); #48 blocked needs-human; BOTTLENECK: 100% human engagement — 5 issues + 3 PRs all blocked needs-human 10d+; next: human submits #22 (highest-impact) or merges PRs to unblock pipeline
