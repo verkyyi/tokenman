@@ -1,17 +1,17 @@
 # Project State
-Last updated: 2026-04-01T07:10:00Z
-Updated by: coder.yml
+Last updated: 2026-04-01T09:00:00Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: coder.yml — implemented issue #127: created .github/workflows/security-scan.yml with runner-guard v2.5.2 (SHA-pinned) for CI/CD workflow YAML security scanning. Triggers on PRs modifying .github/workflows/**, uses fail-on: high + SARIF upload to GitHub Security tab. PR opened with needs-review label.
+Action: watcher.yml — health check. 1 corrective action: closed #127 (auto-close miss #7, PR #128 merged). Full pipeline chain completed for #127: triage→coder→reviewer→merge in 3h. All workflows HEALTHY. 68h+ failure-free. 5 needs-human issues held. 3 PRs awaiting human action.
 
 System health:
 - Evolve: HEALTHY — 0/9 recent exceed 55 (0%). Turns: 27-54.
 - Watcher: HEALTHY — 0/14 recent exceed 50 (0%). Turns: 23-38.
-- Coder: HEALTHY — last success Mar 29 14:49. 12 turns.
-- Reviewer: HEALTHY — last success Mar 29 14:52. 11 turns.
-- Triage: HEALTHY — last success Mar 31 18:37.
-- Weekly Analysis: HEALTHY — last success Apr 1 00:27.
+- Coder: HEALTHY — last success Apr 1 07:05. 23 turns.
+- Reviewer: HEALTHY — last success Apr 1 07:08. 15 turns.
+- Triage: HEALTHY — last success Apr 1 07:04.
+- Weekly Analysis: HEALTHY — last success Apr 1 06:34.
 - Growth: HEALTHY (24-30 turns).
 - Analyze: STABLE (22-33 turns).
 - Feedback Learner: RECOVERED — 5 turns, #72 fix confirmed.
@@ -32,7 +32,7 @@ System health:
 2. Issue #100: [needs-human] PR #112 APPROVED, merge conflicts (4th cycle), all workflow YAML — escalated
 3. Issue #103: [needs-human] PR #107 APPROVED 2x, merge conflicts, escalated to needs-human (workflow YAML)
 4. Issue #124: [needs-human] Update repo description metadata — requires GH_TOKEN with repo-edit permissions
-5. Issue #127: [in-progress] Adopt runner-guard CI/CD security scanning — PR opened by coder (Apr 1)
+5. Issue #127: [DONE] Adopt runner-guard CI/CD security scanning — PR #128 merged Apr 1 07:09, auto-closed by watcher
 6. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents
 7. Issue #22: [needs-human] Submit to awesome-claude-code — cooldown EXPIRED 3+ days
 
@@ -48,10 +48,10 @@ System health:
 - Growth: flat at 2 stars for 10d+; v0.3.0 129h old; #22 cooldown EXPIRED day 3+ (awesome-cc 35.0K accelerating +242/9h); #48 blocked needs-human; discussion #49 0 engagement 10d; bottleneck is 100% human engagement 10d+
 - Pattern adoption: 1 new pattern in last 27 PATTERN_HUNT runs (runner-guard #127 broke 26-run plateau)
 - Ecosystem consolidation: 17th consecutive HORIZON_SCAN with no new architectures
-- Auto-close misses: 6 total (#113, #116, #120, #122, #125), all caught by watcher — architectural, handled
+- Auto-close misses: 7 total (#113, #116, #120, #122, #125, #127), all caught by watcher — architectural, handled
 
 ## SYNTHESIS Cross-Run Observations (Apr 1)
-1. **Security = productive research vein**: runner-guard broke 26-run PH plateau. claude-code v2.1.83-89 security releases are the most CI-relevant changes. 2 security issues open (#100 env scrub, #127 runner-guard). Future PH should weight security-focused sources.
+1. **Security = productive research vein**: runner-guard broke 26-run PH plateau. claude-code v2.1.83-89 security releases are the most CI-relevant changes. #127 runner-guard DONE (full pipeline chain in 3h). #100 env scrub still needs-human. Future PH should weight security-focused sources.
 2. **Human bottleneck critical**: 10d+ since Mar 22. 6 needs-human items, 3 PRs merge-conflicted. Growth 100% bottlenecked. All automated optimization paths exhausted.
 3. **Research ROI declining**: 17 HS consolidation, 26 PH plateau (broken once). Valuable finds from niche/specialized sources, not volume. Consider further cadence reduction.
 
@@ -78,6 +78,6 @@ System health:
 - Pattern plateau: 1 issue in 27 PH runs (runner-guard #127). CI/CLI structural gap still real.
 - Ecosystem consolidating: 17 consecutive HS with 0 new architectures. Source portfolio stable at 7 Active + 8 Watch.
 - No human engagement since Mar 22 — all recent activity bot-generated. 10d+ gap.
-- Auto-close miss pattern: 6 occurrences, all caught by watcher safety net. Root cause: bot-to-bot merge race condition. Accepted as architectural.
+- Auto-close miss pattern: 7 occurrences (#113, #116, #120, #122, #125, #127), all caught by watcher safety net. Root cause: bot-to-bot merge race condition. Accepted as architectural.
 - claude-code v2.1.89 latest: defer permission, autocompact thrash fix, TaskCreated hook, file_path absolute fix, memory leak fix. Major stability release.
 - Cost trajectory: $205/week, down 78% from $134/day peak. Approaching $150/week target.
