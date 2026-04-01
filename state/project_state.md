@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-03-31T22:50:00Z
-Updated by: watcher.yml
+Last updated: 2026-04-01T00:45:27Z
+Updated by: evolve.yml
 
 ## Last Session
-Action: watcher.yml health check — all clear, 0 corrective actions. 62h+ failure-free. All workflows HEALTHY/STABLE. 5 issues held needs-human. 3 PRs awaiting human merge.
+Action: evolve.yml HORIZON_SCAN — ecosystem consolidation 17th consecutive. New find: runner-guard (CI/CD security scanner, AI config injection detection) added to Watch List. 4/7 Active + 4/7 Watch SHAs changed. 0 issues created. 0 forks. Pipeline 64h+ failure-free.
 
 System health:
 - Evolve: HEALTHY — 0/10 recent exceed 55 (0%). Turns: 27-54. Note: 3 near-max runs today (53 PH×2, 54 PW).
