@@ -1,7 +1,7 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-04-01T18:27:10Z
+# Last updated: 2026-04-01T21:20:00Z
 
 ## Active Sources
 
@@ -14,7 +14,7 @@
 ### affaan-m/everything-claude-code
 - **Why:** Community harness patterns, skill collections, optimization techniques
 - **Look for:** New skills, CLAUDE.md patterns, workflow architectures, instinct files
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-01T12:26 | **Pattern hits:** 1 | **SHA:** 1abeff9
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-01T12:26 | **Pattern hits:** 1 | **SHA:** 401966b
 - **Notes:** Large community repo. 1 pattern hit (safety-guard PreToolUse hooks). Hook dedup by semantic identity (triple matching: ID/legacy-signature/JSON) — interesting but N/A for CI. Skills-first architecture collapse (commands→SKILL.md). All interactive-session patterns — 0 CI-harness patterns across 12+ consecutive observations. Lowest deep-dive priority.
 
 ### hesreallyhim/awesome-claude-code
@@ -44,7 +44,7 @@
 ### withastro/astro
 - **Why:** Web framework we use — security fixes, breaking changes, new features
 - **Look for:** Security advisories, breaking changes in minor/major releases, new content collection features
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-31T18:30 | **Pattern hits:** 0 | **SHA:** 402193e
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-31T18:30 | **Pattern hits:** 0 | **SHA:** 7610ba4
 - **Notes:** Only actionable for security fixes or features that affect our site build. Bug fixes: isHTMLString multi-realm fix (#16142), trailingSlash redirect fix (#16034), content collection stale imports (#16124), CSS page boundary (#16116), inter-chunk JS (#16110). 0 harness patterns across 13+ deep-dives.
 
 ### verkyyi/tokenman
@@ -84,12 +84,6 @@
 - **Decision (2026-03-31):** RETAIN on Watch List. 39 obs, 7+ days, 0 pattern hits. Key CC spec tracker but 0 adoptable CI patterns — not promoting. Active and useful — not dropping.
 - **Notes:** v0.17.0: CC now has 18 hook events (PermissionDenied added in v2.1.88), HTTP hooks, once/async fields. 385 rules, 124 auto-fixes. Relevant to #66/#68.
 
-### code-yeongyu/oh-my-openagent
-- **Why:** Largest agent harness repo (44K stars, 3273 forks) — TypeScript TUI, multi-model orchestration, subagent management, plugin discovery, hook isolation
-- **Look for:** Hook isolation patterns, subagent lifecycle management, plugin discovery architecture, runtime fallback patterns
-- **Added:** 2026-03-27 (horizon scan) | **Observations:** 24 | **First seen:** 2026-03-27 | **SHA:** 804ca0b
-- **Notes:** Deep-dived PR #2931 (tmux session isolation — N/A CI), PR #2929 (rules-injector config gating — validates our separate-workflow isolation), PR #2912 (fallback matrix testing), PR #2919 (configurable TDD). Architecture fundamentally different (interactive TUI vs CI). Low direct adoption. 0 pattern hits.
-
 ### agent-sh/agentsys
 - **Why:** Comprehensive plugin/agent/skill system (672 stars, 69 forks) from same org as agnix — 19 plugins, 47 agents, 39 skills
 - **Look for:** Plugin marketplace patterns, repo-intel tooling, CI-transferable agent coordination, skill management architecture
@@ -116,6 +110,9 @@
 
 ## Dropped Sources
 <!-- Removed sources with reason. Kept for history so we don't re-discover them. -->
+
+### code-yeongyu/oh-my-openagent
+- **Dropped:** 2026-04-01 | **Reason:** 24 observations, 0 pattern hits. Architecture fundamentally different (interactive TUI vs CI harness). Deep-dived 4 PRs — all interactive-session specific. 44K stars, 3273 forks. Active but irrelevant to CI-based harness architecture.
 
 ### wshobson/agents
 - **Dropped:** 2026-03-27 | **Reason:** 18+ days stale (SHA 91fe43e unchanged since first observation), 0 pattern hits. Python/uv/Pydantic stack incompatible with bash harness. PluginEval 3-layer framework validated closed #66/#68 but no transferable patterns. 32K stars, 3504 forks.
