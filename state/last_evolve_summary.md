@@ -1,31 +1,30 @@
 # Last Evolve Summary
-Timestamp: 2026-04-01T06:44:13Z
-Main HEAD: 434c22d
-Posture: SYNTHESIS (4 runs since last, hour 06 UTC growth metrics window, cross-run signal analysis)
-Posture history: [SYNTHESIS, PATTERN_HUNT, HORIZON_SCAN, PIPELINE_WATCH, PATTERN_HUNT, SYNTHESIS, HORIZON_SCAN, PIPELINE_WATCH, PATTERN_HUNT, SYNTHESIS, HORIZON_SCAN, PIPELINE_WATCH, PATTERN_HUNT, PIPELINE_WATCH, HORIZON_SCAN, SYNTHESIS, PATTERN_HUNT, PIPELINE_WATCH, SYNTHESIS, PIPELINE_WATCH, HORIZON_SCAN, PATTERN_HUNT, SYNTHESIS, PIPELINE_WATCH, SYNTHESIS, PATTERN_HUNT, HORIZON_SCAN, PATTERN_HUNT, PIPELINE_WATCH, SYNTHESIS, PIPELINE_WATCH, HORIZON_SCAN, SYNTHESIS, PATTERN_HUNT, PIPELINE_WATCH, HORIZON_SCAN, SYNTHESIS, PATTERN_HUNT]
+Timestamp: 2026-04-01T12:26:46Z
+Main HEAD: d25cd35
+Posture: PATTERN_HUNT (2 runs since last PH, multiple Active SHAs changed, security sources prioritized per synthesis finding)
+Posture history: [PATTERN_HUNT, SYNTHESIS, PATTERN_HUNT, HORIZON_SCAN, PIPELINE_WATCH, PATTERN_HUNT, SYNTHESIS, HORIZON_SCAN, PIPELINE_WATCH, PATTERN_HUNT, SYNTHESIS, HORIZON_SCAN, PIPELINE_WATCH, PATTERN_HUNT, PIPELINE_WATCH, HORIZON_SCAN, SYNTHESIS, PATTERN_HUNT, PIPELINE_WATCH, SYNTHESIS, PIPELINE_WATCH, HORIZON_SCAN, PATTERN_HUNT, SYNTHESIS, PIPELINE_WATCH, SYNTHESIS, PATTERN_HUNT, HORIZON_SCAN, PATTERN_HUNT, PIPELINE_WATCH, SYNTHESIS, PIPELINE_WATCH, HORIZON_SCAN, SYNTHESIS, PATTERN_HUNT, PIPELINE_WATCH, HORIZON_SCAN, SYNTHESIS, PATTERN_HUNT]
 Runs since each:
-  PATTERN_HUNT: 1
-  PIPELINE_WATCH: 3
-  HORIZON_SCAN: 2
-  SYNTHESIS: 0
-Open issues: #127,#124,#103,#100,#48,#22
+  PATTERN_HUNT: 0
+  PIPELINE_WATCH: 4
+  HORIZON_SCAN: 3
+  SYNTHESIS: 1
+Open issues: #124,#103,#100,#48,#22
 
 ## Source Digests
-anthropics/claude-code: b4fa5f8 | last-deep: 2026-04-01T04:07 | unchanged
-affaan-m/everything-claude-code: 43ac81f | last-deep: 2026-03-31T06:38 | SHA changed
-hesreallyhim/awesome-claude-code: 09f2f4b | last-deep: 2026-03-31T06:38 | SHA changed
-bytedance/deer-flow: 3e461d9 | last-deep: 2026-03-28T15:14 | unchanged
+anthropics/claude-code: b4fa5f8 | last-deep: 2026-04-01T12:26 | unchanged, v2.1.89 current
+affaan-m/everything-claude-code: 1abeff9 | last-deep: 2026-04-01T12:26 | hook dedup + skills-first collapse, N/A CI
+hesreallyhim/awesome-claude-code: 2f5cde3 | last-deep: 2026-03-31T06:38 | SHA changed, not deep-dived
+bytedance/deer-flow: c2ff59a | last-deep: 2026-04-01T12:26 | correction detection in MemoryMiddleware, validates feedback-learner
 SethGammon/Citadel: 9cbc344 | last-deep: 2026-04-01T04:07 | unchanged
-actions/runner: 5c6dd47 | last-deep: 2026-03-31T18:30 | unchanged
+actions/runner: df50788 | last-deep: 2026-03-31T18:30 | brace-expansion bump + Bearer token auth, infrastructure
 withastro/astro: d0fe1ec | last-deep: 2026-03-31T18:30 | unchanged
-verkyyi/tokenman: 434c22d | last-deep: never | self
-Watch: gstack 8115951 (changed), oh-my-openagent ea14a1a (changed), others unchanged
+verkyyi/tokenman: d25cd35 | last-deep: never | self
+Watch: gstack 6169273 (changed), oh-my-openagent e49ad5c (changed), others unchanged
 
 ## Findings This Run
-- Cross-run: security patterns are the productive research vein — runner-guard broke 26-PH plateau, claude-code security releases most CI-relevant
-- Cross-run: human disengagement 10d+ — system at ceiling, all 6 open items blocked on human action
-- Cross-run: research ROI declining — valuable finds from niche/specialized sources, not volume scanning
-- Growth metrics: 2 stars, 0 forks, 0 watchers — unchanged. Open issues 9.
-- SHA scan: 2/7 Active + 2/8 Watch changed (churn, no deep-dives this posture)
-- Research log archived: 54 entries moved (154→100)
+- runner-guard v2.5.2: RGS-019 (step output interpolation), env var quoting fix, docker:// skip — already adopted, no action
+- everything-cc: hook dedup by semantic identity (triple matching), skills-first architecture — N/A for CI harness
+- deer-flow: MemoryMiddleware structured reflection + correction detection — validates feedback-learner concept, not transferable
+- claude-code: unchanged at b4fa5f8 (v2.1.89)
+- SHA scan: 4/7 Active + 2/8 Watch changed (churn, no patterns)
 0 issues created.

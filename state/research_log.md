@@ -108,3 +108,8 @@
 2026-04-01T06:43:47Z | growth-metrics | Stars: 2, Forks: 0, Watchers: 0, Open Issues: 9. Unchanged from last check. Traffic: 403 (insufficient permissions). 10d+ flat. | updated growth_metrics.md
 2026-04-01T06:43:47Z | sha-scan | Active: 2/7 changed (everything-cc 43ac81f, awesome-cc 09f2f4b). 5 unchanged. Watch: 2/8 changed (gstack 8115951, oh-my-openagent ea14a1a). 6 unchanged. | SHAs updated
 2026-04-01T06:43:47Z | human-intents | No new human issues since 2026-03-22 (10d+). All recent activity bot-generated. Human disengagement continues. | no new entries
+2026-04-01T12:26:46Z | Vigilant-LLC/runner-guard | v2.5.2 refinements: RGS-019 (step output interpolation), env var quoting fix, docker:// skip. Already adopted via security-scan.yml (SHA 15a4f57). No further action. | informational
+2026-04-01T12:26:46Z | affaan-m/everything-claude-code | Hook dedup by semantic identity (triple matching: ID/legacy-signature/JSON). Skills-first architecture collapse (commands→SKILL.md). N/A for CI harness — validates existing approach. | informational
+2026-04-01T12:26:46Z | anthropics/claude-code | SHA unchanged (b4fa5f8). Still on v2.1.89. No new releases since last deep-dive. | no change
+2026-04-01T12:26:46Z | bytedance/deer-flow | PR #1668: MemoryMiddleware structured reflection + correction detection. Conceptually similar to feedback-learner but Python/LLM middleware. Validates approach, not transferable. | informational
+2026-04-01T12:26:46Z | sha-scan | Active: 4/7 changed (everything-cc 1abeff9, awesome-cc 2f5cde3, deer-flow c2ff59a, runner df50788). 3 unchanged. Watch: 2/8 changed (gstack 6169273, oh-my-openagent e49ad5c). 6 unchanged. | SHAs updated
