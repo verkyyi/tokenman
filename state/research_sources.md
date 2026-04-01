@@ -1,20 +1,20 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-04-01T00:45:27Z
+# Last updated: 2026-04-01T04:10:00Z
 
 ## Active Sources
 
 ### anthropics/claude-code
 - **Why:** The runtime we build on — releases, breaking changes, new hooks, CLI flags
 - **Look for:** CHANGELOG entries, new hook types, permission changes, SDK updates
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-31T18:30 | **Pattern hits:** 2 | **SHA:** 66ab4ae
-- **Notes:** Protected source — never drop. Check CHANGELOG and releases, not just commits. v2.1.88 (Mar 30): PermissionDenied hook (18th event), fixed StructuredOutput 50% failure rate, prompt cache misses, nested CLAUDE.md re-injection, hooks `if` compound commands. Major stability release. Previous: v2.1.87 Cowork Dispatch (N/A), v2.1.86 plugin/memory fixes, v2.1.85 hook `if` field (#122), v2.1.84 paths: frontmatter (#66), v2.1.83 security patterns (#100). CC now has 18 hook events.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-01T04:07 | **Pattern hits:** 2 | **SHA:** b4fa5f8
+- **Notes:** Protected source — never drop. Check CHANGELOG and releases, not just commits. v2.1.89 (Apr 1): defer permission in PreToolUse hooks, autocompact thrash loop fix, TaskCreated hook documented, file_path absolute path fix, memory leak fix, hook if-compound fix. Major stability release. Previous: v2.1.88 PermissionDenied hook, StructuredOutput fix. v2.1.87 Cowork Dispatch (N/A). v2.1.85 hook `if` field (#122). v2.1.83 security patterns (#100). CC now has 18+ hook events.
 
 ### affaan-m/everything-claude-code
 - **Why:** Community harness patterns, skill collections, optimization techniques
 - **Look for:** New skills, CLAUDE.md patterns, workflow architectures, instinct files
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-31T06:38 | **Pattern hits:** 1 | **SHA:** b41b2cb
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-31T06:38 | **Pattern hits:** 1 | **SHA:** 03c4a90
 - **Notes:** Large community repo. 1 pattern hit (safety-guard PreToolUse hooks). PR #1028: hermetic CI test env (XDG_CONFIG_HOME/GIT_CONFIG_GLOBAL/locale isolation). PR #833: gitagent format. All Codex/CLV2-specific — 0 CI-harness patterns across 11+ consecutive observations. Lowest deep-dive priority.
 
 ### hesreallyhim/awesome-claude-code
@@ -26,14 +26,14 @@
 ### bytedance/deer-flow
 - **Why:** Multi-agent orchestration patterns from a major tech company
 - **Look for:** Agent coordination, state management, tool orchestration, LLM provider patterns
-- **Added:** 2026-03-21 (seed) | **Last deep:** 2026-03-28T15:14 | **Pattern hits:** 1 | **SHA:** a3bfea6
+- **Added:** 2026-03-21 (seed) | **Last deep:** 2026-03-28T15:14 | **Pattern hits:** 1 | **SHA:** 3e461d9
 - **Notes:** Very active (5+ commits/day). SHA ac9a6ee→a3bfea6. All application-specific. 0 harness patterns across 17+ consecutive deep-dives. Lowest deep-dive priority.
 
 ### SethGammon/Citadel
 - **Why:** Agent orchestration harness (400 stars) — closest architecture to tokenman. Campaign persistence, parallel worktrees, circuit breaker, quality gate hooks, skill benchmarking, daemon factory
 - **Look for:** Skill benchmarking patterns, skill linting, governance hooks, testing infrastructure, fleet coordination, daemon factory patterns
-- **Added:** 2026-03-24 (watch) | **Promoted:** 2026-03-27 (synthesis — 35 obs, closest architecture, V2 patterns) | **Last deep:** 2026-03-31T18:30 | **Pattern hits:** 1 | **SHA:** 9cbc344
-- **Notes:** Promoted from Watch List. PR #72: runtime-agnostic migration backlog + foundation stack (#73-#87). Interesting architectural direction but unnecessary for single-runtime harness. Previous: PR #67 token telemetry, consent pattern. 1 pattern hit (circuit breaker #76).
+- **Added:** 2026-03-24 (watch) | **Promoted:** 2026-03-27 (synthesis — 35 obs, closest architecture, V2 patterns) | **Last deep:** 2026-04-01T04:07 | **Pattern hits:** 1 | **SHA:** 9cbc344
+- **Notes:** Promoted from Watch List. PR #91 (Mar 31): hook version compatibility — detect Claude Code version, skip unsupported events, graceful degradation (informational, N/A CI). PR #72: runtime-agnostic migration backlog. PR #67 token telemetry. 1 pattern hit (circuit breaker #76).
 
 ### actions/runner
 - **Why:** CI/CD runtime we depend on — deprecation notices, new features, security fixes
@@ -87,7 +87,7 @@
 ### code-yeongyu/oh-my-openagent
 - **Why:** Largest agent harness repo (44K stars, 3273 forks) — TypeScript TUI, multi-model orchestration, subagent management, plugin discovery, hook isolation
 - **Look for:** Hook isolation patterns, subagent lifecycle management, plugin discovery architecture, runtime fallback patterns
-- **Added:** 2026-03-27 (horizon scan) | **Observations:** 20 | **First seen:** 2026-03-27 | **SHA:** 366ebb3
+- **Added:** 2026-03-27 (horizon scan) | **Observations:** 21 | **First seen:** 2026-03-27 | **SHA:** a3f9eb1
 - **Notes:** Deep-dived PR #2931 (tmux session isolation — N/A CI), PR #2929 (rules-injector config gating — validates our separate-workflow isolation), PR #2912 (fallback matrix testing), PR #2919 (configurable TDD). Architecture fundamentally different (interactive TUI vs CI). Low direct adoption. 0 pattern hits.
 
 ### agent-sh/agentsys
@@ -105,8 +105,8 @@
 ### Vigilant-LLC/runner-guard
 - **Why:** CI/CD security scanner (6 stars, Go) — 18 detection rules for GHA vulnerabilities: fork checkout exploits, expression injection, AI config injection (CLAUDE.md hijacking), supply chain steganography, unpinned actions, auto-fix, SARIF output
 - **Look for:** GHA vulnerability patterns applicable to our workflows, action pinning auto-fix, AI config injection defenses, SARIF integration for Code Scanning
-- **Added:** 2026-04-01 (horizon scan) | **Observations:** 1 | **First seen:** 2026-04-01 | **SHA:** 15a4f57
-- **Notes:** Only scanner specifically targeting AI agent attack vectors in CI/CD. Directly relevant: our workflows use pull_request_target (reviewer.yml), expressions in run blocks, unpinned actions. v2.5.2. Low stars but unique niche. Go single binary.
+- **Added:** 2026-04-01 (horizon scan) | **Observations:** 2 | **First seen:** 2026-04-01 | **SHA:** 15a4f57
+- **Notes:** Only scanner specifically targeting AI agent attack vectors in CI/CD. Deep-dived: 18 rules, GitHub Action with SARIF, AI config injection detection. Our feedback-learner.yml has low-risk expression injection (lines 104-108) that RGS-002/003 would flag. Issue #127 created for adoption. v2.5.2. Low stars (6) but unique niche. Go single binary.
 
 ## Dropped Sources
 <!-- Removed sources with reason. Kept for history so we don't re-discover them. -->
