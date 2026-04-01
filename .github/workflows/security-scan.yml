@@ -1,0 +1,23 @@
+name: Security Scan — Workflow YAML
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/**'
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  runner-guard:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run runner-guard
+        uses: Vigilant-LLC/runner-guard@15a4f57ffec3623c4ff4578dd3bcb30af60f642b # v2.5.2
+        with:
+          fail-on: high
+          sarif-upload: 'true'

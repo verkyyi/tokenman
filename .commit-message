@@ -1,1 +1,1 @@
-fix(workflow): use unique heredoc delimiter in coder.yml .fix-failed output (closes #125)
+feat(harness): add runner-guard CI/CD security scanning workflow (closes #127)
