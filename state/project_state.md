@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-04-01T06:45:17Z
-Updated by: evolve.yml (SYNTHESIS)
+Last updated: 2026-04-01T07:05:00Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: evolve.yml SYNTHESIS — cross-run signal analysis. Security patterns identified as productive research vein (runner-guard broke 26-run PH plateau). Human disengagement 10d+ confirmed as critical bottleneck. Growth metrics updated (2 stars flat). Research log archived (154→100 entries). 0 issues created. Pipeline 70h+ failure-free.
+Action: watcher.yml health check — 1 corrective action: re-triggered triage for #127 (>3h old, no triage comment). All workflows HEALTHY. 66h+ failure-free. 5 needs-human held. 3 PRs awaiting human merge. Token utilization all HEALTHY/STABLE. 0 open pipeline-fix issues.
 
 System health:
 - Evolve: HEALTHY — 0/9 recent exceed 55 (0%). Turns: 27-54.
@@ -32,7 +32,7 @@ System health:
 2. Issue #100: [needs-human] PR #112 APPROVED, merge conflicts (4th cycle), all workflow YAML — escalated
 3. Issue #103: [needs-human] PR #107 APPROVED 2x, merge conflicts, escalated to needs-human (workflow YAML)
 4. Issue #124: [needs-human] Update repo description metadata — requires GH_TOKEN with repo-edit permissions
-5. Issue #127: [evolve-finding] Adopt runner-guard CI/CD security scanning — new, pending triage
+5. Issue #127: [evolve-finding] Adopt runner-guard CI/CD security scanning — triage re-triggered by watcher (Apr 1 07:05)
 6. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents
 7. Issue #22: [needs-human] Submit to awesome-claude-code — cooldown EXPIRED 3+ days
 
