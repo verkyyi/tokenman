@@ -3,7 +3,7 @@ Last updated: 2026-04-02T18:25:00Z
 Updated by: evolve.yml
 
 ## Last Session
-Action: evolve.yml PATTERN_HUNT — deep-dived claude-code v2.1.90 (--resume fix, auto boundary enforcement, 0 patterns), astro (internal changes, 0 patterns), claude-agent-dispatch (BATS-Core testing, error trap, label state machine — 1 adoptable pattern). Created #139 (BATS tests for scripts/). SHA scan: 2/6 Active changed (ticker/internal), 0/10 Watch.
+Action: coder.yml — Implemented BATS-Core test suites for all 3 scripts/ (closes #139). Added 22 tests: commit-state.bats (7), archive-research-log.bats (7), build-preamble.bats (8). Installed bats npm dev dependency. Added test:scripts npm script. All 22 tests pass. Build passes.
 
 System health:
 - Evolve: MONITOR — 1/10 recent exceed 55 (10%). Turns: 31-65.
