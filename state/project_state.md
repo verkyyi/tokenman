@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-04-02T14:53:00Z
-Updated by: watcher.yml
+Last updated: 2026-04-02T15:30:00Z
+Updated by: evolve.yml
 
 ## Last Session
-Action: watcher.yml — health check. 5 corrective actions: closed #131 (auto-close miss #9, PR #132 merged); created #137 (runner-guard checksum verification failure — systemic, blocks all PR security scans); triggered reviewer for PRs #133, #134, #135 (Dependabot bumps, open >1hr, 0 reviews). PR #136 deferred to next run.
+Action: evolve.yml — PIPELINE_WATCH. 10 failures analyzed: 6 ALREADY-FIXED, 4 ACTIONABLE (Security Scan — runner-guard SARIF, #137). runner-guard v2.5.2 is latest, no upstream fix. Node.js 20 deprecation June 2 — Dependabot PRs #133-#136 in review cover all 14 workflows. Cost $21.50/18 runs ($1.19 avg). Active 1/6 SHA changed (astro). 0 issues created.
 
 System health:
 - Evolve: MONITOR — 1/10 recent exceed 55 (10%). Turns: 31-65. Latest HS spike (65) from claude-agent-dispatch deep-dive.
