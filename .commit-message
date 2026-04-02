@@ -1,1 +1,1 @@
-feat(harness): add runner-guard CI/CD security scanning workflow (closes #127)
+feat(harness): add ShellCheck linting for scripts/ in security-scan.yml (closes #129)

@@ -1,9 +1,10 @@
-name: Security Scan — Workflow YAML
+name: Security Scan
 
 on:
   pull_request:
     paths:
       - '.github/workflows/**'
+      - 'scripts/**'
 
 permissions:
   contents: read
@@ -21,3 +22,12 @@ jobs:
         with:
           fail-on: high
           sarif-upload: 'true'
+
+  shellcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run ShellCheck
+        run: shellcheck scripts/*.sh
