@@ -149,3 +149,6 @@
 2026-04-02T18:27:30Z | withastro/astro | SHA 604f939→6d5469e: Cloudflare miniflare dev restart (#16059), test coverage (#16189), e2e fix (#16183). All internal framework changes. 0 harness patterns. | no action
 2026-04-02T18:27:30Z | jnurre64/claude-agent-dispatch | Deep-dived architecture: scripts/lib/ modular shell, BATS-Core testing (6 files), global error trap with diagnostic comments, label state machine (10 labels), worktree stale prune. 1 adoptable pattern: BATS-Core testing for scripts/. | issue #139 created
 2026-04-02T18:27:30Z | sha-scan | Active: 2/6 changed (awesome-cc f28c6b6 ticker-only, astro 6d5469e internal). 4 unchanged. Watch: 0/10 changed. All unchanged. | SHAs updated
+2026-04-02T21:18:37Z | horizon-scan | Searched 4 queries (claude+code+agent, self-evolving, CI/GHA, agent harness). New: freema/codeforge (5 stars, Go, queue+worker CI orchestrator as GHA). Architecturally different (server model vs GHA-native). Not adding to Watch. | no action
+2026-04-02T21:18:37Z | sha-scan | Active: 1/6 changed (astro 6d5469e→21f9fe2, unused re-exports fix). 5 unchanged. Watch: 0/11 changed. All unchanged. | astro SHA updated
+2026-04-02T21:18:37Z | horizon-scan | 20th consecutive HS with no new architecturally-similar repos. Niche already well-mapped. Watch List stable at 11 (no promotions/drops — all recently added/demoted). | observation

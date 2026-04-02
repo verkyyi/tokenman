@@ -1,7 +1,7 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-04-02T18:25:00Z
+# Last updated: 2026-04-02T21:15:00Z
 
 ## Active Sources
 
@@ -32,8 +32,8 @@
 ### withastro/astro
 - **Why:** Web framework we use — security fixes, breaking changes, new features
 - **Look for:** Security advisories, breaking changes in minor/major releases, new content collection features
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-02T18:25 | **Pattern hits:** 0 | **SHA:** 6d5469e
-- **Notes:** Only actionable for security fixes or features that affect our site build. Recent: Cloudflare miniflare restart (#16059), test coverage (#16189), e2e test fix (#16183). SHA changed 604f939 → 6d5469e (Apr 2). 0 harness patterns across 16+ observations.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-02T18:25 | **Pattern hits:** 0 | **SHA:** 21f9fe2
+- **Notes:** Only actionable for security fixes or features that affect our site build. Recent: unused re-exports removal (#16197, Apr 2). SHA changed 6d5469e → 21f9fe2 (Apr 2). 0 harness patterns across 17+ observations.
 
 ### verkyyi/tokenman
 - **Why:** Self-reference — track forks, adopters, and how the scaffold is used
