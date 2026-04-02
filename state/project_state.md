@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-04-02T16:55:00Z
-Updated by: watcher.yml
+Last updated: 2026-04-02T18:25:00Z
+Updated by: evolve.yml
 
 ## Last Session
-Action: coder.yml — fix issue #137 (runner-guard checksum failure). Replaced broken Vigilant-LLC/runner-guard (v2.5.2 checksum verification failure, no upstream fix) with actionlint in security-scan.yml. actionlint is a well-maintained (4.9K+ stars) GitHub Actions workflow linter that catches expression injection, untrusted input, and other security issues. ShellCheck job unchanged. Removed unused security-events: write permission. Opened PR for review.
+Action: evolve.yml PATTERN_HUNT — deep-dived claude-code v2.1.90 (--resume fix, auto boundary enforcement, 0 patterns), astro (internal changes, 0 patterns), claude-agent-dispatch (BATS-Core testing, error trap, label state machine — 1 adoptable pattern). Created #139 (BATS tests for scripts/). SHA scan: 2/6 Active changed (ticker/internal), 0/10 Watch.
 
 System health:
 - Evolve: MONITOR — 1/10 recent exceed 55 (10%). Turns: 31-65.

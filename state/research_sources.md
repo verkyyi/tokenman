@@ -1,7 +1,7 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-04-02T15:30:00Z
+# Last updated: 2026-04-02T18:25:00Z
 
 ## Active Sources
 
@@ -9,13 +9,13 @@
 - **Why:** The runtime we build on — releases, breaking changes, new hooks, CLI flags
 - **Look for:** CHANGELOG entries, new hook types, permission changes, SDK updates
 - **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-02T00:41 | **Pattern hits:** 2 | **SHA:** a50a919
-- **Notes:** Protected source — never drop. Check CHANGELOG and releases, not just commits. v2.1.90 (Apr 2): quadratic→linear perf (SSE + transcript writes), auto mode boundary enforcement, PreToolUse hook JSON exit-code-2 fix, .husky protected dir, DNS cache privacy, --resume cache fix, Edit/Write format-on-save fix. Previous: v2.1.89 defer permission, autocompact fix, TaskCreated hook. v2.1.88 PermissionDenied hook. v2.1.85 hook `if` field (#122). v2.1.83 security patterns (#100). CC now has 18+ hook events.
+- **Notes:** Protected source — never drop. Check CHANGELOG and releases, not just commits. v2.1.90 (Apr 2): /powerup interactive lessons, plugin offline cache, --resume cache miss fix (benefits headless workflows), auto mode boundary enforcement (validates CLAUDE.md autonomy), PowerShell security hardening, SSE/transcript quadratic→linear perf, Edit/Write format-on-save fix. Previous: v2.1.89 defer permission, autocompact fix, TaskCreated hook. v2.1.88 PermissionDenied hook. v2.1.85 hook `if` field (#122). v2.1.83 security patterns (#100). CC now has 18+ hook events.
 
 ### hesreallyhim/awesome-claude-code
 - **Why:** Curated ecosystem catalog — discover new tools, libraries, and patterns
 - **Look for:** New entries in Orchestrators/Tools/Skills sections, trending repos referenced
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-02T09:30 | **Pattern hits:** 0 | **SHA:** 2d2b4bc
-- **Notes:** 0 pattern hits across 35+ observations. All recent commits are ticker auto-updates only. Retain for HORIZON_SCAN cross-reference only.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-02T09:30 | **Pattern hits:** 0 | **SHA:** f28c6b6
+- **Notes:** 0 pattern hits across 36+ observations. All recent commits are ticker auto-updates only. Retain for HORIZON_SCAN cross-reference only.
 
 ### SethGammon/Citadel
 - **Why:** Agent orchestration harness (400 stars) — closest architecture to tokenman. Campaign persistence, parallel worktrees, circuit breaker, quality gate hooks, skill benchmarking, daemon factory
@@ -32,8 +32,8 @@
 ### withastro/astro
 - **Why:** Web framework we use — security fixes, breaking changes, new features
 - **Look for:** Security advisories, breaking changes in minor/major releases, new content collection features
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-31T18:30 | **Pattern hits:** 0 | **SHA:** 604f939
-- **Notes:** Only actionable for security fixes or features that affect our site build. Recent: e2e test fix (#16183), URL trailing slash 404 fix (#16154). SHA changed 3cd1b16 → 604f939 (Apr 2). 0 harness patterns across 15+ observations.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-02T18:25 | **Pattern hits:** 0 | **SHA:** 6d5469e
+- **Notes:** Only actionable for security fixes or features that affect our site build. Recent: Cloudflare miniflare restart (#16059), test coverage (#16189), e2e test fix (#16183). SHA changed 604f939 → 6d5469e (Apr 2). 0 harness patterns across 16+ observations.
 
 ### verkyyi/tokenman
 - **Why:** Self-reference — track forks, adopters, and how the scaffold is used
@@ -113,8 +113,8 @@
 ### jnurre64/claude-agent-dispatch
 - **Why:** Label-driven Claude Code GHA dispatch (Shell, 2 stars) — closest architecture to tokenman. Modular agent-dispatch.sh + lib/, label state machine (10 agent:* labels), two-phase plan→implement with human checkpoint, ShellCheck + BATS-Core CI testing.
 - **Look for:** Shell script quality patterns, label state machine design, worktree isolation, error trap handling, BATS test patterns
-- **Added:** 2026-04-02 (horizon scan) | **Observations:** 2 | **First seen:** 2026-04-02 | **SHA:** c41eb1d
-- **Notes:** Created 2026-03-21, actively maintained. Shell-only, no Node/Python deps. Reusable workflows (dispatch-*.yml) consumed via workflow_call. CI validates all scripts with ShellCheck + BATS. Architecturally closest to tokenman: issue-driven, label-based state, GHA runners, claude -p headless. Latest: OSS hygiene (dependabot for GHA, CODEOWNERS, editorconfig), versioning policy, diagnostic errors, AI discoverability (subdirectory CLAUDE.md). Issue #129 (ShellCheck). Issue #131 (dependabot). 1 pattern hit.
+- **Added:** 2026-04-02 (horizon scan) | **Observations:** 3 | **First seen:** 2026-04-02 | **SHA:** c41eb1d
+- **Notes:** Created 2026-03-21, actively maintained. Shell-only, no Node/Python deps. Reusable workflows (dispatch-*.yml) consumed via workflow_call. CI validates all scripts with ShellCheck + BATS. Architecturally closest to tokenman: issue-driven, label-based state, GHA runners, claude -p headless. Deep-dived architecture: scripts/lib/ (5 modules), BATS tests (6 files), global error trap with diagnostic comments, label state machine (10 labels), worktree stale prune. Issues: #129 (ShellCheck), #131 (dependabot), #139 (BATS testing). 2 pattern hits.
 
 ## Dropped Sources
 <!-- Removed sources with reason. Kept for history so we don't re-discover them. -->
