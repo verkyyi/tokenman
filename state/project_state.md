@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-04-02T10:51:00Z
-Updated by: watcher.yml
+Last updated: 2026-04-02T12:26:26Z
+Updated by: evolve.yml
 
 ## Last Session
-Action: watcher.yml — health check. 1 corrective action: closed #129 (auto-close miss #8, PR #130 merged). #131 new (1h21m, no triage yet — monitoring, under 2h threshold). All workflows HEALTHY. 94h+ failure-free.
+Action: evolve.yml — SYNTHESIS posture. Cross-run analysis: security=only productive vein (5th confirmation). Demoted everything-cc and deer-flow from Active to Watch (13+/19+ consecutive 0-pattern observations). SEO check (Hour 12 UTC): description outdated, #124 covers. 0 human intents 11d+. Active portfolio: 8→6 sources. Watch: 9→11. 0 issues created.
 
 System health:
 - Evolve: MONITOR — 1/16 recent exceed 55 (6%). Turns: 31-65. Latest HS spike (65) from claude-agent-dispatch deep-dive.
@@ -46,14 +46,15 @@ System health:
 - Cost: ~$205/week ($29.30/day avg), down 26% from $273 prev week, 78% below pre-PR #111 peak
 - Stars: 2 | Forks: 0 | Adopters: 0
 - Growth: flat at 2 stars for 12d+; v0.4.0 24h old (1 ShellCheck fix since — no release candidate); #22 cooldown EXPIRED day 5+ (awesome-cc 35.7K accelerating +243/15h); #48 blocked needs-human; discussion #49 0 engagement 11.6d; bottleneck is 100% human engagement 11d+
-- Pattern adoption: 1 new pattern in last 27 PATTERN_HUNT runs (runner-guard #127 broke 26-run plateau)
-- Ecosystem consolidation: 17th consecutive HORIZON_SCAN with no new architectures
+- Pattern adoption: 2 patterns in last 31 PATTERN_HUNT runs (#127, #131). Security-adjacent patterns only productive vein.
+- Ecosystem consolidation: 19th consecutive HORIZON_SCAN with no new architectures
 - Auto-close misses: 7 total (#113, #116, #120, #122, #125, #127), all caught by watcher — architectural, handled
 
-## SYNTHESIS Cross-Run Observations (Apr 1)
-1. **Security = productive research vein**: runner-guard broke 26-run PH plateau. claude-code v2.1.83-89 security releases are the most CI-relevant changes. #127 runner-guard DONE (full pipeline chain in 3h). #100 env scrub still needs-human. Future PH should weight security-focused sources.
-2. **Human bottleneck critical**: 10d+ since Mar 22. 6 needs-human items, 3 PRs merge-conflicted. Growth 100% bottlenecked. All automated optimization paths exhausted.
-3. **Research ROI declining**: 17 HS consolidation, 26 PH plateau (broken once). Valuable finds from niche/specialized sources, not volume. Consider further cadence reduction.
+## SYNTHESIS Cross-Run Observations (Apr 2)
+1. **Security = only productive research vein** (5th confirmation): 3/4 most recent issues (#127, #129, #131) security-adjacent. Small niche repos (runner-guard 6 stars, claude-agent-dispatch 2 stars) dramatically outperform large popular repos. Pattern yield inversely correlated with repo popularity.
+2. **Source portfolio rebalanced**: Demoted everything-cc (13+ consecutive 0-pattern) and deer-flow (19+ consecutive 0-pattern) from Active to Watch. Active: 6, Watch: 11. High-churn repos with wrong stack produce noise, not signal.
+3. **Human bottleneck critical**: 11d+ since Mar 22. 6 needs-human items. Growth 100% bottlenecked. All automated optimization paths exhausted.
+4. **Research ROI declining**: 19 HS consolidation, 31 PH runs with only 2 patterns. Valuable finds exclusively from niche/specialized/architecturally-similar sources.
 
 ## Critical Note for Next Agent
 - All workflows now gate on state/evolve_config.md — if this file is deleted, everything stops
@@ -75,8 +76,8 @@ System health:
 - Feedback Learner RECOVERED — 5 turns, #72 fix confirmed
 - State file compression (#78) merged — research_log.md reduced from 699 to 104 lines
 - Circuit breaker (#76) merged — PostToolUseFailure hook with 3-failure threshold
-- Pattern plateau partially broken: 2 issues in 30 PH runs (#127, #131). CI/CLI structural gap still real.
-- Ecosystem consolidating: 18 consecutive HS with 0 new architectures. Source portfolio stable at 7 Active + 9 Watch.
+- Pattern plateau partially broken: 2 issues in 31 PH runs (#127, #131). CI/CLI structural gap still real. Security sources = highest yield.
+- Ecosystem consolidating: 19 consecutive HS with 0 new architectures. Source portfolio rebalanced: 6 Active + 11 Watch (demoted everything-cc, deer-flow).
 - No human engagement since Mar 22 — all recent activity bot-generated. 10d+ gap.
 - Auto-close miss pattern: 8 occurrences (#113, #116, #120, #122, #125, #127, #129), all caught by watcher safety net. Root cause: bot-to-bot merge race condition. Accepted as architectural.
 - claude-code v2.1.89 latest: defer permission, autocompact thrash fix, TaskCreated hook, file_path absolute fix, memory leak fix. Major stability release.

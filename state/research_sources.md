@@ -1,7 +1,7 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-04-02T09:30:02Z
+# Last updated: 2026-04-02T12:26:26Z
 
 ## Active Sources
 
@@ -11,23 +11,11 @@
 - **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-02T00:41 | **Pattern hits:** 2 | **SHA:** a50a919
 - **Notes:** Protected source — never drop. Check CHANGELOG and releases, not just commits. v2.1.90 (Apr 2): quadratic→linear perf (SSE + transcript writes), auto mode boundary enforcement, PreToolUse hook JSON exit-code-2 fix, .husky protected dir, DNS cache privacy, --resume cache fix, Edit/Write format-on-save fix. Previous: v2.1.89 defer permission, autocompact fix, TaskCreated hook. v2.1.88 PermissionDenied hook. v2.1.85 hook `if` field (#122). v2.1.83 security patterns (#100). CC now has 18+ hook events.
 
-### affaan-m/everything-claude-code
-- **Why:** Community harness patterns, skill collections, optimization techniques
-- **Look for:** New skills, CLAUDE.md patterns, workflow architectures, instinct files
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-02T00:41 | **Pattern hits:** 1 | **SHA:** 3152585
-- **Notes:** Large community repo. 1 pattern hit (safety-guard PreToolUse hooks). CI cleanup (pre-bash quality hook, eslint), codex sync (merge-codex-config.js 317 lines), install hardening. All interactive-session patterns — 0 CI-harness patterns across 13+ consecutive observations. Lowest deep-dive priority.
-
 ### hesreallyhim/awesome-claude-code
 - **Why:** Curated ecosystem catalog — discover new tools, libraries, and patterns
 - **Look for:** New entries in Orchestrators/Tools/Skills sections, trending repos referenced
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-02T09:30 | **Pattern hits:** 0 | **SHA:** 6e5f65d
-- **Notes:** SHA c9e6c0b→946bffd (ticker/auto-update). 0 pattern hits across 35+ observations. All recent commits are ticker auto-updates only. Retain for HORIZON_SCAN cross-reference only.
-
-### bytedance/deer-flow
-- **Why:** Multi-agent orchestration patterns from a major tech company
-- **Look for:** Agent coordination, state management, tool orchestration, LLM provider patterns
-- **Added:** 2026-03-21 (seed) | **Last deep:** 2026-04-02T09:30 | **Pattern hits:** 1 | **SHA:** f56d0b4
-- **Notes:** Very active (5+ commits/day). Latest: per-agent skill filter (#1650), concurrent subagent file write locks (#1714), Langfuse tracing (#1717). All Python application-specific. 0 harness patterns across 19+ consecutive deep-dives. Lowest deep-dive priority.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-02T09:30 | **Pattern hits:** 0 | **SHA:** 2d2b4bc
+- **Notes:** 0 pattern hits across 35+ observations. All recent commits are ticker auto-updates only. Retain for HORIZON_SCAN cross-reference only.
 
 ### SethGammon/Citadel
 - **Why:** Agent orchestration harness (400 stars) — closest architecture to tokenman. Campaign persistence, parallel worktrees, circuit breaker, quality gate hooks, skill benchmarking, daemon factory
@@ -50,11 +38,25 @@
 ### verkyyi/tokenman
 - **Why:** Self-reference — track forks, adopters, and how the scaffold is used
 - **Look for:** New forks, adopter modifications, issues filed by users
-- **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 0 | **SHA:** 3e7354e
-- **Notes:** Used during HORIZON SCAN for adoption tracking. 0 forks, 0 adopters as of 2026-03-31.
+- **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 0 | **SHA:** 12d301c
+- **Notes:** Used during HORIZON SCAN for adoption tracking. 0 forks, 0 adopters as of 2026-04-02.
 
 ## Watch List
 <!-- Sources under evaluation. Promoted to Active or Dropped after 3+ observations over 7+ days. -->
+
+### affaan-m/everything-claude-code
+- **Why:** Community harness patterns, skill collections, optimization techniques
+- **Look for:** New skills, CLAUDE.md patterns, workflow architectures, instinct files
+- **Demoted:** 2026-04-02 (synthesis — 13+ consecutive 0-pattern observations, all interactive-session specific, 0 CI-harness patterns)
+- **Observations:** 55+ | **First seen:** 2026-03-20 | **SHA:** bf3fd69
+- **Notes:** 1 pattern hit total (safety-guard PreToolUse hooks, early). CI cleanup, codex sync, install hardening — all interactive-session. From same author as agentshield. Monitor for CI-relevant patterns.
+
+### bytedance/deer-flow
+- **Why:** Multi-agent orchestration patterns from a major tech company
+- **Look for:** Agent coordination, state management, tool orchestration, LLM provider patterns
+- **Demoted:** 2026-04-02 (synthesis — 19+ consecutive 0-pattern deep-dives, all Python application-specific, fundamentally different stack)
+- **Observations:** 55+ | **First seen:** 2026-03-21 | **SHA:** ef711a4
+- **Notes:** 1 pattern hit total (early). Very active (5+ commits/day). Per-agent skill filter, concurrent file locks, Langfuse tracing — all Python. No transferable harness patterns despite extensive monitoring.
 
 ### garrytan/gstack
 - **Why:** Harness engineering patterns — skills, slash commands, review protocols, agent orchestration
