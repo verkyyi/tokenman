@@ -1,26 +1,26 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-04-01T21:20:00Z
+# Last updated: 2026-04-02T00:41:19Z
 
 ## Active Sources
 
 ### anthropics/claude-code
 - **Why:** The runtime we build on — releases, breaking changes, new hooks, CLI flags
 - **Look for:** CHANGELOG entries, new hook types, permission changes, SDK updates
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-01T04:07 | **Pattern hits:** 2 | **SHA:** b4fa5f8
-- **Notes:** Protected source — never drop. Check CHANGELOG and releases, not just commits. v2.1.89 (Apr 1): defer permission in PreToolUse hooks, autocompact thrash loop fix, TaskCreated hook documented, file_path absolute path fix, memory leak fix, hook if-compound fix. Major stability release. Previous: v2.1.88 PermissionDenied hook, StructuredOutput fix. v2.1.87 Cowork Dispatch (N/A). v2.1.85 hook `if` field (#122). v2.1.83 security patterns (#100). CC now has 18+ hook events.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-02T00:41 | **Pattern hits:** 2 | **SHA:** a50a919
+- **Notes:** Protected source — never drop. Check CHANGELOG and releases, not just commits. v2.1.90 (Apr 2): quadratic→linear perf (SSE + transcript writes), auto mode boundary enforcement, PreToolUse hook JSON exit-code-2 fix, .husky protected dir, DNS cache privacy, --resume cache fix, Edit/Write format-on-save fix. Previous: v2.1.89 defer permission, autocompact fix, TaskCreated hook. v2.1.88 PermissionDenied hook. v2.1.85 hook `if` field (#122). v2.1.83 security patterns (#100). CC now has 18+ hook events.
 
 ### affaan-m/everything-claude-code
 - **Why:** Community harness patterns, skill collections, optimization techniques
 - **Look for:** New skills, CLAUDE.md patterns, workflow architectures, instinct files
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-01T12:26 | **Pattern hits:** 1 | **SHA:** 401966b
-- **Notes:** Large community repo. 1 pattern hit (safety-guard PreToolUse hooks). Hook dedup by semantic identity (triple matching: ID/legacy-signature/JSON) — interesting but N/A for CI. Skills-first architecture collapse (commands→SKILL.md). All interactive-session patterns — 0 CI-harness patterns across 12+ consecutive observations. Lowest deep-dive priority.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-02T00:41 | **Pattern hits:** 1 | **SHA:** 8f63697
+- **Notes:** Large community repo. 1 pattern hit (safety-guard PreToolUse hooks). CI cleanup (pre-bash quality hook, eslint), codex sync (merge-codex-config.js 317 lines), install hardening. All interactive-session patterns — 0 CI-harness patterns across 13+ consecutive observations. Lowest deep-dive priority.
 
 ### hesreallyhim/awesome-claude-code
 - **Why:** Curated ecosystem catalog — discover new tools, libraries, and patterns
 - **Look for:** New entries in Orchestrators/Tools/Skills sections, trending repos referenced
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-31T06:38 | **Pattern hits:** 0 | **SHA:** 01f86e5
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-31T06:38 | **Pattern hits:** 0 | **SHA:** 8c6e0ad
 - **Notes:** SHA c9e6c0b→946bffd (ticker/auto-update). 0 pattern hits across 34+ observations. Retain for HORIZON_SCAN cross-reference only.
 
 ### bytedance/deer-flow
@@ -32,8 +32,8 @@
 ### SethGammon/Citadel
 - **Why:** Agent orchestration harness (400 stars) — closest architecture to tokenman. Campaign persistence, parallel worktrees, circuit breaker, quality gate hooks, skill benchmarking, daemon factory
 - **Look for:** Skill benchmarking patterns, skill linting, governance hooks, testing infrastructure, fleet coordination, daemon factory patterns
-- **Added:** 2026-03-24 (watch) | **Promoted:** 2026-03-27 (synthesis — 35 obs, closest architecture, V2 patterns) | **Last deep:** 2026-04-01T04:07 | **Pattern hits:** 1 | **SHA:** 9cbc344
-- **Notes:** Promoted from Watch List. PR #91 (Mar 31): hook version compatibility — detect Claude Code version, skip unsupported events, graceful degradation (informational, N/A CI). PR #72: runtime-agnostic migration backlog. PR #67 token telemetry. 1 pattern hit (circuit breaker #76).
+- **Added:** 2026-03-24 (watch) | **Promoted:** 2026-03-27 (synthesis — 35 obs, closest architecture, V2 patterns) | **Last deep:** 2026-04-02T00:41 | **Pattern hits:** 1 | **SHA:** 9cbc344
+- **Notes:** Promoted from Watch List. Runtime-agnostic foundation (#73-#87): runtime detection registry, fleet coordination (claims/instances/sweep), policy engine, structured telemetry schema, hook normalization across runtimes. Massive JS framework refactor — shows multi-runtime direction. Not adoptable for bash/markdown harness. 1 pattern hit (circuit breaker #76).
 
 ### actions/runner
 - **Why:** CI/CD runtime we depend on — deprecation notices, new features, security fixes
@@ -44,8 +44,8 @@
 ### withastro/astro
 - **Why:** Web framework we use — security fixes, breaking changes, new features
 - **Look for:** Security advisories, breaking changes in minor/major releases, new content collection features
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-31T18:30 | **Pattern hits:** 0 | **SHA:** 7610ba4
-- **Notes:** Only actionable for security fixes or features that affect our site build. Bug fixes: isHTMLString multi-realm fix (#16142), trailingSlash redirect fix (#16034), content collection stale imports (#16124), CSS page boundary (#16116), inter-chunk JS (#16110). 0 harness patterns across 13+ deep-dives.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-31T18:30 | **Pattern hits:** 0 | **SHA:** 3cd1b16
+- **Notes:** Only actionable for security fixes or features that affect our site build. Recent: e2e test fix (#16183), URL trailing slash 404 fix (#16154). 0 harness patterns across 14+ observations.
 
 ### verkyyi/tokenman
 - **Why:** Self-reference — track forks, adopters, and how the scaffold is used
@@ -80,7 +80,7 @@
 ### agent-sh/agnix
 - **Why:** CLAUDE.md/SKILL.md linter and LSP (103 stars) — validates AI coding assistant config files, autofixes, IDE plugins
 - **Look for:** Validation rules for CLAUDE.md, SKILL.md format standards, CI integration patterns, autofix capabilities
-- **Added:** 2026-03-24 (horizon scan) | **Observations:** 42 | **First seen:** 2026-03-24 | **SHA:** 371142c
+- **Added:** 2026-03-24 (horizon scan) | **Observations:** 43 | **First seen:** 2026-03-24 | **SHA:** d7eaebe
 - **Decision (2026-03-31):** RETAIN on Watch List. 39 obs, 7+ days, 0 pattern hits. Key CC spec tracker but 0 adoptable CI patterns — not promoting. Active and useful — not dropping.
 - **Notes:** v0.17.0: CC now has 18 hook events (PermissionDenied added in v2.1.88), HTTP hooks, once/async fields. 385 rules, 124 auto-fixes. Relevant to #66/#68.
 
@@ -93,7 +93,7 @@
 ### shinpr/claude-code-workflows
 - **Why:** Production-ready multi-agent workflows (257 stars, 44 forks) — specialized agents (technical-designer, document-reviewer, work-planner)
 - **Look for:** Multi-agent workflow organization, dependency verification patterns, role-based agent coordination
-- **Added:** 2026-03-29 (horizon scan) | **Observations:** 10 | **First seen:** 2026-03-29 | **SHA:** 2e719be
+- **Added:** 2026-03-29 (horizon scan) | **Observations:** 11 | **First seen:** 2026-03-29 | **SHA:** a7a250a
 - **Notes:** PR #91 (Mar 29): dependency existence verification for design workflow (3-case: found/external/needs-creation). PR #89: recipe isolation (removed recipe-to-recipe deps). Deep-dived: dependency verification interesting but marginal for coder.yml. Specialized agents with role assignments. Markdown-only. Active.
 
 ### Vigilant-LLC/runner-guard
