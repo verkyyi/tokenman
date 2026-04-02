@@ -1,15 +1,15 @@
 # Project State
-Last updated: 2026-04-02T15:30:00Z
-Updated by: evolve.yml
+Last updated: 2026-04-02T16:55:00Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: evolve.yml — PIPELINE_WATCH. 10 failures analyzed: 6 ALREADY-FIXED, 4 ACTIONABLE (Security Scan — runner-guard SARIF, #137). runner-guard v2.5.2 is latest, no upstream fix. Node.js 20 deprecation June 2 — Dependabot PRs #133-#136 in review cover all 14 workflows. Cost $21.50/18 runs ($1.19 avg). Active 1/6 SHA changed (astro). 0 issues created.
+Action: watcher.yml — health check. 2 corrective actions: re-triggered triage for #137 (>2h old, no triage comment); triggered reviewer for #136 (Dependabot deploy-pages bump, >4h old, 0 reviews). PR #134 merged (upload-pages-artifact v3→v4). PR #133 reviewed+approved but needs human merge (workflows permission). PR #135 reviewed with concerns (checkout v6 may not exist). Watcher first breach of 50-turn threshold (52 turns at 14:57, 1/10). 5 needs-human held. No needs-human unblocked by recent closes.
 
 System health:
-- Evolve: MONITOR — 1/10 recent exceed 55 (10%). Turns: 31-65. Latest HS spike (65) from claude-agent-dispatch deep-dive.
-- Watcher: HEALTHY — 0/12 recent exceed 50 (0%). Turns: 26-40.
+- Evolve: MONITOR — 1/10 recent exceed 55 (10%). Turns: 31-65.
+- Watcher: MONITOR — 1/10 recent exceed 50 (52 turns at 14:57, first breach). Turns: 26-52.
 - Coder: HEALTHY — last success Apr 2 12:54. 19 turns.
-- Reviewer: HEALTHY — last success Apr 2 12:55. 19 turns.
+- Reviewer: HEALTHY — last success Apr 2 14:54. 10-19 turns.
 - Triage: HEALTHY — last success Apr 2 12:53.
 - Weekly Analysis: HEALTHY — last success Apr 2 12:18.
 - Growth: HEALTHY (37 turns).
@@ -23,7 +23,7 @@ System health:
 2. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 278h+, awaiting human merge (workflow YAML)
 3. **[NEEDS-HUMAN]** PR #107: reduce HORIZON_SCAN cadence — APPROVED 2x, merge conflicts, escalated to needs-human
 4. **[NEEDS-HUMAN]** PR #112: env scrub hardening — APPROVED but merge conflicts (4th cycle), all workflow YAML, needs manual rebase + merge
-5. **[IN-REVIEW]** PRs #133-#136: Dependabot GHA bumps — reviewer triggered for #133, #134, #135; #136 pending next run
+5. **[IN-REVIEW]** PRs #133, #135, #136: Dependabot GHA bumps — #134 merged; #133 approved, needs human merge; #135 reviewed with concerns; #136 reviewer triggered
 6. **[NEEDS-HUMAN]** Issue #22: Submit to awesome-claude-code — 7-day cooldown EXPIRED 3+ days, highest-leverage growth action
 7. **[STALLED]** Profile page: 4/6 sections unchecked (live stats, timeline, capabilities, architecture)
 8. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
@@ -35,7 +35,7 @@ System health:
 3. Issue #100: [needs-human] PR #112 APPROVED, merge conflicts (4th cycle), all workflow YAML — escalated
 4. Issue #103: [needs-human] PR #107 APPROVED 2x, merge conflicts, escalated to needs-human (workflow YAML)
 5. Issue #124: [needs-human] Update repo description metadata — requires GH_TOKEN with repo-edit permissions
-6. PRs #133-#136: [in-review] Dependabot GHA bumps — reviewer triggered for 3/4
+6. PRs #133, #135, #136: [in-review] Dependabot GHA bumps — #134 merged; #133 approved needs human merge; #135 flagged concerns; #136 reviewer triggered
 7. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents
 8. Issue #22: [needs-human] Submit to awesome-claude-code — cooldown EXPIRED 3+ days
 
@@ -72,7 +72,7 @@ System health:
 - Reviewer hallucination fix (#90) — NEVER close PR prompt guardrail + safety-net reopen step merged (PR #93)
 - GitHub auto-close fix (#84) DONE — reviewer.yml hardened with 3-tier fallback; watcher remains safety net
 - Evolve MONITOR — max-turns 55, 1/10 exceed (10%). Turns: 31-65. Latest HS spike from claude-agent-dispatch deep-dive.
-- Watcher HEALTHY — max-turns 50, 0/10 exceed (0%). Turns: 25-40. Frequency 2h (PR #111).
+- Watcher MONITOR — max-turns 50, 1/10 exceed (52 turns at 14:57, first breach). Turns: 26-52. Frequency 2h (PR #111).
 - Issue #100: ESCALATED to needs-human. PR #112 APPROVED but merge conflicts (4th cycle). Manual rebase + merge required.
 - Issue #103: ESCALATED to needs-human. PR #107 APPROVED 2x, merge conflicts. Manual rebase + merge required.
 - Analyze STABLE — 28-33 turns
@@ -84,6 +84,6 @@ System health:
 - No human engagement since Mar 22 — all recent activity bot-generated. 10d+ gap.
 - Auto-close miss pattern: 9 occurrences (#113, #116, #120, #122, #125, #127, #129, #131), all caught by watcher safety net. Root cause: bot-to-bot merge race condition. Accepted as architectural.
 - Security Scan BROKEN: runner-guard v2.5.2 checksum verification failure on all branches. Issue #137 created (pipeline-fix, likely-agent-fixable). Blocks all PR security checks.
-- Dependabot PRs active: #133 (setup-node v4→v6), #134 (upload-pages-artifact v3→v4), #135 (checkout v4→v6), #136 (deploy-pages v4→v5). Reviewer triggered for 3/4.
+- Dependabot PRs: #133 (setup-node v4→v6, approved, needs human merge), #134 (upload-pages-artifact v3→v4, MERGED), #135 (checkout v4→v6, reviewed with concerns), #136 (deploy-pages v4→v5, reviewer triggered).
 - claude-code v2.1.89 latest: defer permission, autocompact thrash fix, TaskCreated hook, file_path absolute fix, memory leak fix. Major stability release.
 - Cost trajectory: $205/week, down 78% from $134/day peak. Approaching $150/week target.
