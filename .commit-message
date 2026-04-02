@@ -1,1 +1,1 @@
-feat(harness): add BATS-Core tests for scripts/ (closes #139)
+fix: add .shellcheckrc to suppress actionlint shellcheck warnings (closes #141)
