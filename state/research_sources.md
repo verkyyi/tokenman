@@ -1,7 +1,7 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-04-02T12:26:26Z
+# Last updated: 2026-04-02T15:30:00Z
 
 ## Active Sources
 
@@ -32,8 +32,8 @@
 ### withastro/astro
 - **Why:** Web framework we use — security fixes, breaking changes, new features
 - **Look for:** Security advisories, breaking changes in minor/major releases, new content collection features
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-31T18:30 | **Pattern hits:** 0 | **SHA:** 3cd1b16
-- **Notes:** Only actionable for security fixes or features that affect our site build. Recent: e2e test fix (#16183), URL trailing slash 404 fix (#16154). 0 harness patterns across 14+ observations.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-31T18:30 | **Pattern hits:** 0 | **SHA:** 604f939
+- **Notes:** Only actionable for security fixes or features that affect our site build. Recent: e2e test fix (#16183), URL trailing slash 404 fix (#16154). SHA changed 3cd1b16 → 604f939 (Apr 2). 0 harness patterns across 15+ observations.
 
 ### verkyyi/tokenman
 - **Why:** Self-reference — track forks, adopters, and how the scaffold is used
