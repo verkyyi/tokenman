@@ -191,3 +191,4 @@
 2026-04-02T06:40:38Z | evolve | model:claude-opus-4-6 | in:2357559 | out:18096 | turns:65 | cost:2.078434250000001 | posture:HORIZON_SCAN | issues:0
 2026-04-02T06:59:15Z | watcher | model:claude-opus-4-6 | in:1051165 | out:10186 | turns:31 | cost:1.156057
 2026-04-02T08:55:27Z | coder | model:claude-opus-4-6 | in:415276 | out:3092 | turns:19 | cost:0.4611075
+2026-04-02T08:58:43Z | reviewer | model:claude-opus-4-6 | in:429931 | out:3349 | turns:19 | cost:0.5001979999999999
