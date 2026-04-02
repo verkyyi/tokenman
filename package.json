@@ -7,7 +7,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "test:scripts": "bats tests/*.bats"
   },
   "dependencies": {
     "@astrojs/sitemap": "3.4.1",
@@ -17,6 +18,7 @@
     "zod": "^3.22.0"
   },
   "devDependencies": {
-    "@types/node": "^20.0.0"
+    "@types/node": "^20.0.0",
+    "bats": "^1.13.0"
   }
 }

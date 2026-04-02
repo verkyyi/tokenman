@@ -1,6 +1,1 @@
-fix(workflow): replace broken runner-guard with actionlint in security-scan.yml (closes #137)
-
-runner-guard v2.5.2 has an upstream checksum verification failure with no
-fix available. Replaced with actionlint — a well-maintained GitHub Actions
-workflow linter (4.9K+ stars) that catches expression injection, untrusted
-input, and other security issues. ShellCheck job unchanged.
+feat(harness): add BATS-Core tests for scripts/ (closes #139)
