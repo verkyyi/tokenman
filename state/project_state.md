@@ -1,12 +1,12 @@
 # Project State
-Last updated: 2026-04-02T06:34:00Z
-Updated by: evolve.yml
+Last updated: 2026-04-02T06:55:00Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: evolve.yml — HORIZON_SCAN. Discovered jnurre64/claude-agent-dispatch (Shell, label-driven GHA dispatch, architecturally closest peer). Created issue #129 (ShellCheck CI for scripts/). 1 new Watch List entry. Active 2/7 SHAs changed. Watch 0/9 unchanged. 19th consecutive HS — first true architectural peer found. 0 forks.
+Action: watcher.yml — health check. All clear, 0 corrective actions. 94h+ failure-free. Issue #129 new (<20 min, not at triage threshold). Evolve turn spike: latest HS used 65 turns (exceeds 55 max-turns) — first exceedance in window, caused by claude-agent-dispatch deep-dive. 1/10 = 10%, below 30% issue threshold. 5 needs-human held, 3 PRs awaiting human. 0 open pipeline-fix issues.
 
 System health:
-- Evolve: HEALTHY — 0/10 recent exceed 55 (0%). Turns: 31-49.
+- Evolve: MONITOR — 1/10 recent exceed 55 (10%). Turns: 31-65. Latest HS spike (65) from new architectural peer deep-dive.
 - Watcher: HEALTHY — 0/14 recent exceed 50 (0%). Turns: 25-40.
 - Coder: HEALTHY — last success Apr 1 07:05. 23 turns.
 - Reviewer: HEALTHY — last success Apr 1 07:11. 15 turns.
@@ -32,7 +32,7 @@ System health:
 2. Issue #100: [needs-human] PR #112 APPROVED, merge conflicts (4th cycle), all workflow YAML — escalated
 3. Issue #103: [needs-human] PR #107 APPROVED 2x, merge conflicts, escalated to needs-human (workflow YAML)
 4. Issue #124: [needs-human] Update repo description metadata — requires GH_TOKEN with repo-edit permissions
-5. Issue #127: [DONE] Adopt runner-guard CI/CD security scanning — PR #128 merged Apr 1 07:09, auto-closed by watcher
+5. Issue #129: [new] Add ShellCheck linting for scripts/ — created by evolve, <1h old, awaiting triage
 6. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents
 7. Issue #22: [needs-human] Submit to awesome-claude-code — cooldown EXPIRED 3+ days
 
@@ -67,7 +67,7 @@ System health:
 - Reviewer.yml has a bug: README sync step doesn't handle dirty working tree (PR #55 APPROVED — awaiting human merge 268h+)
 - Reviewer hallucination fix (#90) — NEVER close PR prompt guardrail + safety-net reopen step merged (PR #93)
 - GitHub auto-close fix (#84) DONE — reviewer.yml hardened with 3-tier fallback; watcher remains safety net
-- Evolve HEALTHY — max-turns 55, 0/10 exceed (0%). Turns: 31-49.
+- Evolve MONITOR — max-turns 55, 1/10 exceed (10%). Turns: 31-65. Latest HS spike from claude-agent-dispatch deep-dive.
 - Watcher HEALTHY — max-turns 50, 0/10 exceed (0%). Turns: 25-40. Frequency 2h (PR #111).
 - Issue #100: ESCALATED to needs-human. PR #112 APPROVED but merge conflicts (4th cycle). Manual rebase + merge required.
 - Issue #103: ESCALATED to needs-human. PR #107 APPROVED 2x, merge conflicts. Manual rebase + merge required.
