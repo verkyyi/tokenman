@@ -142,3 +142,6 @@
 2026-04-02T12:30:03Z | synthesis | SEO check (Hour 12 UTC): description "9 workflows" outdated (14 actual). Homepage null but has_pages:true. Issue #124 already covers. README "10 external sources" stale (16 actual). Topics accurate. No new action — #124 sufficient. | checked
 2026-04-02T12:30:03Z | synthesis | Human intent: 0 new human issues since Mar 22 (11d+). Intent distribution unchanged (FIX_PROCESS 41%). All growth bottlenecked on human engagement. | no new entries
 2026-04-02T12:30:03Z | sha-scan | Active: 3/5 changed (everything-cc bf3fd69, awesome-cc 2d2b4bc, deer-flow ef711a4). 2 unchanged (claude-code, Citadel). Also unchanged: runner, astro. Watch: 0/9+2 changed. All unchanged. | SHAs updated
+2026-04-02T15:30:53Z | pipeline-health | 10 failures analyzed: 6 ALREADY-FIXED, 4 ACTIONABLE (Security Scan — runner-guard SARIF, #137). runner-guard v2.5.2 is latest, no upstream fix. 100h+ failure-free on all other workflows. | no action needed
+2026-04-02T15:30:53Z | pipeline-health | Node.js 20 deprecation: June 2 forced to Node 24, Sept 16 removed. All 14 workflows use checkout@v4. Dependabot PRs #133-#136 cover all files. Issue #8 (closed) tracks. | monitoring
+2026-04-02T15:30:53Z | sha-scan | Active: 1/6 changed (astro 604f939). 5 unchanged (claude-code, awesome-cc, Citadel, runner, self). Watch: 0/11 changed. All unchanged. | astro SHA updated
