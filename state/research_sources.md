@@ -1,7 +1,7 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-04-02T00:41:19Z
+# Last updated: 2026-04-02T04:00:00Z
 
 ## Active Sources
 
@@ -14,7 +14,7 @@
 ### affaan-m/everything-claude-code
 - **Why:** Community harness patterns, skill collections, optimization techniques
 - **Look for:** New skills, CLAUDE.md patterns, workflow architectures, instinct files
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-02T00:41 | **Pattern hits:** 1 | **SHA:** 8f63697
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-02T00:41 | **Pattern hits:** 1 | **SHA:** 3152585
 - **Notes:** Large community repo. 1 pattern hit (safety-guard PreToolUse hooks). CI cleanup (pre-bash quality hook, eslint), codex sync (merge-codex-config.js 317 lines), install hardening. All interactive-session patterns — 0 CI-harness patterns across 13+ consecutive observations. Lowest deep-dive priority.
 
 ### hesreallyhim/awesome-claude-code
@@ -26,7 +26,7 @@
 ### bytedance/deer-flow
 - **Why:** Multi-agent orchestration patterns from a major tech company
 - **Look for:** Agent coordination, state management, tool orchestration, LLM provider patterns
-- **Added:** 2026-03-21 (seed) | **Last deep:** 2026-04-01T12:26 | **Pattern hits:** 1 | **SHA:** 0eb6550
+- **Added:** 2026-03-21 (seed) | **Last deep:** 2026-04-01T12:26 | **Pattern hits:** 1 | **SHA:** 3a672b3
 - **Notes:** Very active (5+ commits/day). PR #1668: MemoryMiddleware structured reflection + correction detection — validates feedback-learner concept but Python/LLM middleware, not transferable. All application-specific. 0 harness patterns across 18+ consecutive deep-dives. Lowest deep-dive priority.
 
 ### SethGammon/Citadel
