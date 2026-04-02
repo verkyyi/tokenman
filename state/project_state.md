@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-04-02T00:41:00Z
-Updated by: evolve.yml
+Last updated: 2026-04-02T01:00:00Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: evolve.yml — PATTERN_HUNT. Deep-dived claude-code v2.1.90 (perf+security, auto on upgrade), Citadel runtime-agnostic stack (multi-runtime abstraction, N/A for bash/markdown), everything-cc (CI cleanup, N/A). SHA scan: Active 4/7 changed, Watch 2/8 changed. Pattern plateau 28th PH. 0 issues created.
+Action: watcher.yml — health check. All clear, 0 corrective actions. 86h+ failure-free. 5 needs-human issues held. 3 PRs awaiting human action. No broken chains, stuck runs, or repeated failures. No needs-human unblocked by recent closes. Token utilization all healthy.
 
 System health:
 - Evolve: HEALTHY — 0/10 recent exceed 55 (0%). Turns: 31-49.
@@ -11,14 +11,14 @@ System health:
 - Coder: HEALTHY — last success Apr 1 07:05. 23 turns.
 - Reviewer: HEALTHY — last success Apr 1 07:08. 15 turns.
 - Triage: HEALTHY — last success Apr 1 18:20.
-- Weekly Analysis: HEALTHY — last success Apr 1 18:18.
+- Weekly Analysis: HEALTHY — last success Apr 2 00:22.
 - Growth: HEALTHY (29 turns).
 - Analyze: STABLE (21-31 turns).
 - Feedback Learner: RECOVERED — 5 turns, #72 fix confirmed.
 - Deploy: RECOVERING — no trigger since #65 fix.
 
 ## Current Priorities (ordered)
-1. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 264h+, awaiting human merge (workflow YAML)
+1. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 266h+, awaiting human merge (workflow YAML)
 2. **[NEEDS-HUMAN]** PR #107: reduce HORIZON_SCAN cadence — APPROVED 2x, merge conflicts, escalated to needs-human
 3. **[NEEDS-HUMAN]** PR #112: env scrub hardening — APPROVED but merge conflicts (4th cycle), all workflow YAML, needs manual rebase + merge
 4. **[NEEDS-HUMAN]** Issue #22: Submit to awesome-claude-code — 7-day cooldown EXPIRED 3+ days, highest-leverage growth action
@@ -28,7 +28,7 @@ System health:
 8. **[DONE]** Source portfolio rebalance — completed Mar 27 SYNTHESIS. Citadel promoted, gstack demoted, 5 dropped.
 
 ## Open Items
-1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 264h+, needs human merge
+1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 266h+, needs human merge
 2. Issue #100: [needs-human] PR #112 APPROVED, merge conflicts (4th cycle), all workflow YAML — escalated
 3. Issue #103: [needs-human] PR #107 APPROVED 2x, merge conflicts, escalated to needs-human (workflow YAML)
 4. Issue #124: [needs-human] Update repo description metadata — requires GH_TOKEN with repo-edit permissions
@@ -64,7 +64,7 @@ System health:
 - Evolve lightweight mode gate deployed (commit ce1994c) — skips Steps 2b-2h when sources unchanged 2+ consecutive runs
 - Posture-based research operational: PATTERN_HUNT, PIPELINE_WATCH, HORIZON_SCAN, SYNTHESIS
 - Reviewer.yml skips pull_request events — only runs via workflow_dispatch (watcher triggers)
-- Reviewer.yml has a bug: README sync step doesn't handle dirty working tree (PR #55 APPROVED — awaiting human merge 264h+)
+- Reviewer.yml has a bug: README sync step doesn't handle dirty working tree (PR #55 APPROVED — awaiting human merge 266h+)
 - Reviewer hallucination fix (#90) — NEVER close PR prompt guardrail + safety-net reopen step merged (PR #93)
 - GitHub auto-close fix (#84) DONE — reviewer.yml hardened with 3-tier fallback; watcher remains safety net
 - Evolve HEALTHY — max-turns 55, 0/10 exceed (0%). Turns: 31-49.
