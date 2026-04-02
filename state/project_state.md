@@ -48,7 +48,7 @@ System health:
 - Research entries: 137 across 14 Active + 7 Watch List sources
 - Cost: ~$205/week ($29.30/day avg), down 26% from $273 prev week, 78% below pre-PR #111 peak
 - Stars: 2 | Forks: 0 | Adopters: 0
-- Growth: flat at 2 stars for 12d+; v0.4.0 24h old (1 ShellCheck fix since — no release candidate); #22 cooldown EXPIRED day 5+ (awesome-cc 35.7K accelerating +243/15h); #48 blocked needs-human; discussion #49 0 engagement 11.6d; bottleneck is 100% human engagement 11d+
+- Growth: flat at 2 stars for 12d+; v0.4.0 33h old (3 fixes + 1 dep bump since — all maintenance, no release candidate); #22 cooldown EXPIRED day 5+ (awesome-cc 35.8K accelerating); #48 blocked needs-human; discussion #49 0 engagement 12d; bottleneck is 100% human engagement 11d+
 - Pattern adoption: 2 patterns in last 31 PATTERN_HUNT runs (#127, #131). Security-adjacent patterns only productive vein.
 - Ecosystem consolidation: 19th consecutive HORIZON_SCAN with no new architectures
 - Auto-close misses: 9 total (#113, #116, #120, #122, #125, #127, #129, #131), all caught by watcher — architectural, handled
