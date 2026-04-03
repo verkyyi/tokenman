@@ -1,25 +1,25 @@
 # Project State
-Last updated: 2026-04-03T06:37:20Z
-Updated by: evolve.yml (SYNTHESIS)
+Last updated: 2026-04-03T06:56:00Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: evolve.yml — SYNTHESIS posture. Cross-run meta-analysis. Growth metrics updated (06 UTC time-gate). 0 human intents in 7d. 4 convergent signals identified, all point to existing issues. 0 new issues created. SHA scan: Active 1/6 changed (awesome-cc), Watch 3/11 changed (gstack, claude-code-workflows, claude-agent-dispatch). Config recheck due Apr 4.
+Action: watcher.yml — health check. 1 corrective action: re-triggered triage for #143 (3h17m old, no triage comment). All core workflows HEALTHY. Security Scan RECOVERING (#143 structural). No needs-human unblocked by recent closes.
 
 System health:
-- Evolve: MONITOR — 1/10 exceed 55. Turns: 31-65.
-- Watcher: MONITOR — 1/10 exceed 50. Turns: 29-52.
+- Evolve: MONITOR — 1/11 exceed 55. Turns: 33-65.
+- Watcher: MONITOR — 1/9 exceed 50. Turns: 29-52.
 - Coder: HEALTHY — last success Apr 2 22:49. 19 turns.
 - Reviewer: HEALTHY — last success Apr 2 22:53. 9-19 turns.
-- Triage: HEALTHY — last success Apr 2 22:48.
-- Weekly Analysis: HEALTHY — last success Apr 3 00:27.
+- Triage: HEALTHY — last success Apr 2 22:48. Re-triggered for #143.
+- Weekly Analysis: HEALTHY — last success Apr 3 06:30.
 - Growth: HEALTHY (37 turns).
-- Analyze: STABLE (22-31 turns).
+- Analyze: STABLE (25-31 turns).
 - Feedback Learner: RECOVERED — 5 turns, #72 fix confirmed.
 - Deploy: RECOVERING — no trigger since #65 fix.
-- Security Scan: RECOVERING — PR #135 branch updated but no Security Scan re-ran; PRs #133/#136 blocked (#143).
+- Security Scan: RECOVERING — #143 structural blocker (token permissions); PRs #133/#136 blocked, #135 awaiting scan.
 
 ## Current Priorities (ordered)
-1. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 286h+, awaiting human merge (workflow YAML)
+1. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 288h+, awaiting human merge (workflow YAML)
 2. **[NEEDS-HUMAN]** PR #107: reduce HORIZON_SCAN cadence — APPROVED 2x, merge conflicts, escalated to needs-human
 3. **[NEEDS-HUMAN]** PR #112: env scrub hardening — APPROVED but merge conflicts (4th cycle), all workflow YAML, needs manual rebase + merge
 4. **[PARTIAL]** Dependabot PRs: #135 branch updated (awaiting Security Scan); #133/#136 blocked — GITHUB_TOKEN lacks workflows permission (#143)
@@ -29,7 +29,7 @@ System health:
 8. **[NEEDS-HUMAN]** Issue #124: Update repo description metadata — requires GH_TOKEN with repo-edit permissions
 
 ## Open Items
-1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 286h+, needs human merge
+1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 288h+, needs human merge
 2. Issue #100: [needs-human] PR #112 APPROVED, merge conflicts (4th cycle), all workflow YAML — escalated
 3. Issue #103: [needs-human] PR #107 APPROVED 2x, merge conflicts, escalated to needs-human (workflow YAML)
 4. Issue #124: [needs-human] Update repo description metadata — requires GH_TOKEN with repo-edit permissions
@@ -53,7 +53,7 @@ System health:
 - Evolve lightweight mode gate deployed (commit ce1994c) — skips Steps 2b-2h when sources unchanged 2+ consecutive runs
 - Posture-based research operational: PATTERN_HUNT, PIPELINE_WATCH, HORIZON_SCAN, SYNTHESIS
 - Reviewer.yml skips pull_request events — only runs via workflow_dispatch (watcher triggers)
-- Reviewer.yml has a bug: README sync step doesn't handle dirty working tree (PR #55 APPROVED — awaiting human merge 286h+)
+- Reviewer.yml has a bug: README sync step doesn't handle dirty working tree (PR #55 APPROVED — awaiting human merge 288h+)
 - Reviewer hallucination fix (#90) — NEVER close PR prompt guardrail + safety-net reopen step merged (PR #93)
 - GitHub auto-close fix (#84) DONE — reviewer.yml hardened with 3-tier fallback; watcher remains safety net
 - Evolve MONITOR — max-turns 55, 1/10 exceed (10%). Turns: 31-65.
