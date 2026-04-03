@@ -1,1 +1,1 @@
-fix(workflow): add WORKFLOW_PAT to watcher.yml for Dependabot PR branch updates (closes #143)
+fix(workflow): disable actionlint shellcheck integration — use dedicated job (closes #145)

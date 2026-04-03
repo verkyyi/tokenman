@@ -25,7 +25,7 @@ jobs:
         shell: bash
 
       - name: Run actionlint
-        run: ./actionlint -color
+        run: ./actionlint -color -shellcheck=""
 
   shellcheck:
     runs-on: ubuntu-latest

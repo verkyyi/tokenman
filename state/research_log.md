@@ -163,3 +163,6 @@
 2026-04-03T06:35:50Z | synthesis | Growth: 2 stars (flat 13d+), 0 forks, 0 watchers, 12 open issues. No human engagement 12d+. All automated paths exhausted. | observation
 2026-04-03T06:35:50Z | synthesis | Human intents: 0 new in 7d. Last activity Mar 22. FIX_PROCESS dominant (41%). All distribution blocked needs-human. | observation
 2026-04-03T06:35:50Z | sha-scan | Active: 1/6 changed (awesome-cc 874b276). Watch: 3/11 changed (gstack c620de3, claude-code-workflows cae98e7, claude-agent-dispatch cb0b7ad). 13/17 unchanged. | SHAs updated
+2026-04-03T09:24:05Z | pipeline-health | 10 failures: 8 Security Scan (same root cause — actionlint ignores .shellcheckrc, PR #142 fix incomplete), 2 old (ALREADY-FIXED). 3 new since last summary. All Dependabot PRs (#133/#135/#136) blocked. | created #145
+2026-04-03T09:24:05Z | pipeline-health | Cost: $1.06-$1.57/evolve, $1.23-$2.17/watcher. No spikes. Normal variance. | monitoring
+2026-04-03T09:24:05Z | sha-scan | Active: 0/5 changed. All unchanged. Watch: 1/11 changed (deer-flow 76fad8b→c6cdf20). 15/16 unchanged. | deer-flow SHA updated
