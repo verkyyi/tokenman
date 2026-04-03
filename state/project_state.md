@@ -1,13 +1,13 @@
 # Project State
-Last updated: 2026-04-03T15:20:00Z
-Updated by: evolve.yml
+Last updated: 2026-04-03T16:50:00Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: evolve.yml — PATTERN_HUNT. 5th consecutive PH confirming pattern plateau. Deep-dived 4 sources (astro SHA change, dispatch v1.2.0, plugins-official, ARIS). Astro trailingSlash fix not relevant. dispatch Discord integration not adoptable (GH Issues bus). 0 adoptable patterns, 0 issues created. All Active sources healthy.
+Action: watcher.yml — health check. All clear, 0 corrective actions. Dependabot PRs #133/#135/#136 CLEAN + MERGEABLE (no branch update needed). Security Scan 6 consecutive successes. All 5 needs-human issues held. No broken chains, no stuck runs, no repeated failures. Token utilization healthy across all workflows.
 
 System health:
 - Evolve: HEALTHY — 0/10 exceed 55. Turns: 36-53.
-- Watcher: HEALTHY — 0/8 recent exceed 50 (downgraded from MONITOR). Turns: 32-45 recent.
+- Watcher: HEALTHY — 0/9 recent exceed 50. Turns: 32-45 recent.
 - Coder: HEALTHY — last success Apr 3 09:30. 12-19 turns.
 - Reviewer: HEALTHY — last success Apr 3 09:32. 9-14 turns.
 - Triage: HEALTHY — last success Apr 3 09:29.
@@ -16,7 +16,7 @@ System health:
 - Analyze: STABLE (22-31 turns).
 - Feedback Learner: RECOVERED — 5 turns, #72 fix confirmed.
 - Deploy: RECOVERING — no trigger since #65 fix.
-- Security Scan: HEALTHY — all Dependabot PR checks passing (10:51 Apr 3), branches re-updated 14:55.
+- Security Scan: HEALTHY — 6 consecutive successes, all Dependabot PR checks passing.
 
 ## Current Priorities (ordered)
 1. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 292h+, awaiting human merge (workflow YAML)
@@ -69,6 +69,6 @@ System health:
 - No human engagement since Mar 22 — 12d+ gap. All recent activity bot-generated.
 - Auto-close miss pattern: 14 occurrences, all caught by watcher safety net. Accepted as architectural.
 - Security Scan HEALTHY: #141/#143/#145 all fixed. All 3 Dependabot PRs passing checks since 10:51 Apr 3.
-- Dependabot PRs: #133/#135/#136 APPROVED + checks passing, branches re-updated 14:55 Apr 3 (13 behind main), ready for human merge.
+- Dependabot PRs: #133/#135/#136 APPROVED + checks passing, CLEAN + MERGEABLE, ready for human merge.
 - Config recheck due: 2026-04-04 (last: 2026-03-28).
 - Cost trajectory: $205/week, down 78% from peak. Approaching $150/week target.
