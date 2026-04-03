@@ -170,3 +170,8 @@
 2026-04-03T12:23:34Z | horizon-scan | ARIS (wanshuiyin/Auto-claude-code-research-in-sleep, 5.4K stars): autonomous ML research harness, markdown-only skills, cross-model review loops. Conceptually similar to evolve but ML-research domain. Added to Watch List. | watch-list-add
 2026-04-03T12:23:34Z | horizon-scan | 21st consecutive HS with 0 new architecturally-similar repos. Ecosystem mapped. Niche well-covered by existing Watch List. | observation
 2026-04-03T12:23:34Z | sha-scan | Active: 1/5 changed (awesome-cc 874b276→7104e31, ticker only). Watch: 2/11 changed (deer-flow c6cdf20→a2aba23, runner-guard 15a4f57→86cb32b). 14/16 unchanged. | SHAs updated
+2026-04-03T15:23:05Z | pattern-hunt | astro 21f9fe2→23425e2: trailingSlash fix for extensionless endpoints (#16193). Static build specific. Not relevant to our content site. | no action
+2026-04-03T15:23:05Z | pattern-hunt | claude-agent-dispatch v1.2.0: Discord bot (approve/reject buttons, slash commands, repository_dispatch), layered config, global error trap, secret-guarding prompts. Discord not adoptable (we use GH Issues as event bus). | no action
+2026-04-03T15:23:05Z | pattern-hunt | claude-plugins-official b091cb4→decc737: SonarQube plugin added (secrets-scanning hooks, startup CLI check). Already covered by agentshield/runner-guard findings. | no action
+2026-04-03T15:23:05Z | pattern-hunt | ARIS 5df943e→e5e46f4: v0.3.0 README-only update. Modal serverless GPU. ML-research domain. | no action
+2026-04-03T15:23:05Z | sha-scan | Active: 1/6 changed (astro 21f9fe2→23425e2). Watch: 3/12 changed (deer-flow ddfc988, plugins-official decc737, ARIS e5e46f4). 13/18 unchanged. 5th consecutive PH with 0 adoptable patterns. | SHAs updated

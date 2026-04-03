@@ -1,7 +1,7 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-04-03T12:22:00Z
+# Last updated: 2026-04-03T15:20:00Z
 
 ## Active Sources
 
@@ -32,8 +32,8 @@
 ### withastro/astro
 - **Why:** Web framework we use — security fixes, breaking changes, new features
 - **Look for:** Security advisories, breaking changes in minor/major releases, new content collection features
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-02T18:25 | **Pattern hits:** 0 | **SHA:** 21f9fe2
-- **Notes:** Only actionable for security fixes or features that affect our site build. Recent: unused re-exports removal (#16197, Apr 2). SHA changed 6d5469e → 21f9fe2 (Apr 2). 0 harness patterns across 17+ observations.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-03T15:20 | **Pattern hits:** 0 | **SHA:** 23425e2
+- **Notes:** Only actionable for security fixes or features that affect our site build. SHA changed 21f9fe2 → 23425e2 (Apr 3): trailingSlash fix for extensionless endpoints (#16193), not relevant. 0 harness patterns across 18+ observations.
 
 ### verkyyi/tokenman
 - **Why:** Self-reference — track forks, adopters, and how the scaffold is used
@@ -55,7 +55,7 @@
 - **Why:** Multi-agent orchestration patterns from a major tech company
 - **Look for:** Agent coordination, state management, tool orchestration, LLM provider patterns
 - **Demoted:** 2026-04-02 (synthesis — 19+ consecutive 0-pattern deep-dives, all Python application-specific, fundamentally different stack)
-- **Observations:** 59+ | **First seen:** 2026-03-21 | **SHA:** a2aba23
+- **Observations:** 60+ | **First seen:** 2026-03-21 | **SHA:** ddfc988
 - **Notes:** 1 pattern hit total (early). Very active (5+ commits/day). Per-agent skill filter, concurrent file locks, Langfuse tracing — all Python. No transferable harness patterns despite extensive monitoring.
 
 ### garrytan/gstack
@@ -75,9 +75,9 @@
 ### anthropics/claude-plugins-official
 - **Why:** Official Anthropic plugin directory (14.3K stars) — distribution channel for Claude Code plugins with standard format
 - **Look for:** Plugin format updates, new submission requirements, plugin.json schema changes, new official plugins relevant to harness patterns
-- **Added:** 2026-03-24 (horizon scan) | **Observations:** 42 | **First seen:** 2026-03-24 | **SHA:** b091cb4
+- **Added:** 2026-03-24 (horizon scan) | **Observations:** 43 | **First seen:** 2026-03-24 | **SHA:** decc737
 - **Decision (2026-03-31):** RETAIN on Watch List. 38 obs, 7+ days, 1 pattern hit (plugin format). 14.3K stars. Active (MongoDB, SAP UI5 plugins added). Distribution channel for #66. Low pattern yield (1/38) — not promoting. Still relevant as plugin ecosystem reference.
-- **Notes:** PR #1115: bash prefix for .sh hooks. Version field for cache invalidation. Standard plugin format: .claude-plugin/plugin.json + commands/ + agents/ + skills/. Distribution channel for #66. 1 pattern hit (official plugin format).
+- **Notes:** PR #1115: bash prefix for .sh hooks. Version field for cache invalidation. Standard plugin format: .claude-plugin/plugin.json + commands/ + agents/ + skills/. Distribution channel for #66. 1 pattern hit (official plugin format). Apr 3: SonarQube plugin added (#1085, secrets-scanning hooks).
 
 ### agent-sh/agnix
 - **Why:** CLAUDE.md/SKILL.md linter and LSP (103 stars) — validates AI coding assistant config files, autofixes, IDE plugins
@@ -113,8 +113,8 @@
 ### wanshuiyin/Auto-claude-code-research-in-sleep
 - **Why:** Autonomous ML research harness (5.4K stars, 455 forks) — markdown-only skills, cross-model review loops, idea discovery. Conceptually closest to evolve's autonomous research methodology.
 - **Look for:** Autonomous research workflow patterns, cross-model review loops, skill organization, persistent memory patterns
-- **Added:** 2026-04-03 (horizon scan) | **Observations:** 1 | **First seen:** 2026-04-03 | **SHA:** 5df943e
-- **Notes:** ARIS v0.3.0. Python + Markdown. "Research while you sleep" — autonomous paper review, experiment running. Zero-dependency markdown skills. Cross-model review interesting but ML-research domain, not CI harness. Same methodology concept as our evolve. Monitor for transferable workflow patterns.
+- **Added:** 2026-04-03 (horizon scan) | **Observations:** 2 | **First seen:** 2026-04-03 | **SHA:** e5e46f4
+- **Notes:** ARIS v0.3.0. Python + Markdown. "Research while you sleep" — autonomous paper review, experiment running. Zero-dependency markdown skills. Cross-model review interesting but ML-research domain, not CI harness. Same methodology concept as our evolve. v0.3.0 update: README-only (+6 -4), Modal serverless GPU. Monitor for transferable workflow patterns.
 
 ### jnurre64/claude-agent-dispatch
 - **Why:** Label-driven Claude Code GHA dispatch (Shell, 2 stars) — closest architecture to tokenman. Modular agent-dispatch.sh + lib/, label state machine (10 agent:* labels), two-phase plan→implement with human checkpoint, ShellCheck + BATS-Core CI testing.
