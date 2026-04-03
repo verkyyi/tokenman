@@ -1,26 +1,26 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-04-02T21:15:00Z
+# Last updated: 2026-04-03T00:43:00Z
 
 ## Active Sources
 
 ### anthropics/claude-code
 - **Why:** The runtime we build on — releases, breaking changes, new hooks, CLI flags
 - **Look for:** CHANGELOG entries, new hook types, permission changes, SDK updates
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-02T00:41 | **Pattern hits:** 2 | **SHA:** a50a919
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-02T18:27:50Z | **Pattern hits:** 2 | **SHA:** 1e03cc7
 - **Notes:** Protected source — never drop. Check CHANGELOG and releases, not just commits. v2.1.90 (Apr 2): /powerup interactive lessons, plugin offline cache, --resume cache miss fix (benefits headless workflows), auto mode boundary enforcement (validates CLAUDE.md autonomy), PowerShell security hardening, SSE/transcript quadratic→linear perf, Edit/Write format-on-save fix. Previous: v2.1.89 defer permission, autocompact fix, TaskCreated hook. v2.1.88 PermissionDenied hook. v2.1.85 hook `if` field (#122). v2.1.83 security patterns (#100). CC now has 18+ hook events.
 
 ### hesreallyhim/awesome-claude-code
 - **Why:** Curated ecosystem catalog — discover new tools, libraries, and patterns
 - **Look for:** New entries in Orchestrators/Tools/Skills sections, trending repos referenced
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-02T09:30 | **Pattern hits:** 0 | **SHA:** f28c6b6
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-02T09:30 | **Pattern hits:** 0 | **SHA:** d429010
 - **Notes:** 0 pattern hits across 36+ observations. All recent commits are ticker auto-updates only. Retain for HORIZON_SCAN cross-reference only.
 
 ### SethGammon/Citadel
 - **Why:** Agent orchestration harness (400 stars) — closest architecture to tokenman. Campaign persistence, parallel worktrees, circuit breaker, quality gate hooks, skill benchmarking, daemon factory
 - **Look for:** Skill benchmarking patterns, skill linting, governance hooks, testing infrastructure, fleet coordination, daemon factory patterns
-- **Added:** 2026-03-24 (watch) | **Promoted:** 2026-03-27 (synthesis — 35 obs, closest architecture, V2 patterns) | **Last deep:** 2026-04-02T00:41 | **Pattern hits:** 1 | **SHA:** 9cbc344
+- **Added:** 2026-03-24 (watch) | **Promoted:** 2026-03-27 (synthesis — 35 obs, closest architecture, V2 patterns) | **Last deep:** 2026-04-02T00:41 | **Pattern hits:** 1 | **SHA:** e8415cb
 - **Notes:** Promoted from Watch List. Runtime-agnostic foundation (#73-#87): runtime detection registry, fleet coordination (claims/instances/sweep), policy engine, structured telemetry schema, hook normalization across runtimes. Massive JS framework refactor — shows multi-runtime direction. Not adoptable for bash/markdown harness. 1 pattern hit (circuit breaker #76).
 
 ### actions/runner
@@ -48,14 +48,14 @@
 - **Why:** Community harness patterns, skill collections, optimization techniques
 - **Look for:** New skills, CLAUDE.md patterns, workflow architectures, instinct files
 - **Demoted:** 2026-04-02 (synthesis — 13+ consecutive 0-pattern observations, all interactive-session specific, 0 CI-harness patterns)
-- **Observations:** 55+ | **First seen:** 2026-03-20 | **SHA:** bf3fd69
+- **Observations:** 56+ | **First seen:** 2026-03-20 | **SHA:** 31c9f7c
 - **Notes:** 1 pattern hit total (safety-guard PreToolUse hooks, early). CI cleanup, codex sync, install hardening — all interactive-session. From same author as agentshield. Monitor for CI-relevant patterns.
 
 ### bytedance/deer-flow
 - **Why:** Multi-agent orchestration patterns from a major tech company
 - **Look for:** Agent coordination, state management, tool orchestration, LLM provider patterns
 - **Demoted:** 2026-04-02 (synthesis — 19+ consecutive 0-pattern deep-dives, all Python application-specific, fundamentally different stack)
-- **Observations:** 55+ | **First seen:** 2026-03-21 | **SHA:** ef711a4
+- **Observations:** 56+ | **First seen:** 2026-03-21 | **SHA:** 6de9c7b
 - **Notes:** 1 pattern hit total (early). Very active (5+ commits/day). Per-agent skill filter, concurrent file locks, Langfuse tracing — all Python. No transferable harness patterns despite extensive monitoring.
 
 ### garrytan/gstack
@@ -89,7 +89,7 @@
 ### agent-sh/agentsys
 - **Why:** Comprehensive plugin/agent/skill system (672 stars, 69 forks) from same org as agnix — 19 plugins, 47 agents, 39 skills
 - **Look for:** Plugin marketplace patterns, repo-intel tooling, CI-transferable agent coordination, skill management architecture
-- **Added:** 2026-03-29 (horizon scan) | **Observations:** 8 | **First seen:** 2026-03-29 | **SHA:** 94326af
+- **Added:** 2026-03-29 (horizon scan) | **Observations:** 9 | **First seen:** 2026-03-29 | **SHA:** 842976d
 - **Notes:** Same org as agnix (Watch List). v5.8.1 (Mar 28). 19-plugin marketplace (drift-detect, deslop, skillers, repo-intel, audit-project, etc). Deep-dived marketplace.json: validates our evolve/feedback-learner/watcher approach. CI vs plugin ecosystem mismatch. JavaScript. Active development.
 
 ### shinpr/claude-code-workflows

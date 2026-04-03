@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-04-02T21:16:00Z
+Last updated: 2026-04-03T00:43:00Z
 Updated by: evolve.yml
 
 ## Last Session
-Action: evolve.yml — HORIZON_SCAN. Searched 4 queries, evaluated freema/codeforge (Go CI orchestrator — architecturally different, skip). Active 1/6 SHA changed (astro, minor). Watch 0/11 unchanged. No promotions/drops. 20th consecutive HS with 0 new architectures. 0 issues created.
+Action: evolve.yml — PIPELINE_WATCH. 10 failures ALL ALREADY-FIXED (5 Security Scan, 5 old). Issue #141 fix deployed (PR #142 merged) but unverified — Dependabot PRs #133/#135/#136 have stale check results, need rebase. Cost $31.29/day (Apr 2), 107% avg. Active 3/5 SHAs changed (claude-code new CHANGELOG, Citadel docs, awesome-cc ticker). Watch 3/11 changed. 0 issues created.
 
 System health:
 - Evolve: MONITOR — 1/6 recent exceed 55. Turns: 36-65.
