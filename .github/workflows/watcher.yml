@@ -202,6 +202,29 @@ jobs:
                --label "pipeline-fix"
           3. This counts toward the 5 corrective actions per run limit
 
+          ### 9. Update PR branches (Dependabot and others)
+          When a PR needs its branch updated (e.g., to merge main), check whether
+          the PR modifies any files under `.github/workflows/`.
+
+          **If the PR touches workflow YAML files:**
+          Use `WORKFLOW_PAT` for the update-branch API call — `GITHUB_TOKEN` lacks
+          the `workflows` permission and will get a 403.
+          Command:
+            curl -s -X PUT \
+              -H "Authorization: token $WORKFLOW_PAT" \
+              -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/$GITHUB_REPOSITORY/pulls/N/update-branch"
+
+          **If the PR does NOT touch workflow YAML files:**
+          Use `GITHUB_TOKEN` as usual:
+            curl -s -X PUT \
+              -H "Authorization: token $GITHUB_TOKEN" \
+              -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/$GITHUB_REPOSITORY/pulls/N/update-branch"
+
+          To check if a PR touches workflow files:
+            gh pr diff N --name-only | grep -q '^.github/workflows/'
+
           ## Rules:
           - Maximum 5 corrective actions per run (don't flood the system)
           - Never re-trigger a workflow that is currently in_progress
@@ -237,6 +260,7 @@ jobs:
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           GITHUB_TOKEN: ${{ github.token }}
+          WORKFLOW_PAT: ${{ secrets.WORKFLOW_PAT }}
 
       - name: Log usage metrics
         if: always()
