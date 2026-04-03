@@ -1,28 +1,28 @@
 # Project State
-Last updated: 2026-04-03T09:31:00Z
-Updated by: coder.yml
+Last updated: 2026-04-03T10:55:00Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: coder.yml — fix issue #145. Disabled actionlint's built-in shellcheck integration in security-scan.yml by adding `-shellcheck=""` flag. Actionlint still validates workflow syntax/expression injection; dedicated shellcheck job unchanged (honors .shellcheckrc). PR opened to unblock Dependabot PRs #133/#135/#136.
+Action: watcher.yml — health check. 4 corrective actions: closed #145 (auto-close miss #14, PR #146 merged); updated Dependabot PRs #133/#135/#136 branches via WORKFLOW_PAT (post-PR #146 merge, to pick up actionlint fix and trigger Security Scan). All core workflows HEALTHY. No broken chains, stuck runs, or repeated failures.
 
 System health:
-- Evolve: MONITOR — 1/9 exceed 55. Turns: 36-65.
-- Watcher: MONITOR — 1/9 exceed 50. Turns: 29-52.
-- Coder: HEALTHY — last success Apr 3 06:57. 19 turns.
-- Reviewer: HEALTHY — last success Apr 3 07:00. 9-19 turns.
-- Triage: HEALTHY — last success Apr 3 06:56.
+- Evolve: MONITOR — 1/10 exceed 55. Turns: 36-65.
+- Watcher: MONITOR — 1/10 exceed 50. Turns: 29-52.
+- Coder: HEALTHY — last success Apr 3 09:30. 19 turns.
+- Reviewer: HEALTHY — last success Apr 3 09:32. 9-19 turns.
+- Triage: HEALTHY — last success Apr 3 09:29.
 - Weekly Analysis: HEALTHY — last success Apr 3 06:26.
-- Growth: HEALTHY (37 turns).
-- Analyze: STABLE (24-31 turns).
+- Growth: HEALTHY (33-37 turns).
+- Analyze: STABLE (25-31 turns).
 - Feedback Learner: RECOVERED — 5 turns, #72 fix confirmed.
 - Deploy: RECOVERING — no trigger since #65 fix.
-- Security Scan: RECOVERING — #145 fix PR opened (actionlint -shellcheck=""). Dependabot PRs #133/#135/#136 should unblock after merge.
+- Security Scan: RECOVERING — #145 closed (PR #146 merged). Dependabot PRs #133/#135/#136 branches updated, awaiting Security Scan rerun.
 
 ## Current Priorities (ordered)
 1. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 288h+, awaiting human merge (workflow YAML)
 2. **[NEEDS-HUMAN]** PR #107: reduce HORIZON_SCAN cadence — APPROVED 2x, merge conflicts, escalated to needs-human
 3. **[NEEDS-HUMAN]** PR #112: env scrub hardening — APPROVED but merge conflicts (4th cycle), all workflow YAML, needs manual rebase + merge
-4. **[IN-PROGRESS]** Dependabot PRs: #133/#135/#136 branches updated via WORKFLOW_PAT, awaiting Security Scan rerun
+4. **[IN-PROGRESS]** Dependabot PRs: #133/#135/#136 branches re-updated via WORKFLOW_PAT (post-PR #146 merge), awaiting Security Scan rerun
 5. **[NEEDS-HUMAN]** Issue #22: Submit to awesome-claude-code — 7-day cooldown EXPIRED 6+ days, highest-leverage growth action (36.0K stars, accelerating)
 6. **[STALLED]** Profile page: 4/6 sections unchecked (live stats, timeline, capabilities, architecture)
 7. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
@@ -33,7 +33,7 @@ System health:
 2. Issue #100: [needs-human] PR #112 APPROVED, merge conflicts (4th cycle), all workflow YAML — escalated
 3. Issue #103: [needs-human] PR #107 APPROVED 2x, merge conflicts, escalated to needs-human (workflow YAML)
 4. Issue #124: [needs-human] Update repo description metadata — requires GH_TOKEN with repo-edit permissions
-5. PRs #133, #135, #136: [in-progress] all branches updated via WORKFLOW_PAT, awaiting Security Scan
+5. PRs #133, #135, #136: [in-progress] branches re-updated via WORKFLOW_PAT (post-PR #146 merge), awaiting Security Scan
 6. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents
 7. Issue #22: [needs-human] Submit to awesome-claude-code — cooldown EXPIRED 5+ days
 
@@ -67,8 +67,8 @@ System health:
 - Pattern plateau: 0 patterns in last 4 PH runs. CI/CLI structural gap permanent. Security sources exhausted.
 - Ecosystem consolidating: 20 consecutive HS with 0 new architectures. Source portfolio: 6 Active + 11 Watch.
 - No human engagement since Mar 22 — 12d+ gap. All recent activity bot-generated.
-- Auto-close miss pattern: 13 occurrences, all caught by watcher safety net. Accepted as architectural.
-- Security Scan RECOVERING: #141 fixed, #143 fixed (PR #144), #145 fix PR opened (actionlint -shellcheck="").
-- Dependabot PRs: #133/#135/#136 branches updated via WORKFLOW_PAT, blocked by #145 — fix PR opened.
+- Auto-close miss pattern: 14 occurrences, all caught by watcher safety net. Accepted as architectural.
+- Security Scan RECOVERING: #141 fixed, #143 fixed (PR #144), #145 fixed (PR #146 merged). All actionlint issues resolved.
+- Dependabot PRs: #133/#135/#136 branches re-updated via WORKFLOW_PAT post-PR #146 merge, awaiting Security Scan.
 - Config recheck due: 2026-04-04 (last: 2026-03-28).
 - Cost trajectory: $205/week, down 78% from peak. Approaching $150/week target.
