@@ -8,20 +8,24 @@ on:
 
 permissions:
   contents: read
-  security-events: write
 
 jobs:
-  runner-guard:
+  actionlint:
+    # Replaced runner-guard (Vigilant-LLC/runner-guard) due to upstream
+    # checksum verification failure in v2.5.2 — no fix available (#137).
+    # actionlint provides workflow security linting (expression injection,
+    # untrusted input, etc.) as a well-maintained replacement (4.9K+ stars).
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Run runner-guard
-        uses: Vigilant-LLC/runner-guard@15a4f57ffec3623c4ff4578dd3bcb30af60f642b # v2.5.2
-        with:
-          fail-on: high
-          sarif-upload: 'true'
+      - name: Install actionlint
+        run: bash <(curl -s https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
+        shell: bash
+
+      - name: Run actionlint
+        run: ./actionlint -color
 
   shellcheck:
     runs-on: ubuntu-latest

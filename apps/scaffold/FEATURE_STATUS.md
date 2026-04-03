@@ -69,6 +69,13 @@
 - [x] .claude/hooks/guard.sh — PreToolUse hook script, fail-closed, reads policy and blocks matching tool calls
 - [x] .claude/settings.json — PreToolUse hook registered alongside existing SessionEnd hook
 
+## Script Testing (closes #139)
+- [x] BATS-Core installed as npm dev dependency
+- [x] tests/commit-state.bats — 7 tests (no-args, missing file, missing env, PUT with/without sha, retry logic, graceful failure)
+- [x] tests/archive-research-log.bats — 7 tests (missing file, <=100 skip, >100 archive, create archive, header preservation, append mode)
+- [x] tests/build-preamble.bats — 8 tests (no-tier, T1-T4 content, missing files, output-to-file)
+- [x] npm run test:scripts script added to package.json
+
 ## Human-Pipeline Interaction (closes #33)
 - [x] feedback-learner.yml: PR close-without-merge trigger + rejection handling (re-adds agent-ready, re-triggers coder)
 - [x] feedback-learner.yml: merged PR close skipped (reviewer already handled)

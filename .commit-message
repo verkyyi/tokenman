@@ -1,1 +1,1 @@
-feat(harness): add Dependabot for GHA dependency updates (closes #131)
+fix(workflow): add WORKFLOW_PAT to watcher.yml for Dependabot PR branch updates (closes #143)
