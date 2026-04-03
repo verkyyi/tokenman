@@ -1,7 +1,7 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-04-03T15:20:00Z
+# Last updated: 2026-04-03T18:19:54Z
 
 ## Active Sources
 
@@ -14,7 +14,7 @@
 ### hesreallyhim/awesome-claude-code
 - **Why:** Curated ecosystem catalog — discover new tools, libraries, and patterns
 - **Look for:** New entries in Orchestrators/Tools/Skills sections, trending repos referenced
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-02T09:30 | **Pattern hits:** 0 | **SHA:** 7104e31
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-02T09:30 | **Pattern hits:** 0 | **SHA:** 0b52741
 - **Notes:** 0 pattern hits across 38+ observations. All recent commits are ticker auto-updates only. Retain for HORIZON_SCAN cross-reference only.
 
 ### SethGammon/Citadel
@@ -55,14 +55,14 @@
 - **Why:** Multi-agent orchestration patterns from a major tech company
 - **Look for:** Agent coordination, state management, tool orchestration, LLM provider patterns
 - **Demoted:** 2026-04-02 (synthesis — 19+ consecutive 0-pattern deep-dives, all Python application-specific, fundamentally different stack)
-- **Observations:** 60+ | **First seen:** 2026-03-21 | **SHA:** ddfc988
+- **Observations:** 61+ | **First seen:** 2026-03-21 | **SHA:** ddfc988
 - **Notes:** 1 pattern hit total (early). Very active (5+ commits/day). Per-agent skill filter, concurrent file locks, Langfuse tracing — all Python. No transferable harness patterns despite extensive monitoring.
 
 ### garrytan/gstack
 - **Why:** Harness engineering patterns — skills, slash commands, review protocols, agent orchestration
 - **Look for:** Non-Codex workflow patterns, CI-transferable techniques
 - **Demoted:** 2026-03-27 (synthesis — 14 consecutive PH with 0 adoptable patterns, all Codex/interactive-session specific)
-- **Observations:** 54+ | **First seen:** 2026-03-20 | **SHA:** c620de3
+- **Observations:** 55+ | **First seen:** 2026-03-20 | **SHA:** 103a1b3
 - **Notes:** Historically most productive source (9 pattern hits across v0.9.7-v0.11.18.2). Demoted because pattern yield exhausted for CI-based harness. v0.14.3.0: Review Army (7 parallel specialist reviewers), always-on adversarial review, scope drift detection, ship idempotency. All interactive-session patterns. Monitor for CI-relevant patterns.
 
 ### trailofbits/skills
@@ -113,7 +113,7 @@
 ### wanshuiyin/Auto-claude-code-research-in-sleep
 - **Why:** Autonomous ML research harness (5.4K stars, 455 forks) — markdown-only skills, cross-model review loops, idea discovery. Conceptually closest to evolve's autonomous research methodology.
 - **Look for:** Autonomous research workflow patterns, cross-model review loops, skill organization, persistent memory patterns
-- **Added:** 2026-04-03 (horizon scan) | **Observations:** 2 | **First seen:** 2026-04-03 | **SHA:** e5e46f4
+- **Added:** 2026-04-03 (horizon scan) | **Observations:** 3 | **First seen:** 2026-04-03 | **SHA:** dc00dfb
 - **Notes:** ARIS v0.3.0. Python + Markdown. "Research while you sleep" — autonomous paper review, experiment running. Zero-dependency markdown skills. Cross-model review interesting but ML-research domain, not CI harness. Same methodology concept as our evolve. v0.3.0 update: README-only (+6 -4), Modal serverless GPU. Monitor for transferable workflow patterns.
 
 ### jnurre64/claude-agent-dispatch
