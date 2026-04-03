@@ -1,0 +1,10 @@
+# Suppress info/style rules that produce false positives in GitHub Actions
+# workflow YAML run: blocks, where ${{ }} expressions are expanded by GitHub
+# before bash execution (so globbing/word splitting cannot occur).
+#
+# SC2086 (info): Double quote to prevent globbing and word splitting
+# SC2129 (style): Consider using { cmd1; cmd2; } >> file instead of individual redirects
+# SC2046 (warning): Quote this to prevent word splitting
+#
+# Added to fix actionlint shellcheck integration failures (#141).
+disable=SC2086,SC2129,SC2046
