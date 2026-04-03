@@ -166,3 +166,7 @@
 2026-04-03T09:24:05Z | pipeline-health | 10 failures: 8 Security Scan (same root cause — actionlint ignores .shellcheckrc, PR #142 fix incomplete), 2 old (ALREADY-FIXED). 3 new since last summary. All Dependabot PRs (#133/#135/#136) blocked. | created #145
 2026-04-03T09:24:05Z | pipeline-health | Cost: $1.06-$1.57/evolve, $1.23-$2.17/watcher. No spikes. Normal variance. | monitoring
 2026-04-03T09:24:05Z | sha-scan | Active: 0/5 changed. All unchanged. Watch: 1/11 changed (deer-flow 76fad8b→c6cdf20). 15/16 unchanged. | deer-flow SHA updated
+2026-04-03T12:23:34Z | horizon-scan | runner-guard v2.6.0: active supply chain campaign detection (TeamPCP/UNC1069, Telnyx), directory-based IOC signatures, security score (0-100), SHA pinning in examples. Stars 6→9. Issue #127 already covers adoption. | SHA updated
+2026-04-03T12:23:34Z | horizon-scan | ARIS (wanshuiyin/Auto-claude-code-research-in-sleep, 5.4K stars): autonomous ML research harness, markdown-only skills, cross-model review loops. Conceptually similar to evolve but ML-research domain. Added to Watch List. | watch-list-add
+2026-04-03T12:23:34Z | horizon-scan | 21st consecutive HS with 0 new architecturally-similar repos. Ecosystem mapped. Niche well-covered by existing Watch List. | observation
+2026-04-03T12:23:34Z | sha-scan | Active: 1/5 changed (awesome-cc 874b276→7104e31, ticker only). Watch: 2/11 changed (deer-flow c6cdf20→a2aba23, runner-guard 15a4f57→86cb32b). 14/16 unchanged. | SHAs updated
