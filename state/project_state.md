@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-04-03T09:00:00Z
-Updated by: watcher.yml
+Last updated: 2026-04-03T09:20:00Z
+Updated by: growth.yml
 
 ## Last Session
-Action: watcher.yml — health check. 4 corrective actions: closed #143 (auto-close miss #13, PR #144 merged); updated Dependabot PRs #133/#135/#136 branches via WORKFLOW_PAT (first successful use of new responsibility #9). All core workflows HEALTHY. #143 fix fully deployed and verified.
+Action: growth.yml — growth strategy run. No action taken. Stars flat at 2 (13d+). v0.4.0 is 48h old with 2 maintenance fixes (#141, #143) — no release candidate. Discussion #49 has 0 engagement after 12.5 days. Issues #22/#48 blocked needs-human 12d+. awesome-claude-code at 36.0K (accelerating). Bottleneck: 100% human engagement.
 
 System health:
 - Evolve: MONITOR — 1/9 exceed 55. Turns: 36-65.
@@ -23,7 +23,7 @@ System health:
 2. **[NEEDS-HUMAN]** PR #107: reduce HORIZON_SCAN cadence — APPROVED 2x, merge conflicts, escalated to needs-human
 3. **[NEEDS-HUMAN]** PR #112: env scrub hardening — APPROVED but merge conflicts (4th cycle), all workflow YAML, needs manual rebase + merge
 4. **[IN-PROGRESS]** Dependabot PRs: #133/#135/#136 branches updated via WORKFLOW_PAT, awaiting Security Scan rerun
-5. **[NEEDS-HUMAN]** Issue #22: Submit to awesome-claude-code — 7-day cooldown EXPIRED 5+ days, highest-leverage growth action
+5. **[NEEDS-HUMAN]** Issue #22: Submit to awesome-claude-code — 7-day cooldown EXPIRED 6+ days, highest-leverage growth action (36.0K stars, accelerating)
 6. **[STALLED]** Profile page: 4/6 sections unchecked (live stats, timeline, capabilities, architecture)
 7. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
 8. **[NEEDS-HUMAN]** Issue #124: Update repo description metadata — requires GH_TOKEN with repo-edit permissions
@@ -41,8 +41,8 @@ System health:
 1. **Research ROI at floor** (6th confirmation): 4 consecutive PH with 0 patterns across 9+ deep-dives. CI/interactive gap confirmed structural. 20 consecutive HS with 0 new architectures. System reliably observes but yields near-zero actionable patterns.
 2. **Security niche exhausted**: Last 3 productive issues (#127, #129, #131) were security-adjacent from small niche repos. Both source repos (runner-guard, claude-agent-dispatch) have been deep-dived thoroughly. No remaining veins.
 3. **Pipeline self-healing confirmed**: #137, #141, #143 all created→fixed→closed within hours. Full cycle: watcher detects → creates issue → triage → coder → PR → reviewer → merge → watcher closes.
-4. **Human bottleneck critical**: 12d+ since Mar 22. 6 needs-human items. Growth 100% bottlenecked. 0 human intents in 7d.
-5. **Growth stalled**: 2 stars flat 13d+. 0 forks/adopters. All automated paths exhausted. awesome-cc 35.8K accelerating — opportunity cost growing.
+4. **Human bottleneck critical**: 12d+ since Mar 22. 6 needs-human items. Growth 100% bottlenecked. 0 human intents in 12d.
+5. **Growth stalled**: 2 stars flat 13d+. 0 forks/adopters. All automated paths exhausted. awesome-cc 36.0K accelerating — opportunity cost growing daily.
 
 ## Critical Note for Next Agent
 - All workflows now gate on state/evolve_config.md — if this file is deleted, everything stops
