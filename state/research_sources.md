@@ -1,7 +1,7 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-04-03T04:01:00Z
+# Last updated: 2026-04-03T06:33:10Z
 
 ## Active Sources
 
@@ -14,8 +14,8 @@
 ### hesreallyhim/awesome-claude-code
 - **Why:** Curated ecosystem catalog — discover new tools, libraries, and patterns
 - **Look for:** New entries in Orchestrators/Tools/Skills sections, trending repos referenced
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-02T09:30 | **Pattern hits:** 0 | **SHA:** d429010
-- **Notes:** 0 pattern hits across 36+ observations. All recent commits are ticker auto-updates only. Retain for HORIZON_SCAN cross-reference only.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-02T09:30 | **Pattern hits:** 0 | **SHA:** 874b276
+- **Notes:** 0 pattern hits across 37+ observations. All recent commits are ticker auto-updates only. Retain for HORIZON_SCAN cross-reference only.
 
 ### SethGammon/Citadel
 - **Why:** Agent orchestration harness (400 stars) — closest architecture to tokenman. Campaign persistence, parallel worktrees, circuit breaker, quality gate hooks, skill benchmarking, daemon factory
@@ -62,7 +62,7 @@
 - **Why:** Harness engineering patterns — skills, slash commands, review protocols, agent orchestration
 - **Look for:** Non-Codex workflow patterns, CI-transferable techniques
 - **Demoted:** 2026-03-27 (synthesis — 14 consecutive PH with 0 adoptable patterns, all Codex/interactive-session specific)
-- **Observations:** 53+ | **First seen:** 2026-03-20 | **SHA:** 846269e
+- **Observations:** 54+ | **First seen:** 2026-03-20 | **SHA:** c620de3
 - **Notes:** Historically most productive source (9 pattern hits across v0.9.7-v0.11.18.2). Demoted because pattern yield exhausted for CI-based harness. v0.14.3.0: Review Army (7 parallel specialist reviewers), always-on adversarial review, scope drift detection, ship idempotency. All interactive-session patterns. Monitor for CI-relevant patterns.
 
 ### trailofbits/skills
@@ -95,7 +95,7 @@
 ### shinpr/claude-code-workflows
 - **Why:** Production-ready multi-agent workflows (257 stars, 44 forks) — specialized agents (technical-designer, document-reviewer, work-planner)
 - **Look for:** Multi-agent workflow organization, dependency verification patterns, role-based agent coordination
-- **Added:** 2026-03-29 (horizon scan) | **Observations:** 13 | **First seen:** 2026-03-29 | **SHA:** a625676
+- **Added:** 2026-03-29 (horizon scan) | **Observations:** 14 | **First seen:** 2026-03-29 | **SHA:** cae98e7
 - **Notes:** PR #91 (Mar 29): dependency existence verification for design workflow (3-case: found/external/needs-creation). PR #89: recipe isolation (removed recipe-to-recipe deps). Deep-dived: dependency verification interesting but marginal for coder.yml. Specialized agents with role assignments. Markdown-only. Active.
 
 ### Vigilant-LLC/runner-guard
@@ -113,7 +113,7 @@
 ### jnurre64/claude-agent-dispatch
 - **Why:** Label-driven Claude Code GHA dispatch (Shell, 2 stars) — closest architecture to tokenman. Modular agent-dispatch.sh + lib/, label state machine (10 agent:* labels), two-phase plan→implement with human checkpoint, ShellCheck + BATS-Core CI testing.
 - **Look for:** Shell script quality patterns, label state machine design, worktree isolation, error trap handling, BATS test patterns
-- **Added:** 2026-04-02 (horizon scan) | **Observations:** 3 | **First seen:** 2026-04-02 | **SHA:** c41eb1d
+- **Added:** 2026-04-02 (horizon scan) | **Observations:** 4 | **First seen:** 2026-04-02 | **SHA:** cb0b7ad
 - **Notes:** Created 2026-03-21, actively maintained. Shell-only, no Node/Python deps. Reusable workflows (dispatch-*.yml) consumed via workflow_call. CI validates all scripts with ShellCheck + BATS. Architecturally closest to tokenman: issue-driven, label-based state, GHA runners, claude -p headless. Deep-dived architecture: scripts/lib/ (5 modules), BATS tests (6 files), global error trap with diagnostic comments, label state machine (10 labels), worktree stale prune. Issues: #129 (ShellCheck), #131 (dependabot), #139 (BATS testing). 2 pattern hits.
 
 ## Dropped Sources
