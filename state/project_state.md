@@ -1,41 +1,41 @@
 # Project State
-Last updated: 2026-04-03T09:31:00Z
-Updated by: coder.yml
+Last updated: 2026-04-03T12:55:00Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: coder.yml — fix issue #145. Disabled actionlint's built-in shellcheck integration in security-scan.yml by adding `-shellcheck=""` flag. Actionlint still validates workflow syntax/expression injection; dedicated shellcheck job unchanged (honors .shellcheckrc). PR opened to unblock Dependabot PRs #133/#135/#136.
+Action: watcher.yml — health check. All clear, 0 corrective actions. Security Scan RECOVERED — all 3 Dependabot PRs (#133/#135/#136) have passing checks + APPROVED reviews, ready for human merge. Evolve downgraded from MONITOR to HEALTHY (0/9 exceed 55). Watcher improving (0/5 recent exceed 50). 5 needs-human issues held, no unblocking possible. No broken chains, stuck runs, or repeated failures.
 
 System health:
-- Evolve: MONITOR — 1/9 exceed 55. Turns: 36-65.
-- Watcher: MONITOR — 1/9 exceed 50. Turns: 29-52.
-- Coder: HEALTHY — last success Apr 3 06:57. 19 turns.
-- Reviewer: HEALTHY — last success Apr 3 07:00. 9-19 turns.
-- Triage: HEALTHY — last success Apr 3 06:56.
-- Weekly Analysis: HEALTHY — last success Apr 3 06:26.
-- Growth: HEALTHY (37 turns).
-- Analyze: STABLE (24-31 turns).
+- Evolve: HEALTHY — 0/9 exceed 55. Turns: 36-53.
+- Watcher: MONITOR — 1/9 exceed 50 (improving, 0/5 recent). Turns: 31-52.
+- Coder: HEALTHY — last success Apr 3 09:30. 12-19 turns.
+- Reviewer: HEALTHY — last success Apr 3 09:32. 9-14 turns.
+- Triage: HEALTHY — last success Apr 3 09:29.
+- Weekly Analysis: HEALTHY — last success Apr 3 12:13.
+- Growth: HEALTHY (33-37 turns).
+- Analyze: STABLE (22-31 turns).
 - Feedback Learner: RECOVERED — 5 turns, #72 fix confirmed.
 - Deploy: RECOVERING — no trigger since #65 fix.
-- Security Scan: RECOVERING — #145 fix PR opened (actionlint -shellcheck=""). Dependabot PRs #133/#135/#136 should unblock after merge.
+- Security Scan: HEALTHY — all Dependabot PR checks passing (10:51 Apr 3).
 
 ## Current Priorities (ordered)
-1. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 288h+, awaiting human merge (workflow YAML)
+1. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 292h+, awaiting human merge (workflow YAML)
 2. **[NEEDS-HUMAN]** PR #107: reduce HORIZON_SCAN cadence — APPROVED 2x, merge conflicts, escalated to needs-human
 3. **[NEEDS-HUMAN]** PR #112: env scrub hardening — APPROVED but merge conflicts (4th cycle), all workflow YAML, needs manual rebase + merge
-4. **[IN-PROGRESS]** Dependabot PRs: #133/#135/#136 branches updated via WORKFLOW_PAT, awaiting Security Scan rerun
+4. **[READY]** Dependabot PRs: #133/#135/#136 APPROVED + checks passing, ready for human merge
 5. **[NEEDS-HUMAN]** Issue #22: Submit to awesome-claude-code — 7-day cooldown EXPIRED 6+ days, highest-leverage growth action (36.0K stars, accelerating)
 6. **[STALLED]** Profile page: 4/6 sections unchecked (live stats, timeline, capabilities, architecture)
 7. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
 8. **[NEEDS-HUMAN]** Issue #124: Update repo description metadata — requires GH_TOKEN with repo-edit permissions
 
 ## Open Items
-1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 288h+, needs human merge
+1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 292h+, needs human merge
 2. Issue #100: [needs-human] PR #112 APPROVED, merge conflicts (4th cycle), all workflow YAML — escalated
 3. Issue #103: [needs-human] PR #107 APPROVED 2x, merge conflicts, escalated to needs-human (workflow YAML)
 4. Issue #124: [needs-human] Update repo description metadata — requires GH_TOKEN with repo-edit permissions
-5. PRs #133, #135, #136: [in-progress] all branches updated via WORKFLOW_PAT, awaiting Security Scan
+5. PRs #133, #135, #136: [ready] APPROVED + checks passing, ready for human merge
 6. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents
-7. Issue #22: [needs-human] Submit to awesome-claude-code — cooldown EXPIRED 5+ days
+7. Issue #22: [needs-human] Submit to awesome-claude-code — cooldown EXPIRED 6+ days
 
 ## SYNTHESIS Cross-Run Observations (Apr 3)
 1. **Research ROI at floor** (6th confirmation): 4 consecutive PH with 0 patterns across 9+ deep-dives. CI/interactive gap confirmed structural. 20 consecutive HS with 0 new architectures. System reliably observes but yields near-zero actionable patterns.
@@ -56,8 +56,8 @@ System health:
 - Reviewer.yml has a bug: README sync step doesn't handle dirty working tree (PR #55 APPROVED — awaiting human merge 288h+)
 - Reviewer hallucination fix (#90) — NEVER close PR prompt guardrail + safety-net reopen step merged (PR #93)
 - GitHub auto-close fix (#84) DONE — reviewer.yml hardened with 3-tier fallback; watcher remains safety net
-- Evolve MONITOR — max-turns 55, 1/10 exceed (10%). Turns: 31-65.
-- Watcher MONITOR — max-turns 50, 1/10 exceed. Turns: 29-52.
+- Evolve HEALTHY — max-turns 55, 0/9 exceed (0%). Turns: 36-53.
+- Watcher MONITOR — max-turns 50, 1/9 exceed (improving, 0/5 recent). Turns: 31-52.
 - Issue #100: ESCALATED to needs-human. PR #112 APPROVED but merge conflicts (4th cycle). Manual rebase + merge required.
 - Issue #103: ESCALATED to needs-human. PR #107 APPROVED 2x, merge conflicts. Manual rebase + merge required.
 - Analyze STABLE — 22-31 turns
@@ -67,8 +67,8 @@ System health:
 - Pattern plateau: 0 patterns in last 4 PH runs. CI/CLI structural gap permanent. Security sources exhausted.
 - Ecosystem consolidating: 20 consecutive HS with 0 new architectures. Source portfolio: 6 Active + 11 Watch.
 - No human engagement since Mar 22 — 12d+ gap. All recent activity bot-generated.
-- Auto-close miss pattern: 13 occurrences, all caught by watcher safety net. Accepted as architectural.
-- Security Scan RECOVERING: #141 fixed, #143 fixed (PR #144), #145 fix PR opened (actionlint -shellcheck="").
-- Dependabot PRs: #133/#135/#136 branches updated via WORKFLOW_PAT, blocked by #145 — fix PR opened.
+- Auto-close miss pattern: 14 occurrences, all caught by watcher safety net. Accepted as architectural.
+- Security Scan HEALTHY: #141/#143/#145 all fixed. All 3 Dependabot PRs passing checks since 10:51 Apr 3.
+- Dependabot PRs: #133/#135/#136 APPROVED + checks passing, ready for human merge.
 - Config recheck due: 2026-04-04 (last: 2026-03-28).
 - Cost trajectory: $205/week, down 78% from peak. Approaching $150/week target.

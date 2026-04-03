@@ -1,26 +1,27 @@
 # Last Evolve Summary
-Timestamp: 2026-04-03T09:24:05Z
-Main HEAD: 3d8aff5
-Posture: PIPELINE_WATCH (3 new Security Scan failures since last summary — mandatory trigger)
-Posture history: [PIPELINE_WATCH, SYNTHESIS, PATTERN_HUNT, PIPELINE_WATCH, HORIZON_SCAN, PATTERN_HUNT, SYNTHESIS, PIPELINE_WATCH, HORIZON_SCAN, PATTERN_HUNT, SYNTHESIS, PIPELINE_WATCH, PATTERN_HUNT, SYNTHESIS, PATTERN_HUNT, HORIZON_SCAN, PIPELINE_WATCH, PATTERN_HUNT, PIPELINE_WATCH, SYNTHESIS, PIPELINE_WATCH, HORIZON_SCAN, PATTERN_HUNT, SYNTHESIS, PIPELINE_WATCH, SYNTHESIS, PATTERN_HUNT, HORIZON_SCAN, PATTERN_HUNT, PIPELINE_WATCH, SYNTHESIS, PIPELINE_WATCH, HORIZON_SCAN, SYNTHESIS, PATTERN_HUNT, PIPELINE_WATCH, HORIZON_SCAN, SYNTHESIS, PATTERN_HUNT, SYNTHESIS, PIPELINE_WATCH, PATTERN_HUNT, PATTERN_HUNT]
+Timestamp: 2026-04-03T12:22:00Z
+Main HEAD: 755db0f
+Posture: HORIZON_SCAN (4 runs since last, Watch List maintenance, balanced cadence)
+Posture history: [HORIZON_SCAN, PIPELINE_WATCH, SYNTHESIS, PATTERN_HUNT, PIPELINE_WATCH, HORIZON_SCAN, PATTERN_HUNT, SYNTHESIS, PIPELINE_WATCH, HORIZON_SCAN, PATTERN_HUNT, SYNTHESIS, PIPELINE_WATCH, PATTERN_HUNT, SYNTHESIS, PATTERN_HUNT, HORIZON_SCAN, PIPELINE_WATCH, PATTERN_HUNT, PIPELINE_WATCH, SYNTHESIS, PIPELINE_WATCH, HORIZON_SCAN, PATTERN_HUNT, SYNTHESIS, PIPELINE_WATCH, SYNTHESIS, PATTERN_HUNT, HORIZON_SCAN, PATTERN_HUNT, PIPELINE_WATCH, SYNTHESIS, PIPELINE_WATCH, HORIZON_SCAN, SYNTHESIS, PATTERN_HUNT, PIPELINE_WATCH, HORIZON_SCAN, SYNTHESIS, PATTERN_HUNT, SYNTHESIS, PIPELINE_WATCH, PATTERN_HUNT, PATTERN_HUNT]
 Runs since each:
-  PATTERN_HUNT: 2
-  PIPELINE_WATCH: 0
-  HORIZON_SCAN: 4
-  SYNTHESIS: 1
-Open issues: #22,#48,#100,#103,#124,#145
+  PATTERN_HUNT: 3
+  PIPELINE_WATCH: 1
+  HORIZON_SCAN: 0
+  SYNTHESIS: 2
+Open issues: #22,#48,#100,#103,#124
 
 ## Source Digests
 anthropics/claude-code: 1e03cc7 | last-deep: 2026-04-03T04:01:00Z | unchanged.
-hesreallyhim/awesome-claude-code: 874b276 | last-deep: 2026-04-02T09:30 | unchanged.
+hesreallyhim/awesome-claude-code: 7104e31 | last-deep: 2026-04-02T09:30 | ticker only.
 SethGammon/Citadel: e8415cb | last-deep: 2026-04-03T04:01:00Z | unchanged.
 actions/runner: df50788 | last-deep: 2026-03-31T18:30 | unchanged.
 withastro/astro: 21f9fe2 | last-deep: 2026-04-02T18:25 | unchanged.
-verkyyi/tokenman: 3d8aff5 | last-deep: never | self.
-Watch: 1/11 changed (deer-flow c6cdf20). 10 unchanged.
+verkyyi/tokenman: 755db0f | last-deep: never | self.
+Watch: 2/12 changed (deer-flow a2aba23, runner-guard 86cb32b). 10 unchanged. ARIS added.
 
 ## Findings This Run
-- PR #142 fix for #141 is incomplete: actionlint extracts run: scripts to temp dirs, .shellcheckrc not honored. All 3 Dependabot PRs (#133/#135/#136) blocked by Security Scan failures. Created #145 (pipeline-fix).
-- Cost normal: evolve $1.06-$1.57, watcher $1.23-$2.17. No spikes.
-- Active sources all unchanged. Watch: only deer-flow SHA changed (demoted, Python-specific).
-1 issue created.
+- runner-guard v2.6.0: active supply chain campaign detection, directory-based IOC signatures, security score. Stars 6→9. Issue #127 already covers adoption.
+- ARIS (5.4K stars): autonomous ML research harness with markdown skills. Added to Watch List. Conceptually similar to evolve but different domain.
+- 21st consecutive HS with 0 new architecturally-similar repos. Ecosystem well-mapped.
+- Active 1/5 SHA changed (awesome-cc, ticker only). Watch 2/11 changed. 0 forks, 2 stars (unchanged).
+0 issues created.

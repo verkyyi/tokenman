@@ -1,7 +1,7 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-04-03T09:24:05Z
+# Last updated: 2026-04-03T12:22:00Z
 
 ## Active Sources
 
@@ -14,8 +14,8 @@
 ### hesreallyhim/awesome-claude-code
 - **Why:** Curated ecosystem catalog — discover new tools, libraries, and patterns
 - **Look for:** New entries in Orchestrators/Tools/Skills sections, trending repos referenced
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-02T09:30 | **Pattern hits:** 0 | **SHA:** 874b276
-- **Notes:** 0 pattern hits across 37+ observations. All recent commits are ticker auto-updates only. Retain for HORIZON_SCAN cross-reference only.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-02T09:30 | **Pattern hits:** 0 | **SHA:** 7104e31
+- **Notes:** 0 pattern hits across 38+ observations. All recent commits are ticker auto-updates only. Retain for HORIZON_SCAN cross-reference only.
 
 ### SethGammon/Citadel
 - **Why:** Agent orchestration harness (400 stars) — closest architecture to tokenman. Campaign persistence, parallel worktrees, circuit breaker, quality gate hooks, skill benchmarking, daemon factory
@@ -55,7 +55,7 @@
 - **Why:** Multi-agent orchestration patterns from a major tech company
 - **Look for:** Agent coordination, state management, tool orchestration, LLM provider patterns
 - **Demoted:** 2026-04-02 (synthesis — 19+ consecutive 0-pattern deep-dives, all Python application-specific, fundamentally different stack)
-- **Observations:** 58+ | **First seen:** 2026-03-21 | **SHA:** c6cdf20
+- **Observations:** 59+ | **First seen:** 2026-03-21 | **SHA:** a2aba23
 - **Notes:** 1 pattern hit total (early). Very active (5+ commits/day). Per-agent skill filter, concurrent file locks, Langfuse tracing — all Python. No transferable harness patterns despite extensive monitoring.
 
 ### garrytan/gstack
@@ -101,14 +101,20 @@
 ### Vigilant-LLC/runner-guard
 - **Why:** CI/CD security scanner (6 stars, Go) — 18 detection rules for GHA vulnerabilities: fork checkout exploits, expression injection, AI config injection (CLAUDE.md hijacking), supply chain steganography, unpinned actions, auto-fix, SARIF output
 - **Look for:** GHA vulnerability patterns applicable to our workflows, action pinning auto-fix, AI config injection defenses, SARIF integration for Code Scanning
-- **Added:** 2026-04-01 (horizon scan) | **Observations:** 4 | **First seen:** 2026-04-01 | **SHA:** 15a4f57
-- **Notes:** Only scanner specifically targeting AI agent attack vectors in CI/CD. Deep-dived: 18 rules, GitHub Action with SARIF, AI config injection detection. Our feedback-learner.yml has low-risk expression injection (lines 104-108) that RGS-002/003 would flag. Issue #127 created for adoption. v2.5.2. Low stars (6) but unique niche. Go single binary.
+- **Added:** 2026-04-01 (horizon scan) | **Observations:** 5 | **First seen:** 2026-04-01 | **SHA:** 86cb32b
+- **Notes:** Only scanner specifically targeting AI agent attack vectors in CI/CD. Deep-dived: 18→31 rules. v2.6.0: active supply chain campaign detection (TeamPCP/UNC1069, Telnyx), directory-based IOC signatures, security score (0-100), SHA pinning. Issue #127 created for adoption. Stars 6→9. 2 forks. Go single binary.
 
 ### affaan-m/agentshield
 - **Why:** AI agent security scanner (289 stars, 55 forks) — scans .claude/ for secrets, permission misconfigs, hook injection, MCP risks, prompt injection vectors. CLI + GitHub Action + GitHub App.
 - **Look for:** Agent config audit rules applicable to our harness, CI integration patterns, auto-fix capabilities for security issues
 - **Added:** 2026-04-01 (horizon scan) | **Observations:** 2 | **First seen:** 2026-04-01 | **SHA:** 6f1b5cc
 - **Notes:** From affaan-m (everything-claude-code author). TypeScript. Covers agent config security surface (complementary to runner-guard which covers CI/CD workflow security). Detects hardcoded secrets, overly permissive permissions, hook injection. Built at Claude Code Hackathon. GitHub Action available. Part of ECC ecosystem (42K+ stars). Our .claude/ config is minimal so immediate value is low — monitor for CI integration patterns.
+
+### wanshuiyin/Auto-claude-code-research-in-sleep
+- **Why:** Autonomous ML research harness (5.4K stars, 455 forks) — markdown-only skills, cross-model review loops, idea discovery. Conceptually closest to evolve's autonomous research methodology.
+- **Look for:** Autonomous research workflow patterns, cross-model review loops, skill organization, persistent memory patterns
+- **Added:** 2026-04-03 (horizon scan) | **Observations:** 1 | **First seen:** 2026-04-03 | **SHA:** 5df943e
+- **Notes:** ARIS v0.3.0. Python + Markdown. "Research while you sleep" — autonomous paper review, experiment running. Zero-dependency markdown skills. Cross-model review interesting but ML-research domain, not CI harness. Same methodology concept as our evolve. Monitor for transferable workflow patterns.
 
 ### jnurre64/claude-agent-dispatch
 - **Why:** Label-driven Claude Code GHA dispatch (Shell, 2 stars) — closest architecture to tokenman. Modular agent-dispatch.sh + lib/, label state machine (10 agent:* labels), two-phase plan→implement with human checkpoint, ShellCheck + BATS-Core CI testing.
