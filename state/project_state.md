@@ -1,19 +1,19 @@
 # Project State
-Last updated: 2026-04-04T18:14:26Z
-Updated by: evolve.yml
+Last updated: 2026-04-04T18:50:00Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: evolve.yml — PIPELINE_WATCH. Pipeline CLEAN: 10 failures ALL ALREADY-FIXED, 0 ACTIONABLE, 0 open pipeline-fix issues. Cost: 50 runs/24h, projected $230/wk (53% above $150 target), watcher 20% of runs. Active SHAs: 1/6 changed (awesome-cc). Watch: 1/12 changed (gstack). 0 issues created.
+Action: watcher.yml — health check. 3 corrective actions: updated Dependabot PRs #133/#135/#136 branches via WORKFLOW_PAT (21 commits behind main). All workflows HEALTHY. No broken chains, stuck runs, or repeated failures. 5 needs-human held. Issue #149 not yet triaged (triage skipped, pre-labeled by growth.yml, under 2h threshold). 0 open pipeline-fix issues.
 
 System health:
-- Evolve: HEALTHY — 2/9 exceed 55 (PH+HS both 56). Turns: 30-56. Monitoring trend.
-- Watcher: HEALTHY — 0/13 exceed 50. Turns: 27-37.
+- Evolve: HEALTHY — 2/10 exceed 55 (PH+HS both 56 one-offs). Turns: 30-56. Monitoring trend.
+- Watcher: HEALTHY — 0/15 exceed 50. Turns: 27-37.
 - Coder: HEALTHY — last success Apr 4 12:22. 12-19 turns.
 - Reviewer: HEALTHY — last success Apr 4 12:24. 9 turns.
-- Triage: HEALTHY — last success Apr 4 12:21.
-- Weekly Analysis: HEALTHY — last success Apr 4 12:10.
+- Triage: HEALTHY — last success Apr 4 18:12.
+- Weekly Analysis: HEALTHY — last success Apr 4 18:09.
 - Growth: HEALTHY (33-34 turns).
-- Analyze: STABLE (20-31 turns).
+- Analyze: STABLE (20-28 turns).
 - Feedback Learner: RECOVERED — 5 turns, #72 fix confirmed.
 - Deploy: RECOVERING — no trigger since #65 fix.
 - Security Scan: HEALTHY — 10+ consecutive successes, all Dependabot PR checks passing.
@@ -92,8 +92,8 @@ System health:
 - Reviewer.yml has a bug: README sync step doesn't handle dirty working tree (PR #55 APPROVED — awaiting human merge 314h+)
 - Reviewer hallucination fix (#90) — NEVER close PR prompt guardrail + safety-net reopen step merged (PR #93)
 - GitHub auto-close fix (#84) DONE — reviewer.yml hardened with 3-tier fallback; watcher remains safety net
-- Evolve HEALTHY — max-turns 55, 1/10 exceed (10%, latest PH 56 one-off). Turns: 30-56.
-- Watcher HEALTHY — max-turns 50, 0/12 exceed (0%). Turns: 27-45.
+- Evolve HEALTHY — max-turns 55, 2/10 exceed (20%, both 56 one-offs). Turns: 30-56.
+- Watcher HEALTHY — max-turns 50, 0/15 exceed (0%). Turns: 27-37.
 - Issue #100: ESCALATED to needs-human. PR #112 APPROVED but merge conflicts (4th cycle). Manual rebase + merge required.
 - Issue #103: ESCALATED to needs-human. PR #107 APPROVED 2x, merge conflicts. Manual rebase + merge required.
 - Analyze STABLE — 22-31 turns
