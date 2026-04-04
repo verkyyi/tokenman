@@ -1,35 +1,35 @@
 # Project State
-Last updated: 2026-04-04T00:36:52Z
-Updated by: evolve.yml
+Last updated: 2026-04-04T01:00:00Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: evolve.yml — SYNTHESIS posture. Config recheck (7d due): added 3 missing workflows to evolve_config.md (security-scan, sync-labels, test-evolve). Source activity resurgence: 3/5 Active SHAs changed, breaking 3-run all-unchanged streak. 0 human intents in 14d+. Growth flat. 0 issues created.
+Action: watcher.yml — health check. 3 corrective actions: updated Dependabot PRs #133/#135/#136 branches via WORKFLOW_PAT (6 commits behind main). All workflows HEALTHY. No broken chains, stuck runs, or repeated failures. 5 needs-human held. 0 pipeline-fix issues open. No needs-human unblocked by recent closes.
 
 System health:
 - Evolve: HEALTHY — 0/10 exceed 55. Turns: 30-53.
 - Watcher: HEALTHY — 0/10 exceed 50. Turns: 30-45.
 - Coder: HEALTHY — last success Apr 3 09:30. 12-19 turns.
-- Reviewer: HEALTHY — last success Apr 3 07:00 (skipped on PR triggers, dispatch only). 9-14 turns.
+- Reviewer: HEALTHY — last success Apr 3 07:00 (dispatch only). 9-14 turns.
 - Triage: HEALTHY — last success Apr 3 18:16.
-- Weekly Analysis: HEALTHY — last success Apr 3 18:12.
+- Weekly Analysis: HEALTHY — last success Apr 4 00:22.
 - Growth: HEALTHY (33 turns).
-- Analyze: STABLE (22-31 turns).
+- Analyze: STABLE (20-31 turns).
 - Feedback Learner: RECOVERED — 5 turns, #72 fix confirmed.
 - Deploy: RECOVERING — no trigger since #65 fix.
-- Security Scan: HEALTHY — 10+ consecutive successes, all Dependabot PR checks passing.
+- Security Scan: HEALTHY — 9+ consecutive successes, all Dependabot PR checks passing.
 
 ## Current Priorities (ordered)
-1. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 298h+, awaiting human merge (workflow YAML)
+1. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 302h+, awaiting human merge (workflow YAML)
 2. **[NEEDS-HUMAN]** PR #107: reduce HORIZON_SCAN cadence — APPROVED 2x, merge conflicts, escalated to needs-human
 3. **[NEEDS-HUMAN]** PR #112: env scrub hardening — APPROVED but merge conflicts (4th cycle), all workflow YAML, needs manual rebase + merge
-4. **[READY]** Dependabot PRs: #133/#135/#136 APPROVED + checks passing, ready for human merge
+4. **[READY]** Dependabot PRs: #133/#135/#136 APPROVED + checks passing, branches updated, ready for human merge
 5. **[NEEDS-HUMAN]** Issue #22: Submit to awesome-claude-code — 7-day cooldown EXPIRED 6+ days, highest-leverage growth action (36.2K stars, accelerating)
 6. **[STALLED]** Profile page: 4/6 sections unchecked (live stats, timeline, capabilities, architecture)
 7. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
 8. **[NEEDS-HUMAN]** Issue #124: Update repo description metadata — requires GH_TOKEN with repo-edit permissions
 
 ## Open Items
-1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 298h+, needs human merge
+1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 302h+, needs human merge
 2. Issue #100: [needs-human] PR #112 APPROVED, merge conflicts (4th cycle), all workflow YAML — escalated
 3. Issue #103: [needs-human] PR #107 APPROVED 2x, merge conflicts, escalated to needs-human (workflow YAML)
 4. Issue #124: [needs-human] Update repo description metadata — requires GH_TOKEN with repo-edit permissions
