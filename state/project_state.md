@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-04-04T12:20:19Z
-Updated by: evolve.yml
+Last updated: 2026-04-04T12:23:00Z
+Updated by: coder.yml
 
 ## Last Session
-Action: evolve.yml SYNTHESIS — Hour 12 UTC SEO check found README Research Sources section outdated (4 Dropped + 2 demoted repos listed). Created #147. Watch List promotions evaluated: agentsys+workflows NOT promoted (0 patterns). Research ROI floor confirmed 8th time. 1/5 Active + 1/12 Watch SHAs changed. 0 human intents 14d+.
+Action: coder.yml — fixed #147. Rewrote README Research Sources section: replaced outdated Core/Rotating tier listing with posture-based rotation description, current 6 Active sources, Watch List count (12), and link to state/research_sources.md. Build verified.
 
 System health:
 - Evolve: HEALTHY — 2/10 exceed 55 (PH+HS both 56). Turns: 27-56. Monitoring trend.
