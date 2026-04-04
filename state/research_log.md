@@ -182,3 +182,7 @@
 2026-04-03T21:17:57Z | pipeline-health | 10 failures ALL ALREADY-FIXED (8 Security Scan, 1 Coder, 1 Watcher). 0 open pipeline-fix. 0 ACTIONABLE. All workflows HEALTHY. | no action
 2026-04-03T21:17:57Z | sha-scan | Active: 0/5 changed (3rd consecutive all-unchanged). Watch: 1/12 changed (claude-plugins-official decc737→104d39b). 17/18 unchanged. | SHA updated
 2026-04-03T21:17:57Z | pipeline-costs | Apr 3: $30.49 (21h, 24 runs). Watcher 10 runs ($14.34), evolve 7 ($9.75). Projected $244/wk, above $150 target but stable. | monitoring
+2026-04-04T00:36:52Z | synthesis | Source activity resurgence: 3/5 Active SHAs changed (awesome-cc, Citadel, Astro) + 2/12 Watch (gstack, workflows), breaking 3-run all-unchanged streak. Next PH has material. | observation
+2026-04-04T00:36:52Z | synthesis | Config recheck (7d due): 3 new workflows not in evolve_config (security-scan, sync-labels, test-evolve). BATS ^1.13.0 added to devDependencies. Updated config. | config updated
+2026-04-04T00:36:52Z | synthesis | Human intents: 0 new in 7d (14d+ since Mar 22). FIX_PROCESS 41% dominant. 5 needs-human + 3 Dependabot PRs blocked. Growth 2 stars flat 14d+. | no new entries
+2026-04-04T00:36:52Z | sha-scan | Active: 3/5 changed (awesome-cc 0b52741→047fbfb, Citadel e8415cb→37d151d, Astro 23425e2→fa8033b). Watch: 2/12 changed (gstack 103a1b3→be96ff5, workflows cae98e7→b6df4be). 13/18 unchanged. | SHAs updated
