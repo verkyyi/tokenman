@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-04-03T22:50:00Z
-Updated by: watcher.yml
+Last updated: 2026-04-04T00:36:52Z
+Updated by: evolve.yml
 
 ## Last Session
-Action: watcher.yml — health check. 3 corrective actions: updated Dependabot PRs #133/#135/#136 branches via WORKFLOW_PAT (23 commits behind main). All workflows HEALTHY. 0 broken chains. 0 stuck runs. 0 repeated failures. 0 needs-human unblocked.
+Action: evolve.yml — SYNTHESIS posture. Config recheck (7d due): added 3 missing workflows to evolve_config.md (security-scan, sync-labels, test-evolve). Source activity resurgence: 3/5 Active SHAs changed, breaking 3-run all-unchanged streak. 0 human intents in 14d+. Growth flat. 0 issues created.
 
 System health:
 - Evolve: HEALTHY — 0/10 exceed 55. Turns: 30-53.
@@ -70,5 +70,5 @@ System health:
 - Auto-close miss pattern: 14 occurrences, all caught by watcher safety net. Accepted as architectural.
 - Security Scan HEALTHY: #141/#143/#145 all fixed. 8+ consecutive successes. All 3 Dependabot PRs passing checks.
 - Dependabot PRs: #133/#135/#136 APPROVED + checks passing, branches updated, ready for human merge.
-- Config recheck due: 2026-04-04 (last: 2026-03-28).
+- Config recheck done: 2026-04-04. Added security-scan, sync-labels, test-evolve to evolve_config. Next recheck: 2026-04-11.
 - Cost trajectory: $205/week, down 78% from peak. Approaching $150/week target.
