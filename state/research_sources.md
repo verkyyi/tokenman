@@ -1,7 +1,7 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-04-04T06:28:00Z
+# Last updated: 2026-04-04T09:19:00Z
 
 ## Active Sources
 
@@ -38,8 +38,8 @@
 ### verkyyi/tokenman
 - **Why:** Self-reference — track forks, adopters, and how the scaffold is used
 - **Look for:** New forks, adopter modifications, issues filed by users
-- **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 0 | **SHA:** 28673e1
-- **Notes:** Used during HORIZON SCAN for adoption tracking. 0 forks, 0 adopters as of 2026-04-04.
+- **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 0 | **SHA:** 7eed45f
+- **Notes:** Used during HORIZON SCAN for adoption tracking. 0 forks, 0 adopters as of 2026-04-04. EvoMap/awesome-agent-evolution (21 stars) monitors tokenman in data/monitor-results.json but not curated — potential growth submission target.
 
 ## Watch List
 <!-- Sources under evaluation. Promoted to Active or Dropped after 3+ observations over 7+ days. -->
@@ -55,7 +55,7 @@
 - **Why:** Multi-agent orchestration patterns from a major tech company
 - **Look for:** Agent coordination, state management, tool orchestration, LLM provider patterns
 - **Demoted:** 2026-04-02 (synthesis — 19+ consecutive 0-pattern deep-dives, all Python application-specific, fundamentally different stack)
-- **Observations:** 63+ | **First seen:** 2026-03-21 | **SHA:** 163121d
+- **Observations:** 64+ | **First seen:** 2026-03-21 | **SHA:** 1c0051c
 - **Notes:** 1 pattern hit total (early). Very active (5+ commits/day). Per-agent skill filter, concurrent file locks, Langfuse tracing — all Python. No transferable harness patterns despite extensive monitoring.
 
 ### garrytan/gstack
@@ -95,8 +95,8 @@
 ### shinpr/claude-code-workflows
 - **Why:** Production-ready multi-agent workflows (257 stars, 44 forks) — specialized agents (technical-designer, document-reviewer, work-planner)
 - **Look for:** Multi-agent workflow organization, dependency verification patterns, role-based agent coordination
-- **Added:** 2026-03-29 (horizon scan) | **Observations:** 15 | **First seen:** 2026-03-29 | **SHA:** 43cc9fc
-- **Notes:** PR #101 (Apr 4): frontend-backend recipe alignment. PR #100: removed hardcoded quality thresholds from code-reviewer, delegated to coding-principles skill. Post-implementation verification step added. Threshold delegation interesting but micro-optimization for our reviewer. Specialized agents with role assignments. Markdown-only. Active.
+- **Added:** 2026-03-29 (horizon scan) | **Observations:** 16 | **First seen:** 2026-03-29 | **SHA:** 2af1b69
+- **Notes:** PR #102 (Apr 4): linear-prism external plugin (workflow orchestration). PR #101: frontend-backend recipe alignment. PR #100: threshold delegation to coding-principles skill. Plugin marketplace expanding. Specialized agents with role assignments. Markdown-only. Active. Approaching 7-day promotion threshold.
 
 ### Vigilant-LLC/runner-guard
 - **Why:** CI/CD security scanner (6 stars, Go) — 18 detection rules for GHA vulnerabilities: fork checkout exploits, expression injection, AI config injection (CLAUDE.md hijacking), supply chain steganography, unpinned actions, auto-fix, SARIF output
@@ -113,14 +113,14 @@
 ### wanshuiyin/Auto-claude-code-research-in-sleep
 - **Why:** Autonomous ML research harness (5.4K stars, 455 forks) — markdown-only skills, cross-model review loops, idea discovery. Conceptually closest to evolve's autonomous research methodology.
 - **Look for:** Autonomous research workflow patterns, cross-model review loops, skill organization, persistent memory patterns
-- **Added:** 2026-04-03 (horizon scan) | **Observations:** 4 | **First seen:** 2026-04-03 | **SHA:** 438e5b6
-- **Notes:** ARIS v0.3.1. Python + Markdown. "Research while you sleep" — autonomous paper review, experiment running. Zero-dependency markdown skills. v0.3.1: Codex rescue integration into auto-debug, WeChat group update. ML-research domain, not CI harness. Same methodology concept as our evolve. Monitor for transferable workflow patterns.
+- **Added:** 2026-04-03 (horizon scan) | **Observations:** 5 | **First seen:** 2026-04-03 | **SHA:** 6dc3b0e
+- **Notes:** ARIS v0.3.3 (rapid iteration: v0.3.1→v0.3.3 in 6h). Python + Markdown. "Research while you sleep" — autonomous paper review, experiment running. Zero-dependency markdown skills. ML-research domain, not CI harness. Same methodology concept as our evolve. Monitor for transferable workflow patterns.
 
 ### jnurre64/claude-agent-dispatch
 - **Why:** Label-driven Claude Code GHA dispatch (Shell, 2 stars) — closest architecture to tokenman. Modular agent-dispatch.sh + lib/, label state machine (10 agent:* labels), two-phase plan→implement with human checkpoint, ShellCheck + BATS-Core CI testing.
 - **Look for:** Shell script quality patterns, label state machine design, worktree isolation, error trap handling, BATS test patterns
-- **Added:** 2026-04-02 (horizon scan) | **Observations:** 5 | **First seen:** 2026-04-02 | **SHA:** 5be3abf
-- **Notes:** Created 2026-03-21, actively maintained. Shell-only, no Node/Python deps. Reusable workflows (dispatch-*.yml) consumed via workflow_call. CI validates all scripts with ShellCheck + BATS. Architecturally closest to tokenman: issue-driven, label-based state, GHA runners, claude -p headless. Deep-dived architecture: scripts/lib/ (5 modules), BATS tests (6 files), global error trap with diagnostic comments, label state machine (10 labels), worktree stale prune. Issues: #129 (ShellCheck), #131 (dependabot), #139 (BATS testing). 2 pattern hits.
+- **Added:** 2026-04-02 (horizon scan) | **Observations:** 6 | **First seen:** 2026-04-02 | **SHA:** a304a25
+- **Notes:** Created 2026-03-21, actively maintained. Shell-only, no Node/Python deps. PR #15: runner setup guide + skill docs. Reusable workflows (dispatch-*.yml) consumed via workflow_call. CI validates all scripts with ShellCheck + BATS. Architecturally closest to tokenman: issue-driven, label-based state, GHA runners, claude -p headless. Deep-dived architecture: scripts/lib/ (5 modules), BATS tests (6 files), global error trap with diagnostic comments, label state machine (10 labels), worktree stale prune. Issues: #129 (ShellCheck), #131 (dependabot), #139 (BATS testing). 2 pattern hits.
 
 ## Dropped Sources
 <!-- Removed sources with reason. Kept for history so we don't re-discover them. -->
