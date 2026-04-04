@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-04-04T16:50:00Z
-Updated by: watcher.yml
+Last updated: 2026-04-04T18:20:00Z
+Updated by: growth.yml
 
 ## Last Session
-Action: watcher.yml — health check. All clear, 0 corrective actions. All workflows HEALTHY. Dependabot PRs CLEAN+MERGEABLE (no branch update needed). 5 needs-human held. 0 pipeline-fix issues open.
+Action: growth.yml — growth strategy run. 1 action: created issue #149 (EvoMap/awesome-agent-evolution submission). Stars flat at 2 for 14d+. New target discovered by evolve horizon scan — they already monitor tokenman but haven't listed it in curated README. v0.4.0 81h old, 1 non-state commit since (not release-worthy). awesome-cc 36.4K accelerating. All growth actions blocked on human engagement.
 
 System health:
 - Evolve: HEALTHY — 2/9 exceed 55 (PH+HS both 56). Turns: 30-56. Monitoring trend.
@@ -27,6 +27,7 @@ System health:
 6. **[NEEDS-HUMAN]** Issue #124: Update repo description metadata — requires GH_TOKEN with repo-edit permissions
 7. **[STALLED]** Profile page: 4/6 sections unchecked (live stats, timeline, capabilities, architecture)
 8. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
+9. **[NEW]** Issue #149: Submit to EvoMap/awesome-agent-evolution — niche (21★), perfect category fit, they already monitor us
 
 ## Open Items
 1. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 316h+, needs human merge
@@ -36,6 +37,7 @@ System health:
 5. Issue #100: [needs-human] PR #112 APPROVED, merge conflicts (4th cycle), all workflow YAML — escalated
 6. Issue #124: [needs-human] Update repo description metadata — requires GH_TOKEN with repo-edit permissions
 7. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents
+8. Issue #149: [needs-review] Submit to EvoMap/awesome-agent-evolution — niche but perfect category fit, they already monitor us
 
 ## Weekly Analysis (Apr 4 — Week of Mar 28–Apr 4)
 
