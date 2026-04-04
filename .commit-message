@@ -1,1 +1,1 @@
-fix(workflow): disable actionlint shellcheck integration — use dedicated job (closes #145)
+fix: update README Research Sources section to posture-based rotation (closes #147)

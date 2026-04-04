@@ -1,27 +1,27 @@
 # Last Evolve Summary
-Timestamp: 2026-04-04T00:36:52Z
-Main HEAD: 28673e1
-Posture: SYNTHESIS (config recheck due today Apr 4, PW just ran, SYN time-gated work needs executing)
-Posture history: [SYNTHESIS, PIPELINE_WATCH, SYNTHESIS, PATTERN_HUNT, HORIZON_SCAN, PIPELINE_WATCH, SYNTHESIS, PATTERN_HUNT, PIPELINE_WATCH, HORIZON_SCAN, PATTERN_HUNT, SYNTHESIS, PIPELINE_WATCH, HORIZON_SCAN, PATTERN_HUNT, SYNTHESIS, PIPELINE_WATCH, PATTERN_HUNT, SYNTHESIS, PATTERN_HUNT, HORIZON_SCAN, PIPELINE_WATCH, PATTERN_HUNT, PIPELINE_WATCH, SYNTHESIS, PIPELINE_WATCH, HORIZON_SCAN, PATTERN_HUNT, SYNTHESIS, PIPELINE_WATCH, SYNTHESIS, PATTERN_HUNT, HORIZON_SCAN, PATTERN_HUNT, PIPELINE_WATCH, SYNTHESIS, PIPELINE_WATCH, HORIZON_SCAN, SYNTHESIS, PATTERN_HUNT, PIPELINE_WATCH, HORIZON_SCAN, SYNTHESIS, PATTERN_HUNT, SYNTHESIS, PIPELINE_WATCH, PATTERN_HUNT, PATTERN_HUNT]
+Timestamp: 2026-04-04T12:20:19Z
+Main HEAD: f603743
+Posture: SYNTHESIS (Hour 12 UTC matches SEO time-gate. Watch List promotions due. 3 runs since last SYNTHESIS.)
+Posture history: [SYNTHESIS, HORIZON_SCAN, PIPELINE_WATCH, PATTERN_HUNT, SYNTHESIS, PIPELINE_WATCH, SYNTHESIS, PATTERN_HUNT, HORIZON_SCAN, PIPELINE_WATCH, SYNTHESIS, PATTERN_HUNT, PIPELINE_WATCH, HORIZON_SCAN, PATTERN_HUNT, SYNTHESIS, PIPELINE_WATCH, HORIZON_SCAN, PATTERN_HUNT, SYNTHESIS, PIPELINE_WATCH, PATTERN_HUNT, SYNTHESIS, PATTERN_HUNT, HORIZON_SCAN, PIPELINE_WATCH, PATTERN_HUNT, PIPELINE_WATCH, SYNTHESIS, PIPELINE_WATCH, HORIZON_SCAN, PATTERN_HUNT, SYNTHESIS, PIPELINE_WATCH, SYNTHESIS, PATTERN_HUNT, HORIZON_SCAN, PATTERN_HUNT, PIPELINE_WATCH, SYNTHESIS, PIPELINE_WATCH, HORIZON_SCAN, SYNTHESIS, PATTERN_HUNT, PIPELINE_WATCH, HORIZON_SCAN, SYNTHESIS, PATTERN_HUNT, SYNTHESIS, PIPELINE_WATCH, PATTERN_HUNT, PATTERN_HUNT]
 Runs since each:
-  PATTERN_HUNT: 3
-  PIPELINE_WATCH: 1
-  HORIZON_SCAN: 4
   SYNTHESIS: 0
-Open issues: #22,#48,#100,#103,#124
+  HORIZON_SCAN: 1
+  PIPELINE_WATCH: 2
+  PATTERN_HUNT: 3
+Open issues: #22,#48,#100,#103,#124,#147
 
 ## Source Digests
-anthropics/claude-code: 1e03cc7 | last-deep: 2026-04-03T04:01:00Z | unchanged.
-hesreallyhim/awesome-claude-code: 047fbfb | last-deep: 2026-04-02T09:30 | SHA changed (was 0b52741).
-SethGammon/Citadel: 37d151d | last-deep: 2026-04-03T04:01:00Z | SHA changed (was e8415cb).
+anthropics/claude-code: b543a25 | last-deep: 2026-04-04T03:51:00Z | unchanged.
+hesreallyhim/awesome-claude-code: 437604a | last-deep: 2026-04-02T09:30 | SHA changed (6d593a3→437604a).
+SethGammon/Citadel: 37d151d | last-deep: 2026-04-03T04:01:00Z | unchanged.
 actions/runner: df50788 | last-deep: 2026-03-31T18:30 | unchanged.
-withastro/astro: fa8033b | last-deep: 2026-04-03T15:20 | SHA changed (was 23425e2).
-verkyyi/tokenman: 28673e1 | last-deep: never | self.
-Watch: 2/12 changed (gstack be96ff5, claude-code-workflows b6df4be). 10 unchanged.
+withastro/astro: fa8033b | last-deep: 2026-04-03T15:20 | unchanged.
+verkyyi/tokenman: f603743 | last-deep: never | self. 0 forks, 0 adopters.
+Watch: 1/12 changed (ARIS 37be42e). 11 unchanged.
 
 ## Findings This Run
-- Config recheck completed (7d due): added 3 missing workflows (security-scan, sync-labels, test-evolve) to evolve_config.md. BATS ^1.13.0 noted in devDependencies.
-- Source activity resurgence: 3/5 Active SHAs changed + 2/12 Watch, breaking 3-run all-unchanged streak. Next PH should deep-dive the changes.
-- Human intents: 0 new in 14d+ (since Mar 22). FIX_PROCESS dominant (41%). Growth 2 stars flat 14d+.
-- Scaffold version: v0.4.0 (no newer release). Repo stats: 2 stars, 0 forks, 11 open issues.
-0 issues created.
+- README Research Sources section (lines 155-160) significantly outdated: lists 4 Dropped + 2 demoted repos under old Core/Rotating tier system. Created #147 to update.
+- Watch List promotion review: agentsys (6d, 9 obs) and workflows (6d, 16 obs) both NOT promoted — 0 CI-harness pattern hits despite active development.
+- Research ROI at structural floor (8th SYNTHESIS confirmation): 6 PH with 0 patterns, 22 HS with 0 architectures.
+- Human bottleneck 14d+ (since Mar 22). 0 new intents. Growth flat. Cost $230/wk.
+1 issue created (#147).

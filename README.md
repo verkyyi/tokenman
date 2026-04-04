@@ -152,11 +152,11 @@ Human corrections compound — say it once, never repeat it.
 
 ## Research sources
 
-The evolve agent monitors these repos every 3 hours (rotating tiers):
+The evolve agent monitors external repos using a posture-based rotation across four modes: **PATTERN_HUNT** (deep-dive Active sources), **PIPELINE_WATCH** (CI health), **HORIZON_SCAN** (discover new repos), and **SYNTHESIS** (cross-reference findings). See [`state/research_sources.md`](state/research_sources.md) for the full, Claude-managed source portfolio.
 
-**Core (every run):** [anthropics/claude-code](https://github.com/anthropics/claude-code) · [garrytan/gstack](https://github.com/garrytan/gstack) · [affaan-m/everything-claude-code](https://github.com/affaan-m/everything-claude-code)
+**Active sources:** [anthropics/claude-code](https://github.com/anthropics/claude-code) · [hesreallyhim/awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) · [SethGammon/Citadel](https://github.com/SethGammon/Citadel) · [actions/runner](https://github.com/actions/runner) · [withastro/astro](https://github.com/withastro/astro) · [verkyyi/tokenman](https://github.com/verkyyi/tokenman) (self)
 
-**Rotating:** [wshobson/agents](https://github.com/wshobson/agents) · [VoltAgent/awesome-claude-code-subagents](https://github.com/VoltAgent/awesome-claude-code-subagents) · [godagoo/claude-code-always-on](https://github.com/godagoo/claude-code-always-on) · [withastro/astro](https://github.com/withastro/astro) · GitHub trending
+Plus 12 repos on the **Watch List** under evaluation for promotion or removal.
 
 ---
 
