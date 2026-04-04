@@ -1,7 +1,7 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-04-04T12:20:19Z
+# Last updated: 2026-04-04T15:14:00Z
 
 ## Active Sources
 
@@ -15,7 +15,7 @@
 - **Why:** Curated ecosystem catalog — discover new tools, libraries, and patterns
 - **Look for:** New entries in Orchestrators/Tools/Skills sections, trending repos referenced
 - **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-02T09:30 | **Pattern hits:** 0 | **SHA:** 437604a
-- **Notes:** 0 pattern hits across 40+ observations. SHA changed 6d593a3→437604a (Apr 4). Retain for HORIZON_SCAN cross-reference only.
+- **Notes:** 0 pattern hits across 40+ observations. SHA 437604a (automated ticker updates only). Retain for HORIZON_SCAN cross-reference only.
 
 ### SethGammon/Citadel
 - **Why:** Agent orchestration harness (400 stars) — closest architecture to tokenman. Campaign persistence, parallel worktrees, circuit breaker, quality gate hooks, skill benchmarking, daemon factory
@@ -55,7 +55,7 @@
 - **Why:** Multi-agent orchestration patterns from a major tech company
 - **Look for:** Agent coordination, state management, tool orchestration, LLM provider patterns
 - **Demoted:** 2026-04-02 (synthesis — 19+ consecutive 0-pattern deep-dives, all Python application-specific, fundamentally different stack)
-- **Observations:** 64+ | **First seen:** 2026-03-21 | **SHA:** 1c0051c
+- **Observations:** 65+ | **First seen:** 2026-03-21 | **SHA:** 2a150f5
 - **Notes:** 1 pattern hit total (early). Very active (5+ commits/day). Per-agent skill filter, concurrent file locks, Langfuse tracing — all Python. No transferable harness patterns despite extensive monitoring.
 
 ### garrytan/gstack
@@ -95,8 +95,8 @@
 ### shinpr/claude-code-workflows
 - **Why:** Production-ready multi-agent workflows (257 stars, 44 forks) — specialized agents (technical-designer, document-reviewer, work-planner)
 - **Look for:** Multi-agent workflow organization, dependency verification patterns, role-based agent coordination
-- **Added:** 2026-03-29 (horizon scan) | **Observations:** 16 | **First seen:** 2026-03-29 | **SHA:** 2af1b69
-- **Notes:** PR #102 (Apr 4): linear-prism external plugin (workflow orchestration). PR #101: frontend-backend recipe alignment. PR #100: threshold delegation to coding-principles skill. Plugin marketplace expanding. Specialized agents with role assignments. Markdown-only. Active. Approaching 7-day promotion threshold.
+- **Added:** 2026-03-29 (horizon scan) | **Observations:** 17 | **First seen:** 2026-03-29 | **Last deep:** 2026-04-04T15:12Z | **SHA:** 2af1b69
+- **Notes:** PR #102 (Apr 4): linear-prism external plugin (marketplace entry). PR #101: Execution Protocol standardization, frontend-backend recipe alignment. PR #100: threshold delegation. All interactive-session skill organization patterns — 0 CI-harness applicability. 7d+ since first seen. Active but 0 pattern hits — not promoting.
 
 ### Vigilant-LLC/runner-guard
 - **Why:** CI/CD security scanner (6 stars, Go) — 18 detection rules for GHA vulnerabilities: fork checkout exploits, expression injection, AI config injection (CLAUDE.md hijacking), supply chain steganography, unpinned actions, auto-fix, SARIF output
@@ -113,8 +113,8 @@
 ### wanshuiyin/Auto-claude-code-research-in-sleep
 - **Why:** Autonomous ML research harness (5.4K stars, 455 forks) — markdown-only skills, cross-model review loops, idea discovery. Conceptually closest to evolve's autonomous research methodology.
 - **Look for:** Autonomous research workflow patterns, cross-model review loops, skill organization, persistent memory patterns
-- **Added:** 2026-04-03 (horizon scan) | **Observations:** 6 | **First seen:** 2026-04-03 | **SHA:** 37be42e
-- **Notes:** ARIS v0.3.3 (rapid iteration: v0.3.1→v0.3.3 in 6h). Python + Markdown. "Research while you sleep" — autonomous paper review, experiment running. Zero-dependency markdown skills. ML-research domain, not CI harness. Same methodology concept as our evolve. Monitor for transferable workflow patterns.
+- **Added:** 2026-04-03 (horizon scan) | **Observations:** 7 | **First seen:** 2026-04-03 | **SHA:** 37be42e
+- **Notes:** ARIS v0.3.3. Recent: Zenodo DOI badge, What's New updates — doc-only. Python + Markdown. ML-research domain, not CI harness. Same methodology concept as our evolve. Monitor for transferable workflow patterns.
 
 ### jnurre64/claude-agent-dispatch
 - **Why:** Label-driven Claude Code GHA dispatch (Shell, 2 stars) — closest architecture to tokenman. Modular agent-dispatch.sh + lib/, label state machine (10 agent:* labels), two-phase plan→implement with human checkpoint, ShellCheck + BATS-Core CI testing.
