@@ -1,7 +1,7 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-04-04T21:15:12Z
+# Last updated: 2026-04-05T00:42:48Z
 
 ## Active Sources
 
@@ -14,8 +14,8 @@
 ### hesreallyhim/awesome-claude-code
 - **Why:** Curated ecosystem catalog — discover new tools, libraries, and patterns
 - **Look for:** New entries in Orchestrators/Tools/Skills sections, trending repos referenced
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-02T09:30 | **Pattern hits:** 0 | **SHA:** 8ead9f3
-- **Notes:** 0 pattern hits across 40+ observations. SHA changed a7b8454→8ead9f3. Retain for HORIZON_SCAN cross-reference only.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-02T09:30 | **Pattern hits:** 0 | **SHA:** 43ee015
+- **Notes:** 0 pattern hits across 40+ observations. SHA changed 8ead9f3→43ee015. Retain for HORIZON_SCAN cross-reference only.
 
 ### SethGammon/Citadel
 - **Why:** Agent orchestration harness (400 stars) — closest architecture to tokenman. Campaign persistence, parallel worktrees, circuit breaker, quality gate hooks, skill benchmarking, daemon factory
@@ -38,8 +38,8 @@
 ### verkyyi/tokenman
 - **Why:** Self-reference — track forks, adopters, and how the scaffold is used
 - **Look for:** New forks, adopter modifications, issues filed by users
-- **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 0 | **SHA:** 7eed45f
-- **Notes:** Used during HORIZON SCAN for adoption tracking. 0 forks, 0 adopters as of 2026-04-04. EvoMap/awesome-agent-evolution (21 stars) monitors tokenman in data/monitor-results.json but not curated — potential growth submission target.
+- **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 0 | **SHA:** 5b50003
+- **Notes:** Used during HORIZON SCAN for adoption tracking. 0 forks, 0 adopters as of 2026-04-05. EvoMap/awesome-agent-evolution (21 stars) monitors tokenman in data/monitor-results.json but not curated — potential growth submission target (#149).
 
 ## Watch List
 <!-- Sources under evaluation. Promoted to Active or Dropped after 3+ observations over 7+ days. -->
@@ -62,7 +62,7 @@
 - **Why:** Harness engineering patterns — skills, slash commands, review protocols, agent orchestration
 - **Look for:** Non-Codex workflow patterns, CI-transferable techniques
 - **Demoted:** 2026-03-27 (synthesis — 14 consecutive PH with 0 adoptable patterns, all Codex/interactive-session specific)
-- **Observations:** 57+ | **First seen:** 2026-03-20 | **SHA:** 3f080de
+- **Observations:** 57+ | **First seen:** 2026-03-20 | **SHA:** 04b709d
 - **Notes:** Historically most productive source (9 pattern hits across v0.9.7-v0.11.18.2). Demoted because pattern yield exhausted for CI-based harness. v0.15.4.0: autoplan DX integration, /devex-review skills, Slate agent research. v0.14.3.0: Review Army, adversarial review, scope drift detection. All interactive-session patterns. Monitor for CI-relevant patterns.
 
 ### trailofbits/skills
@@ -85,18 +85,6 @@
 - **Added:** 2026-03-24 (horizon scan) | **Observations:** 45 | **First seen:** 2026-03-24 | **SHA:** 0089efa
 - **Decision (2026-03-31):** RETAIN on Watch List. 39 obs, 7+ days, 0 pattern hits. Key CC spec tracker but 0 adoptable CI patterns — not promoting. Active and useful — not dropping.
 - **Notes:** v0.18.0: Codex CLI plugin manifest validation (CDX-PL-001 to CDX-PL-014, 14 rules). CC now has 18 hook events. 385+ rules, 124+ auto-fixes. Relevant to #66/#68.
-
-### agent-sh/agentsys
-- **Why:** Comprehensive plugin/agent/skill system (672 stars, 69 forks) from same org as agnix — 19 plugins, 47 agents, 39 skills
-- **Look for:** Plugin marketplace patterns, repo-intel tooling, CI-transferable agent coordination, skill management architecture
-- **Added:** 2026-03-29 (horizon scan) | **Observations:** 9 | **First seen:** 2026-03-29 | **SHA:** 842976d
-- **Notes:** Same org as agnix (Watch List). Codex plugin manifest added (.codex-plugin/plugin.json, 42 skills, 50 agents). 19-plugin marketplace. CI vs plugin ecosystem mismatch. JavaScript. Active development.
-
-### shinpr/claude-code-workflows
-- **Why:** Production-ready multi-agent workflows (257 stars, 44 forks) — specialized agents (technical-designer, document-reviewer, work-planner)
-- **Look for:** Multi-agent workflow organization, dependency verification patterns, role-based agent coordination
-- **Added:** 2026-03-29 (horizon scan) | **Observations:** 17 | **First seen:** 2026-03-29 | **Last deep:** 2026-04-04T15:12Z | **SHA:** 2af1b69
-- **Notes:** PR #102 (Apr 4): linear-prism external plugin (marketplace entry). PR #101: Execution Protocol standardization, frontend-backend recipe alignment. PR #100: threshold delegation. All interactive-session skill organization patterns — 0 CI-harness applicability. 7d+ since first seen. Active but 0 pattern hits — not promoting.
 
 ### Vigilant-LLC/runner-guard
 - **Why:** CI/CD security scanner (6 stars, Go) — 18 detection rules for GHA vulnerabilities: fork checkout exploits, expression injection, AI config injection (CLAUDE.md hijacking), supply chain steganography, unpinned actions, auto-fix, SARIF output
@@ -163,3 +151,9 @@
 
 ### humanlayer/humanlayer
 - **Dropped:** 2026-03-23 | **Reason:** Inactive since 2026-01-07 (11+ weeks), no relevant patterns
+
+### agent-sh/agentsys
+- **Dropped:** 2026-04-05 | **Reason:** 9 observations over 7 days, 0 CI-harness pattern hits. Plugin marketplace architecture (672 stars, JavaScript) fundamentally different from bash/markdown harness. All patterns interactive-session specific. Same org as agnix (retained on Watch as CC spec tracker).
+
+### shinpr/claude-code-workflows
+- **Dropped:** 2026-04-05 | **Reason:** 17 observations over 7 days, 0 CI-harness pattern hits. Multi-agent workflows (257 stars) — all skill organization and coordination patterns interactive-session specific. PRs #100-102 deep-dived, 0 CI applicability. Active but architecturally irrelevant.
