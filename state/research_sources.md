@@ -1,32 +1,32 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-04-05T18:16:43Z
+# Last updated: 2026-04-05T21:13:00Z
 
 ## Active Sources
 
 ### anthropics/claude-code
 - **Why:** The runtime we build on — releases, breaking changes, new hooks, CLI flags
 - **Look for:** CHANGELOG entries, new hook types, permission changes, SDK updates
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-04T03:51:00Z | **Pattern hits:** 2 | **SHA:** b543a25
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-05T21:12:19Z | **Pattern hits:** 2 | **SHA:** b543a25
 - **Notes:** Protected source — never drop. Check CHANGELOG and releases, not just commits. v2.1.92 (Apr 4): forceRemoteSettingsRefresh fail-closed policy, Stop hook preventContinuation fix, Write tool 60% faster (tabs/&/$), Linux sandbox seccomp, /tag+/vim removed, Bedrock setup wizard, per-model /cost breakdown, tmux pane fix. Previous: v2.1.91 MCP 500K result override, disableSkillShellExecution, bin/ in plugins. v2.1.90 /powerup, plugin offline cache. CC now has 18+ hook events.
 
 ### hesreallyhim/awesome-claude-code
 - **Why:** Curated ecosystem catalog — discover new tools, libraries, and patterns
 - **Look for:** New entries in Orchestrators/Tools/Skills sections, trending repos referenced
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-05T04:06:27Z | **Pattern hits:** 0 | **SHA:** 5902fa7
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-05T04:06:27Z | **Pattern hits:** 0 | **SHA:** f4d7e05
 - **Notes:** 0 pattern hits across 45+ observations. Submission enforcement governance (owner bypass), Teams subcategory — curation-specific patterns. Retain for HORIZON_SCAN cross-reference only.
 
 ### SethGammon/Citadel
 - **Why:** Agent orchestration harness (400 stars) — closest architecture to tokenman. Campaign persistence, parallel worktrees, circuit breaker, quality gate hooks, skill benchmarking, daemon factory
 - **Look for:** Skill benchmarking patterns, skill linting, governance hooks, testing infrastructure, fleet coordination, daemon factory patterns
-- **Added:** 2026-03-24 (watch) | **Promoted:** 2026-03-27 (synthesis — 35 obs, closest architecture, V2 patterns) | **Last deep:** 2026-04-03T04:01:00Z | **Pattern hits:** 1 | **SHA:** 37d151d
+- **Added:** 2026-03-24 (watch) | **Promoted:** 2026-03-27 (synthesis — 35 obs, closest architecture, V2 patterns) | **Last deep:** 2026-04-05T21:12:19Z | **Pattern hits:** 1 | **SHA:** 37d151d
 - **Notes:** Promoted from Watch List. PR #93 (Apr 2): community docs, roadmap, contributing guide. Roadmap: governance layer (per-agent policies, immutable audit), campaign recovery, web dashboard, team collab. Governance concept already informal in our autonomy rules. Runtime-agnostic foundation (#73-#87): JS framework refactor, multi-runtime direction. Not adoptable for bash/markdown harness. 1 pattern hit (circuit breaker #76).
 
 ### actions/runner
 - **Why:** CI/CD runtime we depend on — deprecation notices, new features, security fixes
 - **Look for:** Node.js version deprecation timelines, runner image changes, new action features
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-03-31T18:30 | **Pattern hits:** 0 | **SHA:** df50788
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-05T21:12:19Z | **Pattern hits:** 0 | **SHA:** df50788
 - **Notes:** Check releases, not just commits. df50788: brace-expansion dep bump. Bearer token auth for action archive downloads. PR #4296 (Mar 31): batch/dedup action resolution (merged). v2.333.1 (Mar 27): removed AllowCaseFunction. Node 20.20.2/24.14.1. 0 pattern hits across 11+ observations.
 
 ### withastro/astro
@@ -38,7 +38,7 @@
 ### verkyyi/tokenman
 - **Why:** Self-reference — track forks, adopters, and how the scaffold is used
 - **Look for:** New forks, adopter modifications, issues filed by users
-- **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 0 | **SHA:** 909c341
+- **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 0 | **SHA:** d3022f6
 - **Notes:** Used during HORIZON SCAN for adoption tracking. 0 forks, 0 adopters as of 2026-04-05. EvoMap/awesome-agent-evolution (21 stars) monitors tokenman in data/monitor-results.json but not curated — potential growth submission target (#149).
 
 ## Watch List
@@ -48,7 +48,7 @@
 - **Why:** Community harness patterns, skill collections, optimization techniques
 - **Look for:** New skills, CLAUDE.md patterns, workflow architectures, instinct files
 - **Demoted:** 2026-04-02 (synthesis — 13+ consecutive 0-pattern observations, all interactive-session specific, 0 CI-harness patterns)
-- **Observations:** 57+ | **First seen:** 2026-03-20 | **SHA:** 5df943e
+- **Observations:** 58+ | **First seen:** 2026-03-20 | **SHA:** 600de94
 - **Notes:** 1 pattern hit total (safety-guard PreToolUse hooks, early). CI cleanup, codex sync, install hardening — all interactive-session. From same author as agentshield. Monitor for CI-relevant patterns.
 
 ### bytedance/deer-flow
@@ -62,8 +62,8 @@
 - **Why:** Harness engineering patterns — skills, slash commands, review protocols, agent orchestration
 - **Look for:** Non-Codex workflow patterns, CI-transferable techniques
 - **Demoted:** 2026-03-27 (synthesis — 14 consecutive PH with 0 adoptable patterns, all Codex/interactive-session specific)
-- **Observations:** 62+ | **First seen:** 2026-03-20 | **SHA:** b3cd3fd
-- **Notes:** Historically most productive source (9 pattern hits across v0.9.7-v0.11.18.2). Demoted because pattern yield exhausted for CI-based harness. v0.15.5.0: declarative multi-host platform (OpenCode, Slate, Cursor, OpenClaw), self-healing skill prefix fix. Apr 5: adaptive gating + cross-review dedup for review army (v0.15.2.0). All interactive-session patterns. Monitor for CI-relevant patterns.
+- **Observations:** 63+ | **First seen:** 2026-03-20 | **SHA:** 422f172
+- **Notes:** Historically most productive source (9 pattern hits across v0.9.7-v0.11.18.2). Demoted because pattern yield exhausted for CI-based harness. v0.15.10.0: review army idempotency + cross-review dedup, native OpenClaw skills + ClaHub publishing. All interactive-session patterns. Monitor for CI-relevant patterns.
 
 ### trailofbits/skills
 - **Why:** Security-focused Claude Code skills (4K stars) from top security firm — audit workflows, vulnerability detection, semgrep rules
@@ -95,8 +95,8 @@
 ### affaan-m/agentshield
 - **Why:** AI agent security scanner (289 stars, 55 forks) — scans .claude/ for secrets, permission misconfigs, hook injection, MCP risks, prompt injection vectors. CLI + GitHub Action + GitHub App.
 - **Look for:** Agent config audit rules applicable to our harness, CI integration patterns, auto-fix capabilities for security issues
-- **Added:** 2026-04-01 (horizon scan) | **Observations:** 2 | **First seen:** 2026-04-01 | **SHA:** 6f1b5cc
-- **Notes:** From affaan-m (everything-claude-code author). TypeScript. Covers agent config security surface (complementary to runner-guard which covers CI/CD workflow security). Detects hardcoded secrets, overly permissive permissions, hook injection. Built at Claude Code Hackathon. GitHub Action available. Part of ECC ecosystem (42K+ stars). Our .claude/ config is minimal so immediate value is low — monitor for CI integration patterns.
+- **Added:** 2026-04-01 (horizon scan) | **Observations:** 3 | **First seen:** 2026-04-01 | **SHA:** 7442f37
+- **Notes:** From affaan-m (everything-claude-code author). TypeScript. Covers agent config security surface (complementary to runner-guard which covers CI/CD workflow security). Detects hardcoded secrets, overly permissive permissions, hook injection. Built at Claude Code Hackathon. GitHub Action available. Part of ECC ecosystem (42K+ stars). Our .claude/ config is minimal so immediate value is low — monitor for CI integration patterns. Apr 5: docs refresh (working context after branch audit).
 
 ### wanshuiyin/Auto-claude-code-research-in-sleep
 - **Why:** Autonomous ML research harness (5.4K stars, 455 forks) — markdown-only skills, cross-model review loops, idea discovery. Conceptually closest to evolve's autonomous research methodology.
