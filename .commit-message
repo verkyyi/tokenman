@@ -1,1 +1,1 @@
-feat(harness): add task-level learnings persistence for coder pipeline (closes #150)
+fix(workflow): pass PR title through env var to fix actionlint (closes #152)

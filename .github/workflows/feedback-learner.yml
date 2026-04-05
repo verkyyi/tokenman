@@ -318,7 +318,6 @@ jobs:
       - name: Record merged outcome
         run: |
           PR_NUM="${{ github.event.pull_request.number }}"
-          PR_TITLE="${{ github.event.pull_request.title }}"
           LINKED_ISSUE=$(gh pr view "$PR_NUM" --json body -q '.body' | grep -oP '(?:Fixes|Closes|Resolves)\s+#\K\d+' | head -1 || echo "")
           if [ -n "$LINKED_ISSUE" ]; then
             TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)
@@ -327,3 +326,4 @@ jobs:
           fi
         env:
           GH_TOKEN: ${{ github.token }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
