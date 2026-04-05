@@ -1,7 +1,7 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-04-05T12:18:00Z
+# Last updated: 2026-04-05T15:16:26Z
 
 ## Active Sources
 
@@ -14,7 +14,7 @@
 ### hesreallyhim/awesome-claude-code
 - **Why:** Curated ecosystem catalog — discover new tools, libraries, and patterns
 - **Look for:** New entries in Orchestrators/Tools/Skills sections, trending repos referenced
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-05T04:06:27Z | **Pattern hits:** 0 | **SHA:** e3d1778
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-05T04:06:27Z | **Pattern hits:** 0 | **SHA:** 2c16b1f
 - **Notes:** 0 pattern hits across 45+ observations. Submission enforcement governance (owner bypass), Teams subcategory — curation-specific patterns. Retain for HORIZON_SCAN cross-reference only.
 
 ### SethGammon/Citadel
@@ -55,7 +55,7 @@
 - **Why:** Multi-agent orchestration patterns from a major tech company
 - **Look for:** Agent coordination, state management, tool orchestration, LLM provider patterns
 - **Demoted:** 2026-04-02 (synthesis — 19+ consecutive 0-pattern deep-dives, all Python application-specific, fundamentally different stack)
-- **Observations:** 68+ | **First seen:** 2026-03-21 | **SHA:** 117fa9b
+- **Observations:** 69+ | **First seen:** 2026-03-21 | **SHA:** ca2fb95
 - **Notes:** 1 pattern hit total (early). Very active (5+ commits/day). Per-agent skill filter, concurrent file locks, Langfuse tracing — all Python. No transferable harness patterns despite extensive monitoring. Apr 5: sandbox guard fix, API soul field fix, deps update.
 
 ### garrytan/gstack
@@ -101,20 +101,20 @@
 ### wanshuiyin/Auto-claude-code-research-in-sleep
 - **Why:** Autonomous ML research harness (5.4K stars, 455 forks) — markdown-only skills, cross-model review loops, idea discovery. Conceptually closest to evolve's autonomous research methodology.
 - **Look for:** Autonomous research workflow patterns, cross-model review loops, skill organization, persistent memory patterns
-- **Added:** 2026-04-03 (horizon scan) | **Observations:** 8 | **First seen:** 2026-04-03 | **SHA:** b3fa601
+- **Added:** 2026-04-03 (horizon scan) | **Observations:** 9 | **First seen:** 2026-04-03 | **SHA:** d86b656
 - **Notes:** ARIS v0.3.3. Recent: Zenodo DOI badge, What's New updates — doc-only. Python + Markdown. ML-research domain, not CI harness. Same methodology concept as our evolve. Monitor for transferable workflow patterns.
 
 ### jnurre64/claude-agent-dispatch
 - **Why:** Label-driven Claude Code GHA dispatch (Shell, 2 stars) — closest architecture to tokenman. Modular agent-dispatch.sh + lib/, label state machine (10 agent:* labels), two-phase plan→implement with human checkpoint, ShellCheck + BATS-Core CI testing.
 - **Look for:** Shell script quality patterns, label state machine design, worktree isolation, error trap handling, BATS test patterns
-- **Added:** 2026-04-02 (horizon scan) | **Observations:** 8 | **First seen:** 2026-04-02 | **SHA:** aecacf4
-- **Notes:** Created 2026-03-21, actively maintained. Shell-only, no Node/Python deps. PR #15: runner setup guide (130-line SKILL.md expansion, public repo security warnings, credential mgmt). Reusable workflows (dispatch-*.yml) consumed via workflow_call. CI validates all scripts with ShellCheck + BATS. Architecturally closest to tokenman: issue-driven, label-based state, GHA runners, claude -p headless. Deep-dived architecture: scripts/lib/ (5 modules), BATS tests (6 files), global error trap with diagnostic comments, label state machine (10 labels), worktree stale prune. Issues: #129 (ShellCheck), #131 (dependabot), #139 (BATS testing). 2 pattern hits. Last deep: 2026-04-05T04:06Z. Apr 5: direct implement feature (bypasses plan phase), agent:implement label.
+- **Added:** 2026-04-02 (horizon scan) | **Observations:** 9 | **First seen:** 2026-04-02 | **SHA:** aecacf4
+- **Notes:** Created 2026-03-21, actively maintained. Shell-only, no Node/Python deps. PR #15: runner setup guide (130-line SKILL.md expansion, public repo security warnings, credential mgmt). Reusable workflows (dispatch-*.yml) consumed via workflow_call. CI validates all scripts with ShellCheck + BATS. Architecturally closest to tokenman: issue-driven, label-based state, GHA runners, claude -p headless. Deep-dived architecture: scripts/lib/ (5 modules), BATS tests (6 files), global error trap with diagnostic comments, label state machine (10 labels), worktree stale prune. Issues: #129 (ShellCheck), #131 (dependabot), #139 (BATS testing). 2 pattern hits. Last deep: 2026-04-05T15:16Z. Apr 5: direct implement feature (PR #16, 1790 additions), per-workflow concurrency groups (prevent cross-workflow cancellation). Both patterns not CI-adoptable for our architecture.
 
 ### montenegronyc/backporcher
 - **Why:** Parallel Claude Code agent dispatcher (10 stars, 1 fork, Python) — GitHub Issues as task queue, sandboxed worktrees, coordinator review, CI gating, auto-merge. 100% auto-merge rate on first production run (15 PRs, 0 manual interventions).
 - **Look for:** Batch orchestration with dependency chains, blast radius analysis (Tree-sitter + BFS), learnings persistence (success/failure feedback loop), 3-tier approval modes, code graph navigation maps, coordinator agent review patterns
-- **Added:** 2026-04-05 (horizon scan) | **Observations:** 2 | **First seen:** 2026-04-05 | **SHA:** 833b798
-- **Notes:** Created 2026-03-06, pushed Apr 2. Python + asyncio. Uses `claude -p` headless (same as us). Pipeline: Issue → Haiku triage → batch orchestrator → Sonnet code graph → sandboxed worktree → build verify → PR → coordinator review → CI monitor (auto-retry 3x) → merge. Three approval modes: full-auto, review-merge (default), review-all. Learnings from past success/failure fed to future agents. Most architecturally relevant HS discovery in 20+ runs.
+- **Added:** 2026-04-05 (horizon scan) | **Observations:** 3 | **First seen:** 2026-04-05 | **SHA:** 833b798
+- **Notes:** Created 2026-03-06, pushed Apr 2. Python + asyncio. Uses `claude -p` headless (same as us). Pipeline: Issue → Haiku triage → batch orchestrator → Sonnet code graph → sandboxed worktree → build verify → PR → coordinator review → CI monitor (auto-retry 3x) → merge. Three approval modes: full-auto, review-merge (default), review-all. Learnings from past success/failure fed to future agents. Most architecturally relevant HS discovery in 20+ runs. Deep-dived: rate-limit fallback chain (model escalation sonnet→opus, multi-backend rotation), code graph navigation (Tree-sitter+BFS blast radius), no-changes label cleanup. All Python-specific, 0 CI-adoptable patterns. Last deep: 2026-04-05T15:16Z.
 
 ## Dropped Sources
 <!-- Removed sources with reason. Kept for history so we don't re-discover them. -->
