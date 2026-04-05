@@ -1,13 +1,13 @@
 # Project State
-Last updated: 2026-04-05T07:00:00Z
+Last updated: 2026-04-05T09:00:00Z
 Updated by: watcher.yml
 
 ## Last Session
-Action: watcher.yml health check — all clear, 0 corrective actions. All workflows HEALTHY. Dependabot PRs #133/#135/#136 CLEAN+MERGEABLE (no branch update needed). 6 needs-human issues held. 3 legacy PRs CONFLICTING. Token utilization all HEALTHY.
+Action: watcher.yml health check — 3 corrective actions: updated Dependabot PRs #133/#135/#136 branches via WORKFLOW_PAT (37 commits behind main). All workflows HEALTHY. 6 needs-human issues held. 3 legacy PRs CONFLICTING. Token utilization: evolve MONITORING, all others HEALTHY.
 
 System health:
-- Evolve: MONITORING — turns 34-58, 3/11 exceed 55 (27%, below 30% threshold). High: 58 turns (PH Apr 5 04:09).
-- Watcher: HEALTHY — 0/20 exceed 50. Turns: 24-45.
+- Evolve: MONITORING — turns 34-58, 3/9 recent exceed 55 (33%, above 30% threshold). High: 58 turns (PH Apr 5 04:09).
+- Watcher: HEALTHY — 0/14 recent exceed 50. Turns: 24-44.
 - Coder: HEALTHY — last success Apr 4 12:22. 12-19 turns.
 - Reviewer: HEALTHY — last success Apr 4 12:24. 9 turns.
 - Triage: HEALTHY — last success Apr 4 20:47. #149 triaged.
@@ -19,8 +19,8 @@ System health:
 - Security Scan: HEALTHY — 10+ consecutive successes, all Dependabot PR checks passing.
 
 ## Current Priorities (ordered)
-1. **[READY]** Dependabot PRs: #133/#135/#136 APPROVED + checks passing, CLEAN+MERGEABLE, ready for human merge
-2. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 324h+, merge conflicts, awaiting human rebase + merge (workflow YAML)
+1. **[READY]** Dependabot PRs: #133/#135/#136 APPROVED + checks passing, CLEAN+MERGEABLE, branches updated, ready for human merge
+2. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 330h+, merge conflicts, awaiting human rebase + merge (workflow YAML)
 3. **[NEEDS-HUMAN]** Issue #22: Submit to awesome-claude-code — cooldown EXPIRED 14d+, highest-leverage growth action (36.4K stars)
 4. **[NEEDS-HUMAN]** PR #107: reduce HORIZON_SCAN cadence — APPROVED 2x, merge conflicts, escalated to needs-human
 5. **[NEEDS-HUMAN]** PR #112: env scrub hardening — 0 reviews, merge conflicts (4th cycle), all workflow YAML, needs manual rebase + merge
@@ -30,8 +30,8 @@ System health:
 9. **[NEEDS-HUMAN]** Issue #149: Submit to EvoMap/awesome-agent-evolution — needs-human, growth-action
 
 ## Open Items
-1. PRs #133, #135, #136: [ready] APPROVED + checks passing, CLEAN+MERGEABLE, ready for human merge
-2. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 324h+, CONFLICTING, needs human rebase + merge
+1. PRs #133, #135, #136: [ready] APPROVED + checks passing, CLEAN+MERGEABLE, branches updated, ready for human merge
+2. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 330h+, CONFLICTING, needs human rebase + merge
 3. Issue #22: [needs-human] Submit to awesome-claude-code — cooldown EXPIRED 14d+, highest-leverage
 4. Issue #103: [needs-human] PR #107 APPROVED 2x, merge conflicts, escalated to needs-human (workflow YAML)
 5. Issue #100: [needs-human] PR #112 APPROVED, merge conflicts (4th cycle), all workflow YAML — escalated
@@ -51,8 +51,8 @@ System health:
 - Reviewer.yml has a bug: README sync step doesn't handle dirty working tree (PR #55 APPROVED 324h+ — CONFLICTING, needs human rebase + merge)
 - Reviewer hallucination fix (#90) — NEVER close PR prompt guardrail + safety-net reopen step merged (PR #93)
 - GitHub auto-close fix (#84) DONE — reviewer.yml hardened with 3-tier fallback; watcher remains safety net
-- Evolve MONITORING — max-turns 55, 3/11 exceed (56, 56, 58). 27% below threshold. Turns: 34-58.
-- Watcher HEALTHY — max-turns 50, 0/20 exceed (0%). Turns: 24-45.
+- Evolve MONITORING — max-turns 55, 3/9 recent exceed (56, 56, 58). 33% above threshold. Turns: 34-58.
+- Watcher HEALTHY — max-turns 50, 0/14 recent exceed (0%). Turns: 24-44.
 - Issue #100: ESCALATED to needs-human. PR #112 APPROVED but merge conflicts (4th cycle). Manual rebase + merge required.
 - Issue #103: ESCALATED to needs-human. PR #107 APPROVED 2x, merge conflicts. Manual rebase + merge required.
 - Analyze STABLE — 22-31 turns
