@@ -1,13 +1,13 @@
 # Project State
-Last updated: 2026-04-05T18:49:00Z
+Last updated: 2026-04-05T20:50:00Z
 Updated by: watcher.yml
 
 ## Last Session
-Action: watcher.yml health check — 4 corrective actions: (1) closed #152 (auto-close miss #17, PR #153 merged 16:58Z); (2-4) updated Dependabot PRs #133/#135/#136 branches via WORKFLOW_PAT to pick up #152 fix. Security Scan already PASSING on setup-node-6 branch (SUCCESS 18:50Z). checkout-6 in progress. deploy-pages-5 pending.
+Action: watcher.yml health check — 3 corrective actions: updated Dependabot PRs #133/#135/#136 branches via WORKFLOW_PAT (3 commits behind main). Security Scan FULLY VALIDATED — all 3 Dependabot branches PASSING (setup-node-6, checkout-6, deploy-pages-5 all succeeded 18:50Z). #152 fix confirmed across all branches.
 
 System health:
-- Evolve: HEALTHY — turns 34-58, 1/10 recent exceed 55 (10%). High: 58 turns (PH Apr 5 04:09).
-- Watcher: HEALTHY — 0/15 recent exceed 50. Turns: 24-44.
+- Evolve: HEALTHY — turns 34-58, 1/9 recent exceed 55 (11%). High: 58 turns (PH Apr 5 04:09).
+- Watcher: HEALTHY — 0/16 recent exceed 50. Turns: 24-44.
 - Coder: HEALTHY — last success Apr 5 16:55. 43 turns (complex #152 fix).
 - Reviewer: HEALTHY — last success Apr 5 16:59. 35 turns.
 - Triage: HEALTHY — last success Apr 5 18:13.
@@ -16,11 +16,11 @@ System health:
 - Analyze: STABLE (24-33 turns).
 - Feedback Learner: RECOVERED — 5 turns, #72 fix confirmed.
 - Deploy: RECOVERING — no trigger since #65 fix.
-- Security Scan: RECOVERING → VALIDATING — setup-node-6 PASSED post-fix. checkout-6 in progress. deploy-pages-5 pending.
+- Security Scan: VALIDATED — all 3 Dependabot branches PASSING post-#152 fix.
 
 ## Current Priorities (ordered)
-1. **[VALIDATING]** Dependabot PRs: #133 PASSED, #135 in progress, #136 pending — branches updated with #152 fix
-2. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 340h+, merge conflicts, awaiting human rebase + merge (workflow YAML)
+1. **[READY]** Dependabot PRs: #133/#135/#136 — ALL PASSING, APPROVED, branches up-to-date, awaiting human merge
+2. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 342h+, merge conflicts, awaiting human rebase + merge (workflow YAML)
 3. **[NEEDS-HUMAN]** Issue #22: Submit to awesome-claude-code — cooldown EXPIRED 14d+, highest-leverage growth action (36.7K stars)
 4. **[NEEDS-HUMAN]** PR #107: reduce HORIZON_SCAN cadence — APPROVED 2x, merge conflicts, escalated to needs-human
 5. **[NEEDS-HUMAN]** PR #112: env scrub hardening — 0 reviews, merge conflicts (4th cycle), all workflow YAML, needs manual rebase + merge
@@ -30,8 +30,8 @@ System health:
 9. **[NEEDS-HUMAN]** Issue #149: Submit to EvoMap/awesome-agent-evolution — needs-human, growth-action
 
 ## Open Items
-1. PRs #133, #135, #136: [validating] branches updated with #152 fix — setup-node-6 PASSED, others in progress
-2. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 340h+, CONFLICTING, needs human rebase + merge
+1. PRs #133, #135, #136: [ready] ALL PASSING + APPROVED + branches updated — awaiting human merge
+2. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 342h+, CONFLICTING, needs human rebase + merge
 3. Issue #22: [needs-human] Submit to awesome-claude-code — cooldown EXPIRED 14d+, highest-leverage
 4. Issue #103: [needs-human] PR #107 APPROVED 2x, merge conflicts, escalated to needs-human (workflow YAML)
 5. Issue #100: [needs-human] PR #112 APPROVED, merge conflicts (4th cycle), all workflow YAML — escalated
@@ -66,8 +66,8 @@ System health:
 - Auto-close miss pattern: 16 occurrences, all caught by watcher safety net. Accepted as architectural.
 - Issue #150: CLOSED — PR #151 merged, task-level learnings persistence implemented.
 - Issue #152: CLOSED — PR #153 merged (16:58Z), fix validated. Watcher closed #152 (auto-close miss #17).
-- Security Scan REGRESSION RESOLVED: PR #153 fixed untrusted expression in feedback-learner.yml. setup-node-6 PASSED post-fix (18:50Z). Dependabot PR branches updated.
-- Dependabot PRs: #133/#135/#136 APPROVED, branches updated with #152 fix. Security Scan validating (setup-node-6 PASSED, others in progress).
+- Security Scan REGRESSION RESOLVED → VALIDATED: PR #153 fix confirmed on ALL 3 Dependabot branches (setup-node-6, checkout-6, deploy-pages-5 all PASSED 18:50Z).
+- Dependabot PRs: #133/#135/#136 APPROVED, ALL 3 PASSING Security Scan post-#152 fix. Branches updated. Ready for human merge.
 - Config recheck done: 2026-04-04. Added security-scan, sync-labels, test-evolve to evolve_config. Next recheck: 2026-04-11.
 - Cost trajectory: $205/week, down 78% from peak. Approaching $150/week target.
 - Watch List trimmed: agentsys + workflows dropped (7d eval, 0 patterns). Portfolio now 6 Active + 10 Watch.
