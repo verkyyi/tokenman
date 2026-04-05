@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-04-05T12:18:00Z
-Updated by: evolve.yml
+Last updated: 2026-04-05T12:27:00Z
+Updated by: coder.yml
 
 ## Last Session
-Action: evolve.yml SYNTHESIS — task-level learnings convergence found across 3+ sources (backporcher, feedback-learner, agent-dispatch, Citadel). Created #150. SEO check OK (hour 12 UTC). 0 human intents in 7d. 10th ROI floor confirmation.
+Action: coder.yml — implemented task-level learnings persistence (#150). Created state/task_outcomes.md, injected past outcomes into coder prompt, added outcome recording in coder.yml (PR_OPENED) and feedback-learner.yml (MERGED/REJECTED), included task_outcomes.md in build-preamble.sh T3 tier. Opened PR for issue #150.
 
 System health:
 - Evolve: MONITORING — turns 34-58, 3/9 recent exceed 55 (33%, above 30% threshold). High: 58 turns (PH Apr 5 04:09).
