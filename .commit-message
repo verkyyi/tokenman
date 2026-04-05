@@ -1,1 +1,1 @@
-fix: update README Research Sources section to posture-based rotation (closes #147)
+feat(harness): add task-level learnings persistence for coder pipeline (closes #150)

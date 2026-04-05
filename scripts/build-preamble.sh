@@ -54,6 +54,9 @@ fi
     echo "## Recent Agent Log (last 30 lines)"
     tail -30 "$REPO_ROOT/state/agent_log.md" 2>/dev/null || echo "(not found)"
     echo ""
+    echo "## Recent Task Outcomes (last 15 lines)"
+    tail -15 "$REPO_ROOT/state/task_outcomes.md" 2>/dev/null || echo "(not found)"
+    echo ""
   fi
 
   if [ "$TIER" -ge 4 ]; then
