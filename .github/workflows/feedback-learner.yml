@@ -256,6 +256,11 @@ jobs:
           *Re-queued by feedback-learner.yml*" \
             --repo ${{ github.repository }}
 
+          # Record REJECTED outcome
+          TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          echo "${TIMESTAMP} | issue #${LINKED_ISSUE} | REJECTED | PR #${PR_NUM} closed without merge" >> state/task_outcomes.md
+          ./scripts/commit-state.sh state/task_outcomes.md "state: record REJECTED outcome for #${LINKED_ISSUE}"
+
           # Write action-needed file for existing Act on feedback step
           echo "${LINKED_ISSUE}|RETRIGGER_CODER|PR #${PR_NUM} closed without merge, needs rework" > .action-needed
         env:
@@ -297,5 +302,28 @@ jobs:
           esac
 
           rm -f .action-needed
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+  record-merge:
+    # Record MERGED outcome for task-level learnings
+    if: >
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Record merged outcome
+        run: |
+          PR_NUM="${{ github.event.pull_request.number }}"
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          LINKED_ISSUE=$(gh pr view "$PR_NUM" --json body -q '.body' | grep -oP '(?:Fixes|Closes|Resolves)\s+#\K\d+' | head -1 || echo "")
+          if [ -n "$LINKED_ISSUE" ]; then
+            TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+            echo "${TIMESTAMP} | issue #${LINKED_ISSUE} | MERGED | PR #${PR_NUM}: ${PR_TITLE}" >> state/task_outcomes.md
+            ./scripts/commit-state.sh state/task_outcomes.md "state: record MERGED outcome for #${LINKED_ISSUE}"
+          fi
         env:
           GH_TOKEN: ${{ github.token }}

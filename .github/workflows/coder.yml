@@ -119,8 +119,14 @@ jobs:
           # Fetch issue comments for context (helps when coder is re-triggered after rejection)
           ISSUE_COMMENTS=$(gh issue view "$ISSUE_NUM" --json comments -q '.comments[] | "[\(.author.login)] \(.body)"' | tail -20)
 
+          # Read past task outcomes for learning context
+          TASK_OUTCOMES=$(tail -15 state/task_outcomes.md 2>/dev/null || echo "(no outcomes yet)")
+
           cat > /tmp/coder_prompt.txt << PROMPT
           $(./scripts/build-preamble.sh 3)
+
+          ## Past Task Outcomes
+          ${TASK_OUTCOMES}
 
           ---
 
@@ -331,6 +337,19 @@ jobs:
           gh issue comment "$ISSUE_NUM" \
             --body "**Coder agent:** Fix implemented. See PR #${PR_NUMBER}." \
             --repo ${{ github.repository }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Record task outcome
+        if: steps.human.outputs.SKIP != 'true' && steps.check.outputs.FAILED == 'false' && steps.pr.outputs.PR_NUMBER != ''
+        run: |
+          ISSUE_NUM=${{ steps.issue.outputs.NUMBER }}
+          ISSUE_TITLE="${{ steps.issue.outputs.TITLE }}"
+          PR_NUMBER=${{ steps.pr.outputs.PR_NUMBER }}
+          TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          mkdir -p state
+          echo "${TIMESTAMP} | issue #${ISSUE_NUM} | PR_OPENED | PR #${PR_NUMBER}: ${ISSUE_TITLE}" >> state/task_outcomes.md
+          ./scripts/commit-state.sh state/task_outcomes.md "state: record task outcome for #${ISSUE_NUM}"
         env:
           GH_TOKEN: ${{ github.token }}
 
