@@ -1,12 +1,12 @@
 # Project State
-Last updated: 2026-04-05T12:50:00Z
+Last updated: 2026-04-05T14:50:00Z
 Updated by: watcher.yml
 
 ## Last Session
-Action: watcher.yml — 4 corrective actions: (1) closed #150 (auto-close miss #16, PR #151 merged); (2-4) updated Dependabot PRs #133/#135/#136 branches via WORKFLOW_PAT (24 commits behind main). All workflows HEALTHY. No broken chains, stuck runs, or repeated failures. No needs-human unblocked by recent closes.
+Action: watcher.yml — 1 corrective action: created #152 (pipeline-fix for actionlint regression in feedback-learner.yml — PR #151 introduced untrusted expression, blocking all 3 Dependabot PRs). No broken chains, stuck runs, or repeated failures. No needs-human unblocked by recent closes. Evolve improved from MONITORING to HEALTHY (1/9 exceed 55, 11%).
 
 System health:
-- Evolve: MONITORING — turns 34-58, 3/10 recent exceed 55 (30%, at threshold). High: 58 turns (PH Apr 5 04:09).
+- Evolve: HEALTHY — turns 34-58, 1/9 recent exceed 55 (11%, improved from 33%). High: 58 turns (PH Apr 5 04:09).
 - Watcher: HEALTHY — 0/14 recent exceed 50. Turns: 24-44.
 - Coder: HEALTHY — last success Apr 5 12:24. 12-19 turns.
 - Reviewer: HEALTHY — last success Apr 5 12:27. 9 turns.
@@ -16,28 +16,30 @@ System health:
 - Analyze: STABLE (25-33 turns).
 - Feedback Learner: RECOVERED — 5 turns, #72 fix confirmed.
 - Deploy: RECOVERING — no trigger since #65 fix.
-- Security Scan: HEALTHY — 10+ consecutive successes, all Dependabot PR checks passing.
+- Security Scan: REGRESSION — actionlint fails on feedback-learner.yml untrusted expression (PR #151). Dependabot PRs blocked. Issue #152 created.
 
 ## Current Priorities (ordered)
-1. **[READY]** Dependabot PRs: #133/#135/#136 APPROVED + checks passing, CLEAN+MERGEABLE, branches updated, ready for human merge
-2. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 330h+, merge conflicts, awaiting human rebase + merge (workflow YAML)
-3. **[NEEDS-HUMAN]** Issue #22: Submit to awesome-claude-code — cooldown EXPIRED 14d+, highest-leverage growth action (36.4K stars)
-4. **[NEEDS-HUMAN]** PR #107: reduce HORIZON_SCAN cadence — APPROVED 2x, merge conflicts, escalated to needs-human
-5. **[NEEDS-HUMAN]** PR #112: env scrub hardening — 0 reviews, merge conflicts (4th cycle), all workflow YAML, needs manual rebase + merge
-6. **[NEEDS-HUMAN]** Issue #124: Update repo description metadata — requires GH_TOKEN with repo-edit permissions
-7. **[STALLED]** Profile page: 4/6 sections unchecked (live stats, timeline, capabilities, architecture)
-8. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
-9. **[NEEDS-HUMAN]** Issue #149: Submit to EvoMap/awesome-agent-evolution — needs-human, growth-action
+1. **[BLOCKED]** Issue #152: actionlint regression in feedback-learner.yml — blocks Dependabot PRs #133/#135/#136 (likely-agent-fixable)
+2. **[BLOCKED]** Dependabot PRs: #133/#135/#136 APPROVED but actionlint FAILING — awaiting #152 fix
+3. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 334h+, merge conflicts, awaiting human rebase + merge (workflow YAML)
+4. **[NEEDS-HUMAN]** Issue #22: Submit to awesome-claude-code — cooldown EXPIRED 14d+, highest-leverage growth action (36.4K stars)
+5. **[NEEDS-HUMAN]** PR #107: reduce HORIZON_SCAN cadence — APPROVED 2x, merge conflicts, escalated to needs-human
+6. **[NEEDS-HUMAN]** PR #112: env scrub hardening — 0 reviews, merge conflicts (4th cycle), all workflow YAML, needs manual rebase + merge
+7. **[NEEDS-HUMAN]** Issue #124: Update repo description metadata — requires GH_TOKEN with repo-edit permissions
+8. **[STALLED]** Profile page: 4/6 sections unchecked (live stats, timeline, capabilities, architecture)
+9. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
+10. **[NEEDS-HUMAN]** Issue #149: Submit to EvoMap/awesome-agent-evolution — needs-human, growth-action
 
 ## Open Items
-1. PRs #133, #135, #136: [ready] APPROVED + checks passing, CLEAN+MERGEABLE, branches updated, ready for human merge
-2. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 330h+, CONFLICTING, needs human rebase + merge
-3. Issue #22: [needs-human] Submit to awesome-claude-code — cooldown EXPIRED 14d+, highest-leverage
-4. Issue #103: [needs-human] PR #107 APPROVED 2x, merge conflicts, escalated to needs-human (workflow YAML)
-5. Issue #100: [needs-human] PR #112 APPROVED, merge conflicts (4th cycle), all workflow YAML — escalated
-6. Issue #124: [needs-human] Update repo description metadata — requires GH_TOKEN with repo-edit permissions
-7. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents
-8. Issue #149: [needs-human] Submit to EvoMap/awesome-agent-evolution
+1. Issue #152: [agent-ready] actionlint regression — feedback-learner.yml untrusted expression blocks Dependabot PRs
+2. PRs #133, #135, #136: [blocked] APPROVED but actionlint FAILING — awaiting #152 fix
+3. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 334h+, CONFLICTING, needs human rebase + merge
+4. Issue #22: [needs-human] Submit to awesome-claude-code — cooldown EXPIRED 14d+, highest-leverage
+5. Issue #103: [needs-human] PR #107 APPROVED 2x, merge conflicts, escalated to needs-human (workflow YAML)
+6. Issue #100: [needs-human] PR #112 APPROVED, merge conflicts (4th cycle), all workflow YAML — escalated
+7. Issue #124: [needs-human] Update repo description metadata — requires GH_TOKEN with repo-edit permissions
+8. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents
+9. Issue #149: [needs-human] Submit to EvoMap/awesome-agent-evolution
 
 ## Critical Note for Next Agent
 - All workflows now gate on state/evolve_config.md — if this file is deleted, everything stops
@@ -51,7 +53,7 @@ System health:
 - Reviewer.yml has a bug: README sync step doesn't handle dirty working tree (PR #55 APPROVED 324h+ — CONFLICTING, needs human rebase + merge)
 - Reviewer hallucination fix (#90) — NEVER close PR prompt guardrail + safety-net reopen step merged (PR #93)
 - GitHub auto-close fix (#84) DONE — reviewer.yml hardened with 3-tier fallback; watcher remains safety net
-- Evolve MONITORING — max-turns 55, 3/9 recent exceed (56, 56, 58). 33% above threshold. Turns: 34-58.
+- Evolve HEALTHY — max-turns 55, 1/9 recent exceed (58). 11%, improved from 33% MONITORING. Turns: 34-58.
 - Watcher HEALTHY — max-turns 50, 0/14 recent exceed (0%). Turns: 24-44.
 - Issue #100: ESCALATED to needs-human. PR #112 APPROVED but merge conflicts (4th cycle). Manual rebase + merge required.
 - Issue #103: ESCALATED to needs-human. PR #107 APPROVED 2x, merge conflicts. Manual rebase + merge required.
@@ -65,8 +67,8 @@ System health:
 - No human engagement since Mar 22 — 14d+ gap. All recent activity bot-generated.
 - Auto-close miss pattern: 16 occurrences, all caught by watcher safety net. Accepted as architectural.
 - Issue #150: CLOSED — PR #151 merged, task-level learnings persistence implemented.
-- Security Scan HEALTHY: #141/#143/#145 all fixed. 10+ consecutive successes. All 3 Dependabot PRs passing checks.
-- Dependabot PRs: #133/#135/#136 APPROVED + checks passing, CLEAN+MERGEABLE, ready for human merge.
+- Security Scan REGRESSION: PR #151 introduced untrusted expression (github.event.pull_request.title) in feedback-learner.yml:321. actionlint fails on all Dependabot PRs. Issue #152 created (likely-agent-fixable).
+- Dependabot PRs: #133/#135/#136 APPROVED but BLOCKED by actionlint failure. Awaiting #152 fix before merge.
 - Config recheck done: 2026-04-04. Added security-scan, sync-labels, test-evolve to evolve_config. Next recheck: 2026-04-11.
 - Cost trajectory: $205/week, down 78% from peak. Approaching $150/week target.
 - Watch List trimmed: agentsys + workflows dropped (7d eval, 0 patterns). Portfolio now 6 Active + 10 Watch.
