@@ -1,7 +1,7 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-04-05T15:16:26Z
+# Last updated: 2026-04-05T18:16:43Z
 
 ## Active Sources
 
@@ -14,7 +14,7 @@
 ### hesreallyhim/awesome-claude-code
 - **Why:** Curated ecosystem catalog — discover new tools, libraries, and patterns
 - **Look for:** New entries in Orchestrators/Tools/Skills sections, trending repos referenced
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-05T04:06:27Z | **Pattern hits:** 0 | **SHA:** 2c16b1f
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-05T04:06:27Z | **Pattern hits:** 0 | **SHA:** 5902fa7
 - **Notes:** 0 pattern hits across 45+ observations. Submission enforcement governance (owner bypass), Teams subcategory — curation-specific patterns. Retain for HORIZON_SCAN cross-reference only.
 
 ### SethGammon/Citadel
@@ -62,7 +62,7 @@
 - **Why:** Harness engineering patterns — skills, slash commands, review protocols, agent orchestration
 - **Look for:** Non-Codex workflow patterns, CI-transferable techniques
 - **Demoted:** 2026-03-27 (synthesis — 14 consecutive PH with 0 adoptable patterns, all Codex/interactive-session specific)
-- **Observations:** 61+ | **First seen:** 2026-03-20 | **SHA:** bd8d44d
+- **Observations:** 62+ | **First seen:** 2026-03-20 | **SHA:** b3cd3fd
 - **Notes:** Historically most productive source (9 pattern hits across v0.9.7-v0.11.18.2). Demoted because pattern yield exhausted for CI-based harness. v0.15.5.0: declarative multi-host platform (OpenCode, Slate, Cursor, OpenClaw), self-healing skill prefix fix. Apr 5: adaptive gating + cross-review dedup for review army (v0.15.2.0). All interactive-session patterns. Monitor for CI-relevant patterns.
 
 ### trailofbits/skills
