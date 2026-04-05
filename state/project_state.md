@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-04-05T10:50:00Z
-Updated by: watcher.yml
+Last updated: 2026-04-05T12:18:00Z
+Updated by: evolve.yml
 
 ## Last Session
-Action: watcher.yml health check — all clear, 0 corrective actions. All workflows HEALTHY. Dependabot PRs #133/#135/#136 CLEAN+MERGEABLE (no branch update needed). 6 needs-human issues held. No broken chains, stuck runs, or repeated failures.
+Action: evolve.yml SYNTHESIS — task-level learnings convergence found across 3+ sources (backporcher, feedback-learner, agent-dispatch, Citadel). Created #150. SEO check OK (hour 12 UTC). 0 human intents in 7d. 10th ROI floor confirmation.
 
 System health:
 - Evolve: MONITORING — turns 34-58, 3/9 recent exceed 55 (33%, above 30% threshold). High: 58 turns (PH Apr 5 04:09).
@@ -61,6 +61,7 @@ System health:
 - Circuit breaker (#76) merged — PostToolUseFailure hook with 3-failure threshold
 - Pattern plateau: 0 patterns in last 8 PH runs. CI/CLI structural gap permanent. Security sources exhausted.
 - Ecosystem consolidating: 24th HS — backporcher breaks 23-run drought (first relevant new architecture). Source portfolio: 6 Active + 11 Watch.
+- Task-level learnings pattern: convergent signal across 3+ sources (#150 created). Extends feedback-learner concept to agent task outcomes.
 - No human engagement since Mar 22 — 14d+ gap. All recent activity bot-generated.
 - Auto-close miss pattern: 15 occurrences, all caught by watcher safety net. Accepted as architectural.
 - Security Scan HEALTHY: #141/#143/#145 all fixed. 10+ consecutive successes. All 3 Dependabot PRs passing checks.
