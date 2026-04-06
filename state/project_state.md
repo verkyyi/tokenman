@@ -1,18 +1,18 @@
 # Project State
-Last updated: 2026-04-06T01:10:00Z
+Last updated: 2026-04-06T03:50:00Z
 Updated by: watcher.yml
 
 ## Last Session
-Action: watcher.yml health check — all clear, 0 corrective actions. All workflows HEALTHY. Dependabot PRs #133/#135/#136 CLEAN (no branch update needed), APPROVED, all Security Scans passing. 6 needs-human issues correctly held. No broken chains, no stuck runs, no repeated failures. No recently closed issues unblock needs-human. Token utilization all HEALTHY.
+Action: watcher.yml health check — all clear, 0 corrective actions. All workflows HEALTHY. Dependabot PRs #133/#135/#136 CLEAN+MERGEABLE (no branch update needed), APPROVED, all Security Scans passing. 6 needs-human issues correctly held. No broken chains, no stuck runs, no repeated failures. No recently closed issues unblock needs-human. Token utilization all HEALTHY.
 
 System health:
 - Evolve: HEALTHY — turns 34-58, 1/9 recent exceed 55 (11%). High: 58 turns (PH Apr 5 04:09).
-- Watcher: HEALTHY — 0/18 recent exceed 50. Turns: 24-44.
+- Watcher: HEALTHY — 0/12 recent exceed 50. Turns: 22-40.
 - Coder: HEALTHY — last success Apr 5 16:55. 43 turns (complex #152 fix).
 - Reviewer: HEALTHY — last success Apr 5 16:59. 35 turns.
 - Triage: HEALTHY — last success Apr 5 18:13.
 - Weekly Analysis: HEALTHY — last success Apr 6 00:25.
-- Growth: HEALTHY (31-34 turns).
+- Growth: HEALTHY (31 turns).
 - Analyze: STABLE (24-33 turns).
 - Feedback Learner: RECOVERED — 5 turns, #72 fix confirmed.
 - Deploy: RECOVERING — no trigger since #65 fix.
@@ -30,8 +30,8 @@ System health:
 9. **[NEEDS-HUMAN]** Issue #149: Submit to EvoMap/awesome-agent-evolution — needs-human, growth-action
 
 ## Open Items
-1. PRs #133, #135, #136: [ready] ALL PASSING + APPROVED + CLEAN (01:10Z) — awaiting human merge
-2. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 348h+, CONFLICTING, needs human rebase + merge
+1. PRs #133, #135, #136: [ready] ALL PASSING + APPROVED + CLEAN (03:50Z) — awaiting human merge
+2. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 350h+, CONFLICTING, needs human rebase + merge
 3. Issue #22: [needs-human] Submit to awesome-claude-code — cooldown EXPIRED 14d+, highest-leverage
 4. Issue #103: [needs-human] PR #107 APPROVED 2x, merge conflicts, escalated to needs-human (workflow YAML)
 5. Issue #100: [needs-human] PR #112 APPROVED, merge conflicts (4th cycle), all workflow YAML — escalated
@@ -52,7 +52,7 @@ System health:
 - Reviewer hallucination fix (#90) — NEVER close PR prompt guardrail + safety-net reopen step merged (PR #93)
 - GitHub auto-close fix (#84) DONE — reviewer.yml hardened with 3-tier fallback; watcher remains safety net
 - Evolve HEALTHY — max-turns 55, 1/9 recent exceed (58). 11%, improved from 33% MONITORING. Turns: 34-58.
-- Watcher HEALTHY — max-turns 50, 0/18 recent exceed (0%). Turns: 24-44.
+- Watcher HEALTHY — max-turns 50, 0/12 recent exceed (0%). Turns: 22-40.
 - Issue #100: ESCALATED to needs-human. PR #112 APPROVED but merge conflicts (4th cycle). Manual rebase + merge required.
 - Issue #103: ESCALATED to needs-human. PR #107 APPROVED 2x, merge conflicts. Manual rebase + merge required.
 - Analyze STABLE — 22-31 turns
@@ -62,7 +62,7 @@ System health:
 - Pattern plateau: 0 patterns in last 8 PH runs. CI/CLI structural gap permanent. Security sources exhausted.
 - Ecosystem consolidating: 24th HS — backporcher breaks 23-run drought (first relevant new architecture). Source portfolio: 6 Active + 11 Watch.
 - Task-level learnings pattern: convergent signal across 3+ sources (#150 created). Extends feedback-learner concept to agent task outcomes.
-- No human engagement since Mar 22 — 15d+ gap. All recent activity bot-generated.
+- No human engagement since Mar 22 — 16d+ gap. All recent activity bot-generated.
 - Auto-close miss pattern: 16 occurrences, all caught by watcher safety net. Accepted as architectural.
 - Issue #150: CLOSED — PR #151 merged, task-level learnings persistence implemented.
 - Issue #152: CLOSED — PR #153 merged (16:58Z), fix validated. Watcher closed #152 (auto-close miss #17).
