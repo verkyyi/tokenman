@@ -1,17 +1,17 @@
 # Project State
-Last updated: 2026-04-06T12:29:00Z
-Updated by: evolve.yml
+Last updated: 2026-04-06T12:55:00Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: evolve.yml HORIZON_SCAN (26th). 4 query sets, 6 repos evaluated, 0 Watch List additions. gstack dropped from Watch (10d, 0 CI patterns). Active 2/5 changed (awesome-cc, astro). Watch 0/10 frozen. 0 forks, 2 stars. Portfolio: 6 Active + 10 Watch. 0 issues created.
+Action: watcher.yml health check. 3 corrective actions: updated Dependabot PRs #133/#135/#136 branches via WORKFLOW_PAT (6 commits behind main). All workflows HEALTHY. No broken chains, no repeated failures, no stuck runs. 6 needs-human issues held. Token utilization healthy — cost ~$105/week (below $150 target).
 
 System health:
-- Evolve: HEALTHY — turns 34-58, 1/12 recent exceed 55 (8%).
-- Watcher: HEALTHY — 0/10 recent exceed 50. Turns: 22-40.
+- Evolve: HEALTHY — turns 34-58, 4/61 lifetime exceed 55 (6.6%).
+- Watcher: HEALTHY — 1/83 lifetime exceed 50 (1.2%). Turns: 22-40.
 - Coder: HEALTHY — last success Apr 5 16:55. 43 turns.
 - Reviewer: HEALTHY — last success Apr 5 16:59. 9-35 turns.
 - Triage: HEALTHY — last success Apr 6 09:32.
-- Weekly Analysis: HEALTHY — last success Apr 6 06:38.
+- Weekly Analysis: HEALTHY — last success Apr 6 12:17.
 - Growth: HEALTHY (31 turns).
 - Analyze: STABLE (21-33 turns).
 - Feedback Learner: RECOVERED — 5 turns, #72 fix confirmed.
@@ -30,8 +30,8 @@ System health:
 9. **[NEEDS-HUMAN]** Issue #149: Submit to EvoMap/awesome-agent-evolution — needs-human, growth-action
 
 ## Open Items
-1. PRs #133, #135, #136: [ready] ALL PASSING + APPROVED + branches updated (10:55Z) — awaiting human merge
-2. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 358h+, CONFLICTING, needs human rebase + merge
+1. PRs #133, #135, #136: [ready] ALL PASSING + APPROVED + branches updated (12:55Z) — awaiting human merge
+2. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 360h+, CONFLICTING, needs human rebase + merge
 3. Issue #22: [needs-human] Submit to awesome-claude-code — cooldown EXPIRED 14d+, highest-leverage
 4. Issue #103: [needs-human] PR #107 APPROVED 2x, merge conflicts, escalated to needs-human (workflow YAML)
 5. Issue #100: [needs-human] PR #112 APPROVED, merge conflicts (4th cycle), all workflow YAML — escalated
@@ -69,6 +69,6 @@ System health:
 - Security Scan REGRESSION RESOLVED → VALIDATED: PR #153 fix confirmed on ALL 3 Dependabot branches (setup-node-6, checkout-6, deploy-pages-5 all PASSED 18:50Z).
 - Dependabot PRs: #133/#135/#136 APPROVED, ALL 3 PASSING Security Scan post-#152 fix. Branches updated. Ready for human merge.
 - Config recheck done: 2026-04-04. Added security-scan, sync-labels, test-evolve to evolve_config. Next recheck: 2026-04-11.
-- Cost trajectory: $205/week, down 78% from peak. Approaching $150/week target.
+- Cost trajectory: ~$105/week ($15/day), down from $205/week. Below $150/week target.
 - Watch List trimmed: agentsys + workflows dropped (7d eval, 0 patterns). Portfolio now 6 Active + 10 Watch.
 - Research log archived: 219→104 lines, 117 entries moved to archive (2026-04-05).
