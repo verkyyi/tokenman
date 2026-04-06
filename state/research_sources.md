@@ -1,7 +1,7 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-04-06T09:34:40Z
+# Last updated: 2026-04-06T12:28:12Z
 
 ## Active Sources
 
@@ -14,7 +14,7 @@
 ### hesreallyhim/awesome-claude-code
 - **Why:** Curated ecosystem catalog — discover new tools, libraries, and patterns
 - **Look for:** New entries in Orchestrators/Tools/Skills sections, trending repos referenced
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-06T09:34:40Z | **Pattern hits:** 0 | **SHA:** 5450ea4
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-06T09:34:40Z | **Pattern hits:** 0 | **SHA:** 3d8bde2
 - **Notes:** 0 pattern hits across 45+ observations. Submission enforcement governance (owner bypass), Teams subcategory — curation-specific patterns. Retain for HORIZON_SCAN cross-reference only.
 
 ### SethGammon/Citadel
@@ -32,13 +32,13 @@
 ### withastro/astro
 - **Why:** Web framework we use — security fixes, breaking changes, new features
 - **Look for:** Security advisories, breaking changes in minor/major releases, new content collection features
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-06T09:34:40Z | **Pattern hits:** 0 | **SHA:** 5557dca
-- **Notes:** Only actionable for security fixes or features that affect our site build. SHA changed 23425e2→fa8033b (Apr 4). 0 harness patterns across 18+ observations.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-06T09:34:40Z | **Pattern hits:** 0 | **SHA:** 73cbb9c
+- **Notes:** Only actionable for security fixes or features that affect our site build. 0 harness patterns across 18+ observations.
 
 ### verkyyi/tokenman
 - **Why:** Self-reference — track forks, adopters, and how the scaffold is used
 - **Look for:** New forks, adopter modifications, issues filed by users
-- **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 0 | **SHA:** 454722a
+- **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 0 | **SHA:** e98c48d
 - **Notes:** Used during HORIZON SCAN for adoption tracking. 0 forks, 0 adopters as of 2026-04-05. EvoMap/awesome-agent-evolution (21 stars) monitors tokenman in data/monitor-results.json but not curated — potential growth submission target (#149).
 
 ## Watch List
@@ -57,13 +57,6 @@
 - **Demoted:** 2026-04-02 (synthesis — 19+ consecutive 0-pattern deep-dives, all Python application-specific, fundamentally different stack)
 - **Observations:** 72+ | **First seen:** 2026-03-21 | **SHA:** 055e4df
 - **Notes:** 1 pattern hit total (early). Very active (5+ commits/day). Per-agent skill filter, concurrent file locks, Langfuse tracing — all Python. No transferable harness patterns despite extensive monitoring. Apr 5: sandbox guard fix, API soul field fix, deps update.
-
-### garrytan/gstack
-- **Why:** Harness engineering patterns — skills, slash commands, review protocols, agent orchestration
-- **Look for:** Non-Codex workflow patterns, CI-transferable techniques
-- **Demoted:** 2026-03-27 (synthesis — 14 consecutive PH with 0 adoptable patterns, all Codex/interactive-session specific)
-- **Observations:** 66+ | **First seen:** 2026-03-20 | **SHA:** 03973c2
-- **Notes:** Historically most productive source (9 pattern hits across v0.9.7-v0.11.18.2). Demoted because pattern yield exhausted for CI-based harness. v0.15.10.0: review army idempotency + cross-review dedup, native OpenClaw skills + ClaHub publishing. v0.15.13.0: community security wave (8 PRs, 4 contributors — RCE fix, path traversal, symlink resolution). All interactive-session patterns. Monitor for CI-relevant patterns.
 
 ### trailofbits/skills
 - **Why:** Security-focused Claude Code skills (4K stars) from top security firm — audit workflows, vulnerability detection, semgrep rules
@@ -160,6 +153,9 @@
 
 ### agent-sh/agentsys
 - **Dropped:** 2026-04-05 | **Reason:** 9 observations over 7 days, 0 CI-harness pattern hits. Plugin marketplace architecture (672 stars, JavaScript) fundamentally different from bash/markdown harness. All patterns interactive-session specific. Same org as agnix (retained on Watch as CC spec tracker).
+
+### garrytan/gstack
+- **Dropped:** 2026-04-06 | **Reason:** 66+ observations, 10d on Watch since demotion (2026-03-27), 0 CI-harness patterns since. Historically most productive source (9 pattern hits across v0.9.7-v0.11.18.2) but pattern yield exhausted — all recent patterns (review army, ClaHub, security wave) interactive-session specific. SHA 03973c2 stale. Synthesis-flagged for drop.
 
 ### shinpr/claude-code-workflows
 - **Dropped:** 2026-04-05 | **Reason:** 17 observations over 7 days, 0 CI-harness pattern hits. Multi-agent workflows (257 stars) — all skill organization and coordination patterns interactive-session specific. PRs #100-102 deep-dived, 0 CI applicability. Active but architecturally irrelevant.
