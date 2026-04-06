@@ -1,7 +1,7 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-04-06T00:41:47Z
+# Last updated: 2026-04-06T04:06:00Z
 
 ## Active Sources
 
@@ -14,7 +14,7 @@
 ### hesreallyhim/awesome-claude-code
 - **Why:** Curated ecosystem catalog — discover new tools, libraries, and patterns
 - **Look for:** New entries in Orchestrators/Tools/Skills sections, trending repos referenced
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-05T04:06:27Z | **Pattern hits:** 0 | **SHA:** 658dc4e
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-05T04:06:27Z | **Pattern hits:** 0 | **SHA:** 0a9cd4e
 - **Notes:** 0 pattern hits across 45+ observations. Submission enforcement governance (owner bypass), Teams subcategory — curation-specific patterns. Retain for HORIZON_SCAN cross-reference only.
 
 ### SethGammon/Citadel
@@ -38,7 +38,7 @@
 ### verkyyi/tokenman
 - **Why:** Self-reference — track forks, adopters, and how the scaffold is used
 - **Look for:** New forks, adopter modifications, issues filed by users
-- **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 0 | **SHA:** d3022f6
+- **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 0 | **SHA:** dd84cbe
 - **Notes:** Used during HORIZON SCAN for adoption tracking. 0 forks, 0 adopters as of 2026-04-05. EvoMap/awesome-agent-evolution (21 stars) monitors tokenman in data/monitor-results.json but not curated — potential growth submission target (#149).
 
 ## Watch List
@@ -48,21 +48,21 @@
 - **Why:** Community harness patterns, skill collections, optimization techniques
 - **Look for:** New skills, CLAUDE.md patterns, workflow architectures, instinct files
 - **Demoted:** 2026-04-02 (synthesis — 13+ consecutive 0-pattern observations, all interactive-session specific, 0 CI-harness patterns)
-- **Observations:** 59+ | **First seen:** 2026-03-20 | **SHA:** a1e37d7
+- **Observations:** 60+ | **First seen:** 2026-03-20 | **SHA:** 7dfdbe0
 - **Notes:** 1 pattern hit total (safety-guard PreToolUse hooks, early). CI cleanup, codex sync, install hardening — all interactive-session. From same author as agentshield. Monitor for CI-relevant patterns.
 
 ### bytedance/deer-flow
 - **Why:** Multi-agent orchestration patterns from a major tech company
 - **Look for:** Agent coordination, state management, tool orchestration, LLM provider patterns
 - **Demoted:** 2026-04-02 (synthesis — 19+ consecutive 0-pattern deep-dives, all Python application-specific, fundamentally different stack)
-- **Observations:** 70+ | **First seen:** 2026-03-21 | **SHA:** ed90a2e
+- **Observations:** 71+ | **First seen:** 2026-03-21 | **SHA:** 29575c3
 - **Notes:** 1 pattern hit total (early). Very active (5+ commits/day). Per-agent skill filter, concurrent file locks, Langfuse tracing — all Python. No transferable harness patterns despite extensive monitoring. Apr 5: sandbox guard fix, API soul field fix, deps update.
 
 ### garrytan/gstack
 - **Why:** Harness engineering patterns — skills, slash commands, review protocols, agent orchestration
 - **Look for:** Non-Codex workflow patterns, CI-transferable techniques
 - **Demoted:** 2026-03-27 (synthesis — 14 consecutive PH with 0 adoptable patterns, all Codex/interactive-session specific)
-- **Observations:** 63+ | **First seen:** 2026-03-20 | **SHA:** 422f172
+- **Observations:** 64+ | **First seen:** 2026-03-20 | **SHA:** 237ae2a
 - **Notes:** Historically most productive source (9 pattern hits across v0.9.7-v0.11.18.2). Demoted because pattern yield exhausted for CI-based harness. v0.15.10.0: review army idempotency + cross-review dedup, native OpenClaw skills + ClaHub publishing. All interactive-session patterns. Monitor for CI-relevant patterns.
 
 ### trailofbits/skills
@@ -89,7 +89,7 @@
 ### Vigilant-LLC/runner-guard
 - **Why:** CI/CD security scanner (6 stars, Go) — 18 detection rules for GHA vulnerabilities: fork checkout exploits, expression injection, AI config injection (CLAUDE.md hijacking), supply chain steganography, unpinned actions, auto-fix, SARIF output
 - **Look for:** GHA vulnerability patterns applicable to our workflows, action pinning auto-fix, AI config injection defenses, SARIF integration for Code Scanning
-- **Added:** 2026-04-01 (horizon scan) | **Observations:** 7 | **First seen:** 2026-04-01 | **SHA:** 5d60811
+- **Added:** 2026-04-01 (horizon scan) | **Observations:** 8 | **First seen:** 2026-04-01 | **SHA:** 98dcb55
 - **Notes:** Only scanner specifically targeting AI agent attack vectors in CI/CD. Deep-dived: 18→31 rules. v2.7.0 (Apr 5): batch multi-repo scanning, file path + manual entry, permissions-aware severity, vigilantdefense.com domain. Issue #127 created for adoption. Go single binary. Last deep: 2026-04-05T04:06Z.
 
 ### affaan-m/agentshield

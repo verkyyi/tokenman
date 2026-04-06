@@ -125,3 +125,6 @@
 2026-04-06T00:45:33Z | runner-guard | v2.7.0: batch multi-repo scanning, file path + manual entry, permissions-aware severity, vigilantdefense.com domain. Not immediately adoptable (single-repo harness). | noted
 2026-04-06T00:45:33Z | agentshield | prompt defense posture audit rules added. Our .claude/ config minimal — low immediate value. | noted
 2026-04-06T00:45:33Z | self-forks | 0 forks, 2 stars, 12 open issues (unchanged). | no action
+2026-04-06T04:09:33Z | synthesis | Cross-run: research ROI at structural floor (11th SYNTHESIS confirmation). 10 PH with 0 patterns, 25 HS with 0 new architectures. gstack 10d on Watch since demotion, 0 CI patterns — candidate for next HS drop. System at equilibrium. | observation
+2026-04-06T04:09:33Z | synthesis | Human intents: 0 new in 7d (17d+ since Mar 22). FIX_PROCESS 41% dominant. 6 needs-human + 3 Dependabot PRs blocked. Growth flat (2 stars, 0 forks). Cost $205-238/wk, approaching $150 target. | no new entries
+2026-04-06T04:09:33Z | sha-scan | Active: 2/6 changed (awesome-cc 658dc4e→0a9cd4e ticker, tokenman self dd84cbe). Watch: 4/11 changed (everything-cc 7dfdbe0, deer-flow 29575c3, gstack 237ae2a, runner-guard 98dcb55). 11/17 unchanged. | SHAs updated
