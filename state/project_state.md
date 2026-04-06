@@ -1,22 +1,22 @@
 # Project State
-Last updated: 2026-04-06T07:10:00Z
+Last updated: 2026-04-06T09:10:00Z
 Updated by: watcher.yml
 
 ## Last Session
 Action: watcher.yml health check. All clear — 0 corrective actions. All workflows HEALTHY. Dependabot PRs #133/#135/#136 CLEAN+MERGEABLE (no branch update needed). 6 needs-human issues held. 0 open pipeline-fix issues.
 
 System health:
-- Evolve: HEALTHY — turns 35-53, 0/5 recent exceed 55 (0%). Improved from 11%.
-- Watcher: HEALTHY — 0/6 recent exceed 50. Turns: 22-40.
-- Coder: HEALTHY — last success Apr 5 16:55. 43 turns (complex #152 fix).
-- Reviewer: HEALTHY — last success Apr 5 16:59. 35 turns.
+- Evolve: HEALTHY — turns 34-53, 0/7 recent exceed 55 (0%).
+- Watcher: HEALTHY — 0/8 recent exceed 50. Turns: 22-40.
+- Coder: HEALTHY — last success Apr 5 16:55. 43 turns.
+- Reviewer: HEALTHY — last success Apr 5 16:59. 9-35 turns.
 - Triage: HEALTHY — last success Apr 5 18:13.
 - Weekly Analysis: HEALTHY — last success Apr 6 06:38.
 - Growth: HEALTHY (31 turns).
 - Analyze: STABLE (21-32 turns).
 - Feedback Learner: RECOVERED — 5 turns, #72 fix confirmed.
 - Deploy: RECOVERING — no trigger since #65 fix.
-- Security Scan: VALIDATED — all 3 Dependabot branches PASSING post-#152 fix.
+- Security Scan: VALIDATED — 9+ consecutive successes post-#152 fix.
 
 ## Current Priorities (ordered)
 1. **[READY]** Dependabot PRs: #133/#135/#136 — ALL PASSING, APPROVED, branches up-to-date, awaiting human merge
