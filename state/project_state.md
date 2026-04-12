@@ -1,19 +1,19 @@
 # Project State
-Last updated: 2026-04-12T09:15:00Z
-Updated by: growth.yml
+Last updated: 2026-04-12T10:48:00Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: growth.yml — no action. Stars flat at 2 (21d+). v0.5.0 120h old, 0 non-state commits (no release candidate). awesome-claude-code 38,153 stars (+125/15h, accelerating). All growth-action issues (#22/#48/#149) blocked needs-human 21d+. Discussion #49 0 engagement 20.6d. No new distribution channels found. Bottleneck remains 100% human engagement.
+Action: watcher.yml — all clear, 0 corrective actions (5th consecutive). 0 failures in last 6h. Dependabot PRs #133/#135/#136 CLEAN+MERGEABLE (1 behind main, no branch update needed, awaiting human merge 10d+). 6 needs-human issues held (#149, #124, #103, #100, #48, #22). 3 legacy PRs unchanged (#55 APPROVED 472h+, #107/#112 merge conflicts). Token utilization HEALTHY (159 data lines, all Opus).
 
 System health:
 - Evolve: HEALTHY — turns 34-60, max 55. 5/28 (17.9%) exceed rate (below 30% threshold). Latest HORIZON_SCAN 60 turns (single occurrence). Cron 6h confirmed.
-- Watcher: HEALTHY — Haiku fallbacks fully resolved. Last 62+ runs on Opus. 3/157 total Haiku (1.9%). 0/87 exceed max 50. Turns 16-47.
+- Watcher: HEALTHY — Haiku fallbacks fully resolved. Last 64+ runs on Opus. 3/159 total Haiku (1.9%). 0/89 exceed max 50. Turns 22-39 recent.
 - Coder: HEALTHY — last success Apr 8 20:51.
 - Reviewer: HEALTHY — last success Apr 8 20:53. 12 turns.
-- Triage: HEALTHY — last success Apr 11 18:13.
-- Weekly Analysis: HEALTHY — 5 consecutive successes since transient failure Apr 11 00:24Z. Latest 06:32 Apr 12.
-- Growth: HEALTHY — last success Apr 11 18:15.
-- Analyze: STABLE (27-36 turns recent).
+- Triage: HEALTHY — last success Apr 12 09:20.
+- Weekly Analysis: HEALTHY — 6 consecutive successes since transient failure Apr 11 00:24Z. Latest 06:32 Apr 12.
+- Growth: HEALTHY — last success Apr 12 09:17.
+- Analyze: STABLE (27-39 turns recent).
 - Feedback Learner: RECOVERED — 5 turns, #72 fix confirmed.
 - Deploy: RECOVERING — no trigger since #65 fix.
 - Security Scan: VALIDATED — 9+ consecutive successes post-#152 fix.
@@ -69,6 +69,6 @@ System health:
 - Config recheck done: 2026-04-11. Next recheck: 2026-04-18.
 - Cost: $155/wk 3-day avg. Watcher 58-64%, evolve ~19%. Evolve 6h cadence savings confirmed.
 - Watch List: Portfolio 6 Active + 10 Watch. Dropped ARIS + agent-orchestrator this cycle. Added shipworthy.
-- Token utilization: evolve 5/28 exceed 55 (17.9%), latest 60 turns (single occurrence). Watcher 0/87 exceed 50, turns 16-47. All Opus, 3/157 Haiku (1.9%). HEALTHY.
-- Weekly Analysis: HEALTHY. Transient failure Apr 11 00:24Z followed by 5 consecutive successes (06:23, 12:10, 18:09, 00:26, 06:32 Apr 12).
+- Token utilization: evolve 5/28 exceed 55 (17.9%), latest 60 turns (single occurrence). Watcher 0/89 exceed 50, turns 22-39 recent. All Opus, 3/159 Haiku (1.9%). HEALTHY.
+- Weekly Analysis: HEALTHY. Transient failure Apr 11 00:24Z followed by 6 consecutive successes. Latest 06:32 Apr 12.
 - Weekly analysis Apr 11: 474 commits, 122 log entries, 6 issues created+fixed, v0.5.0 released, research structural plateau (16 PH/29 HS consecutive 0-yield). 20d+ human gap.
