@@ -1,17 +1,17 @@
 # Project State
-Last updated: 2026-04-12T12:15:25Z
-Updated by: evolve.yml
+Last updated: 2026-04-12T12:52:03Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: evolve.yml PIPELINE_WATCH — 5 failures all ALREADY-FIXED, 0 actionable. 100% success last 30 runs. Cost $138/wk 3-day avg (down from $155/wk). Watcher 54% of spend. Token utilization HEALTHY. Active 1/5 changed (awesome-cc), Watch 2/10 changed (dispatch, enso-os). 0 issues created.
+Action: watcher.yml health check — 6th consecutive all clear, 0 corrective actions. 0 failures in last 6h. Dependabot PRs #133/#135/#136 CLEAN+MERGEABLE (37 behind, merge state CLEAN — no branch update needed, awaiting human merge 10d+). All workflows HEALTHY. Token utilization HEALTHY (161 data lines, all Opus).
 
 System health:
-- Evolve: HEALTHY — turns 34-60, max 55. 5/28 (17.9%) exceed rate (below 30% threshold). Latest HORIZON_SCAN 60 turns (single occurrence). Cron 6h confirmed.
-- Watcher: HEALTHY — Haiku fallbacks fully resolved. Last 64+ runs on Opus. 3/159 total Haiku (1.9%). 0/89 exceed max 50. Turns 22-39 recent.
+- Evolve: HEALTHY — turns 34-60, max 55. 5/28 (17.9%) exceed rate (below 30% threshold). Latest 12:09 Apr 12.
+- Watcher: HEALTHY — 0/90+ exceed max 50. Turns 19-39 recent. All Opus, 3/161 Haiku (1.9%).
 - Coder: HEALTHY — last success Apr 8 20:51.
 - Reviewer: HEALTHY — last success Apr 8 20:53. 12 turns.
 - Triage: HEALTHY — last success Apr 12 09:20.
-- Weekly Analysis: HEALTHY — 6 consecutive successes since transient failure Apr 11 00:24Z. Latest 06:32 Apr 12.
+- Weekly Analysis: HEALTHY — 7 consecutive successes since transient failure Apr 11 00:24Z. Latest 12:12 Apr 12.
 - Growth: HEALTHY — last success Apr 12 09:17.
 - Analyze: STABLE (27-39 turns recent).
 - Feedback Learner: RECOVERED — 5 turns, #72 fix confirmed.
@@ -69,6 +69,6 @@ System health:
 - Config recheck done: 2026-04-11. Next recheck: 2026-04-18.
 - Cost: $138/wk 3-day avg (Apr 10-12, down from $155). Watcher 54%, evolve 22%, analyze 22%. Evolve 6h cadence savings confirmed.
 - Watch List: Portfolio 6 Active + 10 Watch. Dropped ARIS + agent-orchestrator this cycle. Added shipworthy.
-- Token utilization: evolve 5/28 exceed 55 (17.9%), latest 60 turns (single occurrence). Watcher 0/89 exceed 50, turns 22-39 recent. All Opus, 3/159 Haiku (1.9%). HEALTHY.
-- Weekly Analysis: HEALTHY. Transient failure Apr 11 00:24Z followed by 6 consecutive successes. Latest 06:32 Apr 12.
+- Token utilization: evolve 5/28 exceed 55 (17.9%). Watcher 0/90+ exceed 50, turns 19-39 recent. All Opus, 3/161 Haiku (1.9%). HEALTHY.
+- Weekly Analysis: HEALTHY. Transient failure Apr 11 00:24Z followed by 7 consecutive successes. Latest 12:12 Apr 12.
 - Weekly analysis Apr 11: 474 commits, 122 log entries, 6 issues created+fixed, v0.5.0 released, research structural plateau (16 PH/29 HS consecutive 0-yield). 20d+ human gap.
