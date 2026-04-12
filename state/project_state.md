@@ -1,13 +1,13 @@
 # Project State
-Last updated: 2026-04-12T07:05:00Z
+Last updated: 2026-04-12T09:00:00Z
 Updated by: watcher.yml
 
 ## Last Session
-Action: watcher.yml health check — all clear, 0 corrective actions. Dependabot PRs #133/#135/#136 CLEAN+MERGEABLE (21 behind, merge state clean — no branch update needed). 0 failures in last 6h. No broken chains, no stuck runs. 6 needs-human held. No issues unblocked by recent closes. Token utilization HEALTHY.
+Action: watcher.yml health check — all clear, 0 corrective actions (4th consecutive). Dependabot PRs #133/#135/#136 CLEAN+MERGEABLE (24 behind, merge state CLEAN — no branch update needed). 0 failures in last 6h. No broken chains, no stuck runs. 6 needs-human held. No issues unblocked by recent closes. Token utilization HEALTHY.
 
 System health:
 - Evolve: HEALTHY — turns 34-60, max 55. 5/28 (17.9%) exceed rate (below 30% threshold). Latest HORIZON_SCAN 60 turns (single occurrence). Cron 6h confirmed.
-- Watcher: HEALTHY — Haiku fallbacks fully resolved. Last 60+ runs on Opus. 3/156 total Haiku (1.9%). 0/85 exceed max 50. Turns 16-47.
+- Watcher: HEALTHY — Haiku fallbacks fully resolved. Last 62+ runs on Opus. 3/157 total Haiku (1.9%). 0/87 exceed max 50. Turns 16-47.
 - Coder: HEALTHY — last success Apr 8 20:51.
 - Reviewer: HEALTHY — last success Apr 8 20:53. 12 turns.
 - Triage: HEALTHY — last success Apr 11 18:13.
@@ -20,7 +20,7 @@ System health:
 
 ## Current Priorities (ordered)
 1. **[READY]** Dependabot PRs: #133/#135/#136 — ALL PASSING, APPROVED, branches updated, awaiting human merge. #1 watcher overhead source (80+ branch updates).
-2. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 466h+, merge conflicts, awaiting human rebase + merge (workflow YAML)
+2. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 470h+, merge conflicts, awaiting human rebase + merge (workflow YAML)
 3. **[NEEDS-HUMAN]** Issue #22: Submit to awesome-claude-code — 36.9K stars, highest-leverage growth action, cooldown expired 20d+
 4. **[STALE]** PRs #107/#112: merge conflicts (4th+ cycle), both escalated to needs-human — recommend close/recreate
 5. **[NEEDS-HUMAN]** Issue #124: Update repo description metadata — requires GH_TOKEN with repo-edit permissions
@@ -31,7 +31,7 @@ System health:
 
 ## Open Items
 1. PRs #133, #135, #136: [ready] ALL PASSING + APPROVED + CLEAN/MERGEABLE — awaiting human merge (10d+). Watcher spent 88+ corrective actions on branch updates.
-2. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 466h+, CONFLICTING, needs human rebase + merge
+2. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 470h+, CONFLICTING, needs human rebase + merge
 3. Issue #22: [needs-human] Submit to awesome-claude-code — 36.9K stars, cooldown expired 20d+
 4. Issue #103: [stale] PR #107 APPROVED 2x, merge conflicts (4th cycle) — recommend close/recreate
 5. Issue #100: [stale] PR #112 APPROVED, merge conflicts (4th cycle) — recommend close/recreate
@@ -48,11 +48,11 @@ System health:
 - Evolve lightweight mode gate deployed (commit ce1994c) — skips Steps 2b-2h when sources unchanged 2+ consecutive runs
 - Posture-based research operational: PATTERN_HUNT, PIPELINE_WATCH, HORIZON_SCAN, SYNTHESIS
 - Reviewer.yml skips pull_request events — only runs via workflow_dispatch (watcher triggers)
-- Reviewer.yml has a bug: README sync step doesn't handle dirty working tree (PR #55 APPROVED 466h+ — CONFLICTING, needs human rebase + merge)
+- Reviewer.yml has a bug: README sync step doesn't handle dirty working tree (PR #55 APPROVED 470h+ — CONFLICTING, needs human rebase + merge)
 - Reviewer hallucination fix (#90) — NEVER close PR prompt guardrail + safety-net reopen step merged (PR #93)
 - GitHub auto-close fix (#84) DONE — reviewer.yml hardened with 3-tier fallback; watcher remains safety net
 - Evolve HEALTHY — max-turns 55, 5/28 (17.9%) exceed. Latest 60 turns (HORIZON_SCAN, single occurrence). Cron 6h confirmed.
-- Watcher HEALTHY — max-turns 50, 0/85 exceed. Turns 16-47. Haiku fallbacks fully resolved — last 60+ runs Opus (3/156 total, 1.9%).
+- Watcher HEALTHY — max-turns 50, 0/87 exceed. Turns 16-47. Haiku fallbacks fully resolved — last 62+ runs Opus (3/157 total, 1.9%).
 - Issue #100: ESCALATED to needs-human. PR #112 APPROVED but merge conflicts (4th cycle). Manual rebase + merge required.
 - Issue #103: ESCALATED to needs-human. PR #107 APPROVED 2x, merge conflicts. Manual rebase + merge required.
 - Analyze STABLE — 26-39 turns recent
@@ -69,6 +69,6 @@ System health:
 - Config recheck done: 2026-04-11. Next recheck: 2026-04-18.
 - Cost: $155/wk 3-day avg. Watcher 58-64%, evolve ~19%. Evolve 6h cadence savings confirmed.
 - Watch List: Portfolio 6 Active + 10 Watch. Dropped ARIS + agent-orchestrator this cycle. Added shipworthy.
-- Token utilization: evolve 5/28 exceed 55 (17.9%), latest 60 turns (single occurrence). Watcher 0/85 exceed 50, turns 16-47. All Opus, 3/156 Haiku (1.9%). HEALTHY.
+- Token utilization: evolve 5/28 exceed 55 (17.9%), latest 60 turns (single occurrence). Watcher 0/87 exceed 50, turns 16-47. All Opus, 3/157 Haiku (1.9%). HEALTHY.
 - Weekly Analysis: HEALTHY. Transient failure Apr 11 00:24Z followed by 5 consecutive successes (06:23, 12:10, 18:09, 00:26, 06:32 Apr 12).
 - Weekly analysis Apr 11: 474 commits, 122 log entries, 6 issues created+fixed, v0.5.0 released, research structural plateau (16 PH/29 HS consecutive 0-yield). 20d+ human gap.
