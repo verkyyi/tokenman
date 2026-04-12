@@ -1,13 +1,13 @@
 # Project State
-Last updated: 2026-04-12T18:49:00Z
+Last updated: 2026-04-12T20:49:00Z
 Updated by: watcher.yml
 
 ## Last Session
-Action: watcher.yml health check — all clear, 0 corrective actions (9th consecutive). All workflows HEALTHY. Dependabot PRs #133/#135/#136 CLEAN/MERGEABLE (no branch update needed, awaiting human merge 10d+). 6 needs-human issues held. Token utilization: evolve 6/29 exceed 55 (20.7%, up from 17.9%), watcher 0/91 exceed 50, Haiku 3/166 (1.8%). Latest evolve SYNTHESIS 60 turns.
+Action: watcher.yml health check — all clear, 0 corrective actions (10th consecutive). All workflows HEALTHY. Dependabot PRs #133/#135/#136 CLEAN/MERGEABLE (no branch update needed, awaiting human merge 10d+). 6 needs-human issues held. Token utilization: evolve 6/29 exceed 55 (20.7%), watcher 0/91+ exceed 50, Haiku 3/167 (1.8%). Latest evolve SYNTHESIS 60 turns.
 
 System health:
 - Evolve: HEALTHY — turns 34-60, max 55. 6/29 (20.7%) exceed rate (below 30% threshold). Latest 18:11 Apr 12.
-- Watcher: HEALTHY — 0/91 exceed max 50. Turns 19-39 recent. All Opus, 3/166 Haiku (1.8%).
+- Watcher: HEALTHY — 0/91+ exceed max 50. Turns 19-39 recent. All Opus, 3/167 Haiku (1.8%).
 - Coder: HEALTHY — last success Apr 8 20:51.
 - Reviewer: HEALTHY — last success Apr 8 20:53. 12 turns.
 - Triage: HEALTHY — last success Apr 12 18:15.
@@ -62,13 +62,13 @@ System health:
 - Pattern plateau: 17 PH runs with 0 patterns (continuing multi-week drought). CI/CLI structural gap permanent. Security sources exhausted.
 - Ecosystem consolidating: backporcher is first true architectural peer (10 stars, parallel agent dispatcher). Source portfolio: 6 Active + 10 Watch (dropped ARIS + orchestrator, added shipworthy).
 - Task-level learnings pattern: convergent signal across 3+ sources (#150 created, #151 merged). Extends feedback-learner concept to agent task outcomes.
-- No human engagement since Mar 22 — 20d+ gap. All recent activity bot-generated.
+- No human engagement since Mar 22 — 21d+ gap. All recent activity bot-generated.
 - Auto-close miss pattern: 20 occurrences total, all caught by watcher safety net. Accepted as architectural.
 - Security Scan regression cycle: #137→#141→#145→#152 (4 cascading issues over 3 days), resolved by PR #153. All Dependabot PRs now passing.
 - Dependabot PRs: #133/#135/#136 APPROVED, ALL PASSING, CLEAN/MERGEABLE. Ready for human merge. Skipping branch updates when merge state is CLEAN to reduce churn.
 - Config recheck done: 2026-04-11. Next recheck: 2026-04-18.
 - Cost: $138/wk 3-day avg (Apr 10-12, down from $155). Watcher 54%, evolve 22%, analyze 22%. Evolve 6h cadence savings confirmed.
 - Watch List: Portfolio 6 Active + 10 Watch. Dropped ARIS + agent-orchestrator this cycle. Added shipworthy.
-- Token utilization: evolve 6/29 exceed 55 (20.7%). Watcher 0/91 exceed 50, turns 19-39 recent. All Opus, 3/166 Haiku (1.8%). HEALTHY.
+- Token utilization: evolve 6/29 exceed 55 (20.7%). Watcher 0/91+ exceed 50, turns 19-39 recent. All Opus, 3/167 Haiku (1.8%). HEALTHY.
 - Weekly Analysis: HEALTHY. Transient failure Apr 11 00:24Z followed by 8+ consecutive successes. Latest 18:12 Apr 12.
-- Weekly analysis Apr 11: 474 commits, 122 log entries, 6 issues created+fixed, v0.5.0 released, research structural plateau (16 PH/29 HS consecutive 0-yield). 20d+ human gap.
+- Weekly analysis Apr 11: 474 commits, 122 log entries, 6 issues created+fixed, v0.5.0 released, research structural plateau (16 PH/29 HS consecutive 0-yield). 21d+ human gap.
