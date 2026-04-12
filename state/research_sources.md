@@ -1,7 +1,7 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-04-12T00:20:26Z
+# Last updated: 2026-04-12T12:15:13Z
 
 ## Active Sources
 
@@ -14,7 +14,7 @@
 ### hesreallyhim/awesome-claude-code
 - **Why:** Curated ecosystem catalog — discover new tools, libraries, and patterns
 - **Look for:** New entries in Orchestrators/Tools/Skills sections, trending repos referenced
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-08T18:28:37Z | **Pattern hits:** 0 | **SHA:** 858dcc1
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-08T18:28:37Z | **Pattern hits:** 0 | **SHA:** ddd9432
 - **Notes:** 0 pattern hits across 50+ observations. SHA change: ticker data only. Submission enforcement governance (owner bypass), Teams subcategory — curation-specific patterns. Retain for HORIZON_SCAN cross-reference only.
 
 ### SethGammon/Citadel
@@ -38,7 +38,7 @@
 ### verkyyi/tokenman
 - **Why:** Self-reference — track forks, adopters, and how the scaffold is used
 - **Look for:** New forks, adopter modifications, issues filed by users
-- **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 0 | **SHA:** 26172f8
+- **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 0 | **SHA:** cdc3cc4
 - **Notes:** Used during HORIZON SCAN for adoption tracking. 2 stars, 0 forks, 0 adopters as of 2026-04-11. EvoMap/awesome-agent-evolution (21 stars) monitors tokenman in data/monitor-results.json but not curated — potential growth submission target (#149).
 
 ## Watch List
@@ -89,7 +89,7 @@
 - **Look for:** Shell script quality patterns, label state machine design, worktree isolation, error trap handling, BATS test patterns
 - **Added:** 2026-04-02 (horizon scan) | **Observations:** 13 | **First seen:** 2026-04-02 | **SHA:** b1f8029
 - **Decision (2026-04-09):** RETAIN on Watch. Meets quantitative promotion criteria (14 obs, 2 hits, 7d) but deep-dives found 0 directly adoptable patterns for GHA bash/markdown harness. Shell-library architecture patterns (modular lib/, BATS testing) don't transfer. Architecturally closest peer but insufficient pattern yield for Active promotion. Re-evaluate if new PRs introduce transferable patterns.
-- **Observations:** 17 | **First seen:** 2026-04-02 | **SHA:** 561604e
+- **Observations:** 17 | **First seen:** 2026-04-02 | **SHA:** 3f44fd8
 - **Notes:** Created 2026-03-21, actively maintained. Shell-only, no Node/Python deps. Reusable workflows (dispatch-*.yml) consumed via workflow_call. CI validates all scripts with ShellCheck + BATS. Architecturally closest to tokenman: issue-driven, label-based state, GHA runners, claude -p headless. 2 pattern hits. Last deep: 2026-04-08T18:28:37Z. PR #31: robust JSON extraction from AI output (_extract_review_json helper, awk brace-depth fallback for narrative preamble/fence/postamble). 172 BATS tests green.
 
 ### Vimalk0703/shipworthy
@@ -102,7 +102,7 @@
 ### amazinglvxw/enso-os
 - **Why:** Self-evolving bash+python harness (19 stars) — 1267 LOC, 10 shell hooks, agent-memory, self-evolution. Conceptually similar to tokenman.
 - **Look for:** Shell hook patterns, self-evolution mechanisms, bash harness architecture, memory persistence patterns
-- **Added:** 2026-04-08 (horizon scan) | **Observations:** 6 | **First seen:** 2026-04-08 | **SHA:** e63888e
+- **Added:** 2026-04-08 (horizon scan) | **Observations:** 6 | **First seen:** 2026-04-08 | **SHA:** a7ac576
 - **Notes:** Created 2026-03-29, actively maintained. Shell language. Topics: agent-os, self-evolution, shell-hooks, claude-code. Rapid growth: 19→40 stars, 0→3 forks. v0.4.0 discipline plugin (multi-framework adapter), proactive lesson notification (text-based tracking replaces broken date comparison), lesson provenance [seed:XXXXXX] hash, applies_when context tags. All interactive-CLI patterns, 0 CI-adoptable. Validates our feedback-learner direction.
 
 ### montenegronyc/backporcher

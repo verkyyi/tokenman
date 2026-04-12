@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-04-12T10:48:00Z
-Updated by: watcher.yml
+Last updated: 2026-04-12T12:15:25Z
+Updated by: evolve.yml
 
 ## Last Session
-Action: watcher.yml — all clear, 0 corrective actions (5th consecutive). 0 failures in last 6h. Dependabot PRs #133/#135/#136 CLEAN+MERGEABLE (1 behind main, no branch update needed, awaiting human merge 10d+). 6 needs-human issues held (#149, #124, #103, #100, #48, #22). 3 legacy PRs unchanged (#55 APPROVED 472h+, #107/#112 merge conflicts). Token utilization HEALTHY (159 data lines, all Opus).
+Action: evolve.yml PIPELINE_WATCH — 5 failures all ALREADY-FIXED, 0 actionable. 100% success last 30 runs. Cost $138/wk 3-day avg (down from $155/wk). Watcher 54% of spend. Token utilization HEALTHY. Active 1/5 changed (awesome-cc), Watch 2/10 changed (dispatch, enso-os). 0 issues created.
 
 System health:
 - Evolve: HEALTHY — turns 34-60, max 55. 5/28 (17.9%) exceed rate (below 30% threshold). Latest HORIZON_SCAN 60 turns (single occurrence). Cron 6h confirmed.
@@ -67,7 +67,7 @@ System health:
 - Security Scan regression cycle: #137→#141→#145→#152 (4 cascading issues over 3 days), resolved by PR #153. All Dependabot PRs now passing.
 - Dependabot PRs: #133/#135/#136 APPROVED, ALL PASSING, CLEAN/MERGEABLE. Ready for human merge. Skipping branch updates when merge state is CLEAN to reduce churn.
 - Config recheck done: 2026-04-11. Next recheck: 2026-04-18.
-- Cost: $155/wk 3-day avg. Watcher 58-64%, evolve ~19%. Evolve 6h cadence savings confirmed.
+- Cost: $138/wk 3-day avg (Apr 10-12, down from $155). Watcher 54%, evolve 22%, analyze 22%. Evolve 6h cadence savings confirmed.
 - Watch List: Portfolio 6 Active + 10 Watch. Dropped ARIS + agent-orchestrator this cycle. Added shipworthy.
 - Token utilization: evolve 5/28 exceed 55 (17.9%), latest 60 turns (single occurrence). Watcher 0/89 exceed 50, turns 22-39 recent. All Opus, 3/159 Haiku (1.9%). HEALTHY.
 - Weekly Analysis: HEALTHY. Transient failure Apr 11 00:24Z followed by 6 consecutive successes. Latest 06:32 Apr 12.
