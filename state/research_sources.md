@@ -1,7 +1,7 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-04-12T12:15:13Z
+# Last updated: 2026-04-12T18:11:55Z
 
 ## Active Sources
 
@@ -14,7 +14,7 @@
 ### hesreallyhim/awesome-claude-code
 - **Why:** Curated ecosystem catalog — discover new tools, libraries, and patterns
 - **Look for:** New entries in Orchestrators/Tools/Skills sections, trending repos referenced
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-08T18:28:37Z | **Pattern hits:** 0 | **SHA:** ddd9432
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-08T18:28:37Z | **Pattern hits:** 0 | **SHA:** 83704c2
 - **Notes:** 0 pattern hits across 50+ observations. SHA change: ticker data only. Submission enforcement governance (owner bypass), Teams subcategory — curation-specific patterns. Retain for HORIZON_SCAN cross-reference only.
 
 ### SethGammon/Citadel
@@ -96,13 +96,13 @@
 - **Why:** Shell-based Claude Code plugin (5 stars, 1 fork) — 52 invisible engineering skills, auto specs, TDD, security hooks, quality gates, self-improving retrospective. "97% vs 41% on blind benchmark". Advisory-first approach.
 - **Look for:** Self-improving retrospective patterns, quality gate implementation in Shell, advisory-first guardrail approach, skill benchmarking methodology
 - **Added:** 2026-04-11 (horizon scan) | **Observations:** 1 | **First seen:** 2026-04-11 | **SHA:** 21a80ba
-- **Observations:** 2 | **First seen:** 2026-04-11 | **SHA:** 21a80ba
+- **Observations:** 3 | **First seen:** 2026-04-11 | **SHA:** 21a80ba
 - **Notes:** Created 2026-03-26, actively maintained. Shell language — same as tokenman scripts. v1.5.0 "Advisory-First Revamp — guide, don't gate" (config-gated hooks, is_rule_enabled(), suggestion tone). v1.4.1 Security Hardening (Python injection fixes, TOCTOU, 12-test audit). v1.3.0 Context Intelligence (signal→learning→constraint flywheel, regression fence). All patterns interactive-CLI, 0 CI-adoptable. Context flywheel validates our feedback-learner direction.
 
 ### amazinglvxw/enso-os
 - **Why:** Self-evolving bash+python harness (19 stars) — 1267 LOC, 10 shell hooks, agent-memory, self-evolution. Conceptually similar to tokenman.
 - **Look for:** Shell hook patterns, self-evolution mechanisms, bash harness architecture, memory persistence patterns
-- **Added:** 2026-04-08 (horizon scan) | **Observations:** 6 | **First seen:** 2026-04-08 | **SHA:** a7ac576
+- **Added:** 2026-04-08 (horizon scan) | **Observations:** 7 | **First seen:** 2026-04-08 | **SHA:** 1e569d4
 - **Notes:** Created 2026-03-29, actively maintained. Shell language. Topics: agent-os, self-evolution, shell-hooks, claude-code. Rapid growth: 19→40 stars, 0→3 forks. v0.4.0 discipline plugin (multi-framework adapter), proactive lesson notification (text-based tracking replaces broken date comparison), lesson provenance [seed:XXXXXX] hash, applies_when context tags. All interactive-CLI patterns, 0 CI-adoptable. Validates our feedback-learner direction.
 
 ### montenegronyc/backporcher
