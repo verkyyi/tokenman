@@ -1,13 +1,13 @@
 # Project State
-Last updated: 2026-04-13T06:47:28Z
-Updated by: evolve.yml
+Last updated: 2026-04-13T07:20:00Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: evolve.yml PATTERN_HUNT — 18th consecutive 0-issue PH. Deep-dived claude-code (v2.1.104 empty body, SHA unchanged), Citadel PR #103 (cross-session synthesis, already adopted in spirit), dispatch PR #39 (per-workflow model config via env vars, adoptable but low urgency at $138/wk). SHA scan: Active 1/5 changed (awesome-cc ticker), Watch 3/10 changed. Research log archived (108→100). Structural plateau continues.
+Action: watcher.yml health check — 1 corrective action: created issue #160 (evolve max-turns saturation breached 30% threshold, Haiku fallback at 79 turns). All workflows HEALTHY. Dependabot PRs CLEAN+MERGEABLE awaiting human merge 11d+. 15th consecutive all-clear except for the new evolve finding.
 
 System health:
-- Evolve: HEALTHY — 6h cadence. 6/22 (27.3%) exceed 55 turns (approaching 30% threshold). Last 3 at max=60. 30/32 runs created 0 issues.
-- Watcher: HEALTHY but OVERWEIGHT — 0/85 exceed max 50. 14 consecutive all-clears. 54% of total cost ($98/wk). Candidate for frequency reduction (2h→4h).
+- Evolve: SATURATING — 6h cadence. 7/23 (30.4%) exceed 55 turns (BREACHED 30% threshold). Last 4 consecutive at max: 60, 60, 60, 79. Latest run Haiku fallback at 79 turns. Issue #160 created. All max-hitting runs produced 0 issues.
+- Watcher: HEALTHY but OVERWEIGHT — 0/86 exceed max 50. 15 consecutive all-clears (before this action). 54% of total cost ($98/wk). Candidate for frequency reduction (2h→4h).
 - Coder: HEALTHY — last success Apr 8 20:51. 2 runs this week (fix #155, #157).
 - Reviewer: HEALTHY — last success Apr 8 20:53. 12 turns.
 - Triage: HEALTHY — last success Apr 12 18:15.
@@ -54,7 +54,7 @@ System health:
 - Reviewer.yml has a bug: README sync step doesn't handle dirty working tree (PR #55 APPROVED 480h+ — CONFLICTING, needs human rebase + merge)
 - Reviewer hallucination fix (#90) — NEVER close PR prompt guardrail + safety-net reopen step merged (PR #93)
 - GitHub auto-close fix (#84) DONE — reviewer.yml hardened with 3-tier fallback; watcher remains safety net
-- Evolve HEALTHY — max-turns 55, 6/22 (27.3%) exceed (post-archive denominator), last 3 consecutive at max=60. Approaching 30% threshold. 6h cadence confirmed.
+- Evolve SATURATING — max-turns 55, 7/23 (30.4%) exceed (BREACHED 30% threshold), last 4 consecutive at max: 60, 60, 60, 79. Haiku fallback on latest run. Issue #160 created. 6h cadence confirmed.
 - Watcher HEALTHY — max-turns 50, 0/85 exceed. Turns 19-39 recent. All recent runs Opus. 14 consecutive all-clears as of Apr 13 05:30.
 - Issue #100: ESCALATED to needs-human. PR #112 APPROVED but merge conflicts (4th cycle). Manual rebase + merge required.
 - Issue #103: ESCALATED to needs-human. PR #107 APPROVED 2x, merge conflicts. Manual rebase + merge required.
@@ -72,6 +72,6 @@ System health:
 - Config recheck done: 2026-04-11. Next recheck: 2026-04-18.
 - Cost: $138/wk 3-day avg (Apr 10-12, down from $217/wk Apr 6). Below $150 target. Watcher 54%, evolve 22%, analyze 22%.
 - Watch List: Portfolio 6 Active + 10 Watch. Dropped ARIS + agent-orchestrator + deer-flow + ECC. Added shipworthy + skill-publish + enso-os.
-- Token utilization: evolve 6/22 exceed 55 (27.3%, post-archive), last 3 consecutive at max=60 — approaching 30% threshold. Watcher 0/85 exceed 50, turns 19-39 recent. All Opus, 3/146 Haiku (2.1%). MONITOR evolve trend.
+- Token utilization: evolve 7/23 exceed 55 (30.4%, BREACHED 30% threshold), last 4 consecutive at max (60,60,60,79). Haiku fallback 4/150 (2.7%), latest was Haiku at 79 turns. Watcher 0/86 exceed 50, turns 19-39 recent. Issue #160 created for evolve saturation.
 - Weekly Analysis: HEALTHY. 8+ consecutive successes.
 - Weekly analysis Apr 13 (deep): 415 commits (3 fix), 134 log entries. Cost $217→$138/wk (36% drop). Watcher 54% of spend — next optimization target (2h→4h cron). Research 0-yield floor (17 PH/30 HS). Self-healing: 3 cycles. 22d+ human gap. Profile 4/6 stalled. Proposed: watcher frequency reduction.
