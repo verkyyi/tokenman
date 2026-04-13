@@ -43,7 +43,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: ${{ steps.pr.outputs.SHA }}
           fetch-depth: 0
@@ -65,7 +65,7 @@ jobs:
           echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 20
 
