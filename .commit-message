@@ -1,1 +1,1 @@
-fix(workflow): reduce evolve max-turns and add 0-yield early exit (closes #160)
+fix: upgrade GHA actions from v4 (Node.js 20) to latest versions (closes #162)
