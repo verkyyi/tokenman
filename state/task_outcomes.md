@@ -8,3 +8,4 @@
 2026-04-08T12:26:29Z | issue #156 | PR_OPENED | PR #157: [evolve] README frequency claims stale after PR #155 — 3h→6h evolve cadence not reflected
 2026-04-08T20:53:44Z | issue #158 | PR_OPENED | PR #159: [pipeline] commit-state.sh fails on large files — Argument list too long
 2026-04-13T11:10:28Z | issue #160 | PR_OPENED | PR #161: [pipeline] Evolve hitting max-turns 30%+ of runs — Haiku fallback at 79 turns on 0-yield posture
+2026-04-13T12:58:36Z | issue #162 | PR_OPENED | PR #163: [pipeline] Upgrade GHA actions from v4 (Node.js 20) to latest — Node 20 deprecated June 2026
