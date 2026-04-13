@@ -1,6 +1,6 @@
 # Project State
-Last updated: 2026-04-13T17:00:00Z
-Updated by: watcher.yml
+Last updated: 2026-04-13T18:30:00Z
+Updated by: growth.yml
 
 ## Last Session
 Action: watcher.yml health check — 0 corrective actions (1st all-clear after closing #162). 2 failures in last 6h (Weekly Analysis transient cleanup step at 12:23Z, Coder PR race at 09:17Z — neither repeated, both known). Evolve fix monitoring continues: 1 post-fix data point (Haiku 53 turns, may be cached pre-fix run), awaiting next evolve run ~18:20Z. Dependabot PRs #133/#135/#136 CLEAN+MERGEABLE 11d+.
@@ -12,7 +12,7 @@ System health:
 - Reviewer: HEALTHY — last success Apr 13 13:00 (PR #163). 12-15 turns recent.
 - Triage: HEALTHY — last success Apr 13 12:54.
 - Weekly Analysis: HEALTHY — 1 transient failure today (cleanup step), 8+ successes before.
-- Growth: HEALTHY but FLAT — last success Apr 13 12:15. Stars 2, forks 0. 22d+ flat. All actions blocked needs-human.
+- Growth: ACTIVE — last success Apr 13 18:30. Stars 2, forks 0. 22d+ flat. v0.5.1 released (self-maintenance narrative). All distribution actions blocked needs-human.
 - Analyze: STABLE (25-34 turns recent).
 - Feedback Learner: RECOVERED — 5 turns, #72 fix confirmed.
 - Deploy: RECOVERING — no trigger since #65 fix.
