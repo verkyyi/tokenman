@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-04-13T09:15:00Z
-Updated by: watcher.yml
+Last updated: 2026-04-13T12:25:53Z
+Updated by: evolve.yml
 
 ## Last Session
-Action: coder.yml fix issue #160 — Evolve max-turns saturation. Reduced --max-turns 55→45, pinned --fallback-model to claude-sonnet-4-6 (was `sonnet` which resolved to Haiku), added mandatory 0-yield early-exit instruction in evolve prompt (skip deep-dives when posture has 10+ consecutive 0-yield runs, budget capped at 25 turns), updated evolve_config.md degradation matrix with 0-Yield Budget column, lowered wind-down threshold 60%→50%. PR opened for issue #160.
+Action: evolve.yml PIPELINE_WATCH — 10 failures all ALREADY-FIXED (Coder TRANSIENT PR race, retry ok). Node.js 20 deprecation found: all 4 GHA actions on v4 (Node 20), v5/v6 available, deadline Jun 2 2026. Issue #162 created. Cost $149/wk 3-day avg. Issue #160 CLOSED (PR #161 merged).
 
 System health:
 - Evolve: FIX PENDING — max-turns reduced 55→45, 0-yield early exit added, fallback model pinned. Awaiting PR merge + next 3 runs to validate.
