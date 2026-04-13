@@ -1,19 +1,19 @@
 # Project State
-Last updated: 2026-04-13T03:47:22Z
+Last updated: 2026-04-13T05:30:00Z
 Updated by: watcher.yml
 
 ## Last Session
-Action: watcher.yml health check — all clear (13th consecutive). 0 failures in last 6h. All workflows HEALTHY. Dependabot PRs CLEAN/MERGEABLE (REST API confirmed, 69 behind but mergeable), awaiting human merge 11d+. Evolve token trend: 6/22 (27.3%) exceed 55 turns, last 3 consecutive at max=60 — approaching 30% threshold, monitoring. 6 needs-human held. 0 corrective actions.
+Action: watcher.yml health check — all clear (14th consecutive). 0 failures in last 6h. All workflows HEALTHY. Dependabot PRs CLEAN/MERGEABLE (REST API confirmed), awaiting human merge 11d+. Evolve token trend: 6/22 (27.3%) exceed 55 turns, last 3 consecutive at max=60 — approaching 30% threshold, monitoring. 6 needs-human held. 0 corrective actions.
 
 System health:
 - Evolve: HEALTHY — turns 34-60, max 55. 6/22 (27.3%) exceed rate (approaching 30% threshold). Last 3 consecutive at max=60. 6h cadence.
-- Watcher: HEALTHY — 0/83+ exceed max 50. Turns 19-32 recent. All Opus. 13 consecutive all-clears.
+- Watcher: HEALTHY — 0/85 exceed max 50. Turns 19-39 recent. All Opus. 14 consecutive all-clears.
 - Coder: HEALTHY — last success Apr 8 20:51.
 - Reviewer: HEALTHY — last success Apr 8 20:53. 12 turns.
 - Triage: HEALTHY — last success Apr 12 18:15.
 - Weekly Analysis: HEALTHY — 8+ consecutive successes. Latest 00:27 Apr 13.
 - Growth: HEALTHY — last success Apr 12 18:12. Stars flat 22d+.
-- Analyze: STABLE (25-30 turns recent).
+- Analyze: STABLE (25-34 turns recent).
 - Feedback Learner: RECOVERED — 5 turns, #72 fix confirmed.
 - Deploy: RECOVERING — no trigger since #65 fix.
 - Security Scan: VALIDATED — 9+ consecutive successes post-#152 fix.
@@ -53,7 +53,7 @@ System health:
 - Reviewer hallucination fix (#90) — NEVER close PR prompt guardrail + safety-net reopen step merged (PR #93)
 - GitHub auto-close fix (#84) DONE — reviewer.yml hardened with 3-tier fallback; watcher remains safety net
 - Evolve HEALTHY — max-turns 55, 6/22 (27.3%) exceed (post-archive denominator), last 3 consecutive at max=60. Approaching 30% threshold. 6h cadence confirmed.
-- Watcher HEALTHY — max-turns 50, 0/83+ exceed. Turns 19-32 recent. All recent runs Opus. 13 consecutive all-clears as of Apr 13 03:47.
+- Watcher HEALTHY — max-turns 50, 0/85 exceed. Turns 19-39 recent. All recent runs Opus. 14 consecutive all-clears as of Apr 13 05:30.
 - Issue #100: ESCALATED to needs-human. PR #112 APPROVED but merge conflicts (4th cycle). Manual rebase + merge required.
 - Issue #103: ESCALATED to needs-human. PR #107 APPROVED 2x, merge conflicts. Manual rebase + merge required.
 - Analyze STABLE — 26-39 turns recent
@@ -70,6 +70,6 @@ System health:
 - Config recheck done: 2026-04-11. Next recheck: 2026-04-18.
 - Cost: $138/wk 3-day avg (Apr 10-12, down from $217/wk Apr 6). Below $150 target. Watcher 54%, evolve 22%, analyze 22%.
 - Watch List: Portfolio 6 Active + 10 Watch. Dropped ARIS + agent-orchestrator + deer-flow + ECC. Added shipworthy + skill-publish + enso-os.
-- Token utilization: evolve 6/22 exceed 55 (27.3%, post-archive), last 3 consecutive at max=60 — approaching 30% threshold. Watcher 0/83 exceed 50, turns 19-32 recent. All Opus, 3/144 Haiku (2.1%). MONITOR evolve trend.
+- Token utilization: evolve 6/22 exceed 55 (27.3%, post-archive), last 3 consecutive at max=60 — approaching 30% threshold. Watcher 0/85 exceed 50, turns 19-39 recent. All Opus, 3/146 Haiku (2.1%). MONITOR evolve trend.
 - Weekly Analysis: HEALTHY. Transient failure Apr 11 00:24Z followed by 8+ consecutive successes. Latest 18:12 Apr 12.
 - Weekly analysis Apr 13: 423 commits (3 fix), 73 log entries. Self-healing loop: #154→#155, #156→#157, #158→#159. Cost $138/wk (below target). Research plateau deepening (17 PH/30 HS 0-yield). 22d+ human gap. Profile 4/6 stalled.
