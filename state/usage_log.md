@@ -150,3 +150,4 @@
 2026-04-13T06:50:47Z | evolve | model:claude-haiku-4-5-20251001 | in:3533133 | out:24641 | turns:79 | cost:2.8479968000000007 | posture:PATTERN_HUNT | issues:0
 2026-04-13T07:22:45Z | watcher | model:claude-opus-4-6 | in:897725 | out:13072 | turns:36 | cost:1.0632480000000002
 2026-04-13T09:17:29Z | watcher | model:claude-opus-4-6 | in:615629 | out:11793 | turns:25 | cost:1.0319112499999998
+2026-04-13T09:21:13Z | coder | model:claude-opus-4-6 | in:1138073 | out:6596 | turns:31 | cost:1.1738402499999998
