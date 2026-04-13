@@ -1,7 +1,7 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-04-13T12:25:53Z
+# Last updated: 2026-04-13T18:29:58Z
 
 ## Active Sources
 
@@ -14,7 +14,7 @@
 ### hesreallyhim/awesome-claude-code
 - **Why:** Curated ecosystem catalog — discover new tools, libraries, and patterns
 - **Look for:** New entries in Orchestrators/Tools/Skills sections, trending repos referenced
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-08T18:28:37Z | **Pattern hits:** 0 | **SHA:** d4bfeba
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-08T18:28:37Z | **Pattern hits:** 0 | **SHA:** bb61a4c
 - **Notes:** 0 pattern hits across 50+ observations. SHA change: ticker data only. Submission enforcement governance (owner bypass), Teams subcategory — curation-specific patterns. Retain for HORIZON_SCAN cross-reference only.
 
 ### SethGammon/Citadel
@@ -32,13 +32,13 @@
 ### withastro/astro
 - **Why:** Web framework we use — security fixes, breaking changes, new features
 - **Look for:** Security advisories, breaking changes in minor/major releases, new content collection features
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-08T18:28:37Z | **Pattern hits:** 0 | **SHA:** 7fe40bc
-- **Notes:** Only actionable for security fixes or features that affect our site build. v6.1.5 (Apr 8): biome upgrade, dlv inlining. Cloudflare adapter 13.1.8: queue consumer fix. No security advisories. 0 harness patterns across 20+ observations.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-08T18:28:37Z | **Pattern hits:** 0 | **SHA:** 1945a93
+- **Notes:** Only actionable for security fixes or features that affect our site build. 6 commits since last scan: inline script escaping consolidation (#16303), server-output validation skip, Cloudflare svelte fix, SCSS module full-reload fix. No security advisories. 0 harness patterns across 20+ observations.
 
 ### verkyyi/tokenman
 - **Why:** Self-reference — track forks, adopters, and how the scaffold is used
 - **Look for:** New forks, adopter modifications, issues filed by users
-- **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 0 | **SHA:** 4c1a04e
+- **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 0 | **SHA:** 0c5df2c
 - **Notes:** Used during HORIZON SCAN for adoption tracking. 2 stars, 0 forks, 0 adopters as of 2026-04-13. EvoMap/awesome-agent-evolution (21 stars) monitors tokenman in data/monitor-results.json but not curated — potential growth submission target (#149).
 
 ## Watch List
@@ -63,8 +63,8 @@
 - **Look for:** Plugin format updates, new submission requirements, plugin.json schema changes, new official plugins relevant to harness patterns
 - **Added:** 2026-03-24 (horizon scan) | **Observations:** 44 | **First seen:** 2026-03-24 | **SHA:** 104d39b
 - **Decision (2026-03-31):** RETAIN on Watch List. 38 obs, 7+ days, 1 pattern hit (plugin format). 14.3K stars. Active (MongoDB, SAP UI5 plugins added). Distribution channel for #66. Low pattern yield (1/38) — not promoting. Still relevant as plugin ecosystem reference.
-- **Observations:** 52 | **First seen:** 2026-03-24 | **SHA:** 7ed5231
-- **Notes:** PR #1115: bash prefix for .sh hooks. Version field for cache invalidation. Standard plugin format: .claude-plugin/plugin.json + commands/ + agents/ + skills/. Distribution channel for #66. 1 pattern hit (official plugin format). Apr 10: session-report plugin adds per-day timeline + collapsible cache-breaks (analyze-sessions.mjs, template.html). Box plugin (#1286) + SAP CAP MCP server (#1328). Catalog growth continues.
+- **Observations:** 53 | **First seen:** 2026-03-24 | **SHA:** 656b617
+- **Notes:** PR #1115: bash prefix for .sh hooks. Version field for cache invalidation. Standard plugin format: .claude-plugin/plugin.json + commands/ + agents/ + skills/. Distribution channel for #66. 1 pattern hit (official plugin format). Apr 13: base44 plugin (#1389) — full-stack app dev with CLI project management. Catalog growth continues.
 
 ### agent-sh/agnix
 - **Why:** CLAUDE.md/SKILL.md linter and LSP (103 stars) — validates AI coding assistant config files, autofixes, IDE plugins
@@ -104,8 +104,8 @@
 ### amazinglvxw/enso-os
 - **Why:** Self-evolving bash+python harness (19 stars) — 1267 LOC, 10 shell hooks, agent-memory, self-evolution. Conceptually similar to tokenman.
 - **Look for:** Shell hook patterns, self-evolution mechanisms, bash harness architecture, memory persistence patterns
-- **Added:** 2026-04-08 (horizon scan) | **Observations:** 9 | **First seen:** 2026-04-08 | **SHA:** c5433fc
-- **Notes:** Created 2026-03-29, actively maintained. Shell language. Topics: agent-os, self-evolution, shell-hooks, claude-code. Rapid growth: 19→40 stars, 0→3 forks. v0.6.0 (Apr 13): audit-driven example hooks (lesson-enforcer, business-closure, circuit-breaker) from triple-AI health audit (Gemini x2 + Codex). CI added (ShellCheck + pytest + BATS + macOS smoke). All interactive-CLI patterns, 0 CI-adoptable. Validates our feedback-learner direction.
+- **Added:** 2026-04-08 (horizon scan) | **Observations:** 10 | **First seen:** 2026-04-08 | **SHA:** bc3f220
+- **Notes:** Created 2026-03-29, actively maintained. Shell language. Topics: agent-os, self-evolution, shell-hooks, claude-code. Rapid growth: 19→40 stars, 0→3 forks. Apr 13: ShellCheck fixes (SC2155, SC2034, SC2188), CI update. All interactive-CLI patterns, 0 CI-adoptable. Validates our feedback-learner direction.
 
 ### montenegronyc/backporcher
 - **Why:** Parallel Claude Code agent dispatcher (10 stars, 1 fork, Python) — GitHub Issues as task queue, sandboxed worktrees, coordinator review, CI gating, auto-merge. 100% auto-merge rate on first production run (15 PRs, 0 manual interventions).

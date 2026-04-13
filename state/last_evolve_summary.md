@@ -1,27 +1,26 @@
 # Last Evolve Summary
-Timestamp: 2026-04-13T12:25:53Z
-Main HEAD: 4c1a04e
-Posture: PIPELINE_WATCH (most overdue at 3 runs since. 1 new failure to investigate. 5 consecutive 0-yield — under 10 threshold.)
-Posture history: [PIPELINE_WATCH, PATTERN_HUNT, HORIZON_SCAN, SYNTHESIS, PIPELINE_WATCH, PATTERN_HUNT, HORIZON_SCAN, SYNTHESIS, PIPELINE_WATCH]
+Timestamp: 2026-04-13T18:29:58Z
+Main HEAD: 0c5df2c
+Posture: SYNTHESIS (most overdue at 3 runs since. 7 consecutive 0-yield in usage_log — under 10 threshold. Strongest signal: watcher frequency reduction backed by 14+ all-clears.)
+Posture history: [SYNTHESIS, PIPELINE_WATCH, PATTERN_HUNT, HORIZON_SCAN, SYNTHESIS, PIPELINE_WATCH, PATTERN_HUNT, HORIZON_SCAN]
 Runs since each:
-  PATTERN_HUNT: 1
-  PIPELINE_WATCH: 0
-  HORIZON_SCAN: 2
-  SYNTHESIS: 3
-Open issues: #124, #103, #100, #162
+  PATTERN_HUNT: 2
+  PIPELINE_WATCH: 1
+  HORIZON_SCAN: 3
+  SYNTHESIS: 0
+Open issues: #164, #124, #103, #100, #149
 
 ## Source Digests
-anthropics/claude-code: 9772e13 | last-deep: 2026-04-13T06:47:28Z | unchanged. v2.1.104 released, empty body.
-hesreallyhim/awesome-claude-code: d4bfeba | last-deep: 2026-04-08T18:28:37Z | changed (32ee2d4→d4bfeba). Ticker data only.
+anthropics/claude-code: 9772e13 | last-deep: 2026-04-13T06:47:28Z | unchanged.
+hesreallyhim/awesome-claude-code: bb61a4c | last-deep: 2026-04-08T18:28:37Z | changed (d4bfeba→bb61a4c). Ticker data.
 SethGammon/Citadel: c446e88 | last-deep: 2026-04-13T06:47:28Z | unchanged.
 actions/runner: 4a587ad | last-deep: 2026-04-08T18:28:37Z | unchanged.
-withastro/astro: 7fe40bc | last-deep: 2026-04-08T18:28:37Z | unchanged.
-verkyyi/tokenman: 4c1a04e | last-deep: never | self. 2 stars, 0 forks.
-Watch: 1/10 changed (dispatch 6825a86→45e6972 Discord bot extraction). All SHAs updated. Portfolio: 6 Active + 10 Watch.
+withastro/astro: 1945a93 | last-deep: 2026-04-08T18:28:37Z | changed (7fe40bc→1945a93). 6 commits: inline script escaping, server-output skip, Cloudflare fix, SCSS fix. Maintenance, no security.
+verkyyi/tokenman: 0c5df2c | last-deep: never | self. 2 stars, 0 forks.
+Watch: 2/10 changed (plugins-official 7ed5231→656b617 base44 plugin, enso-os c5433fc→bc3f220 ShellCheck). All SHAs updated. Portfolio: 6 Active + 10 Watch.
 
 ## Findings This Run
-- Node.js 20 deprecation warning: all 4 GHA actions (checkout, setup-node, deploy-pages, upload-pages-artifact) on v4 (Node 20). v5/v6 available. Deadline: June 2, 2026 (~50d). Issue #162 created.
-- 10 pipeline failures, ALL ALREADY-FIXED. Coder Agent Apr 13: TRANSIENT (PR creation race, retry succeeded). Issue #160 CLOSED, PR #161 merged.
-- Cost $149.26/wk 3-day avg (Apr 11-13). Slight uptick from $138/wk, driven by Haiku 79-turn run ($2.85). Right at $150 target.
-- dispatch PR #41: shared dispatch_bot package extraction (Discord bot). Not CI-relevant.
+- Watcher frequency reduction: strongest cross-run signal. 14+ consecutive all-clears, 54% of spend ($98/wk), $49/wk savings by 2h→4h. Issue #164 created.
+- 5 self-healing cycles validated (#154→#155, #156→#157, #158→#159, #160→#161, #162→#163). System creates and resolves own issues within same day.
+- Astro 6 maintenance commits (no security issues). enso-os ShellCheck fixes. plugins-official +base44. All 0 adoptable.
 1 issue created.
