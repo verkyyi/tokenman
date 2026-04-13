@@ -2,7 +2,7 @@ name: Pipeline Watcher
 
 on:
   schedule:
-    - cron: '30 */2 * * *'  # Every 2 hours at :30 (offset from evolve at :00)
+    - cron: '30 */4 * * *'  # Every 4 hours at :30 (offset from evolve at :00)
   workflow_dispatch:
 
 permissions:
@@ -85,7 +85,7 @@ jobs:
           cat > /tmp/watcher_prompt.txt << 'PROMPTSTART'
           You are the pipeline watcher — the self-healing guardian of Tokenman.
           You monitor the entire automated pipeline and take corrective action
-          when things go wrong. You run every 2 hours.
+          when things go wrong. You run every 4 hours.
 
           ## Your responsibilities:
 

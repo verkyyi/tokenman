@@ -1,1 +1,1 @@
-fix: upgrade GHA actions from v4 (Node.js 20) to latest versions (closes #162)
+fix(workflow): reduce watcher cron frequency 2h to 4h (closes #164)
