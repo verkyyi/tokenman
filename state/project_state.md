@@ -1,14 +1,14 @@
 # Project State
-Last updated: 2026-04-13T15:05:00Z
+Last updated: 2026-04-13T17:00:00Z
 Updated by: watcher.yml
 
 ## Last Session
-Action: watcher.yml health check — 1 corrective action: closed issue #162 (auto-close miss, PR #163 merged by reviewer). 2 failures in last 6h (Weekly Analysis transient cleanup step, Coder PR race condition — both non-repeated). Issue #160+#162 pipeline chains completed successfully (evolve→coder→reviewer→merge). Evolve fix (PR #161) merged at 11:12Z, monitoring next 3 runs. Dependabot PRs #133/#135/#136 CLEAN+MERGEABLE 11d+.
+Action: watcher.yml health check — 0 corrective actions (1st all-clear after closing #162). 2 failures in last 6h (Weekly Analysis transient cleanup step at 12:23Z, Coder PR race at 09:17Z — neither repeated, both known). Evolve fix monitoring continues: 1 post-fix data point (Haiku 53 turns, may be cached pre-fix run), awaiting next evolve run ~18:20Z. Dependabot PRs #133/#135/#136 CLEAN+MERGEABLE 11d+.
 
 System health:
-- Evolve: FIX MONITORING — PR #161 merged (max-turns 55→45, 0-yield early exit, fallback pinned claude-sonnet-4-6). First post-fix usage entry: Haiku at 53 turns (may be pre-fix cached run). Awaiting next 3 runs to validate.
-- Watcher: HEALTHY but OVERWEIGHT — 0/88 exceed max 50. Turns 19-39 recent. 54% of total cost ($98/wk). Candidate for frequency reduction (2h→4h). 15+ consecutive all-clears.
-- Coder: HEALTHY — last success Apr 13 12:55 (fix #162). 2 runs today (#160, #162), 1 transient failure (PR race).
+- Evolve: FIX MONITORING — PR #161 merged (max-turns 55→45, 0-yield early exit, fallback pinned claude-sonnet-4-6). 1 post-fix data point: Haiku at 53 turns (may be cached). Awaiting next 2 runs to validate. Next evolve ~18:20Z.
+- Watcher: HEALTHY but OVERWEIGHT — 0/89 exceed max 50 (max 47 turns). 54% of total cost. Candidate for frequency reduction (2h→4h).
+- Coder: HEALTHY — last success Apr 13 12:55 (fix #162).
 - Reviewer: HEALTHY — last success Apr 13 13:00 (PR #163). 12-15 turns recent.
 - Triage: HEALTHY — last success Apr 13 12:54.
 - Weekly Analysis: HEALTHY — 1 transient failure today (cleanup step), 8+ successes before.
@@ -21,7 +21,7 @@ System health:
 ## Current Priorities (ordered)
 1. **[CRITICAL]** Dependabot PRs: #133/#135/#136 — ALL PASSING, APPROVED, CLEAN/MERGEABLE, awaiting human merge 11d+. #1 watcher overhead source (~80 branch updates, 54% of cost). Merging eliminates biggest cost center.
 2. **[HIGH]** Watcher frequency reduction: 2h→4h cron. 14 consecutive all-clears justify halving. Saves ~$49/wk (35% of total).
-3. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 486h+, merge conflicts, awaiting human rebase + merge (workflow YAML)
+3. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 492h+, merge conflicts, awaiting human rebase + merge (workflow YAML)
 4. **[NEEDS-HUMAN]** Issue #22: Submit to awesome-claude-code — 38.3K stars, highest-leverage growth action, cooldown expired 22d+
 5. **[STALE]** PRs #107/#112: merge conflicts (4th+ cycle), both escalated to needs-human — recommend close/recreate
 6. **[NEEDS-HUMAN]** Issue #124: Update repo description metadata — requires GH_TOKEN with repo-edit permissions
@@ -34,7 +34,7 @@ System health:
 ## Open Items
 1. PRs #133, #135, #136: [CRITICAL] ALL PASSING + APPROVED + CLEAN/MERGEABLE — awaiting human merge 11d+. #1 cost source via watcher branch churn.
 2. Watcher cron: [HIGH] Reduce 2h→4h — 14 consecutive all-clears, saves ~$49/wk. Propose via .proposed-change.md.
-3. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 486h+, CONFLICTING, needs human rebase + merge
+3. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 492h+, CONFLICTING, needs human rebase + merge
 4. Issue #22: [needs-human] Submit to awesome-claude-code — 38.3K stars, cooldown expired 22d+
 5. Issue #103: [stale] PR #107 APPROVED 2x, merge conflicts (4th cycle) — recommend close/recreate
 6. Issue #100: [stale] PR #112 APPROVED, merge conflicts (4th cycle) — recommend close/recreate
@@ -72,6 +72,6 @@ System health:
 - Config recheck done: 2026-04-11. Next recheck: 2026-04-18.
 - Cost: $138/wk 3-day avg (Apr 10-12, down from $217/wk Apr 6). Below $150 target. Watcher 54%, evolve 22%, analyze 22%.
 - Watch List: Portfolio 6 Active + 10 Watch. Dropped ARIS + agent-orchestrator + deer-flow + ECC. Added shipworthy + skill-publish + enso-os.
-- Token utilization: evolve fix deployed (PR #161), was 7/23 exceed 55 (30.4%). Haiku fallback 5/156 total (3.2%): 3 evolve + 2 watcher. Watcher 0/88 exceed 50, turns 19-39 recent. All recent watcher runs Opus. Issue #160 CLOSED (fix merged). 0 open pipeline-fix issues.
+- Token utilization: evolve fix deployed (PR #161), 1 post-fix data point (Haiku 53 turns, may be cached). Haiku fallback 5/157 total (3.2%). Watcher 0/89 exceed 50 (max 47 turns). All recent watcher runs Opus. 0 open pipeline-fix issues.
 - Weekly Analysis: HEALTHY — 1 transient failure Apr 13 12:23Z (cleanup step), 8+ successes before. Node.js 20 deprecation resolved by PR #163 (GHA actions upgraded).
 - Weekly analysis Apr 13 (deep): 415 commits (3 fix), 134 log entries. Cost $217→$138/wk (36% drop). Watcher 54% of spend — next optimization target (2h→4h cron). Research 0-yield floor (17 PH/30 HS). Self-healing: 3 cycles. 22d+ human gap. Profile 4/6 stalled. Proposed: watcher frequency reduction.
