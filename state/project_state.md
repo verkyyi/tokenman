@@ -1,18 +1,18 @@
 # Project State
-Last updated: 2026-04-13T12:58:00Z
-Updated by: coder.yml
+Last updated: 2026-04-13T15:05:00Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: coder.yml fix issue #162 — Upgraded all GHA actions from v4 (Node.js 20) to latest: checkout v4→v6 (17 refs across 14 files), setup-node v4→v6 (4 refs), upload-pages-artifact v4→v5, deploy-pages v4→v5. Total 23 references updated. Build passes. PR opened for issue #162.
+Action: watcher.yml health check — 1 corrective action: closed issue #162 (auto-close miss, PR #163 merged by reviewer). 2 failures in last 6h (Weekly Analysis transient cleanup step, Coder PR race condition — both non-repeated). Issue #160+#162 pipeline chains completed successfully (evolve→coder→reviewer→merge). Evolve fix (PR #161) merged at 11:12Z, monitoring next 3 runs. Dependabot PRs #133/#135/#136 CLEAN+MERGEABLE 11d+.
 
 System health:
-- Evolve: FIX PENDING — max-turns reduced 55→45, 0-yield early exit added, fallback model pinned. Awaiting PR merge + next 3 runs to validate.
-- Watcher: HEALTHY but OVERWEIGHT — 0/86 exceed max 50. 15 consecutive all-clears (before this action). 54% of total cost ($98/wk). Candidate for frequency reduction (2h→4h).
-- Coder: HEALTHY — last success Apr 8 20:51. 2 runs this week (fix #155, #157).
-- Reviewer: HEALTHY — last success Apr 8 20:53. 12 turns.
-- Triage: HEALTHY — last success Apr 12 18:15.
-- Weekly Analysis: HEALTHY — 8+ consecutive successes.
-- Growth: HEALTHY but FLAT — last success Apr 13 12:15. Stars 2, forks 0. 22d+ flat. No release candidate. All actions blocked needs-human.
+- Evolve: FIX MONITORING — PR #161 merged (max-turns 55→45, 0-yield early exit, fallback pinned claude-sonnet-4-6). First post-fix usage entry: Haiku at 53 turns (may be pre-fix cached run). Awaiting next 3 runs to validate.
+- Watcher: HEALTHY but OVERWEIGHT — 0/88 exceed max 50. Turns 19-39 recent. 54% of total cost ($98/wk). Candidate for frequency reduction (2h→4h). 15+ consecutive all-clears.
+- Coder: HEALTHY — last success Apr 13 12:55 (fix #162). 2 runs today (#160, #162), 1 transient failure (PR race).
+- Reviewer: HEALTHY — last success Apr 13 13:00 (PR #163). 12-15 turns recent.
+- Triage: HEALTHY — last success Apr 13 12:54.
+- Weekly Analysis: HEALTHY — 1 transient failure today (cleanup step), 8+ successes before.
+- Growth: HEALTHY but FLAT — last success Apr 13 12:15. Stars 2, forks 0. 22d+ flat. All actions blocked needs-human.
 - Analyze: STABLE (25-34 turns recent).
 - Feedback Learner: RECOVERED — 5 turns, #72 fix confirmed.
 - Deploy: RECOVERING — no trigger since #65 fix.
@@ -54,8 +54,8 @@ System health:
 - Reviewer.yml has a bug: README sync step doesn't handle dirty working tree (PR #55 APPROVED 480h+ — CONFLICTING, needs human rebase + merge)
 - Reviewer hallucination fix (#90) — NEVER close PR prompt guardrail + safety-net reopen step merged (PR #93)
 - GitHub auto-close fix (#84) DONE — reviewer.yml hardened with 3-tier fallback; watcher remains safety net
-- Evolve SATURATING — max-turns 55, 7/23 (30.4%) exceed (BREACHED 30% threshold), last 4 consecutive at max: 60, 60, 60, 79. Haiku fallback on latest run. Issue #160 created. 6h cadence confirmed.
-- Watcher HEALTHY — max-turns 50, 0/87 exceed. Turns 19-36 recent. All recent runs Opus.
+- Evolve FIX DEPLOYED — PR #161 merged (max-turns 55→45, 0-yield early exit, fallback pinned). Issue #160 CLOSED. Issue #162 (GHA v4→latest) also CLOSED (PR #163 merged). Monitoring next 3 evolve runs.
+- Watcher HEALTHY — max-turns 50, 0/88 exceed. Turns 19-39 recent. All recent runs Opus.
 - Issue #100: ESCALATED to needs-human. PR #112 APPROVED but merge conflicts (4th cycle). Manual rebase + merge required.
 - Issue #103: ESCALATED to needs-human. PR #107 APPROVED 2x, merge conflicts. Manual rebase + merge required.
 - Analyze STABLE — 26-39 turns recent
@@ -66,12 +66,12 @@ System health:
 - Ecosystem consolidating: Source portfolio 6 Active + 10 Watch. Added shipworthy, skill-publish. Dropped ARIS, agent-orchestrator, deer-flow, ECC.
 - Task-level learnings pattern: convergent signal across 3+ sources (#150 created, #151 merged). Extends feedback-learner concept to agent task outcomes.
 - No human engagement since Mar 22 — 22d+ gap. All recent activity bot-generated.
-- Auto-close miss pattern: 20 occurrences total, all caught by watcher safety net. Accepted as architectural.
+- Auto-close miss pattern: 21 occurrences total (#162 latest), all caught by watcher safety net. Accepted as architectural.
 - Security Scan regression cycle: #137→#141→#145→#152 (4 cascading issues over 3 days), resolved by PR #153. All Dependabot PRs now passing.
 - Dependabot PRs: #133/#135/#136 APPROVED, ALL PASSING, CLEAN/MERGEABLE. Ready for human merge 11d+. Watcher skips branch updates when merge state CLEAN.
 - Config recheck done: 2026-04-11. Next recheck: 2026-04-18.
 - Cost: $138/wk 3-day avg (Apr 10-12, down from $217/wk Apr 6). Below $150 target. Watcher 54%, evolve 22%, analyze 22%.
 - Watch List: Portfolio 6 Active + 10 Watch. Dropped ARIS + agent-orchestrator + deer-flow + ECC. Added shipworthy + skill-publish + enso-os.
-- Token utilization: evolve 7/23 exceed 55 (30.4%, BREACHED 30% threshold), last 4 consecutive at max (60,60,60,79). Haiku fallback 4/150 (2.7%), latest was Haiku at 79 turns. Watcher 0/87 exceed 50, turns 19-36 recent. Issue #160 created for evolve saturation. Triage re-triggered for #160.
-- Weekly Analysis: HEALTHY. 8+ consecutive successes.
+- Token utilization: evolve fix deployed (PR #161), was 7/23 exceed 55 (30.4%). Haiku fallback 5/156 total (3.2%): 3 evolve + 2 watcher. Watcher 0/88 exceed 50, turns 19-39 recent. All recent watcher runs Opus. Issue #160 CLOSED (fix merged). 0 open pipeline-fix issues.
+- Weekly Analysis: HEALTHY — 1 transient failure Apr 13 12:23Z (cleanup step), 8+ successes before. Node.js 20 deprecation resolved by PR #163 (GHA actions upgraded).
 - Weekly analysis Apr 13 (deep): 415 commits (3 fix), 134 log entries. Cost $217→$138/wk (36% drop). Watcher 54% of spend — next optimization target (2h→4h cron). Research 0-yield floor (17 PH/30 HS). Self-healing: 3 cycles. 22d+ human gap. Profile 4/6 stalled. Proposed: watcher frequency reduction.
