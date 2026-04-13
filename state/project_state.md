@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-04-13T07:20:00Z
+Last updated: 2026-04-13T09:15:00Z
 Updated by: watcher.yml
 
 ## Last Session
-Action: watcher.yml health check — 1 corrective action: created issue #160 (evolve max-turns saturation breached 30% threshold, Haiku fallback at 79 turns). All workflows HEALTHY. Dependabot PRs CLEAN+MERGEABLE awaiting human merge 11d+. 15th consecutive all-clear except for the new evolve finding.
+Action: watcher.yml health check — 1 corrective action: re-triggered triage for #160 (watcher-created issue, GITHUB_TOKEN doesn't auto-trigger workflows, approaching 2h threshold). All workflows HEALTHY. Dependabot PRs CLEAN+MERGEABLE awaiting human merge 11d+. 0 failures in last 6h.
 
 System health:
 - Evolve: SATURATING — 6h cadence. 7/23 (30.4%) exceed 55 turns (BREACHED 30% threshold). Last 4 consecutive at max: 60, 60, 60, 79. Latest run Haiku fallback at 79 turns. Issue #160 created. All max-hitting runs produced 0 issues.
@@ -55,7 +55,7 @@ System health:
 - Reviewer hallucination fix (#90) — NEVER close PR prompt guardrail + safety-net reopen step merged (PR #93)
 - GitHub auto-close fix (#84) DONE — reviewer.yml hardened with 3-tier fallback; watcher remains safety net
 - Evolve SATURATING — max-turns 55, 7/23 (30.4%) exceed (BREACHED 30% threshold), last 4 consecutive at max: 60, 60, 60, 79. Haiku fallback on latest run. Issue #160 created. 6h cadence confirmed.
-- Watcher HEALTHY — max-turns 50, 0/85 exceed. Turns 19-39 recent. All recent runs Opus. 14 consecutive all-clears as of Apr 13 05:30.
+- Watcher HEALTHY — max-turns 50, 0/87 exceed. Turns 19-36 recent. All recent runs Opus.
 - Issue #100: ESCALATED to needs-human. PR #112 APPROVED but merge conflicts (4th cycle). Manual rebase + merge required.
 - Issue #103: ESCALATED to needs-human. PR #107 APPROVED 2x, merge conflicts. Manual rebase + merge required.
 - Analyze STABLE — 26-39 turns recent
@@ -72,6 +72,6 @@ System health:
 - Config recheck done: 2026-04-11. Next recheck: 2026-04-18.
 - Cost: $138/wk 3-day avg (Apr 10-12, down from $217/wk Apr 6). Below $150 target. Watcher 54%, evolve 22%, analyze 22%.
 - Watch List: Portfolio 6 Active + 10 Watch. Dropped ARIS + agent-orchestrator + deer-flow + ECC. Added shipworthy + skill-publish + enso-os.
-- Token utilization: evolve 7/23 exceed 55 (30.4%, BREACHED 30% threshold), last 4 consecutive at max (60,60,60,79). Haiku fallback 4/150 (2.7%), latest was Haiku at 79 turns. Watcher 0/86 exceed 50, turns 19-39 recent. Issue #160 created for evolve saturation.
+- Token utilization: evolve 7/23 exceed 55 (30.4%, BREACHED 30% threshold), last 4 consecutive at max (60,60,60,79). Haiku fallback 4/150 (2.7%), latest was Haiku at 79 turns. Watcher 0/87 exceed 50, turns 19-36 recent. Issue #160 created for evolve saturation. Triage re-triggered for #160.
 - Weekly Analysis: HEALTHY. 8+ consecutive successes.
 - Weekly analysis Apr 13 (deep): 415 commits (3 fix), 134 log entries. Cost $217→$138/wk (36% drop). Watcher 54% of spend — next optimization target (2h→4h cron). Research 0-yield floor (17 PH/30 HS). Self-healing: 3 cycles. 22d+ human gap. Profile 4/6 stalled. Proposed: watcher frequency reduction.
