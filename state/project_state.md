@@ -1,17 +1,17 @@
 # Project State
-Last updated: 2026-04-13T12:25:53Z
-Updated by: evolve.yml
+Last updated: 2026-04-13T12:55:00Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: evolve.yml PIPELINE_WATCH — 10 failures all ALREADY-FIXED (Coder TRANSIENT PR race, retry ok). Node.js 20 deprecation found: all 4 GHA actions on v4 (Node 20), v5/v6 available, deadline Jun 2 2026. Issue #162 created. Cost $149/wk 3-day avg. Issue #160 CLOSED (PR #161 merged).
+Action: watcher.yml health check — 2 corrective actions: closed #160 (PR #161 merged, auto-close miss #21), re-triggered triage for #162 (GITHUB_TOKEN-created, won't auto-trigger). Evolve fix (PR #161) partially effective: first post-fix run 53 turns on Haiku (down from 60-79, but exceeds new 45 cap). Haiku fallback persists despite --fallback-model claude-sonnet-4-6. Weekly Analysis 1 transient failure at 12:23Z. Coder failure at 09:17Z transient (succeeded 11:06Z).
 
 System health:
-- Evolve: FIX PENDING — max-turns reduced 55→45, 0-yield early exit added, fallback model pinned. Awaiting PR merge + next 3 runs to validate.
-- Watcher: HEALTHY but OVERWEIGHT — 0/86 exceed max 50. 15 consecutive all-clears (before this action). 54% of total cost ($98/wk). Candidate for frequency reduction (2h→4h).
-- Coder: HEALTHY — last success Apr 8 20:51. 2 runs this week (fix #155, #157).
-- Reviewer: HEALTHY — last success Apr 8 20:53. 12 turns.
-- Triage: HEALTHY — last success Apr 12 18:15.
-- Weekly Analysis: HEALTHY — 8+ consecutive successes.
+- Evolve: FIX APPLIED, MONITORING — max-turns 55→45 merged (PR #161). First post-fix run: 53 turns on Haiku (improved from 60-79, but still exceeds 45 cap). Haiku fallback persists despite --fallback-model claude-sonnet-4-6 — likely platform-level. Need 2-3 more runs to assess.
+- Watcher: HEALTHY but OVERWEIGHT — 0/87+ exceed max 50. Turns 19-39 recent. 54% of total cost. Candidate for frequency reduction (2h→4h).
+- Coder: HEALTHY — last success Apr 13 11:06 (fix #160→PR #161). 31 turns.
+- Reviewer: HEALTHY — last success Apr 13 11:10. 12 turns.
+- Triage: HEALTHY — last success Apr 13 09:38.
+- Weekly Analysis: MOSTLY HEALTHY — 1 transient failure at 12:23Z (exit code 1, 3.5 min), 8+ successes before. Not 3 consecutive.
 - Growth: HEALTHY but FLAT — last success Apr 13 12:15. Stars 2, forks 0. 22d+ flat. No release candidate. All actions blocked needs-human.
 - Analyze: STABLE (25-34 turns recent).
 - Feedback Learner: RECOVERED — 5 turns, #72 fix confirmed.
@@ -54,7 +54,7 @@ System health:
 - Reviewer.yml has a bug: README sync step doesn't handle dirty working tree (PR #55 APPROVED 480h+ — CONFLICTING, needs human rebase + merge)
 - Reviewer hallucination fix (#90) — NEVER close PR prompt guardrail + safety-net reopen step merged (PR #93)
 - GitHub auto-close fix (#84) DONE — reviewer.yml hardened with 3-tier fallback; watcher remains safety net
-- Evolve SATURATING — max-turns 55, 7/23 (30.4%) exceed (BREACHED 30% threshold), last 4 consecutive at max: 60, 60, 60, 79. Haiku fallback on latest run. Issue #160 created. 6h cadence confirmed.
+- Evolve FIX APPLIED — max-turns 55→45 via PR #161 (merged Apr 13 11:12Z). First post-fix run: 53 turns on Haiku (PATTERN_HUNT, 0 issues). Improved from 60-79 pre-fix but still exceeds 45 cap. Haiku fallback persists despite --fallback-model claude-sonnet-4-6 — likely platform-level rate-limit behavior, not controllable via CLI flag. Issue #160 CLOSED.
 - Watcher HEALTHY — max-turns 50, 0/87 exceed. Turns 19-36 recent. All recent runs Opus.
 - Issue #100: ESCALATED to needs-human. PR #112 APPROVED but merge conflicts (4th cycle). Manual rebase + merge required.
 - Issue #103: ESCALATED to needs-human. PR #107 APPROVED 2x, merge conflicts. Manual rebase + merge required.
@@ -72,6 +72,6 @@ System health:
 - Config recheck done: 2026-04-11. Next recheck: 2026-04-18.
 - Cost: $138/wk 3-day avg (Apr 10-12, down from $217/wk Apr 6). Below $150 target. Watcher 54%, evolve 22%, analyze 22%.
 - Watch List: Portfolio 6 Active + 10 Watch. Dropped ARIS + agent-orchestrator + deer-flow + ECC. Added shipworthy + skill-publish + enso-os.
-- Token utilization: evolve 7/23 exceed 55 (30.4%, BREACHED 30% threshold), last 4 consecutive at max (60,60,60,79). Haiku fallback 4/150 (2.7%), latest was Haiku at 79 turns. Watcher 0/87 exceed 50, turns 19-36 recent. Issue #160 created for evolve saturation. Triage re-triggered for #160.
-- Weekly Analysis: HEALTHY. 8+ consecutive successes.
+- Token utilization: evolve post-fix first run 53 turns on Haiku (down from 60-79, still exceeds 45 cap). Haiku fallback 5/155 (3.2%), latest 2 runs Haiku. Watcher 0/87+ exceed 50, turns 19-39 recent, all Opus. Issue #160 CLOSED (PR #161 merged). Issue #162 created (GHA Node.js 20 deprecation), triage re-triggered.
+- Weekly Analysis: MOSTLY HEALTHY — 1 transient failure at Apr 13 12:23Z, 8+ successes before.
 - Weekly analysis Apr 13 (deep): 415 commits (3 fix), 134 log entries. Cost $217→$138/wk (36% drop). Watcher 54% of spend — next optimization target (2h→4h cron). Research 0-yield floor (17 PH/30 HS). Self-healing: 3 cycles. 22d+ human gap. Profile 4/6 stalled. Proposed: watcher frequency reduction.
