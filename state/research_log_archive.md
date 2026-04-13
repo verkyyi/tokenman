@@ -1186,3 +1186,7 @@
 2026-04-06T12:28:12Z | sha-scan | Active: 2/5 changed (awesome-cc 5450ea4→3d8bde2, astro 5557dca→73cbb9c). Watch: 0/11 unchanged (all frozen since last scan). Self e98c48d. | SHAs updated
 2026-04-06T12:28:12Z | self-forks | 0 forks, 2 stars, 12 open issues (unchanged). | no action
 2026-04-06T15:24:12Z | synthesis | Cross-run: research ROI at structural floor (12th SYNTHESIS confirmation). 11 PH with 0 patterns, 26 HS with 0 new architectures. System at mature equilibrium. No new convergent signals since #150 (task-level learnings, merged). | observation
+2026-04-06T15:24:12Z | synthesis | Human intents: 0 new in 7d (15d+ since Mar 22). FIX_PROCESS 41% dominant. 6 needs-human + 3 Dependabot PRs blocked. Growth flat (2 stars, 0 forks). Cost $105/wk ($15/day), below $150 target. | no new entries
+2026-04-06T15:24:12Z | sha-scan | Active: 2/5 changed (awesome-cc 3d8bde2→8940d44 ticker, astro 73cbb9c→2c9bf5e). Watch: 1/10 changed (deer-flow 055e4df→88e5352). 12/15 unchanged. Self 411a34c. | SHAs updated
+2026-04-06T18:28:15Z | pipeline-health | 0 ACTIONABLE failures. 10 failed runs ALL Security Scan (pre-#152 fix, ALREADY-FIXED). 9+ consecutive successes since fix. 0 open pipeline-fix issues. | no action
+2026-04-06T18:28:15Z | pipeline-costs | Cost discrepancy: prior reports claim $105/wk ($15/day) but usage_log.md shows $217/wk ($31/day avg) over 7 days (Mar 31-Apr 6). 45% above $150/wk target. Consistently ~$31/day (26 runs/day cost-bearing). Reviewer runs all skipped (0 cost). | observation — correct figure in state files
