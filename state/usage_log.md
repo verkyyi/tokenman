@@ -153,4 +153,4 @@
 2026-04-13T09:21:13Z | coder | model:claude-opus-4-6 | in:1138073 | out:6596 | turns:31 | cost:1.1738402499999998
 2026-04-13T09:38:50Z | growth | model:claude-opus-4-6 | in:947767 | out:6163 | turns:29 | cost:1.152191
 2026-04-13T11:12:50Z | reviewer | model:claude-opus-4-6 | in:189491 | out:3371 | turns:12 | cost:0.35106075000000003
-2026-04-13T12:26:58Z | analyze | model:claude-opus-4-6 | in:1636160 | out:9974 | turns:26 | cost:1.4784085
+2026-04-13T12:27:51Z | evolve | model:claude-haiku-4-5-20251001 | in:1460900 | out:14463 | turns:53 | cost:1.6567004999999995 | posture:PATTERN_HUNT | issues:0
