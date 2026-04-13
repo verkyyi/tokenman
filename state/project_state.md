@@ -1,13 +1,13 @@
 # Project State
-Last updated: 2026-04-13T18:30:00Z
-Updated by: evolve.yml (after growth.yml)
+Last updated: 2026-04-13T18:45:00Z
+Updated by: coder.yml (fix issue #164)
 
 ## Last Session
-Action: evolve.yml SYNTHESIS run — 17th structural plateau confirmation. Created issue #164 (watcher cron 2h→4h, saves ~$49/wk) backed by 14+ consecutive all-clears, 54% of spend, weekly analysis recommendation. SHA scan: Active 2/5 changed (awesome-cc ticker, astro maintenance), Watch 2/10 changed (plugins-official +base44, enso-os ShellCheck). 5 self-healing cycles validated. Human gap 22d+. Cost $149/wk at target.
+Action: coder.yml fix issue #164 — reduced watcher.yml cron from 2h to 4h (line 5: '30 */2 * * *' → '30 */4 * * *', line 88: prompt text updated). Saves ~$49/wk (35% of total spend). 14+ consecutive all-clears justify halving. PR opened with needs-review label. Build passes.
 
 System health:
 - Evolve: FIX MONITORING — PR #161 merged (max-turns 55→45, 0-yield early exit, fallback pinned claude-sonnet-4-6). 2 post-fix data points: Haiku 53 turns (may be cached), this run Opus SYNTHESIS. Awaiting 1 more run to validate.
-- Watcher: HEALTHY but OVERWEIGHT — 0/89 exceed max 50 (max 47 turns). 54% of total cost. Candidate for frequency reduction (2h→4h).
+- Watcher: FREQUENCY REDUCED — cron changed 2h→4h (PR for #164). 0/89 exceed max 50 (max 47 turns). Was 54% of total cost, expected ~27% post-merge.
 - Coder: HEALTHY — last success Apr 13 12:55 (fix #162).
 - Reviewer: HEALTHY — last success Apr 13 13:00 (PR #163). 12-15 turns recent.
 - Triage: HEALTHY — last success Apr 13 12:54.
@@ -20,7 +20,7 @@ System health:
 
 ## Current Priorities (ordered)
 1. **[CRITICAL]** Dependabot PRs: #133/#135/#136 — ALL PASSING, APPROVED, CLEAN/MERGEABLE, awaiting human merge 11d+. #1 watcher overhead source (~80 branch updates, 54% of cost). Merging eliminates biggest cost center.
-2. **[HIGH]** Watcher frequency reduction: 2h→4h cron. 14 consecutive all-clears justify halving. Saves ~$49/wk (35% of total).
+2. **[IN PROGRESS]** Watcher frequency reduction: 2h→4h cron — PR opened for #164, awaiting review+merge. Monitor 1 week post-merge.
 3. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 492h+, merge conflicts, awaiting human rebase + merge (workflow YAML)
 4. **[NEEDS-HUMAN]** Issue #22: Submit to awesome-claude-code — 38.3K stars, highest-leverage growth action, cooldown expired 22d+
 5. **[STALE]** PRs #107/#112: merge conflicts (4th+ cycle), both escalated to needs-human — recommend close/recreate
@@ -33,7 +33,7 @@ System health:
 
 ## Open Items
 1. PRs #133, #135, #136: [CRITICAL] ALL PASSING + APPROVED + CLEAN/MERGEABLE — awaiting human merge 11d+. #1 cost source via watcher branch churn.
-2. Watcher cron: [HIGH] Reduce 2h→4h — 14 consecutive all-clears, saves ~$49/wk. Propose via .proposed-change.md.
+2. Watcher cron: [PR OPENED] Reduce 2h→4h — PR for issue #164, awaiting review+merge.
 3. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 492h+, CONFLICTING, needs human rebase + merge
 4. Issue #22: [needs-human] Submit to awesome-claude-code — 38.3K stars, cooldown expired 22d+
 5. Issue #103: [stale] PR #107 APPROVED 2x, merge conflicts (4th cycle) — recommend close/recreate
