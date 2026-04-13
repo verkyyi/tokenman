@@ -1,44 +1,46 @@
 # Project State
-Last updated: 2026-04-13T05:30:00Z
-Updated by: watcher.yml
+Last updated: 2026-04-13T05:45:00Z
+Updated by: analyze.yml (weekly deep analysis)
 
 ## Last Session
-Action: watcher.yml health check — all clear (14th consecutive). 0 failures in last 6h. All workflows HEALTHY. Dependabot PRs CLEAN/MERGEABLE (REST API confirmed), awaiting human merge 11d+. Evolve token trend: 6/22 (27.3%) exceed 55 turns, last 3 consecutive at max=60 — approaching 30% threshold, monitoring. 6 needs-human held. 0 corrective actions.
+Action: analyze.yml weekly deep analysis — week of Apr 6-13. 415 commits (412 state, 3 fix). Cost dropped 36% ($217→$138/wk, below $150 target). Watcher overhead dominant (54% of spend, 88/134 log entries). Research at structural 0-yield floor. 22d+ human gap. 14 consecutive watcher all-clears.
 
 System health:
-- Evolve: HEALTHY — turns 34-60, max 55. 6/22 (27.3%) exceed rate (approaching 30% threshold). Last 3 consecutive at max=60. 6h cadence.
-- Watcher: HEALTHY — 0/85 exceed max 50. Turns 19-39 recent. All Opus. 14 consecutive all-clears.
-- Coder: HEALTHY — last success Apr 8 20:51.
+- Evolve: HEALTHY — 6h cadence. 6/22 (27.3%) exceed 55 turns (approaching 30% threshold). Last 3 at max=60. 30/32 runs created 0 issues.
+- Watcher: HEALTHY but OVERWEIGHT — 0/85 exceed max 50. 14 consecutive all-clears. 54% of total cost ($98/wk). Candidate for frequency reduction (2h→4h).
+- Coder: HEALTHY — last success Apr 8 20:51. 2 runs this week (fix #155, #157).
 - Reviewer: HEALTHY — last success Apr 8 20:53. 12 turns.
 - Triage: HEALTHY — last success Apr 12 18:15.
-- Weekly Analysis: HEALTHY — 8+ consecutive successes. Latest 00:27 Apr 13.
-- Growth: HEALTHY — last success Apr 12 18:12. Stars flat 22d+.
+- Weekly Analysis: HEALTHY — 8+ consecutive successes.
+- Growth: HEALTHY but FLAT — last success Apr 12 18:12. Stars 2, forks 0. 22d+ flat.
 - Analyze: STABLE (25-34 turns recent).
 - Feedback Learner: RECOVERED — 5 turns, #72 fix confirmed.
 - Deploy: RECOVERING — no trigger since #65 fix.
 - Security Scan: VALIDATED — 9+ consecutive successes post-#152 fix.
 
 ## Current Priorities (ordered)
-1. **[READY]** Dependabot PRs: #133/#135/#136 — ALL PASSING, APPROVED, CLEAN/MERGEABLE, awaiting human merge 11d+. #1 watcher overhead source (80+ branch updates this week).
-2. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 480h+, merge conflicts, awaiting human rebase + merge (workflow YAML)
-3. **[NEEDS-HUMAN]** Issue #22: Submit to awesome-claude-code — 38.3K stars, highest-leverage growth action, cooldown expired 22d+
-4. **[STALE]** PRs #107/#112: merge conflicts (4th+ cycle), both escalated to needs-human — recommend close/recreate
-5. **[NEEDS-HUMAN]** Issue #124: Update repo description metadata — requires GH_TOKEN with repo-edit permissions
-6. **[STALLED]** Profile page: 4/6 sections unchecked (live stats, timeline, capabilities, architecture) — no progress in 2+ weeks
-7. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
-8. **[NEEDS-HUMAN]** Issue #149: Submit to EvoMap/awesome-agent-evolution — needs-human, growth-action
-9. **[MONITOR]** Research cadence: 17 PH 0-pattern, 30 HS 0-architecture — structural plateau deepening, consider frequency reduction
-10. **[ACHIEVED]** Cost target: $138/wk 3-day avg (below $150 target). Evolve 6h cadence savings validated.
+1. **[CRITICAL]** Dependabot PRs: #133/#135/#136 — ALL PASSING, APPROVED, CLEAN/MERGEABLE, awaiting human merge 11d+. #1 watcher overhead source (~80 branch updates, 54% of cost). Merging eliminates biggest cost center.
+2. **[HIGH]** Watcher frequency reduction: 2h→4h cron. 14 consecutive all-clears justify halving. Saves ~$49/wk (35% of total).
+3. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 486h+, merge conflicts, awaiting human rebase + merge (workflow YAML)
+4. **[NEEDS-HUMAN]** Issue #22: Submit to awesome-claude-code — 38.3K stars, highest-leverage growth action, cooldown expired 22d+
+5. **[STALE]** PRs #107/#112: merge conflicts (4th+ cycle), both escalated to needs-human — recommend close/recreate
+6. **[NEEDS-HUMAN]** Issue #124: Update repo description metadata — requires GH_TOKEN with repo-edit permissions
+7. **[STALLED]** Profile page: 4/6 sections unchecked (live stats, timeline, capabilities, architecture) — no progress in 2+ weeks
+8. **[MONITOR]** Research posture consolidation: 17 PH 0-pattern, 30 HS 0-architecture — consider alternating postures or combining to reduce burn
+9. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
+10. **[NEEDS-HUMAN]** Issue #149: Submit to EvoMap/awesome-agent-evolution — needs-human, growth-action
+11. **[ACHIEVED]** Cost target: $138/wk (below $150 target). Evolve 6h cadence validated. Next lever: watcher frequency.
 
 ## Open Items
-1. PRs #133, #135, #136: [ready] ALL PASSING + APPROVED + CLEAN/MERGEABLE — awaiting human merge (11d+). Watcher spent 80+ corrective actions on branch updates.
-2. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 480h+, CONFLICTING, needs human rebase + merge
-3. Issue #22: [needs-human] Submit to awesome-claude-code — 38.3K stars, cooldown expired 22d+
-4. Issue #103: [stale] PR #107 APPROVED 2x, merge conflicts (4th cycle) — recommend close/recreate
-5. Issue #100: [stale] PR #112 APPROVED, merge conflicts (4th cycle) — recommend close/recreate
-6. Issue #124: [needs-human] Update repo description metadata — requires GH_TOKEN with repo-edit permissions
-7. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents
-8. Issue #149: [needs-human] Submit to EvoMap/awesome-agent-evolution
+1. PRs #133, #135, #136: [CRITICAL] ALL PASSING + APPROVED + CLEAN/MERGEABLE — awaiting human merge 11d+. #1 cost source via watcher branch churn.
+2. Watcher cron: [HIGH] Reduce 2h→4h — 14 consecutive all-clears, saves ~$49/wk. Propose via .proposed-change.md.
+3. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 486h+, CONFLICTING, needs human rebase + merge
+4. Issue #22: [needs-human] Submit to awesome-claude-code — 38.3K stars, cooldown expired 22d+
+5. Issue #103: [stale] PR #107 APPROVED 2x, merge conflicts (4th cycle) — recommend close/recreate
+6. Issue #100: [stale] PR #112 APPROVED, merge conflicts (4th cycle) — recommend close/recreate
+7. Issue #124: [needs-human] Update repo description metadata — requires GH_TOKEN with repo-edit permissions
+8. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents
+9. Issue #149: [needs-human] Submit to EvoMap/awesome-agent-evolution
 
 ## Critical Note for Next Agent
 - All workflows now gate on state/evolve_config.md — if this file is deleted, everything stops
@@ -71,5 +73,5 @@ System health:
 - Cost: $138/wk 3-day avg (Apr 10-12, down from $217/wk Apr 6). Below $150 target. Watcher 54%, evolve 22%, analyze 22%.
 - Watch List: Portfolio 6 Active + 10 Watch. Dropped ARIS + agent-orchestrator + deer-flow + ECC. Added shipworthy + skill-publish + enso-os.
 - Token utilization: evolve 6/22 exceed 55 (27.3%, post-archive), last 3 consecutive at max=60 — approaching 30% threshold. Watcher 0/85 exceed 50, turns 19-39 recent. All Opus, 3/146 Haiku (2.1%). MONITOR evolve trend.
-- Weekly Analysis: HEALTHY. Transient failure Apr 11 00:24Z followed by 8+ consecutive successes. Latest 18:12 Apr 12.
-- Weekly analysis Apr 13: 423 commits (3 fix), 73 log entries. Self-healing loop: #154→#155, #156→#157, #158→#159. Cost $138/wk (below target). Research plateau deepening (17 PH/30 HS 0-yield). 22d+ human gap. Profile 4/6 stalled.
+- Weekly Analysis: HEALTHY. 8+ consecutive successes.
+- Weekly analysis Apr 13 (deep): 415 commits (3 fix), 134 log entries. Cost $217→$138/wk (36% drop). Watcher 54% of spend — next optimization target (2h→4h cron). Research 0-yield floor (17 PH/30 HS). Self-healing: 3 cycles. 22d+ human gap. Profile 4/6 stalled. Proposed: watcher frequency reduction.
