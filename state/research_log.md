@@ -2,8 +2,6 @@
 # Append-only. Written by evolve.yml during research phase.
 # Entries older than 100 are archived to state/research_log_archive.md by scripts/archive-research-log.sh.
 # Format: ISO_TIMESTAMP | source | finding_summary | action_taken
-2026-04-06T12:28:12Z | self-forks | 0 forks, 2 stars, 12 open issues (unchanged). | no action
-2026-04-06T15:24:12Z | synthesis | Cross-run: research ROI at structural floor (12th SYNTHESIS confirmation). 11 PH with 0 patterns, 26 HS with 0 new architectures. System at mature equilibrium. No new convergent signals since #150 (task-level learnings, merged). | observation
 2026-04-06T15:24:12Z | synthesis | Human intents: 0 new in 7d (15d+ since Mar 22). FIX_PROCESS 41% dominant. 6 needs-human + 3 Dependabot PRs blocked. Growth flat (2 stars, 0 forks). Cost $105/wk ($15/day), below $150 target. | no new entries
 2026-04-06T15:24:12Z | sha-scan | Active: 2/5 changed (awesome-cc 3d8bde2→8940d44 ticker, astro 73cbb9c→2c9bf5e). Watch: 1/10 changed (deer-flow 055e4df→88e5352). 12/15 unchanged. Self 411a34c. | SHAs updated
 2026-04-06T18:28:15Z | pipeline-health | 0 ACTIONABLE failures. 10 failed runs ALL Security Scan (pre-#152 fix, ALREADY-FIXED). 9+ consecutive successes since fix. 0 open pipeline-fix issues. | no action
@@ -102,3 +100,5 @@
 2026-04-12T18:11:55Z | synthesis | Cross-run: 16th structural plateau confirmation. 17 PH, 29 HS consecutive 0-yield. Feedback-learner validated by 4+ independent sources (enso-os, shipworthy, Citadel, dispatch). Cost $138/wk below target. Human gap 21d+. Issue #158 CLOSED. All convergent signals previously captured. | no action
 2026-04-12T18:11:55Z | synthesis | Human intents: 0 new in 7d (21d+ since Mar 22). FIX_PROCESS 41% dominant. 6 needs-human + 3 Dependabot PRs blocked. Growth flat (2 stars, 0 forks). | no new entries
 2026-04-12T18:11:55Z | sha-scan | Active: 1/5 changed (awesome-cc ddd9432→83704c2 ticker). Watch: 1/10 changed (enso-os a7ac576→1e569d4). 14/16 unchanged. Self 0aef908. | SHAs updated
+2026-04-13T00:24:32Z | horizon-scan | Searched 4 query categories (claude+code+agent, self-evolving+harness, claude+skills+GHA, claude-code+CI). 8+ new repos assessed: openlens (TS multi-agent review, slowing), prbuddy (PR health plugin, prevention delta, CLI-only), daily-tech-digest (GHA+Python content gen, standard pattern), claude-code-kit (Shell CI gates, 1-day activity). None warrant Watch List. | no action — 0 CI-adoptable
+2026-04-13T00:24:32Z | sha-scan | Active: 1/5 changed (awesome-cc 83704c2→e87a7c6 ticker). Watch: 0/10 changed. Self addc7ed, 2 stars, 0 forks. | SHAs updated
