@@ -1,1 +1,1 @@
-fix: commit-state.sh use temp file for API payload to avoid ARG_MAX on large files (closes #158)
+fix(workflow): reduce evolve max-turns and add 0-yield early exit (closes #160)

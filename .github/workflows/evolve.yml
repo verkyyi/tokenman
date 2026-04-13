@@ -83,6 +83,21 @@ jobs:
 
           Log your choice and one-line reasoning before executing.
 
+          ## 0-Yield Early Exit
+
+          After selecting your posture, check state/last_evolve_summary.md for
+          the current posture's consecutive 0-yield count. Count how many
+          consecutive entries in state/usage_log.md for this posture show issues:0.
+
+          If the current posture has 10+ consecutive 0-yield runs:
+          1. Log: "0-yield early exit: [posture] has N consecutive 0-yield runs"
+          2. Do SHA scan ONLY (no deep-dives, no source reading)
+          3. Update state files (last_evolve_summary.md, agent_log.md, research_log.md)
+          4. Commit and exit immediately
+          5. Your turn budget is 25 (not the normal posture budget)
+
+          This is MANDATORY, not advisory. Do not start deep-dives on 0-yield postures.
+
           ## Posture: PATTERN HUNT
           Mindset: "What can we adopt?"
 
@@ -327,8 +342,8 @@ jobs:
           claude -p "$(cat /tmp/prompt.txt)" \
             --model opus \
             --effort max \
-            --max-turns 55 \
-            --fallback-model sonnet \
+            --max-turns 45 \
+            --fallback-model claude-sonnet-4-6 \
             --permission-mode bypassPermissions \
             --output-format json \
             > /tmp/claude_output.json
