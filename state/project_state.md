@@ -1,18 +1,18 @@
 # Project State
-Last updated: 2026-04-13T11:05:00Z
+Last updated: 2026-04-13T09:15:00Z
 Updated by: watcher.yml
 
 ## Last Session
-Action: watcher.yml health check — 1 corrective action: re-triggered coder for #160 (prior coder run 24335587715 failed at 09:17 with PR creation error "No commits between main and fix/issue-160" — branch never pushed; issue still agent-ready, no PR exists, ~2h since failure). All workflows HEALTHY. Dependabot PRs CLEAN+MERGEABLE awaiting human merge 11d+. 1 coder failure in last 6h (for #160).
+Action: coder.yml fix issue #160 — Evolve max-turns saturation. Reduced --max-turns 55→45, pinned --fallback-model to claude-sonnet-4-6 (was `sonnet` which resolved to Haiku), added mandatory 0-yield early-exit instruction in evolve prompt (skip deep-dives when posture has 10+ consecutive 0-yield runs, budget capped at 25 turns), updated evolve_config.md degradation matrix with 0-Yield Budget column, lowered wind-down threshold 60%→50%. PR opened for issue #160.
 
 System health:
-- Evolve: SATURATING — 6h cadence. 7/23 (30.4%) exceed 55 turns (BREACHED 30% threshold). Last 4 consecutive at max: 60, 60, 60, 79. Latest run Haiku fallback at 79 turns. Issue #160 created + triaged + coder re-triggered.
-- Watcher: HEALTHY but OVERWEIGHT — 0/88 exceed max 50. Turns 19-39 recent. 54% of total cost ($98/wk). Candidate for frequency reduction (2h→4h).
-- Coder: RECOVERING — last success Apr 8 20:51. Failed for #160 at 09:17 (PR creation error — branch not pushed). Re-triggered.
+- Evolve: FIX PENDING — max-turns reduced 55→45, 0-yield early exit added, fallback model pinned. Awaiting PR merge + next 3 runs to validate.
+- Watcher: HEALTHY but OVERWEIGHT — 0/86 exceed max 50. 15 consecutive all-clears (before this action). 54% of total cost ($98/wk). Candidate for frequency reduction (2h→4h).
+- Coder: HEALTHY — last success Apr 8 20:51. 2 runs this week (fix #155, #157).
 - Reviewer: HEALTHY — last success Apr 8 20:53. 12 turns.
-- Triage: HEALTHY — last success Apr 13 09:38 (triaged #160).
+- Triage: HEALTHY — last success Apr 12 18:15.
 - Weekly Analysis: HEALTHY — 8+ consecutive successes.
-- Growth: HEALTHY but FLAT — last success Apr 13 09:38. Stars 2, forks 0. 22d+ flat. No release candidate. All actions blocked needs-human.
+- Growth: HEALTHY but FLAT — last success Apr 13 12:15. Stars 2, forks 0. 22d+ flat. No release candidate. All actions blocked needs-human.
 - Analyze: STABLE (25-34 turns recent).
 - Feedback Learner: RECOVERED — 5 turns, #72 fix confirmed.
 - Deploy: RECOVERING — no trigger since #65 fix.
@@ -72,6 +72,6 @@ System health:
 - Config recheck done: 2026-04-11. Next recheck: 2026-04-18.
 - Cost: $138/wk 3-day avg (Apr 10-12, down from $217/wk Apr 6). Below $150 target. Watcher 54%, evolve 22%, analyze 22%.
 - Watch List: Portfolio 6 Active + 10 Watch. Dropped ARIS + agent-orchestrator + deer-flow + ECC. Added shipworthy + skill-publish + enso-os.
-- Token utilization: evolve 7/23 exceed 55 (30.4%, BREACHED 30% threshold), last 4 consecutive at max (60,60,60,79). Haiku fallback 4/153 (2.6%), latest was Haiku at 79 turns. Watcher 0/88 exceed 50, turns 19-39 recent. Issue #160 created for evolve saturation. Triage done, coder failed (PR creation error), coder re-triggered.
+- Token utilization: evolve 7/23 exceed 55 (30.4%, BREACHED 30% threshold), last 4 consecutive at max (60,60,60,79). Haiku fallback 4/150 (2.7%), latest was Haiku at 79 turns. Watcher 0/87 exceed 50, turns 19-36 recent. Issue #160 created for evolve saturation. Triage re-triggered for #160.
 - Weekly Analysis: HEALTHY. 8+ consecutive successes.
 - Weekly analysis Apr 13 (deep): 415 commits (3 fix), 134 log entries. Cost $217→$138/wk (36% drop). Watcher 54% of spend — next optimization target (2h→4h cron). Research 0-yield floor (17 PH/30 HS). Self-healing: 3 cycles. 22d+ human gap. Profile 4/6 stalled. Proposed: watcher frequency reduction.
