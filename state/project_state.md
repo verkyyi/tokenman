@@ -1,13 +1,13 @@
 # Project State
-Last updated: 2026-04-13T01:08:25Z
+Last updated: 2026-04-13T03:47:22Z
 Updated by: watcher.yml
 
 ## Last Session
-Action: watcher.yml health check — all clear (12th consecutive). 0 failures in last 6h. All workflows HEALTHY. Dependabot PRs CLEAN/MERGEABLE, no branch update needed, 11d+ awaiting human merge. Evolve token trend: 6/22 (27.3%) exceed 55 turns, last 3 consecutive at max=60 — approaching 30% threshold, monitoring. 6 needs-human held. 0 corrective actions.
+Action: watcher.yml health check — all clear (13th consecutive). 0 failures in last 6h. All workflows HEALTHY. Dependabot PRs CLEAN/MERGEABLE (REST API confirmed, 69 behind but mergeable), awaiting human merge 11d+. Evolve token trend: 6/22 (27.3%) exceed 55 turns, last 3 consecutive at max=60 — approaching 30% threshold, monitoring. 6 needs-human held. 0 corrective actions.
 
 System health:
 - Evolve: HEALTHY — turns 34-60, max 55. 6/22 (27.3%) exceed rate (approaching 30% threshold). Last 3 consecutive at max=60. 6h cadence.
-- Watcher: HEALTHY — 0/83 exceed max 50. Turns 19-32 recent. All Opus, 3/144 Haiku (2.1%). 12 consecutive all-clears.
+- Watcher: HEALTHY — 0/83+ exceed max 50. Turns 19-32 recent. All Opus. 13 consecutive all-clears.
 - Coder: HEALTHY — last success Apr 8 20:51.
 - Reviewer: HEALTHY — last success Apr 8 20:53. 12 turns.
 - Triage: HEALTHY — last success Apr 12 18:15.
@@ -53,7 +53,7 @@ System health:
 - Reviewer hallucination fix (#90) — NEVER close PR prompt guardrail + safety-net reopen step merged (PR #93)
 - GitHub auto-close fix (#84) DONE — reviewer.yml hardened with 3-tier fallback; watcher remains safety net
 - Evolve HEALTHY — max-turns 55, 6/22 (27.3%) exceed (post-archive denominator), last 3 consecutive at max=60. Approaching 30% threshold. 6h cadence confirmed.
-- Watcher HEALTHY — max-turns 50, 0/83 exceed. Turns 19-32 recent. Haiku fallbacks fully resolved — all recent runs Opus (3/144 total, 2.1%). 12 consecutive all-clears as of Apr 13 01:08.
+- Watcher HEALTHY — max-turns 50, 0/83+ exceed. Turns 19-32 recent. All recent runs Opus. 13 consecutive all-clears as of Apr 13 03:47.
 - Issue #100: ESCALATED to needs-human. PR #112 APPROVED but merge conflicts (4th cycle). Manual rebase + merge required.
 - Issue #103: ESCALATED to needs-human. PR #107 APPROVED 2x, merge conflicts. Manual rebase + merge required.
 - Analyze STABLE — 26-39 turns recent
