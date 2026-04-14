@@ -345,6 +345,7 @@ jobs:
             --max-turns 45 \
             --fallback-model claude-sonnet-4-6 \
             --permission-mode bypassPermissions \
+            --exclude-dynamic-system-prompt-sections \
             --output-format json \
             > /tmp/claude_output.json
         env:

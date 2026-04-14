@@ -201,6 +201,7 @@ jobs:
             --effort max \
             --max-turns 25 \
             --permission-mode bypassPermissions \
+            --exclude-dynamic-system-prompt-sections \
             --output-format json \
             > /tmp/claude_output.json
         env:

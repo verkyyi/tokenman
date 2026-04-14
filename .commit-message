@@ -1,1 +1,1 @@
-fix(workflow): reduce watcher cron frequency 2h to 4h (closes #164)
+fix(workflow): add --exclude-dynamic-system-prompt-sections to all claude -p invocations (closes #166)

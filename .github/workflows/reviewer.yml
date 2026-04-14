@@ -200,6 +200,7 @@ jobs:
             --max-turns 30 \
             --fallback-model sonnet \
             --permission-mode bypassPermissions \
+            --exclude-dynamic-system-prompt-sections \
             --output-format json \
             > /tmp/claude_output.json
 
@@ -272,6 +273,7 @@ jobs:
             --max-turns 10 \
             --fallback-model haiku \
             --permission-mode bypassPermissions \
+            --exclude-dynamic-system-prompt-sections \
             --output-format text \
             > /tmp/outside_voice_output.txt 2>/dev/null || true
 
