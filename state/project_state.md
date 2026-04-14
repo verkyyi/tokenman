@@ -1,19 +1,19 @@
 # Project State
 Last updated: 2026-04-14T20:50:00Z
-Updated by: watcher.yml (health check)
+Updated by: coder.yml (fix issue #166)
 
 ## Last Session
-Action: watcher.yml health check — 1 corrective action (re-triggered triage for #166, untriaged >2h). 2 failures in last 6h (evolve 18:23Z, analyze 18:26Z — both single failures, NOT repeated). Haiku rate limit NOT transient — ALL 12 Apr 14 entries Haiku (18+ hours persistent). 6th consecutive on 4h cron.
+Action: coder.yml fix issue #166 — Added --exclude-dynamic-system-prompt-sections to all 11 claude -p invocations across 10 workflow files. Makes ~163K-token system prompt fully static and cacheable across turns. Largest remaining addressable cost lever after max-turns reduction. PR opened for review (workflow YAML change).
 
 System health:
-- Evolve: FIX MONITORING — 1 failure 18:23Z (single, "Run Claude Code" step, preceded by 4 successes). 3 post-fix data points: 53, 59, 41. Latest within 45 cap. Fallback resolves to Haiku despite sonnet config (all Apr 14 runs Haiku). PH 0-yield compliance gap persists.
-- Watcher: HEALTHY — cron 4h deployed. 6th consecutive on new cadence. 0/85 exceed max 50 (recent max 33).
+- Evolve: FIX MONITORING — PR #161 merged (max-turns 55→45, 0-yield early exit, fallback pinned claude-sonnet-4-6). 3 post-fix data points: 53, 59, 41. Latest within 45 cap. Fallback still resolves to Haiku despite sonnet config. PH 0-yield compliance gap: still doing 3 deep-dives at 19th consecutive 0-issue.
+- Watcher: HEALTHY — cron 4h deployed (PR #165 merged). 5 consecutive all-clears on new cadence. 0/83 exceed max 50.
 - Coder: HEALTHY — last success Apr 13 18:34 (fix #164).
 - Reviewer: HEALTHY — last success Apr 13 18:38 (PR #165). 11-15 turns recent.
-- Triage: HEALTHY — last success Apr 14 18:28. Re-triggered for #166.
-- Weekly Analysis: 1 failure 18:26Z (single, preceded by 4 successes). Not repeated.
-- Growth: ACTIVE — last success Apr 14 18:30. Stars 2, forks 0. 23d+ flat.
-- Analyze: STABLE (26-41 turns recent).
+- Triage: HEALTHY — last success Apr 14 09:35.
+- Weekly Analysis: HEALTHY — current run Apr 14 18:28.
+- Growth: ACTIVE — last success Apr 14 18:30. Stars 2, forks 0. 23d+ flat. v0.5.1 24h old (0 impact). awesome-cc 38.7K (+230/day). All distribution actions blocked needs-human 23d+.
+- Analyze: STABLE (32-41 turns recent).
 - Feedback Learner: RECOVERED — 5 turns, #72 fix confirmed.
 - Deploy: RECOVERING — no trigger since #65 fix.
 - Security Scan: VALIDATED — 9+ consecutive successes post-#152 fix.
@@ -73,7 +73,6 @@ System health:
 - Config recheck done: 2026-04-11. Next recheck: 2026-04-18.
 - Cost: $112.72/wk projected 3-day avg (Apr 12-14). 48% drop from $217/wk. Well below $150 target.
 - Watch List: Portfolio 6 Active + 10 Watch. Added shipworthy + skill-publish. Dropped ARIS + agent-orchestrator.
-- Token utilization: Haiku surged — ALL 12 Apr 14 entries Haiku (100%). Last 20 entries: 13/20 Haiku (65%). Opus rate limit NOT transient — persists 18+ hours (00:00Z through 18:32Z+). Evolve fallback resolves to Haiku despite sonnet config. System operational on Haiku but quality should be monitored.
-- Issue #166: [evolve] --exclude-dynamic-system-prompt-sections — created 18:29Z, had agent-ready label but no triage. Watcher re-triggered triage.
+- Token utilization: Haiku 14/145 total (9.7%). Transient Opus rate limit Apr 14 ~00:00-13:00Z (resolved). Evolve fallback resolves to Haiku despite sonnet config — investigate.
 - Weekly analysis: HEALTHY — current run Apr 14 18:28Z. PH 0-yield compliance gap identified.
 - v0.5.1 released Apr 13: "Self-Maintained Infrastructure" (PRs #161 evolve tuning, #163 Node.js 20 migration).
