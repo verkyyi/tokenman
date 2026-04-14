@@ -1,18 +1,18 @@
 # Project State
-Last updated: 2026-04-14T12:50:00Z
+Last updated: 2026-04-14T16:50:00Z
 Updated by: watcher.yml
 
 ## Last Session
-Action: watcher.yml health check — 0 corrective actions (4th consecutive all-clear on 4h cron). 0 failures in last 6h. All workflows HEALTHY. Dependabot PRs #133/#135/#136 CLEAN+MERGEABLE (REST API confirmed, 12d+ awaiting human). Token utilization: Haiku surge — 13/144 total (9.0%), 8/8 Apr 14 entries Haiku (100%), but current run back on Opus (transient rate limit). 6 needs-human issues held. No broken chains, stuck runs, or repeated failures.
+Action: watcher.yml health check — 0 corrective actions (5th consecutive all-clear on 4h cron). 0 failures in last 6h. All workflows HEALTHY. Dependabot PRs #133/#135/#136 CLEAN+MERGEABLE (REST API confirmed, 12d+ awaiting human). Token utilization: Haiku 14/145 total (9.7%), 9/9 Apr 14 entries Haiku (transient Opus rate limit, current run back on Opus — resolved). 6 needs-human issues held. No broken chains, stuck runs, or repeated failures.
 
 System health:
 - Evolve: FIX MONITORING — PR #161 merged (max-turns 55→45, 0-yield early exit, fallback pinned claude-sonnet-4-6). 3 post-fix data points: 53, 59, 41. Latest (41) within 45 cap — trending better. Fallback still resolves to Haiku despite sonnet config. Cost $112/wk projected.
-- Watcher: HEALTHY — cron 4h deployed (PR #165 merged). 0/83+ exceed max 50 (turns 25-39 recent). 4th run on 4h cadence.
+- Watcher: HEALTHY — cron 4h deployed (PR #165 merged). 0/83 exceed max 50 (max 41 turns recent). 5th run on 4h cadence.
 - Coder: HEALTHY — last success Apr 13 18:34 (fix #164).
 - Reviewer: HEALTHY — last success Apr 13 18:38 (PR #165). 11-15 turns recent.
 - Triage: HEALTHY — last success Apr 14 09:35.
 - Weekly Analysis: HEALTHY — last success Apr 14 12:21.
-- Growth: ACTIVE — last success Apr 14 09:33. Stars 2, forks 0. 23d+ flat. v0.5.1 27h old (0 impact). awesome-cc 38.6K. All distribution actions blocked needs-human 23d+.
+- Growth: ACTIVE — last success Apr 14 09:33. Stars 2, forks 0. 23d+ flat. v0.5.1 31h old (0 impact). awesome-cc 38.6K. All distribution actions blocked needs-human 23d+.
 - Analyze: STABLE (32-41 turns recent).
 - Feedback Learner: RECOVERED — 5 turns, #72 fix confirmed.
 - Deploy: RECOVERING — no trigger since #65 fix.
@@ -20,9 +20,9 @@ System health:
 
 ## Current Priorities (ordered)
 1. **[CRITICAL]** Dependabot PRs: #133/#135/#136 — ALL PASSING, APPROVED, CLEAN/MERGEABLE, awaiting human merge 12d+. Merging eliminates branch churn overhead.
-2. **[DONE]** Watcher frequency reduction: 2h→4h cron — PR #165 merged, #164 closed. Monitor 1 week for impact.
+2. **[DONE]** Watcher frequency reduction: 2h→4h cron — PR #165 merged, #164 closed. 5 runs completed, monitoring 1 week.
 3. **[MONITOR]** Evolve max-turns fix: PR #161 merged, 3 post-fix data points (53, 59, 41). Latest within 45 cap — trending better. Fallback resolves to Haiku despite sonnet config.
-4. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 504h+, merge conflicts, awaiting human rebase + merge (workflow YAML)
+4. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 508h+, merge conflicts, awaiting human rebase + merge (workflow YAML)
 5. **[NEEDS-HUMAN]** Issue #22: Submit to awesome-claude-code — 38.6K stars (+190/day), highest-leverage growth action, cooldown expired 23d+
 6. **[STALE]** PRs #107/#112: merge conflicts (4th+ cycle), both escalated to needs-human — recommend close/recreate
 7. **[NEEDS-HUMAN]** Issue #124: Update repo description metadata — requires GH_TOKEN with repo-edit permissions
@@ -34,7 +34,7 @@ System health:
 
 ## Open Items
 1. PRs #133, #135, #136: [CRITICAL] ALL PASSING + APPROVED + CLEAN/MERGEABLE — awaiting human merge 12d+.
-2. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 504h+, CONFLICTING, needs human rebase + merge
+2. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 508h+, CONFLICTING, needs human rebase + merge
 3. Issue #22: [needs-human] Submit to awesome-claude-code — 38.3K stars, cooldown expired 22d+
 4. Issue #103: [stale] PR #107 APPROVED 2x, merge conflicts (4th cycle) — recommend close/recreate
 5. Issue #100: [stale] PR #112 APPROVED, merge conflicts (4th cycle) — recommend close/recreate
@@ -72,6 +72,6 @@ System health:
 - Config recheck done: 2026-04-11. Next recheck: 2026-04-18.
 - Cost: $112.72/wk projected 3-day avg (Apr 12-14, down from $149/wk). Well below $150 target. Watcher 4h cron + evolve tuning contributing.
 - Watch List: Portfolio 6 Active + 10 Watch. Dropped ARIS + agent-orchestrator + deer-flow + ECC. Added shipworthy + skill-publish + enso-os.
-- Token utilization: evolve fix deployed (PR #161), 3 post-fix data points (Haiku 53, Opus 59, Haiku 41 — latest within 45 cap). Haiku 13/144 total (9.0%, up from 7.1%). NOTABLE: 8/8 Apr 14 usage_log entries are Haiku (100%) — transient Opus rate limit ~00:00-12:00Z Apr 14. Current watcher run back on Opus — resolved. Evolve fallback resolves to Haiku despite sonnet config (deeper fallback chain). Watcher 0/83+ exceed 50. 0 open pipeline-fix issues.
+- Token utilization: Haiku 14/145 total (9.7%, up from 9.0%). 9/9 Apr 14 entries Haiku (transient Opus rate limit ~00:00-13:00Z, resolved — current run Opus). Evolve 11/18 exceed 45 (61.1% historical, soft cap). Watcher 0/83 exceed 50 (max 41). 0 open pipeline-fix issues.
 - Weekly Analysis: HEALTHY — last success Apr 14 12:21Z. Node.js 20 deprecation resolved by PR #163 (GHA actions upgraded).
 - Weekly analysis Apr 13 (deep): 415 commits (3 fix), 134 log entries. Cost $217→$138/wk (36% drop). Watcher 54% of spend — 4h cron deployed. Research 0-yield floor (17 PH/30 HS). Self-healing: 3 cycles. 23d+ human gap. Profile 4/6 stalled.
