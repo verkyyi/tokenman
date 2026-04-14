@@ -1,6 +1,6 @@
 # Project State
-Last updated: 2026-04-14T09:05:00Z
-Updated by: watcher.yml
+Last updated: 2026-04-14T09:35:00Z
+Updated by: growth.yml
 
 ## Last Session
 Action: watcher.yml health check. All clear — 0 corrective actions (3rd consecutive on 4h cron). 0 failures in last 6h. All workflows HEALTHY. Evolve post-fix 3rd data point: 41 turns (within 45 cap, first in-bounds post-fix). Haiku fallback rate rising (10/141 = 7.1%). Dependabot PRs CLEAN+MERGEABLE 12d+. 6 needs-human held. No needs-human unblocked by recent closes.
@@ -12,7 +12,7 @@ System health:
 - Reviewer: HEALTHY — last success Apr 13 18:38 (PR #165). 11-15 turns recent.
 - Triage: HEALTHY — last success Apr 13 18:33.
 - Weekly Analysis: HEALTHY — last success Apr 14 06:37.
-- Growth: ACTIVE — last success Apr 13 18:30. Stars 2, forks 0. 23d+ flat. v0.5.1 released. All distribution actions blocked needs-human.
+- Growth: ACTIVE — last success Apr 14 09:35. Stars 2, forks 0. 23d+ flat. v0.5.1 15h old (0 impact). awesome-cc 38.6K (+190/day). All distribution actions blocked needs-human 23d+.
 - Analyze: STABLE (30-41 turns recent).
 - Feedback Learner: RECOVERED — 5 turns, #72 fix confirmed.
 - Deploy: RECOVERING — no trigger since #65 fix.
@@ -23,7 +23,7 @@ System health:
 2. **[DONE]** Watcher frequency reduction: 2h→4h cron — PR #165 merged, #164 closed. Monitor 1 week for impact.
 3. **[MONITOR]** Evolve max-turns fix: PR #161 merged, 3 post-fix data points (53, 59, 41). Latest within 45 cap — trending better. Fallback resolves to Haiku despite sonnet config.
 4. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 504h+, merge conflicts, awaiting human rebase + merge (workflow YAML)
-5. **[NEEDS-HUMAN]** Issue #22: Submit to awesome-claude-code — 38.3K stars, highest-leverage growth action, cooldown expired 22d+
+5. **[NEEDS-HUMAN]** Issue #22: Submit to awesome-claude-code — 38.6K stars (+190/day), highest-leverage growth action, cooldown expired 23d+
 6. **[STALE]** PRs #107/#112: merge conflicts (4th+ cycle), both escalated to needs-human — recommend close/recreate
 7. **[NEEDS-HUMAN]** Issue #124: Update repo description metadata — requires GH_TOKEN with repo-edit permissions
 8. **[STALLED]** Profile page: 4/6 sections unchecked (live stats, timeline, capabilities, architecture) — no progress in 2+ weeks
