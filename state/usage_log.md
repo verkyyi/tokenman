@@ -147,4 +147,4 @@
 2026-04-14T16:55:18Z | watcher | model:claude-haiku-4-5-20251001 | in:1012213 | out:13679 | turns:33 | cost:1.45624475
 2026-04-14T18:28:33Z | growth | model:claude-haiku-4-5-20251001 | in:824184 | out:6913 | turns:28 | cost:0.8143220000000002
 2026-04-14T18:32:10Z | analyze | model:claude-haiku-4-5-20251001 | in:1697275 | out:11893 | turns:26 | cost:1.7573507500000007
-2026-04-14T20:52:06Z | coder | model:claude-haiku-4-5-20251001 | in:1142196 | out:8679 | turns:54 | cost:1.3629413
+2026-04-14T20:54:34Z | reviewer | model:claude-haiku-4-5-20251001 | in:168952 | out:2595 | turns:9 | cost:0.3291575
