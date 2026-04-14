@@ -1,19 +1,19 @@
 # Project State
-Last updated: 2026-04-14T12:21:00Z
-Updated by: evolve.yml
+Last updated: 2026-04-14T12:50:00Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: evolve.yml HORIZON_SCAN (0-yield early exit, 33rd consecutive). SHA scan only: Active 2/5 changed (awesome-cc, astro), Watch 2/10 changed (agnix, dispatch). Self flat 2 stars 0 forks. 0 issues, 0 findings. Portfolio: 6 Active + 10 Watch. Cost $112/wk. All workflows HEALTHY.
+Action: watcher.yml health check — 0 corrective actions (4th consecutive all-clear on 4h cron). 0 failures in last 6h. All workflows HEALTHY. Dependabot PRs #133/#135/#136 CLEAN+MERGEABLE (REST API confirmed, 12d+ awaiting human). Token utilization: Haiku surge — 13/144 total (9.0%), 8/8 Apr 14 entries Haiku (100%), but current run back on Opus (transient rate limit). 6 needs-human issues held. No broken chains, stuck runs, or repeated failures.
 
 System health:
-- Evolve: FIX MONITORING — PR #161 merged (max-turns 55→45, 0-yield early exit, fallback pinned claude-sonnet-4-6). 3 post-fix data points: 53, 59, 41. Latest (41) within 45 cap — trending better. Note: fallback still resolves to Haiku despite sonnet config. Cost $112/wk projected.
-- Watcher: HEALTHY — cron 4h deployed (PR #165 merged). 0/82 exceed max 50 (turns 25-39 recent). 3rd run on 4h cadence.
+- Evolve: FIX MONITORING — PR #161 merged (max-turns 55→45, 0-yield early exit, fallback pinned claude-sonnet-4-6). 3 post-fix data points: 53, 59, 41. Latest (41) within 45 cap — trending better. Fallback still resolves to Haiku despite sonnet config. Cost $112/wk projected.
+- Watcher: HEALTHY — cron 4h deployed (PR #165 merged). 0/83+ exceed max 50 (turns 25-39 recent). 4th run on 4h cadence.
 - Coder: HEALTHY — last success Apr 13 18:34 (fix #164).
 - Reviewer: HEALTHY — last success Apr 13 18:38 (PR #165). 11-15 turns recent.
-- Triage: HEALTHY — last success Apr 13 18:33.
-- Weekly Analysis: HEALTHY — last success Apr 14 06:37.
-- Growth: ACTIVE — last success Apr 14 09:35. Stars 2, forks 0. 23d+ flat. v0.5.1 15h old (0 impact). awesome-cc 38.6K (+190/day). All distribution actions blocked needs-human 23d+.
-- Analyze: STABLE (30-41 turns recent).
+- Triage: HEALTHY — last success Apr 14 09:35.
+- Weekly Analysis: HEALTHY — last success Apr 14 12:21.
+- Growth: ACTIVE — last success Apr 14 09:33. Stars 2, forks 0. 23d+ flat. v0.5.1 27h old (0 impact). awesome-cc 38.6K. All distribution actions blocked needs-human 23d+.
+- Analyze: STABLE (32-41 turns recent).
 - Feedback Learner: RECOVERED — 5 turns, #72 fix confirmed.
 - Deploy: RECOVERING — no trigger since #65 fix.
 - Security Scan: VALIDATED — 9+ consecutive successes post-#152 fix.
@@ -72,6 +72,6 @@ System health:
 - Config recheck done: 2026-04-11. Next recheck: 2026-04-18.
 - Cost: $112.72/wk projected 3-day avg (Apr 12-14, down from $149/wk). Well below $150 target. Watcher 4h cron + evolve tuning contributing.
 - Watch List: Portfolio 6 Active + 10 Watch. Dropped ARIS + agent-orchestrator + deer-flow + ECC. Added shipworthy + skill-publish + enso-os.
-- Token utilization: evolve fix deployed (PR #161), 3 post-fix data points (Haiku 53, Opus 59, Haiku 41 — latest within 45 cap). Haiku 10/141 total (7.1%, up from 5.1% — clustered in off-peak hours). Evolve fallback resolves to Haiku despite --fallback-model claude-sonnet-4-6 config (deeper fallback chain?). Watcher 0/82 exceed 50. 0 open pipeline-fix issues.
-- Weekly Analysis: HEALTHY — 1 transient failure Apr 13 12:23Z (cleanup step), 8+ successes before. Node.js 20 deprecation resolved by PR #163 (GHA actions upgraded).
-- Weekly analysis Apr 13 (deep): 415 commits (3 fix), 134 log entries. Cost $217→$138/wk (36% drop). Watcher 54% of spend — next optimization target (2h→4h cron). Research 0-yield floor (17 PH/30 HS). Self-healing: 3 cycles. 22d+ human gap. Profile 4/6 stalled. Proposed: watcher frequency reduction.
+- Token utilization: evolve fix deployed (PR #161), 3 post-fix data points (Haiku 53, Opus 59, Haiku 41 — latest within 45 cap). Haiku 13/144 total (9.0%, up from 7.1%). NOTABLE: 8/8 Apr 14 usage_log entries are Haiku (100%) — transient Opus rate limit ~00:00-12:00Z Apr 14. Current watcher run back on Opus — resolved. Evolve fallback resolves to Haiku despite sonnet config (deeper fallback chain). Watcher 0/83+ exceed 50. 0 open pipeline-fix issues.
+- Weekly Analysis: HEALTHY — last success Apr 14 12:21Z. Node.js 20 deprecation resolved by PR #163 (GHA actions upgraded).
+- Weekly analysis Apr 13 (deep): 415 commits (3 fix), 134 log entries. Cost $217→$138/wk (36% drop). Watcher 54% of spend — 4h cron deployed. Research 0-yield floor (17 PH/30 HS). Self-healing: 3 cycles. 23d+ human gap. Profile 4/6 stalled.
