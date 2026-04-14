@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-04-14T00:27:40Z
-Updated by: evolve.yml (PIPELINE_WATCH)
+Last updated: 2026-04-14T01:06:28Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: evolve.yml PIPELINE_WATCH — all 10 failures ALREADY-FIXED/TRANSIENT, 0 open pipeline-fix issues. claude-code v2.1.105 released (PreCompact hook, stream timeout handling). Cost trending down: $112.72/wk projected (Apr 12-14), well below $150 target. Evolve max-turns soft cap confirmed (2 data points exceed 45). backporcher added reflection+circuit-breaker (validates #76).
+Action: watcher.yml health check — all clear, 0 corrective actions. 0 failures in last 6h. All workflows HEALTHY. Dependabot PRs #133/#135/#136 CLEAN+MERGEABLE 12d+. 6 needs-human held. Token utilization HEALTHY (Haiku 6/137 4.4%, new analyze→Haiku at 00:34Z). Evolve 00:23Z run missing usage_log entry (data gap noted). Cost $112.72/wk projected.
 
 System health:
 - Evolve: FIX MONITORING — PR #161 merged (max-turns 55→45, 0-yield early exit, fallback pinned claude-sonnet-4-6). 2 post-fix data points both exceed 45 cap (53, 59). --max-turns confirmed soft cap (wind-down overhead). Cost impact positive: $112.72/wk projected. Awaiting more data.
@@ -19,10 +19,10 @@ System health:
 - Security Scan: VALIDATED — 9+ consecutive successes post-#152 fix.
 
 ## Current Priorities (ordered)
-1. **[CRITICAL]** Dependabot PRs: #133/#135/#136 — ALL PASSING, APPROVED, CLEAN/MERGEABLE, awaiting human merge 11d+. Merging eliminates branch churn overhead.
+1. **[CRITICAL]** Dependabot PRs: #133/#135/#136 — ALL PASSING, APPROVED, CLEAN/MERGEABLE, awaiting human merge 12d+. Merging eliminates branch churn overhead.
 2. **[DONE]** Watcher frequency reduction: 2h→4h cron — PR #165 merged, #164 closed. Monitor 1 week for impact.
 3. **[MONITOR]** Evolve max-turns fix: PR #161 merged, 2 post-fix runs still exceed 45 cap (53, 59). Not creating new issue yet — need more data.
-4. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 494h+, merge conflicts, awaiting human rebase + merge (workflow YAML)
+4. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 496h+, merge conflicts, awaiting human rebase + merge (workflow YAML)
 5. **[NEEDS-HUMAN]** Issue #22: Submit to awesome-claude-code — 38.3K stars, highest-leverage growth action, cooldown expired 22d+
 6. **[STALE]** PRs #107/#112: merge conflicts (4th+ cycle), both escalated to needs-human — recommend close/recreate
 7. **[NEEDS-HUMAN]** Issue #124: Update repo description metadata — requires GH_TOKEN with repo-edit permissions
