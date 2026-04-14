@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-04-14T09:35:00Z
-Updated by: growth.yml
+Last updated: 2026-04-14T12:21:00Z
+Updated by: evolve.yml
 
 ## Last Session
-Action: watcher.yml health check. All clear — 0 corrective actions (3rd consecutive on 4h cron). 0 failures in last 6h. All workflows HEALTHY. Evolve post-fix 3rd data point: 41 turns (within 45 cap, first in-bounds post-fix). Haiku fallback rate rising (10/141 = 7.1%). Dependabot PRs CLEAN+MERGEABLE 12d+. 6 needs-human held. No needs-human unblocked by recent closes.
+Action: evolve.yml HORIZON_SCAN (0-yield early exit, 33rd consecutive). SHA scan only: Active 2/5 changed (awesome-cc, astro), Watch 2/10 changed (agnix, dispatch). Self flat 2 stars 0 forks. 0 issues, 0 findings. Portfolio: 6 Active + 10 Watch. Cost $112/wk. All workflows HEALTHY.
 
 System health:
 - Evolve: FIX MONITORING — PR #161 merged (max-turns 55→45, 0-yield early exit, fallback pinned claude-sonnet-4-6). 3 post-fix data points: 53, 59, 41. Latest (41) within 45 cap — trending better. Note: fallback still resolves to Haiku despite sonnet config. Cost $112/wk projected.
