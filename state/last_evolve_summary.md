@@ -1,28 +1,28 @@
 # Last Evolve Summary
-Timestamp: 2026-04-14T00:27:40Z
-Main HEAD: c1172a5
-Posture: PIPELINE_WATCH (PW=1 run since, only productive posture available — PH 18+ and HS 30+ consecutive 0-yield. Monitoring evolve max-turns fix, watcher 4h cron deployment, cost trends.)
-Posture history: [PIPELINE_WATCH, SYNTHESIS, PIPELINE_WATCH, PATTERN_HUNT, HORIZON_SCAN, SYNTHESIS, PIPELINE_WATCH, PATTERN_HUNT]
+Timestamp: 2026-04-14T06:40:41Z
+Main HEAD: 560e408
+Posture: SYNTHESIS (SY=1 run since, productive posture — PH 19+ and HS 32+ consecutive 0-yield. Hour 06 UTC growth metrics due. Cost confirmed 12/wk.)
+Posture history: [SYNTHESIS, PIPELINE_WATCH, SYNTHESIS, PIPELINE_WATCH, PATTERN_HUNT, HORIZON_SCAN, SYNTHESIS, PIPELINE_WATCH]
 Runs since each:
-  PATTERN_HUNT: 3
-  PIPELINE_WATCH: 0
-  HORIZON_SCAN: 4
-  SYNTHESIS: 1
-Open issues: #164, #124, #103, #100, #149
+  PATTERN_HUNT: 4
+  PIPELINE_WATCH: 1
+  HORIZON_SCAN: 5
+  SYNTHESIS: 0
+Open issues: #149, #124, #103, #100, #48, #22
 
 ## Source Digests
-anthropics/claude-code: 550aeec | last-deep: 2026-04-13T06:47:28Z | changed (9772e13→550aeec). v2.1.105: PreCompact hook, stream timeout, headless MCP fix.
-hesreallyhim/awesome-claude-code: d4b53e7 | last-deep: 2026-04-08T18:28:37Z | changed (bb61a4c→d4b53e7). Ticker data.
+anthropics/claude-code: 194736a | last-deep: 2026-04-13T06:47:28Z | changed (550aeec→194736a). v2.1.107: thinking hints UX. No harness impact.
+hesreallyhim/awesome-claude-code: 1adac60 | last-deep: 2026-04-08T18:28:37Z | changed (d4b53e7→1adac60). Ticker data.
 SethGammon/Citadel: c446e88 | last-deep: 2026-04-13T06:47:28Z | unchanged.
 actions/runner: 4a587ad | last-deep: 2026-04-08T18:28:37Z | unchanged.
-withastro/astro: 1945a93 | last-deep: 2026-04-08T18:28:37Z | unchanged.
-verkyyi/tokenman: c1172a5 | last-deep: never | self. 2 stars, 0 forks.
-Watch: 2/10 changed (plugins-official 656b617→3ffb4b4 +adlc plugin, backporcher 833b798→ee4fba7 reflection+circuit-breaker). All SHAs updated. Portfolio: 6 Active + 10 Watch.
+withastro/astro: 94048f2 | last-deep: 2026-04-08T18:28:37Z | changed (1945a93→94048f2). Dev port fix, no security.
+verkyyi/tokenman: 560e408 | last-deep: never | self. 2 stars, 0 forks.
+Watch: 2/10 changed (agnix d97dae2→acf5c18, dispatch 45e6972→1658114). All SHAs updated. Portfolio: 6 Active + 10 Watch.
 
 ## Findings This Run
-- claude-code v2.1.105: PreCompact hook support, background monitor for plugins, stalled stream abort+retry, headless MCP first-turn fix. No breaking changes, no harness action needed.
-- Cost trending down: $112.72/wk 3-day projection (Apr 12-14), down from $149/wk. Watcher 4h cron + evolve tuning contributing. Well below $150 target.
-- Evolve post-fix monitoring: 2 data points (53, 59 turns) both exceed 45 max-turns cap. --max-turns is soft cap — wind-down overhead expected. Need more data.
-- backporcher added reflection (failure diagnosis before retry), safety scan, and circuit breaker. Validates our #76 approach. Python-specific, 0 CI-adoptable.
-- All 10 failures ALREADY-FIXED/TRANSIENT. 0 open pipeline-fix issues. All workflows HEALTHY.
+- Growth metrics updated: Stars 2, Forks 0, Watchers 0 (flat 23d+). Traffic API 403.
+- claude-code v2.1.107: thinking hints UX improvement. No harness impact.
+- 18th structural plateau confirmation: 19 PH, 32 HS consecutive 0-yield. Self-healing 5/5 (100%).
+- Cost 12/wk confirmed (48% reduction from 17/wk peak). All 3 optimizations working.
+- Human gap 23d+ since Mar 22. 6 needs-human + 3 Dependabot PRs blocked. Single biggest bottleneck.
 0 issues created.
