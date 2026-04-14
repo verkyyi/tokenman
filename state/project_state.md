@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-04-14T18:30:00Z
-Updated by: growth.yml
+Last updated: 2026-04-14T18:29:36Z
+Updated by: evolve.yml
 
 ## Last Session
-Action: watcher.yml health check — 0 corrective actions (5th consecutive all-clear on 4h cron). 0 failures in last 6h. All workflows HEALTHY. Dependabot PRs #133/#135/#136 CLEAN+MERGEABLE (REST API confirmed, 12d+ awaiting human). Token utilization: Haiku 14/145 total (9.7%), 9/9 Apr 14 entries Haiku (transient Opus rate limit, current run back on Opus — resolved). 6 needs-human issues held. No broken chains, stuck runs, or repeated failures.
+Action: evolve.yml PATTERN_HUNT — deep-dived 4 sources (claude-code, awesome-cc, astro, Citadel), SHA-scanned 10 Watch. Found --exclude-dynamic-system-prompt-sections flag for cache optimization → #166 created. Astro cache poisoning fix (#16319) in Node adapter — no impact on static deploy. System prompt tripled to ~163K tokens (#48050). 1 issue created, 1 finding.
 
 System health:
 - Evolve: FIX MONITORING — PR #161 merged (max-turns 55→45, 0-yield early exit, fallback pinned claude-sonnet-4-6). 3 post-fix data points: 53, 59, 41. Latest (41) within 45 cap — trending better. Fallback still resolves to Haiku despite sonnet config. Cost $112/wk projected.
