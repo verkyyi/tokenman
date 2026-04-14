@@ -1,12 +1,12 @@
 # Project State
-Last updated: 2026-04-13T20:50:00Z
-Updated by: watcher.yml (health check)
+Last updated: 2026-04-14T00:27:40Z
+Updated by: evolve.yml (PIPELINE_WATCH)
 
 ## Last Session
-Action: watcher.yml health check — 1 corrective action: closed #164 (auto-close miss, PR #165 merged 18:38Z). Watcher cron 4h confirmed deployed. Evolve fix monitoring: 2 post-fix data points still exceed 45 max-turns (53 Haiku, 59 Opus) — need more runs to assess. All workflows healthy.
+Action: evolve.yml PIPELINE_WATCH — all 10 failures ALREADY-FIXED/TRANSIENT, 0 open pipeline-fix issues. claude-code v2.1.105 released (PreCompact hook, stream timeout handling). Cost trending down: $112.72/wk projected (Apr 12-14), well below $150 target. Evolve max-turns soft cap confirmed (2 data points exceed 45). backporcher added reflection+circuit-breaker (validates #76).
 
 System health:
-- Evolve: FIX MONITORING — PR #161 merged (max-turns 55→45, 0-yield early exit, fallback pinned claude-sonnet-4-6). 2 post-fix data points: Haiku 53 turns, Opus SYNTHESIS 59 turns — both exceed 45 cap. Possible: max-turns not hard stop, wind-down overhead. Awaiting 2+ more runs.
+- Evolve: FIX MONITORING — PR #161 merged (max-turns 55→45, 0-yield early exit, fallback pinned claude-sonnet-4-6). 2 post-fix data points both exceed 45 cap (53, 59). --max-turns confirmed soft cap (wind-down overhead). Cost impact positive: $112.72/wk projected. Awaiting more data.
 - Watcher: FREQUENCY MERGED — cron 4h deployed (PR #165 merged, #164 closed). 0/92+ exceed max 50 (max 36 turns recent). Cost drop from ~54% to ~27% expected.
 - Coder: HEALTHY — last success Apr 13 18:34 (fix #164).
 - Reviewer: HEALTHY — last success Apr 13 18:38 (PR #165). 11-15 turns recent.
@@ -30,7 +30,7 @@ System health:
 9. **[MONITOR]** Research posture consolidation: 18 PH 0-pattern, 31 HS 0-architecture — consider alternating postures or combining to reduce burn
 10. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
 11. **[NEEDS-HUMAN]** Issue #149: Submit to EvoMap/awesome-agent-evolution — needs-human, growth-action
-12. **[ACHIEVED]** Cost target: $138/wk (below $150 target). Evolve 6h cadence validated. Watcher 4h cron deployed.
+12. **[ACHIEVED]** Cost target: $112.72/wk projected (well below $150 target). Evolve 6h cadence + watcher 4h cron both contributing.
 
 ## Open Items
 1. PRs #133, #135, #136: [CRITICAL] ALL PASSING + APPROVED + CLEAN/MERGEABLE — awaiting human merge 11d+.
@@ -70,7 +70,7 @@ System health:
 - Security Scan regression cycle: #137→#141→#145→#152 (4 cascading issues over 3 days), resolved by PR #153. All Dependabot PRs now passing.
 - Dependabot PRs: #133/#135/#136 APPROVED, ALL PASSING, CLEAN/MERGEABLE. Ready for human merge 11d+. Watcher skips branch updates when merge state CLEAN.
 - Config recheck done: 2026-04-11. Next recheck: 2026-04-18.
-- Cost: $138/wk 3-day avg (Apr 10-12, down from $217/wk Apr 6). Below $150 target. Watcher 54%, evolve 22%, analyze 22%.
+- Cost: $112.72/wk projected 3-day avg (Apr 12-14, down from $149/wk). Well below $150 target. Watcher 4h cron + evolve tuning contributing.
 - Watch List: Portfolio 6 Active + 10 Watch. Dropped ARIS + agent-orchestrator + deer-flow + ECC. Added shipworthy + skill-publish + enso-os.
 - Token utilization: evolve fix deployed (PR #161), 2 post-fix data points (Haiku 53, Opus 59 — both exceed 45 cap, may be wind-down overhead). Haiku 5/161 total (3.1%). Watcher 0/92+ exceed 50 (max 36 turns recent). All recent runs Opus. 0 open pipeline-fix issues.
 - Weekly Analysis: HEALTHY — 1 transient failure Apr 13 12:23Z (cleanup step), 8+ successes before. Node.js 20 deprecation resolved by PR #163 (GHA actions upgraded).

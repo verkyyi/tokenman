@@ -1,20 +1,20 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-04-13T18:29:58Z
+# Last updated: 2026-04-14T00:27:40Z
 
 ## Active Sources
 
 ### anthropics/claude-code
 - **Why:** The runtime we build on — releases, breaking changes, new hooks, CLI flags
 - **Look for:** CHANGELOG entries, new hook types, permission changes, SDK updates
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-13T06:47:28Z | **Pattern hits:** 2 | **SHA:** 9772e13
-- **Notes:** Protected source — never drop. Check CHANGELOG and releases, not just commits. v2.1.104 (Apr 13 01:45Z): empty body, no new public commits since v2.1.101 — likely internal patches. v2.1.101 (Apr 10 19:03Z): /team-onboarding cmd, OS CA cert trust default, settings resilience, rate-limit retry detail, cmd injection fix. v2.1.98 (Apr 9 19:18Z): Monitor tool, PID namespace isolation, SCRIPT_CAPS, --exclude-dynamic-system-prompt-sections, Vertex wizard, Perforce mode, git_worktree status. 6 Bash security fixes. CC now has 18+ hook events.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-13T06:47:28Z | **Pattern hits:** 2 | **SHA:** 550aeec
+- **Notes:** Protected source — never drop. Check CHANGELOG and releases, not just commits. v2.1.105 (Apr 13 21:53Z): PreCompact hook support (block compaction via exit code 2), background monitor for plugins, stalled stream 5min abort+retry, headless MCP first-turn fix, stale worktree cleanup (squash merges). v2.1.104 (Apr 13 01:45Z): empty body, internal patches. v2.1.101 (Apr 10 19:03Z): /team-onboarding cmd, OS CA cert trust default, settings resilience, rate-limit retry detail, cmd injection fix. v2.1.98 (Apr 9 19:18Z): Monitor tool, PID namespace isolation, SCRIPT_CAPS, --exclude-dynamic-system-prompt-sections, Vertex wizard, Perforce mode, git_worktree status. 6 Bash security fixes. CC now has 18+ hook events.
 
 ### hesreallyhim/awesome-claude-code
 - **Why:** Curated ecosystem catalog — discover new tools, libraries, and patterns
 - **Look for:** New entries in Orchestrators/Tools/Skills sections, trending repos referenced
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-08T18:28:37Z | **Pattern hits:** 0 | **SHA:** bb61a4c
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-08T18:28:37Z | **Pattern hits:** 0 | **SHA:** d4b53e7
 - **Notes:** 0 pattern hits across 50+ observations. SHA change: ticker data only. Submission enforcement governance (owner bypass), Teams subcategory — curation-specific patterns. Retain for HORIZON_SCAN cross-reference only.
 
 ### SethGammon/Citadel
@@ -63,7 +63,7 @@
 - **Look for:** Plugin format updates, new submission requirements, plugin.json schema changes, new official plugins relevant to harness patterns
 - **Added:** 2026-03-24 (horizon scan) | **Observations:** 44 | **First seen:** 2026-03-24 | **SHA:** 104d39b
 - **Decision (2026-03-31):** RETAIN on Watch List. 38 obs, 7+ days, 1 pattern hit (plugin format). 14.3K stars. Active (MongoDB, SAP UI5 plugins added). Distribution channel for #66. Low pattern yield (1/38) — not promoting. Still relevant as plugin ecosystem reference.
-- **Observations:** 53 | **First seen:** 2026-03-24 | **SHA:** 656b617
+- **Observations:** 54 | **First seen:** 2026-03-24 | **SHA:** 3ffb4b4
 - **Notes:** PR #1115: bash prefix for .sh hooks. Version field for cache invalidation. Standard plugin format: .claude-plugin/plugin.json + commands/ + agents/ + skills/. Distribution channel for #66. 1 pattern hit (official plugin format). Apr 13: base44 plugin (#1389) — full-stack app dev with CLI project management. Catalog growth continues.
 
 ### agent-sh/agnix
@@ -110,8 +110,8 @@
 ### montenegronyc/backporcher
 - **Why:** Parallel Claude Code agent dispatcher (10 stars, 1 fork, Python) — GitHub Issues as task queue, sandboxed worktrees, coordinator review, CI gating, auto-merge. 100% auto-merge rate on first production run (15 PRs, 0 manual interventions).
 - **Look for:** Batch orchestration with dependency chains, blast radius analysis (Tree-sitter + BFS), learnings persistence (success/failure feedback loop), 3-tier approval modes, code graph navigation maps, coordinator agent review patterns
-- **Added:** 2026-04-05 (horizon scan) | **Observations:** 6 | **First seen:** 2026-04-05 | **SHA:** 833b798
-- **Notes:** Created 2026-03-06, pushed Apr 2. Python + asyncio. Uses `claude -p` headless (same as us). Pipeline: Issue → Haiku triage → batch orchestrator → Sonnet code graph → sandboxed worktree → build verify → PR → coordinator review → CI monitor (auto-retry 3x) → merge. Three approval modes: full-auto, review-merge (default), review-all. Learnings from past success/failure fed to future agents. Most architecturally relevant HS discovery in 20+ runs. Deep-dived: rate-limit fallback chain (model escalation sonnet→opus, multi-backend rotation), code graph navigation (Tree-sitter+BFS blast radius), no-changes label cleanup. All Python-specific, 0 CI-adoptable patterns. Last deep: 2026-04-05T15:16Z.
+- **Added:** 2026-04-05 (horizon scan) | **Observations:** 7 | **First seen:** 2026-04-05 | **SHA:** ee4fba7
+- **Notes:** Created 2026-03-06, pushed Apr 13. Python + asyncio. Uses `claude -p` headless (same as us). Apr 13: reflection (Haiku failure diagnosis before retry), safety scan (pre-PR static analysis for secrets/dangerous patterns), circuit breaker (per-repo 70% failure rate, 30min half-open). Validates our #76 circuit breaker approach. Pipeline: Issue → Haiku triage → batch orchestrator → Sonnet code graph → sandboxed worktree → build verify → PR → coordinator review → CI monitor (auto-retry 3x) → merge. Three approval modes. All Python-specific, 0 CI-adoptable patterns. Last deep: 2026-04-05T15:16Z.
 
 ## Dropped Sources
 <!-- Removed sources with reason. Kept for history so we don't re-discover them. -->
