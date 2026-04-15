@@ -12,7 +12,7 @@ System health:
 - Reviewer: HEALTHY — last success Apr 15 12:28 (PR #170). 1 failure (PR #171 hit max-turns but review posted, PR merged).
 - Triage: HEALTHY — last success Apr 15 12:25.
 - Weekly Analysis: HEALTHY — succeeded 12:21Z Apr 15. Fully recovered from rate-limit failures.
-- Growth: ACTIVE — last success Apr 15 09:35. Stars 2, forks 0. 24d+ flat. All distribution actions blocked needs-human 24d+.
+- Growth: ACTIVE — last success Apr 15 18:30. Stars 2, forks 0. 24d+ flat. All distribution actions blocked needs-human 24d+.
 - Analyze: STABLE (26-33 turns recent).
 - Feedback Learner: RECOVERED — 5 turns, #72 fix confirmed.
 - Deploy: RECOVERING — no trigger since #65 fix.
