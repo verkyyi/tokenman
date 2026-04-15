@@ -11,3 +11,4 @@
 2026-04-13T12:58:36Z | issue #162 | PR_OPENED | PR #163: [pipeline] Upgrade GHA actions from v4 (Node.js 20) to latest — Node 20 deprecated June 2026
 2026-04-13T18:36:44Z | issue #164 | PR_OPENED | PR #165: [evolve] Reduce watcher cron frequency 2h to 4h — 14+ consecutive all-clears, saves ~49/wk
 2026-04-14T20:52:15Z | issue #166 | PR_OPENED | PR #167: [evolve] Add --exclude-dynamic-system-prompt-sections to claude -p invocations for improved cache reuse
+2026-04-15T12:28:56Z | issue #169 | PR_OPENED | PR #170: [pipeline] agent_log.md at 392KB — needs archive/rotation script (exceeds tool read limit)
