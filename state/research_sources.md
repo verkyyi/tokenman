@@ -1,20 +1,20 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-04-15T00:24:25Z
+# Last updated: 2026-04-15T06:40:00Z
 
 ## Active Sources
 
 ### anthropics/claude-code
 - **Why:** The runtime we build on — releases, breaking changes, new hooks, CLI flags
 - **Look for:** CHANGELOG entries, new hook types, permission changes, SDK updates
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-13T06:47:28Z | **Pattern hits:** 2 | **SHA:** 5c18c78
-- **Notes:** Protected source — never drop. Check CHANGELOG and releases, not just commits. v2.1.107 (Apr 14 06:11Z): thinking hints UX improvement. v2.1.105 (Apr 13 21:53Z): PreCompact hook support (block compaction via exit code 2), background monitor for plugins, stalled stream 5min abort+retry, headless MCP first-turn fix, stale worktree cleanup (squash merges). v2.1.104 (Apr 13 01:45Z): empty body, internal patches. v2.1.101 (Apr 10 19:03Z): /team-onboarding cmd, OS CA cert trust default, settings resilience, rate-limit retry detail, cmd injection fix. v2.1.98 (Apr 9 19:18Z): Monitor tool, PID namespace isolation, SCRIPT_CAPS, --exclude-dynamic-system-prompt-sections, Vertex wizard, Perforce mode, git_worktree status. 6 Bash security fixes. CC now has 18+ hook events.
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-15T06:40:00Z | **Pattern hits:** 2 | **SHA:** f348a16
+- **Notes:** Protected source — never drop. Check CHANGELOG and releases, not just commits. v2.1.109 (Apr 15 04:02Z): thinking indicator UX. v2.1.108 (Apr 14 19:12Z): ENABLE_PROMPT_CACHING_1H env var (API key/Bedrock/Vertex/Foundry — OAuth already has 1h TTL), recap feature, Skill tool discovers built-in slash commands, memory footprint reduction for file ops, Agent tool auto-mode permission fix. v2.1.107 (Apr 14 06:11Z): thinking hints UX. v2.1.105 (Apr 13 21:53Z): PreCompact hook support (block compaction via exit code 2), background monitor for plugins, stalled stream 5min abort+retry, headless MCP first-turn fix, stale worktree cleanup (squash merges). v2.1.101 (Apr 10 19:03Z): /team-onboarding cmd, OS CA cert trust default, settings resilience, rate-limit retry detail, cmd injection fix. v2.1.98 (Apr 9 19:18Z): Monitor tool, PID namespace isolation, SCRIPT_CAPS, --exclude-dynamic-system-prompt-sections, Vertex wizard, Perforce mode, git_worktree status. CC now has 18+ hook events.
 
 ### hesreallyhim/awesome-claude-code
 - **Why:** Curated ecosystem catalog — discover new tools, libraries, and patterns
 - **Look for:** New entries in Orchestrators/Tools/Skills sections, trending repos referenced
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-08T18:28:37Z | **Pattern hits:** 0 | **SHA:** 00d10ce
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-08T18:28:37Z | **Pattern hits:** 0 | **SHA:** 67a66eb
 - **Notes:** 0 pattern hits across 50+ observations. SHA change: ticker data only. Submission enforcement governance (owner bypass), Teams subcategory — curation-specific patterns. Retain for HORIZON_SCAN cross-reference only.
 
 ### SethGammon/Citadel
@@ -91,8 +91,8 @@
 - **Look for:** Shell script quality patterns, label state machine design, worktree isolation, error trap handling, BATS test patterns
 - **Added:** 2026-04-02 (horizon scan) | **Observations:** 13 | **First seen:** 2026-04-02 | **SHA:** b1f8029
 - **Decision (2026-04-09):** RETAIN on Watch. Meets quantitative promotion criteria (14 obs, 2 hits, 7d) but deep-dives found 0 directly adoptable patterns for GHA bash/markdown harness. Shell-library architecture patterns (modular lib/, BATS testing) don't transfer. Architecturally closest peer but insufficient pattern yield for Active promotion. Re-evaluate if new PRs introduce transferable patterns.
-- **Observations:** 22 | **First seen:** 2026-04-02 | **SHA:** 8e3cef6
-- **Notes:** Created 2026-03-21, actively maintained. Shell-only, no Node/Python deps. Reusable workflows (dispatch-*.yml) consumed via workflow_call. CI validates all scripts with ShellCheck + BATS. Architecturally closest to tokenman: issue-driven, label-based state, GHA runners, claude -p headless. 2 pattern hits. Last deep: 2026-04-13T06:47:28Z. PR #39: per-workflow model config via env vars (AGENT_MODEL_TRIAGE, etc.) with fallback chain, 13 BATS tests. PR #41: shared dispatch_bot package (Discord bot) — not CI-relevant. 185+ BATS tests.
+- **Observations:** 23 | **First seen:** 2026-04-02 | **SHA:** 6964f43
+- **Notes:** Created 2026-03-21, actively maintained. Shell-only, no Node/Python deps. Reusable workflows (dispatch-*.yml) consumed via workflow_call. CI validates all scripts with ShellCheck + BATS. Architecturally closest to tokenman: issue-driven, label-based state, GHA runners, claude -p headless. 2 pattern hits. Last deep: 2026-04-13T06:47:28Z. PR #48: dual-channel notification routing (Slack). PR #51: Slack bot setup docs. 185+ BATS tests. All recent activity Slack-specific, 0 CI-adoptable.
 
 ### Vimalk0703/shipworthy
 - **Why:** Shell-based Claude Code plugin (5 stars, 1 fork) — 52 invisible engineering skills, auto specs, TDD, security hooks, quality gates, self-improving retrospective. "97% vs 41% on blind benchmark". Advisory-first approach.

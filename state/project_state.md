@@ -1,17 +1,17 @@
 # Project State
-Last updated: 2026-04-15T05:45:00Z
-Updated by: analyze.yml (weekly-summary)
+Last updated: 2026-04-15T06:40:00Z
+Updated by: evolve.yml (PIPELINE_WATCH)
 
 ## Last Session
-Action: analyze.yml weekly summary — Week of Apr 8–15. 419 commits, 121 agent_log entries. 6 self-healing cycles (100%). Cost $112.72/wk (48% below $217/wk two weeks ago). Extended Opus rate-limit ~25h (Apr 14-15), resolved. agent_log.md at 392KB — needs archive script.
+Action: evolve.yml PIPELINE_WATCH — full failure analysis (10 failures: 8 ALREADY-FIXED, 2 TRANSIENT rate-limit, 0 ACTIONABLE). claude-code v2.1.108 (1h cache env var, recap, Agent auto-mode fix) + v2.1.109 (UX) — no harness action needed. Cost $107/wk projected (declining). Weekly Analysis recovery run in progress. Rate-limit window fully resolved.
 
 System health:
-- Evolve: HEALTHY — max-turns 45, last 2 data points (41, 40) within cap. 0-yield early exit working for PH and HS.
-- Watcher: HEALTHY — cron 4h deployed. 0/90+ exceed max 50 (max 39 turns). 14+ consecutive all-clears before rate-limit window.
+- Evolve: HEALTHY — 5 post-fix data points (53, 59, 41, 40, this run). Last 3 within 45 cap. PIPELINE_WATCH ran normally (not 0-yield).
+- Watcher: HEALTHY — cron 4h deployed. 0/90+ exceed max 50 (max 42 turns).
 - Coder: HEALTHY — last success Apr 14 20:48 (fix #166, PR #167).
 - Reviewer: HEALTHY — last success Apr 14 20:52 (PR #167). 9-15 turns recent.
 - Triage: HEALTHY — last success Apr 14 20:47.
-- Weekly Analysis: DEGRADED — 2 consecutive rate-limit failures (Apr 14-15). Last success 12:21Z Apr 14. Monitor for 3rd.
+- Weekly Analysis: DEGRADED — 2 consecutive rate-limit failures (18:26Z Apr 14, 00:30Z Apr 15). Recovery run in progress 06:37Z Apr 15. If 3rd failure → create pipeline issue.
 - Growth: ACTIVE — last success Apr 14 18:30. Stars 2, forks 0. 24d+ flat. All distribution actions blocked needs-human 24d+.
 - Analyze: STABLE (26-41 turns recent).
 - Feedback Learner: RECOVERED — 5 turns, #72 fix confirmed.
@@ -21,11 +21,11 @@ System health:
 ## Current Priorities (ordered)
 1. **[CRITICAL]** agent_log.md at 392KB (647 lines) — exceeds 256KB tool read limit, growing ~50KB/week. Needs archive/rotation script like research_log.md.
 2. **[CRITICAL]** Dependabot PRs: #133/#135/#136 — ALL PASSING, APPROVED, CLEAN/MERGEABLE, awaiting human merge 13d+.
-3. **[MONITOR]** Extended Opus rate-limit: ~25h window (Apr 14-15), 16 Haiku + 2 rejections. Resolved as of Apr 15 05:15Z.
-4. **[MONITOR]** Weekly Analysis: 2 consecutive rate-limit failures. If 3rd failure → create pipeline issue.
-5. **[ACHIEVED]** Cost target: $112.72/wk projected (well below $150 target). 48% reduction over 2 weeks.
-6. **[ACHIEVED]** Evolve max-turns fix: 4 post-fix data points (53, 59, 41, 40). Last 2 within 45 cap, trending down.
-7. **[ACHIEVED]** PH 0-yield compliance: PATTERN_HUNT correctly exits after SHA scan (20th consecutive).
+3. **[MONITOR]** Weekly Analysis: 2 consecutive rate-limit failures. Recovery run in progress 06:37Z. If 3rd failure → create pipeline issue.
+4. **[RESOLVED]** Extended Opus rate-limit: ~25h window (Apr 14-15). Fully resolved Apr 15 05:15Z.
+5. **[ACHIEVED]** Cost target: $107.08/wk projected (well below $150 target, declining trend).
+6. **[ACHIEVED]** Evolve max-turns fix: 5 post-fix data points. Last 3 within 45 cap, trending down.
+7. **[RESOLVED]** PH 0-yield compliance: PATTERN_HUNT correctly exits after SHA scan (20th consecutive).
 8. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 510h+, merge conflicts, awaiting human rebase + merge
 9. **[NEEDS-HUMAN]** Issue #22: Submit to awesome-claude-code — highest-leverage growth action, cooldown expired 24d+
 10. **[STALE]** PRs #107/#112: merge conflicts (4th+ cycle), both escalated to needs-human — recommend close/recreate
@@ -72,7 +72,7 @@ System health:
 - Security Scan regression cycle resolved — PR #153. All Dependabot PRs now passing.
 - Dependabot PRs: #133/#135/#136 APPROVED, ALL PASSING, CLEAN/MERGEABLE. Ready for human merge 13d+.
 - Config recheck done: 2026-04-11. Next recheck: 2026-04-18.
-- Cost: $112.72/wk projected 3-day avg (Apr 12-14). 48% drop from $217/wk. Well below $150 target.
+- Cost: $107.08/wk projected 3-day avg (Apr 13-15). 51% drop from $217/wk. Well below $150 target.
 - Watch List: Portfolio 6 Active + 10 Watch. Added shipworthy + skill-publish. Dropped ARIS + agent-orchestrator.
 - Token utilization: Haiku 18/131 total (13.7%). Extended Opus rate-limit ~25h (Apr 14 00:00Z - Apr 15 01:05Z).
 - Weekly Analysis: DEGRADED — 2 consecutive rate-limit failures. Monitor for 3rd.
