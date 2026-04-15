@@ -1,20 +1,20 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-04-14T12:21:00Z
+# Last updated: 2026-04-15T00:24:25Z
 
 ## Active Sources
 
 ### anthropics/claude-code
 - **Why:** The runtime we build on — releases, breaking changes, new hooks, CLI flags
 - **Look for:** CHANGELOG entries, new hook types, permission changes, SDK updates
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-13T06:47:28Z | **Pattern hits:** 2 | **SHA:** 194736a
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-13T06:47:28Z | **Pattern hits:** 2 | **SHA:** 5c18c78
 - **Notes:** Protected source — never drop. Check CHANGELOG and releases, not just commits. v2.1.107 (Apr 14 06:11Z): thinking hints UX improvement. v2.1.105 (Apr 13 21:53Z): PreCompact hook support (block compaction via exit code 2), background monitor for plugins, stalled stream 5min abort+retry, headless MCP first-turn fix, stale worktree cleanup (squash merges). v2.1.104 (Apr 13 01:45Z): empty body, internal patches. v2.1.101 (Apr 10 19:03Z): /team-onboarding cmd, OS CA cert trust default, settings resilience, rate-limit retry detail, cmd injection fix. v2.1.98 (Apr 9 19:18Z): Monitor tool, PID namespace isolation, SCRIPT_CAPS, --exclude-dynamic-system-prompt-sections, Vertex wizard, Perforce mode, git_worktree status. 6 Bash security fixes. CC now has 18+ hook events.
 
 ### hesreallyhim/awesome-claude-code
 - **Why:** Curated ecosystem catalog — discover new tools, libraries, and patterns
 - **Look for:** New entries in Orchestrators/Tools/Skills sections, trending repos referenced
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-08T18:28:37Z | **Pattern hits:** 0 | **SHA:** 65fe190
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-08T18:28:37Z | **Pattern hits:** 0 | **SHA:** 00d10ce
 - **Notes:** 0 pattern hits across 50+ observations. SHA change: ticker data only. Submission enforcement governance (owner bypass), Teams subcategory — curation-specific patterns. Retain for HORIZON_SCAN cross-reference only.
 
 ### SethGammon/Citadel
@@ -32,13 +32,13 @@
 ### withastro/astro
 - **Why:** Web framework we use — security fixes, breaking changes, new features
 - **Look for:** Security advisories, breaking changes in minor/major releases, new content collection features
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-08T18:28:37Z | **Pattern hits:** 0 | **SHA:** c1404b7
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-08T18:28:37Z | **Pattern hits:** 0 | **SHA:** 940afd5
 - **Notes:** Only actionable for security fixes or features that affect our site build. 6 commits since last scan: inline script escaping consolidation (#16303), server-output validation skip, Cloudflare svelte fix, SCSS module full-reload fix. No security advisories. 0 harness patterns across 20+ observations.
 
 ### verkyyi/tokenman
 - **Why:** Self-reference — track forks, adopters, and how the scaffold is used
 - **Look for:** New forks, adopter modifications, issues filed by users
-- **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 0 | **SHA:** 560e408
+- **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 0 | **SHA:** 639ba34
 - **Notes:** Used during HORIZON SCAN for adoption tracking. 2 stars, 0 forks, 0 adopters as of 2026-04-13. EvoMap/awesome-agent-evolution (21 stars) monitors tokenman in data/monitor-results.json but not curated — potential growth submission target (#149).
 
 ## Watch List
@@ -55,7 +55,7 @@
 - **Look for:** Security audit skill structure, semgrep rule patterns, skill-improver tooling, SKILL.md format conventions
 - **Added:** 2026-03-23 (horizon scan) | **Observations:** 43 | **First seen:** 2026-03-23 | **SHA:** d7f76b5
 - **Decision (2026-03-31):** RETAIN on Watch List. 37 obs, 7+ days, 1 pattern hit (SKILL.md standard → #68, closed). 4K stars, 362 forks. Low pattern yield (1/37) — not promoting to Active. Actively maintained — not dropping. Serves as reference for future skill format work.
-- **Observations:** 44 | **First seen:** 2026-03-23 | **SHA:** d7f76b5
+- **Observations:** 45 | **First seen:** 2026-03-23 | **SHA:** 1efb11a
 - **Notes:** 34+ plugins with formal SKILL.md standard. skill-improver quality loop. Codex compatibility layer. 1 pattern hit: SKILL.md quality standard (issue #68, closed). Key reference for skill format. New: mutation testing (#140), graph reasoning (#133), draw agent (#134).
 
 ### anthropics/claude-plugins-official
@@ -63,7 +63,7 @@
 - **Look for:** Plugin format updates, new submission requirements, plugin.json schema changes, new official plugins relevant to harness patterns
 - **Added:** 2026-03-24 (horizon scan) | **Observations:** 44 | **First seen:** 2026-03-24 | **SHA:** 104d39b
 - **Decision (2026-03-31):** RETAIN on Watch List. 38 obs, 7+ days, 1 pattern hit (plugin format). 14.3K stars. Active (MongoDB, SAP UI5 plugins added). Distribution channel for #66. Low pattern yield (1/38) — not promoting. Still relevant as plugin ecosystem reference.
-- **Observations:** 54 | **First seen:** 2026-03-24 | **SHA:** 3ffb4b4
+- **Observations:** 55 | **First seen:** 2026-03-24 | **SHA:** 48aa435
 - **Notes:** PR #1115: bash prefix for .sh hooks. Version field for cache invalidation. Standard plugin format: .claude-plugin/plugin.json + commands/ + agents/ + skills/. Distribution channel for #66. 1 pattern hit (official plugin format). Apr 13: base44 plugin (#1389) — full-stack app dev with CLI project management. Catalog growth continues.
 
 ### agent-sh/agnix
@@ -71,7 +71,7 @@
 - **Look for:** Validation rules for CLAUDE.md, SKILL.md format standards, CI integration patterns, autofix capabilities
 - **Added:** 2026-03-24 (horizon scan) | **Observations:** 50 | **First seen:** 2026-03-24 | **SHA:** d97dae2
 - **Decision (2026-03-31):** RETAIN on Watch List. 39 obs, 7+ days, 0 pattern hits. Key CC spec tracker but 0 adoptable CI patterns — not promoting. Active and useful — not dropping.
-- **Observations:** 53 | **First seen:** 2026-03-24 | **SHA:** 99a49bb
+- **Observations:** 54 | **First seen:** 2026-03-24 | **SHA:** 33ad219
 - **Notes:** v0.18.0: Codex CLI plugin manifest validation (CDX-PL-001 to CDX-PL-014, 14 rules). CC now has 18 hook events. 385+ rules, 124+ auto-fixes. Relevant to #66/#68. Apr 11: dep bumps (actionlint 1.7.12, toml 1.0.1, similar 3.0.0, claude-code-action 1.0.93).
 
 ### Vigilant-LLC/runner-guard

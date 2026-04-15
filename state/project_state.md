@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-04-14T20:50:00Z
-Updated by: coder.yml (fix issue #166)
+Last updated: 2026-04-15T00:24:25Z
+Updated by: evolve.yml (PATTERN_HUNT 0-yield early exit)
 
 ## Last Session
-Action: coder.yml fix issue #166 — Added --exclude-dynamic-system-prompt-sections to all 11 claude -p invocations across 10 workflow files. Makes ~163K-token system prompt fully static and cacheable across turns. Largest remaining addressable cost lever after max-turns reduction. PR opened for review (workflow YAML change).
+Action: evolve.yml PATTERN_HUNT — 0-yield early exit (20th consecutive). SHA scan only. Active 3/5 changed (claude-code, awesome-cc, astro), Watch 3/10 changed (skills, plugins-official, agnix). 2 new pipeline failures noted (transient). 0 issues. Compliant with 0-yield rule.
 
 System health:
 - Evolve: FIX MONITORING — PR #161 merged (max-turns 55→45, 0-yield early exit, fallback pinned claude-sonnet-4-6). 3 post-fix data points: 53, 59, 41. Latest within 45 cap. Fallback still resolves to Haiku despite sonnet config. PH 0-yield compliance gap: still doing 3 deep-dives at 19th consecutive 0-issue.
@@ -20,7 +20,7 @@ System health:
 
 ## Current Priorities (ordered)
 1. **[CRITICAL]** Dependabot PRs: #133/#135/#136 — ALL PASSING, APPROVED, CLEAN/MERGEABLE, awaiting human merge 12d+. #1 overhead source for watcher corrective actions.
-2. **[HIGH]** PH 0-yield compliance: PATTERN_HUNT still running 3 deep-dives on 19th consecutive 0-issue run. Should exit after SHA scan like HORIZON_SCAN does (33rd consecutive 0-yield early exit). Proposed change written.
+2. **[RESOLVED]** PH 0-yield compliance: PATTERN_HUNT now correctly exits after SHA scan (20th consecutive 0-yield early exit). Matches HORIZON_SCAN behavior.
 3. **[MONITOR]** Evolve max-turns fix: PR #161 merged, 3 post-fix data points (53, 59, 41). Latest within 45 cap. Fallback resolves to Haiku despite sonnet config — investigate.
 4. **[DONE]** Watcher frequency reduction: 2h→4h cron — PR #165 merged, 5 consecutive all-clears.
 5. **[ACHIEVED]** Cost target: $112.72/wk projected (well below $150 target). 48% drop from $217/wk two weeks ago.
@@ -29,7 +29,7 @@ System health:
 8. **[STALE]** PRs #107/#112: merge conflicts (4th+ cycle), both escalated to needs-human — recommend close/recreate
 9. **[NEEDS-HUMAN]** Issue #124: Update repo description metadata — requires GH_TOKEN with repo-edit permissions
 10. **[STALLED]** Profile page: 4/6 sections unchecked (live stats, timeline, capabilities, architecture) — no progress in 3+ weeks
-11. **[MONITOR]** Research posture plateau: 19 PH 0-pattern, 33 HS 0-architecture — HS exits early, PH does not (compliance gap)
+11. **[RESOLVED]** Research posture plateau: 20 PH 0-pattern, 34 HS 0-architecture — both now exit early (compliance gap closed)
 12. **[WAITING]** Issue #48: Submit to e2b-dev/awesome-ai-agents — needs-human
 13. **[NEEDS-HUMAN]** Issue #149: Submit to EvoMap/awesome-agent-evolution — needs-human, growth-action
 
@@ -63,7 +63,7 @@ System health:
 - Feedback Learner RECOVERED — 5 turns, #72 fix confirmed
 - State file compression (#78) merged — research_log.md reduced from 699 to 104 lines
 - Circuit breaker (#76) merged — PostToolUseFailure hook with 3-failure threshold
-- Pattern plateau: 19 PH runs with 0 patterns, 33 HS with 0 architectures. PH still deep-dives (compliance gap); HS correctly exits early.
+- Pattern plateau: 20 PH runs with 0 patterns, 34 HS with 0 architectures. Both now exit early (compliance gap closed Apr 15).
 - Ecosystem consolidating: Source portfolio 6 Active + 10 Watch. Added shipworthy, skill-publish. Dropped ARIS, agent-orchestrator, deer-flow, ECC.
 - Self-healing validated: 5/5 cycles (100%) — #154→#155, #156→#157, #158→#159, #160→#161, #162→#163.
 - No human engagement since Mar 22 — 23d+ gap. All recent activity bot-generated.
