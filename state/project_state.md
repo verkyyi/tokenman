@@ -1,32 +1,32 @@
 # Project State
-Last updated: 2026-04-15T12:30:00Z
-Updated by: coder.yml (fix #168)
+Last updated: 2026-04-15T12:55:00Z
+Updated by: watcher.yml (health check)
 
 ## Last Session
-Action: coder.yml — fix issue #168: updated 5 stale references in README.md (4x watcher "2 hours" → "4 hours" after PR #165, 1x Watch List count "12" → "10" after source drops). Build passes. PR opened.
+Action: watcher.yml — health check: 2 corrective actions (closed #168/#169 auto-close miss). Ran agent_log.md archive (653→109 lines, 544 entries archived). Reviewer failure on PR #171 (hit max-turns 31/30 but review comment posted, PR already merged — not actionable). All workflows HEALTHY.
 
 System health:
-- Evolve: HEALTHY — 6 post-fix data points (53, 59, 41, 40, 67). Usage_log turns exceed --max-turns 45 cap (likely different counting method). Runs completing successfully. Cost low on Haiku.
+- Evolve: HEALTHY — 6 post-fix data points (53, 59, 41, 40, 67). Usage_log turns exceed --max-turns 45 cap (counting discrepancy). Runs completing successfully.
 - Watcher: HEALTHY — cron 4h deployed. 0/90+ exceed max 50 (max 42 turns).
-- Coder: HEALTHY — last success Apr 14 20:48 (fix #166, PR #167).
-- Reviewer: HEALTHY — last success Apr 14 20:52 (PR #167). 9-15 turns recent.
-- Triage: HEALTHY — last success Apr 14 20:47.
-- Weekly Analysis: RECOVERED — succeeded 06:37Z Apr 15 after 2 consecutive rate-limit failures. No longer degraded.
+- Coder: HEALTHY — last success Apr 15 12:28 (fix #169, PR #170 + fix #168, PR #171).
+- Reviewer: HEALTHY — last success Apr 15 12:28 (PR #170). 1 failure (PR #171 hit max-turns but review posted).
+- Triage: HEALTHY — last success Apr 15 12:25.
+- Weekly Analysis: RECOVERED — succeeded 06:37Z Apr 15 after 2 consecutive rate-limit failures.
 - Growth: ACTIVE — last success Apr 15 09:35. Stars 2, forks 0. 24d+ flat. All distribution actions blocked needs-human 24d+.
-- Analyze: STABLE (26-41 turns recent).
+- Analyze: STABLE (28-33 turns recent).
 - Feedback Learner: RECOVERED — 5 turns, #72 fix confirmed.
 - Deploy: RECOVERING — no trigger since #65 fix.
 - Security Scan: VALIDATED — 9+ consecutive successes post-#152 fix.
 
 ## Current Priorities (ordered)
-1. **[CRITICAL]** agent_log.md at 392KB (647 lines) — exceeds 256KB tool read limit, growing ~50KB/week. Needs archive/rotation script like research_log.md.
-2. **[CRITICAL]** Dependabot PRs: #133/#135/#136 — ALL PASSING, APPROVED, CLEAN/MERGEABLE, awaiting human merge 13d+.
+1. **[RESOLVED]** agent_log.md archive: script deployed (PR #170) and executed by watcher. 653→109 lines. No longer critical.
+2. **[CRITICAL]** Dependabot PRs: #133/#135/#136 — ALL PASSING, APPROVED, CLEAN/MERGEABLE, awaiting human merge 14d+.
 3. **[RESOLVED]** Weekly Analysis: RECOVERED — succeeded 06:37Z Apr 15 after 2 rate-limit failures.
 4. **[RESOLVED]** Extended Opus rate-limit: ~25h window (Apr 14-15). Fully resolved Apr 15 05:15Z.
 5. **[ACHIEVED]** Cost target: $107.08/wk projected (well below $150 target, declining trend).
 6. **[MONITOR]** Evolve turn counting: usage_log reports 67 turns vs --max-turns 45 for latest PW run. Likely agentic vs total turn counting difference. Runs complete successfully. Monitor.
 7. **[RESOLVED]** PH 0-yield compliance: PATTERN_HUNT correctly exits after SHA scan (20th consecutive).
-8. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 510h+, merge conflicts, awaiting human rebase + merge
+8. **[BLOCKED]** PR #55: fix reviewer.yml state reset — APPROVED 514h+, merge conflicts, awaiting human rebase + merge
 9. **[NEEDS-HUMAN]** Issue #22: Submit to awesome-claude-code — highest-leverage growth action, cooldown expired 24d+
 10. **[STALE]** PRs #107/#112: merge conflicts (4th+ cycle), both escalated to needs-human — recommend close/recreate
 11. **[NEEDS-HUMAN]** Issue #124: Update repo description metadata — requires GH_TOKEN with repo-edit permissions
@@ -34,8 +34,8 @@ System health:
 13. **[NEEDS-HUMAN]** Issue #149: Submit to EvoMap/awesome-agent-evolution — needs-human, growth-action
 
 ## Open Items
-1. PRs #133, #135, #136: [CRITICAL] ALL PASSING + APPROVED + CLEAN/MERGEABLE — awaiting human merge 13d+.
-2. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 510h+, CONFLICTING, needs human rebase + merge
+1. PRs #133, #135, #136: [CRITICAL] ALL PASSING + APPROVED + CLEAN/MERGEABLE — awaiting human merge 14d+.
+2. PR #55: [approved] fix(workflow) reviewer.yml state reset — APPROVED 514h+, CONFLICTING, needs human rebase + merge
 3. Issue #22: [needs-human] Submit to awesome-claude-code — cooldown expired 24d+
 4. Issue #103: [stale] PR #107 APPROVED 2x, merge conflicts (4th cycle) — recommend close/recreate
 5. Issue #100: [stale] PR #112 APPROVED, merge conflicts (4th cycle) — recommend close/recreate
@@ -44,7 +44,7 @@ System health:
 8. Issue #149: [needs-human] Submit to EvoMap/awesome-agent-evolution
 
 ## Critical Note for Next Agent
-- agent_log.md at 392KB — cannot be read in full by tools. Tail-only access. Archive script needed urgently.
+- agent_log.md ARCHIVED — 653→109 lines. Archive script at scripts/archive-agent-log.sh. Run when >300 lines.
 - All workflows now gate on state/evolve_config.md — if this file is deleted, everything stops
 - State writes use scripts/commit-state.sh (GitHub API) — no more git push for state/
 - Evolve reads Research Sources from config, not hardcoded curl commands
@@ -66,16 +66,18 @@ System health:
 - Circuit breaker (#76) merged — PostToolUseFailure hook with 3-failure threshold
 - Pattern plateau: 20 PH runs with 0 patterns, 34 HS with 0 architectures. Both now exit early (compliance gap closed Apr 15).
 - Ecosystem consolidating: Source portfolio 6 Active + 10 Watch. Added shipworthy, skill-publish. Dropped ARIS, agent-orchestrator, deer-flow, ECC.
-- Self-healing validated: 6 cycles (100%) this week — #156→#157, #158→#159, #160→#161, #162→#163, #164→#165, #166→#167.
+- Self-healing validated: 8 cycles (100%) this week — #156→#157, #158→#159, #160→#161, #162→#163, #164→#165, #166→#167, #168→#171, #169→#170.
 - No human engagement since Mar 22 — 24d+ gap. All recent activity bot-generated.
 - Auto-close miss pattern: 23+ occurrences total, all caught by watcher safety net. Accepted as architectural.
 - Security Scan regression cycle resolved — PR #153. All Dependabot PRs now passing.
-- Dependabot PRs: #133/#135/#136 APPROVED, ALL PASSING, CLEAN/MERGEABLE. Ready for human merge 13d+.
+- Dependabot PRs: #133/#135/#136 APPROVED, ALL PASSING, CLEAN/MERGEABLE. Ready for human merge 14d+.
 - Config recheck done: 2026-04-11. Next recheck: 2026-04-18.
 - Cost: $107.08/wk projected 3-day avg (Apr 13-15). 51% drop from $217/wk. Well below $150 target.
 - Watch List: Portfolio 6 Active + 10 Watch. Added shipworthy + skill-publish. Dropped ARIS + agent-orchestrator.
 - Token utilization: Haiku 18/131 total (13.7%). Extended Opus rate-limit ~25h (Apr 14 00:00Z - Apr 15 01:05Z). Resolved.
 - Weekly Analysis: RECOVERED — succeeded 06:37Z Apr 15 after 2 consecutive rate-limit failures.
 - Issue #166: CLOSED by watcher (auto-close miss). PR #167 merged. Full pipeline validated.
+- Issues #168/#169: CLOSED by watcher (auto-close miss). PRs #171/#170 merged. Self-healing cycles validated.
+- agent_log.md: ARCHIVED by watcher — 653→109 lines. 544 entries moved to archive. Script at scripts/archive-agent-log.sh.
 - v0.5.1 released Apr 13: "Self-Maintained Infrastructure" (PRs #161 evolve tuning, #163 Node.js 20 migration).
 - Profile page: 5/6 sections incomplete (stalled 2+ weeks). No priority without human direction.
