@@ -23,7 +23,7 @@ No server. No daemon. No database. GitHub IS the infrastructure.
 
 - **Self-evolution every 6 hours** — researches 6 Active sources with posture-based rotation, creates issues for actionable improvements
 - **Full autonomous pipeline** — evolve → triage → coder → reviewer → deploy, with explicit workflow chaining
-- **Self-healing watcher** — monitors the pipeline every 2 hours, re-triggers broken chains, creates fix issues
+- **Self-healing watcher** — monitors the pipeline every 4 hours, re-triggers broken chains, creates fix issues
 - **Feedback learning loop** — human corrections are extracted into persistent rules that shape all future agent behavior
 - **Blacklist policy** — agents can modify anything (including their own workflows) unless it's a hard block (secrets, infinite loops, build failures)
 - **Smart triage** — elaborates vague issues into structured specs with acceptance criteria and affected files
@@ -37,7 +37,7 @@ Every 6h            → evolve.yml   → research + ideas  → create issues
 Issue created       → triage.yml   → classify + elaborate → label
 agent-ready label   → coder.yml    → implement          → open PR
 PR opened           → reviewer.yml → review + merge     → deploy
-Every 2h            → watcher.yml  → health check       → self-heal
+Every 4h            → watcher.yml  → health check       → self-heal
 Human feedback      → feedback-learner.yml → extract lesson → permanent rule
 Every 6 hours       → analyze.yml  → strategic review   → priorities
 Your instruction    → claude-task  → Claude acts         → commit
@@ -72,7 +72,7 @@ Human corrections compound. Say it once and the system remembers permanently.
 | `triage.yml` | Issue opened / dispatched | Classifies, elaborates with acceptance criteria, routes to coder |
 | `coder.yml` | agent-ready label / dispatched | Implements fix on feature branch, opens PR |
 | `reviewer.yml` | PR opened / dispatched | Reviews code, runs build, merges or blocks |
-| `watcher.yml` | Every 2 hours | Monitors pipeline health, re-triggers broken chains |
+| `watcher.yml` | Every 4 hours | Monitors pipeline health, re-triggers broken chains |
 | `growth.yml` | Twice daily | Discovers distribution opportunities, creates releases, measures impact |
 | `feedback-learner.yml` | Human comment/review | Extracts lasting lessons into learned rules |
 | `deploy.yml` | Source files pushed to main | Astro build → GitHub Pages |
@@ -90,7 +90,7 @@ Human corrections compound. Say it once and the system remembers permanently.
 The scaffold improves itself continuously:
 
 1. **Research** — checks 6 Active sources (Claude Code, Astro, Citadel, and others) every 6 hours
-2. **Detect** — pipeline watcher catches failures and broken chains every 2 hours
+2. **Detect** — pipeline watcher catches failures and broken chains every 4 hours
 3. **Act** — creates issues that flow through the full triage → code → review → deploy pipeline
 4. **Learn** — every human correction becomes a permanent rule that shapes future behavior
 5. **Heal** — watcher re-triggers stalled workflows, coder fixes pipeline bugs
@@ -156,7 +156,7 @@ The evolve agent monitors external repos using a posture-based rotation across f
 
 **Active sources:** [anthropics/claude-code](https://github.com/anthropics/claude-code) · [hesreallyhim/awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) · [SethGammon/Citadel](https://github.com/SethGammon/Citadel) · [actions/runner](https://github.com/actions/runner) · [withastro/astro](https://github.com/withastro/astro) · [verkyyi/tokenman](https://github.com/verkyyi/tokenman) (self)
 
-Plus 12 repos on the **Watch List** under evaluation for promotion or removal.
+Plus 10 repos on the **Watch List** under evaluation for promotion or removal.
 
 ---
 
