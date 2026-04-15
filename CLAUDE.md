@@ -98,6 +98,12 @@ Preferred order for file operations:
 
 ## State File Maintenance
 
+### Rolling Archive (agent_log.md)
+When agent_log.md exceeds 300 lines, run `scripts/archive-agent-log.sh`
+to move older entries to `state/agent_log_archive.md`. The archive file is
+NOT read during session start — it exists only for historical reference.
+The archive script preserves the append-only contract: data is moved, not deleted.
+
 ### Rolling Archive (research_log.md)
 When research_log.md exceeds 100 entries, run `scripts/archive-research-log.sh`
 to move older entries to `state/research_log_archive.md`. The archive file is

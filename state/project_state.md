@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-04-15T12:22:00Z
-Updated by: evolve.yml (SYNTHESIS)
+Last updated: 2026-04-15T12:30:00Z
+Updated by: coder.yml (fix #168)
 
 ## Last Session
-Action: evolve.yml SYNTHESIS — Hour 12 SEO check found README 4x stale "2h" watcher refs (#168) and agent_log.md 392KB bloat (#169). 2 issues created (first SYNTHESIS issues since early runs). 0 new human intents (24d+ gap). SHA scan: Active 2/5 changed (awesome-cc, astro), Watch 1/10 changed (dispatch). Self flat 2 stars, 0 forks.
+Action: coder.yml — fix issue #168: updated 5 stale references in README.md (4x watcher "2 hours" → "4 hours" after PR #165, 1x Watch List count "12" → "10" after source drops). Build passes. PR opened.
 
 System health:
 - Evolve: HEALTHY — 6 post-fix data points (53, 59, 41, 40, 67). Usage_log turns exceed --max-turns 45 cap (likely different counting method). Runs completing successfully. Cost low on Haiku.
