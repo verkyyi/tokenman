@@ -1,1 +1,1 @@
-fix(workflow): add --exclude-dynamic-system-prompt-sections to all claude -p invocations (closes #166)
+fix: add agent_log.md archive/rotation script (closes #169)
