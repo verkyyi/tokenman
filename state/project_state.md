@@ -1,19 +1,19 @@
 # Project State
-Last updated: 2026-04-15T12:55:00Z
+Last updated: 2026-04-15T16:50:00Z
 Updated by: watcher.yml (health check)
 
 ## Last Session
-Action: watcher.yml — health check: 2 corrective actions (closed #168/#169 auto-close miss). Ran agent_log.md archive (653→109 lines, 544 entries archived). Reviewer failure on PR #171 (hit max-turns 31/30 but review comment posted, PR already merged — not actionable). All workflows HEALTHY.
+Action: watcher.yml — health check: 0 corrective actions (all clear). 1 failure in last 6h (Reviewer 12:30Z max-turns, PR #171 merged — not actionable). All workflows HEALTHY. Dependabot #133/#135/#136 confirmed MERGEABLE/CLEAN/APPROVED (14d+ awaiting human merge). 0 open pipeline-fix issues. Token utilization stable (Haiku dominant in recent runs, no rate-limit errors).
 
 System health:
-- Evolve: HEALTHY — 6 post-fix data points (53, 59, 41, 40, 67). Usage_log turns exceed --max-turns 45 cap (counting discrepancy). Runs completing successfully.
+- Evolve: HEALTHY — 7 post-fix data points (53, 59, 41, 40, 67). Usage_log vs --max-turns counting discrepancy (known, monitoring). Runs completing successfully.
 - Watcher: HEALTHY — cron 4h deployed. 0/90+ exceed max 50 (max 42 turns).
 - Coder: HEALTHY — last success Apr 15 12:28 (fix #169, PR #170 + fix #168, PR #171).
-- Reviewer: HEALTHY — last success Apr 15 12:28 (PR #170). 1 failure (PR #171 hit max-turns but review posted).
+- Reviewer: HEALTHY — last success Apr 15 12:28 (PR #170). 1 failure (PR #171 hit max-turns but review posted, PR merged).
 - Triage: HEALTHY — last success Apr 15 12:25.
-- Weekly Analysis: RECOVERED — succeeded 06:37Z Apr 15 after 2 consecutive rate-limit failures.
+- Weekly Analysis: HEALTHY — succeeded 12:21Z Apr 15. Fully recovered from rate-limit failures.
 - Growth: ACTIVE — last success Apr 15 09:35. Stars 2, forks 0. 24d+ flat. All distribution actions blocked needs-human 24d+.
-- Analyze: STABLE (28-33 turns recent).
+- Analyze: STABLE (26-33 turns recent).
 - Feedback Learner: RECOVERED — 5 turns, #72 fix confirmed.
 - Deploy: RECOVERING — no trigger since #65 fix.
 - Security Scan: VALIDATED — 9+ consecutive successes post-#152 fix.
@@ -74,8 +74,8 @@ System health:
 - Config recheck done: 2026-04-11. Next recheck: 2026-04-18.
 - Cost: $107.08/wk projected 3-day avg (Apr 13-15). 51% drop from $217/wk. Well below $150 target.
 - Watch List: Portfolio 6 Active + 10 Watch. Added shipworthy + skill-publish. Dropped ARIS + agent-orchestrator.
-- Token utilization: Haiku 18/131 total (13.7%). Extended Opus rate-limit ~25h (Apr 14 00:00Z - Apr 15 01:05Z). Resolved.
-- Weekly Analysis: RECOVERED — succeeded 06:37Z Apr 15 after 2 consecutive rate-limit failures.
+- Token utilization: Haiku dominant in recent runs. Extended Opus rate-limit window resolved. No rate-limit errors since Apr 15 01:05Z.
+- Weekly Analysis: HEALTHY — fully recovered. Succeeded 12:21Z Apr 15.
 - Issue #166: CLOSED by watcher (auto-close miss). PR #167 merged. Full pipeline validated.
 - Issues #168/#169: CLOSED by watcher (auto-close miss). PRs #171/#170 merged. Self-healing cycles validated.
 - agent_log.md: ARCHIVED by watcher — 653→109 lines. 544 entries moved to archive. Script at scripts/archive-agent-log.sh.
