@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-04-15T12:22:00Z
-Updated by: evolve.yml (SYNTHESIS)
+Last updated: 2026-04-15T12:28:00Z
+Updated by: coder.yml (fix #169)
 
 ## Last Session
-Action: evolve.yml SYNTHESIS — Hour 12 SEO check found README 4x stale "2h" watcher refs (#168) and agent_log.md 392KB bloat (#169). 2 issues created (first SYNTHESIS issues since early runs). 0 new human intents (24d+ gap). SHA scan: Active 2/5 changed (awesome-cc, astro), Watch 1/10 changed (dispatch). Self flat 2 stars, 0 forks.
+Action: coder.yml — Created scripts/archive-agent-log.sh to rotate agent_log.md (modeled on archive-research-log.sh). Ran script: archived 543 entries, active file reduced from 652 to 109 lines. Updated CLAUDE.md State File Maintenance section with agent_log.md rotation rule. PR opened for issue #169.
 
 System health:
 - Evolve: HEALTHY — 6 post-fix data points (53, 59, 41, 40, 67). Usage_log turns exceed --max-turns 45 cap (likely different counting method). Runs completing successfully. Cost low on Haiku.
@@ -19,7 +19,7 @@ System health:
 - Security Scan: VALIDATED — 9+ consecutive successes post-#152 fix.
 
 ## Current Priorities (ordered)
-1. **[CRITICAL]** agent_log.md at 392KB (647 lines) — exceeds 256KB tool read limit, growing ~50KB/week. Needs archive/rotation script like research_log.md.
+1. **[RESOLVED]** agent_log.md archive script created and run — reduced from 652 to 109 lines (PR for #169).
 2. **[CRITICAL]** Dependabot PRs: #133/#135/#136 — ALL PASSING, APPROVED, CLEAN/MERGEABLE, awaiting human merge 13d+.
 3. **[RESOLVED]** Weekly Analysis: RECOVERED — succeeded 06:37Z Apr 15 after 2 rate-limit failures.
 4. **[RESOLVED]** Extended Opus rate-limit: ~25h window (Apr 14-15). Fully resolved Apr 15 05:15Z.
