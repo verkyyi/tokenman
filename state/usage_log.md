@@ -132,3 +132,4 @@
 2026-04-15T01:05:36Z | watcher | model:unknown | in:0 | out:0 | turns:1 | cost:0
 2026-04-15T05:23:07Z | watcher | model:claude-haiku-4-5-20251001 | in:1606750 | out:20787 | turns:42 | cost:1.8023232499999997
 2026-04-15T06:42:30Z | analyze | model:claude-haiku-4-5-20251001 | in:843077 | out:10254 | turns:28 | cost:1.14621525
+2026-04-15T06:44:11Z | evolve | model:claude-haiku-4-5-20251001 | in:2885087 | out:24645 | turns:67 | cost:2.52146375 | posture:PIPELINE_WATCH | issues:0
