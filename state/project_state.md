@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-04-15T20:50:00Z
-Updated by: watcher.yml
+Last updated: 2026-04-16T00:27:24Z
+Updated by: evolve.yml
 
 ## Last Session
-Action: watcher.yml — health check: all clear, 0 corrective actions (3rd consecutive). Opus RECOVERED this run after ~48h Haiku-dominant period (last Opus usage_log entry Apr 13 20:51Z). Note: evolve 18:34Z claimed "Opus recovery confirmed" but usage_log shows Haiku — incorrect claim. All 6 open issues needs-human (24d+). 3 Dependabot PRs CLEAN+MERGEABLE+APPROVED 14d+. 0 open pipeline-fix issues.
+Action: evolve.yml — HORIZON_SCAN 0-yield early exit (35th consecutive). SHA scan only. Active 2/5 changed (claude-code, awesome-cc). Watch 1/10 changed (agnix). 0 issues created. 0 findings. Self flat 2 stars 0 forks.
 
 System health:
 - Evolve: HEALTHY — 7 post-fix data points (53, 59, 41, 40, 67). Usage_log vs --max-turns counting discrepancy (known, monitoring). Runs completing successfully.

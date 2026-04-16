@@ -1,20 +1,20 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-04-15T18:25:00Z
+# Last updated: 2026-04-16T00:27:24Z
 
 ## Active Sources
 
 ### anthropics/claude-code
 - **Why:** The runtime we build on — releases, breaking changes, new hooks, CLI flags
 - **Look for:** CHANGELOG entries, new hook types, permission changes, SDK updates
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-15T06:40:00Z | **Pattern hits:** 2 | **SHA:** f348a16
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-15T06:40:00Z | **Pattern hits:** 2 | **SHA:** 4fb8aa4
 - **Notes:** Protected source — never drop. Check CHANGELOG and releases, not just commits. v2.1.109 (Apr 15 04:02Z): thinking indicator UX. v2.1.108 (Apr 14 19:12Z): ENABLE_PROMPT_CACHING_1H env var (API key/Bedrock/Vertex/Foundry — OAuth already has 1h TTL), recap feature, Skill tool discovers built-in slash commands, memory footprint reduction for file ops, Agent tool auto-mode permission fix. v2.1.107 (Apr 14 06:11Z): thinking hints UX. v2.1.105 (Apr 13 21:53Z): PreCompact hook support (block compaction via exit code 2), background monitor for plugins, stalled stream 5min abort+retry, headless MCP first-turn fix, stale worktree cleanup (squash merges). v2.1.101 (Apr 10 19:03Z): /team-onboarding cmd, OS CA cert trust default, settings resilience, rate-limit retry detail, cmd injection fix. v2.1.98 (Apr 9 19:18Z): Monitor tool, PID namespace isolation, SCRIPT_CAPS, --exclude-dynamic-system-prompt-sections, Vertex wizard, Perforce mode, git_worktree status. CC now has 18+ hook events.
 
 ### hesreallyhim/awesome-claude-code
 - **Why:** Curated ecosystem catalog — discover new tools, libraries, and patterns
 - **Look for:** New entries in Orchestrators/Tools/Skills sections, trending repos referenced
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-08T18:28:37Z | **Pattern hits:** 0 | **SHA:** d3ee97d
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-08T18:28:37Z | **Pattern hits:** 0 | **SHA:** 8c42dde
 - **Notes:** 0 pattern hits across 50+ observations. SHA change: ticker data only. Submission enforcement governance (owner bypass), Teams subcategory — curation-specific patterns. Retain for HORIZON_SCAN cross-reference only.
 
 ### SethGammon/Citadel
@@ -71,7 +71,7 @@
 - **Look for:** Validation rules for CLAUDE.md, SKILL.md format standards, CI integration patterns, autofix capabilities
 - **Added:** 2026-03-24 (horizon scan) | **Observations:** 50 | **First seen:** 2026-03-24 | **SHA:** d97dae2
 - **Decision (2026-03-31):** RETAIN on Watch List. 39 obs, 7+ days, 0 pattern hits. Key CC spec tracker but 0 adoptable CI patterns — not promoting. Active and useful — not dropping.
-- **Observations:** 54 | **First seen:** 2026-03-24 | **SHA:** 33ad219
+- **Observations:** 55 | **First seen:** 2026-03-24 | **SHA:** a63b0df
 - **Notes:** v0.18.0: Codex CLI plugin manifest validation (CDX-PL-001 to CDX-PL-014, 14 rules). CC now has 18 hook events. 385+ rules, 124+ auto-fixes. Relevant to #66/#68. Apr 11: dep bumps (actionlint 1.7.12, toml 1.0.1, similar 3.0.0, claude-code-action 1.0.93).
 
 ### Vigilant-LLC/runner-guard
