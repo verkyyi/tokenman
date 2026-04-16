@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-04-16T00:27:24Z
-Updated by: evolve.yml
+Last updated: 2026-04-16T01:08:00Z
+Updated by: watcher.yml
 
 ## Last Session
-Action: evolve.yml — HORIZON_SCAN 0-yield early exit (35th consecutive). SHA scan only. Active 2/5 changed (claude-code, awesome-cc). Watch 1/10 changed (agnix). 0 issues created. 0 findings. Self flat 2 stars 0 forks.
+Action: watcher.yml — health check, all clear. 0 corrective actions (4th consecutive). 0 failures in last 6h. All workflows HEALTHY. Opus recovered this run after 52h+ Haiku period (last Opus usage_log: Apr 13 20:51Z). Dependabot PRs #133/#135/#136 CLEAN+MERGEABLE+APPROVED (14d+ awaiting human). 6 needs-human held. 3 legacy PRs CONFLICTING. agent_log.md at 115 lines (healthy).
 
 System health:
 - Evolve: HEALTHY — 7 post-fix data points (53, 59, 41, 40, 67). Usage_log vs --max-turns counting discrepancy (known, monitoring). Runs completing successfully.
@@ -22,7 +22,7 @@ System health:
 1. **[RESOLVED]** agent_log.md archive: script deployed (PR #170) and executed by watcher. 653→109 lines. No longer critical.
 2. **[CRITICAL]** Dependabot PRs: #133/#135/#136 — ALL PASSING, APPROVED, CLEAN/MERGEABLE, awaiting human merge 14d+.
 3. **[RESOLVED]** Weekly Analysis: RECOVERED — succeeded 06:37Z Apr 15 after 2 rate-limit failures.
-4. **[RESOLVED]** Extended Opus rate-limit: ~48h Haiku-dominant period (Apr 13 20:51Z last Opus → Apr 15 20:44Z this run). Opus recovered this watcher run. Evolve 18:34Z claim of "Opus recovery" was incorrect (still Haiku per usage_log).
+4. **[RESOLVED]** Extended Opus rate-limit: 52h+ Haiku-dominant period (Apr 13 20:51Z last Opus → Apr 16 01:08Z this run). Opus confirmed recovered this watcher run (system prompt confirms Opus 4.6). Previous watcher at 20:50 Apr 15 claimed recovery but usage_log showed Haiku.
 5. **[MONITOR]** Cost target: 7-day actual $147.88 (near $150 target). Previous $107/wk was Haiku-period artifact. Opus steady-state ~$165/wk (above target). True steady-state depends on Haiku fallback frequency.
 6. **[MONITOR]** Evolve turn counting: usage_log reports 67 turns vs --max-turns 45 for latest PW run. Likely agentic vs total turn counting difference. Runs complete successfully. Monitor.
 7. **[RESOLVED]** PH 0-yield compliance: PATTERN_HUNT correctly exits after SHA scan (20th consecutive).
@@ -74,7 +74,7 @@ System health:
 - Config recheck done: 2026-04-11. Next recheck: 2026-04-18.
 - Cost: 7-day actual $147.88 (Apr 9-15). Previous $107/wk was 3-day avg during Haiku-dominant rate-limit period (misleading). Opus-only days average $23.61/day = $165/wk (above $150 target). Haiku days average $14.91/day = $104/wk. True cost depends on Opus vs Haiku mix.
 - Watch List: Portfolio 6 Active + 10 Watch. Added shipworthy + skill-publish. Dropped ARIS + agent-orchestrator.
-- Token utilization: Haiku dominant — 30/143 total runs (21%). Last 20 entries ALL Haiku. Opus recovered this watcher run (Apr 15 20:44Z) after ~48h gap (last Opus Apr 13 20:51Z). No rate-limit errors since Apr 15 01:05Z.
+- Token utilization: Haiku dominant — 33/126 total runs (26.2%). Last 20+ entries ALL Haiku. Opus recovered this watcher run (Apr 16 01:08Z, confirmed by system prompt) after 52h+ gap (last Opus usage_log Apr 13 20:51Z). Previous watcher (Apr 15 20:50Z) claimed Opus recovery but usage_log showed Haiku. No rate-limit errors since Apr 15 01:05Z.
 - Weekly Analysis: HEALTHY — fully recovered. Succeeded 12:21Z Apr 15.
 - Issue #166: CLOSED by watcher (auto-close miss). PR #167 merged. Full pipeline validated.
 - Issues #168/#169: CLOSED by watcher (auto-close miss). PRs #171/#170 merged. Self-healing cycles validated.
