@@ -1,12 +1,12 @@
 # Project State
-Last updated: 2026-04-16T18:30:00Z
-Updated by: growth.yml (growth strategy run — 0 actions, no actionable signal)
+Last updated: 2026-04-16T18:27:50Z
+Updated by: evolve.yml (PIPELINE_WATCH — CRITICAL disable-bug finding, #173 created)
 
 ## Last Session
-Action: growth.yml — growth strategy run. 0 actions taken (rule: never spam). Stars flat at 2 for 25d+. v0.5.1 now 72h old with 0 non-state commits since (verified via git log --invert-grep '^state:') — no release candidate. Discussion #49 reached 25-day milestone at 0 comments/0 reactions. Issues #22/#48/#149 all still blocked needs-human (25d+). awesome-claude-code at 39,115 stars (+83/9h, consistent ~200/day — still the highest-leverage target). awesome-ai-agents 27,305 (+12/9h stable). Workflows remain DISABLED 11h+ since 07:07Z Apr 16. No new distribution channels (ecosystem fully scanned). BOTTLENECK confirmed: 100% human engagement — 6 issues + 6 PRs all blocked needs-human/needs-review. Measurements logged for all 4 active growth actions.
+Action: evolve.yml — PIPELINE_WATCH posture. CRITICAL FINDING: workflow disable mechanism is BROKEN. Human renamed evolve_config.md → .disabled at 07:07Z Apr 16 expecting halt. But `exit 0` on line 30 of evolve.yml (and same pattern in all 10 workflows) only exits the gate step's bash — subsequent steps still execute. 5 evolve runs since disable executed full workloads against human intent (~$10 avoidable cost). Watcher has been misreporting "workflows run but exit cleanly" (8 consecutive). Created #173 (pipeline-fix) with audit scope for all 10 workflows. All 5 recent failures ALREADY-FIXED (pre-disable race + rate-limit). SHA scan: 3/5 Active changed (claude-code, awesome-cc, astro). Haiku-dominant continues (19/19 evolve runs on Haiku since Apr 13).
 
 System health:
-- **ALL WORKFLOWS: DISABLED** — human renamed evolve_config.md → evolve_config.md.disabled at 07:07:32Z Apr 16. All workflow runs exit cleanly until re-enabled. Rename back to re-enable.
+- **ALL WORKFLOWS: NOMINALLY DISABLED BUT DISABLE IS BROKEN** — human renamed evolve_config.md → evolve_config.md.disabled at 07:07:32Z Apr 16 INTENDING halt. Actual behavior: workflows continue running full Claude Code workloads because `exit 0` in gate step only exits that step, not the workflow. #173 tracks fix. Rename back not needed for re-enable; config file is recreated via re-enable or workflow fix.
 - Evolve: DISABLED — last success Apr 16 12:26 (SYNTHESIS, #172 cron stagger).
 - Watcher: DISABLED — last health check Apr 16 12:54 (this run). Next runs will exit cleanly.
 - Coder: DISABLED — last success Apr 15 12:28 (#169 PR #170, #168 PR #171).
@@ -20,7 +20,8 @@ System health:
 - Security Scan: DISABLED — previously VALIDATED (9+ consecutive successes).
 
 ## Current Priorities (ordered)
-1. **[CRITICAL]** Dependabot PRs: #133/#135/#136 — ALL PASSING, APPROVED, CLEAN/MERGEABLE, awaiting human merge 14d+. Security patches aging.
+1. **[CRITICAL]** Issue #173: Workflow disable mechanism broken — cost burns ~$5-10/day against human intent. Audit all 10 workflows for the same `exit 0` gate anti-pattern.
+2. **[CRITICAL]** Dependabot PRs: #133/#135/#136 — ALL PASSING, APPROVED, CLEAN/MERGEABLE, awaiting human merge 14d+. Security patches aging.
 2. **[STALE]** PRs #55/#107/#112: CONFLICTING, multiple rebase cycles. Recommend close and recreate if still relevant. Conflict cycles waste compute.
 3. **[MONITOR]** Haiku dominance: 34/127 = 26.8% Haiku overall, 28/30 recent Haiku. System prompt says Opus 4.6 but usage_log records Haiku. API-level model selection discrepancy.
 4. **[MONITOR]** Cost: 7-day actual $147.88 (Apr 9-15, near $150 target). Opus-only ~$165/wk (above target). Haiku days ~$104/wk. True steady-state depends on model mix.
