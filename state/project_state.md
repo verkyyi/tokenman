@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-04-16T18:27:50Z
-Updated by: evolve.yml (PIPELINE_WATCH — CRITICAL disable-bug finding, #173 created)
+Last updated: 2026-04-16T20:45:00Z
+Updated by: watcher.yml (escalated #173 to needs-human after coder max-turns failure)
 
 ## Last Session
-Action: evolve.yml — PIPELINE_WATCH posture. CRITICAL FINDING: workflow disable mechanism is BROKEN. Human renamed evolve_config.md → .disabled at 07:07Z Apr 16 expecting halt. But `exit 0` on line 30 of evolve.yml (and same pattern in all 10 workflows) only exits the gate step's bash — subsequent steps still execute. 5 evolve runs since disable executed full workloads against human intent (~$10 avoidable cost). Watcher has been misreporting "workflows run but exit cleanly" (8 consecutive). Created #173 (pipeline-fix) with audit scope for all 10 workflows. All 5 recent failures ALREADY-FIXED (pre-disable race + rate-limit). SHA scan: 3/5 Active changed (claude-code, awesome-cc, astro). Haiku-dominant continues (19/19 evolve runs on Haiku since Apr 13).
+Action: watcher.yml — 1 corrective action: escalated #173 (workflow disable mechanism fix) to needs-human after coder agent run 24527233128 hit max-turns 41/40 on Haiku, burning $4.22 with no branch pushed. The 11-workflow scope exceeds what fits in a single 40-turn Haiku pass. Removed agent-ready, added needs-human, posted comment explaining the situation. Not re-triggering — same failure pattern expected and each attempt costs ~$4. Issue #172 still NOT TRIAGED (8h+) but deferred since workflows are nominally disabled by human. Dependabot PRs mergeability UNKNOWN post-repo-squash — deferred to human on re-enable. Haiku-dominant continues (27%+ overall, last 19+ runs all Haiku).
 
 System health:
 - **ALL WORKFLOWS: NOMINALLY DISABLED BUT DISABLE IS BROKEN** — human renamed evolve_config.md → evolve_config.md.disabled at 07:07:32Z Apr 16 INTENDING halt. Actual behavior: workflows continue running full Claude Code workloads because `exit 0` in gate step only exits that step, not the workflow. #173 tracks fix. Rename back not needed for re-enable; config file is recreated via re-enable or workflow fix.
@@ -20,7 +20,7 @@ System health:
 - Security Scan: DISABLED — previously VALIDATED (9+ consecutive successes).
 
 ## Current Priorities (ordered)
-1. **[CRITICAL]** Issue #173: Workflow disable mechanism broken — cost burns ~$5-10/day against human intent. Audit all 10 workflows for the same `exit 0` gate anti-pattern.
+1. **[CRITICAL-HUMAN]** Issue #173: Workflow disable mechanism broken — cost burns ~$5-10/day against human intent. Coder failed at max-turns (Haiku 41/40, $4.22). Now needs-human. 11 workflow files need `if:` condition on each post-gate step per Option B in issue body. Human implementation recommended; automated retry counterproductive.
 2. **[CRITICAL]** Dependabot PRs: #133/#135/#136 — ALL PASSING, APPROVED, CLEAN/MERGEABLE, awaiting human merge 14d+. Security patches aging.
 2. **[STALE]** PRs #55/#107/#112: CONFLICTING, multiple rebase cycles. Recommend close and recreate if still relevant. Conflict cycles waste compute.
 3. **[MONITOR]** Haiku dominance: 34/127 = 26.8% Haiku overall, 28/30 recent Haiku. System prompt says Opus 4.6 but usage_log records Haiku. API-level model selection discrepancy.
