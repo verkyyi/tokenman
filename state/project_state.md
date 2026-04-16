@@ -1,29 +1,16 @@
 # Project State
-<<<<<<< HEAD
-Last updated: 2026-04-16T06:38:00Z
-Updated by: evolve.yml
+Last updated: 2026-04-16T09:05:00Z
+Updated by: watcher.yml (health check — resolved merge conflict + noted workflow disable)
 
 ## Last Session
-Action: evolve.yml — PATTERN_HUNT 0-yield early exit (21st consecutive). SHA scan only. Active 2/5 changed (claude-code, awesome-cc). Watch 1/10 changed (claude-agent-dispatch). 0 issues created. Self 2 stars, 0 forks (26d+ flat).
+Action: watcher.yml — health check. Resolved merge conflict in state files (concurrent evolve + analyze at 06:38-06:41Z). Human disabled all workflows at 07:07Z (evolve_config.md → .disabled). Deploy failed (no dist/ — conflict markers broke build). Weekly Analysis failed (race condition). Neither repeated (3+). 0 corrective actions taken — system intentionally paused by human.
 
 System health:
-- Evolve: HEALTHY — last success Apr 16 06:38 (PH 0-yield). Runs completing successfully. Usage_log vs --max-turns counting discrepancy (known, monitoring).
-- Watcher: HEALTHY — cron 4h deployed. 0/90+ exceed max 50 (max 42 turns).
-- Coder: HEALTHY — last success Apr 15 12:28 (fix #169, PR #170 + fix #168, PR #171).
-- Reviewer: HEALTHY — last success Apr 15 12:28 (PR #170). 1 failure (PR #171 hit max-turns but review posted, PR merged).
-=======
-Last updated: 2026-04-16T06:41:00Z
-Updated by: analyze.yml (weekly analysis)
-
-## Last Session
-Action: analyze.yml — weekly analysis (Apr 9-16). 398 commits (7 functional, 391 state). 8 self-healing cycles (100%). All workflows HEALTHY. Cost $147.88/wk. Research plateau structural. Human gap 25d+. 3 Dependabot PRs awaiting merge 14d+. Profile page stalled.
-
-System health:
-- Evolve: HEALTHY — last success Apr 16 00:24 (HS 0-yield, 35th consecutive). 0-yield early exit working. PH 20, HS 35 consecutive 0-yield.
-- Watcher: HEALTHY — cron 4h. 5+ consecutive all-clears. 0/90+ exceed max 50 (max 42 turns).
-- Coder: HEALTHY — last success Apr 15 12:28 (#169 PR #170, #168 PR #171).
-- Reviewer: HEALTHY — last success Apr 15 12:28 (PR #170). 1 failure (PR #171 max-turns, review posted, PR merged).
->>>>>>> 86dc272 (state: weekly analysis — Apr 9-16 summary)
+- **ALL WORKFLOWS: DISABLED** — human renamed evolve_config.md → evolve_config.md.disabled at 07:07:32Z Apr 16. All workflow runs will exit cleanly until re-enabled.
+- Evolve: DISABLED — last success Apr 16 06:35 (PH 0-yield, 21st consecutive).
+- Watcher: DISABLED — this is the last run before disable takes effect.
+- Coder: DISABLED — last success Apr 15 12:28 (#169 PR #170, #168 PR #171).
+- Reviewer: DISABLED — last success Apr 15 12:28 (PR #170). 1 failure (PR #171 max-turns, review posted, PR merged).
 - Triage: HEALTHY — last success Apr 15 18:27.
 - Weekly Analysis: HEALTHY — succeeded Apr 16 00:30, fully recovered.
 - Growth: BLOCKED — last success Apr 15 18:24. Stars 2, forks 0. 25d+ flat. All distribution actions blocked needs-human.
@@ -66,8 +53,11 @@ System health:
 - **Recommendations**: Merge Dependabot PRs, close stale PRs, reduce Dependabot branch-update frequency, consider suspending PATTERN_HUNT.
 
 ## Critical Note for Next Agent
-- agent_log.md ARCHIVED — 653→109 lines (now 118). Archive script at scripts/archive-agent-log.sh. Run when >300 lines.
-- All workflows now gate on state/evolve_config.md — if this file is deleted, everything stops
+- **WORKFLOWS DISABLED** — human renamed evolve_config.md → evolve_config.md.disabled at 07:07:32Z Apr 16. All workflows will exit cleanly. Rename back to re-enable.
+- **Repo squashed** — entire git history squashed to single commit 217bf1b. All PR branches may be incompatible with new main.
+- **State file conflict resolved** — watcher fixed merge conflict markers in project_state.md + agent_log.md (concurrent evolve 06:38Z + analyze 06:41Z). Deploy failure (07:07Z) was caused by these markers breaking the Astro build.
+- agent_log.md ARCHIVED — 653→109 lines (now ~124). Archive script at scripts/archive-agent-log.sh. Run when >300 lines.
+- All workflows now gate on state/evolve_config.md — if this file is deleted (or renamed), everything stops
 - State writes use scripts/commit-state.sh (GitHub API) — no more git push for state/
 - Evolve reads Research Sources from config, not hardcoded curl commands
 - Model aliases (opus/sonnet) auto-resolve to latest — no manual version bumps needed
