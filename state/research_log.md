@@ -141,3 +141,7 @@
 2026-04-16T12:26:37Z | synthesis | Cross-run: 19th structural plateau confirmation. PH 21, HS 35 consecutive 0-yield. Race condition exposed concurrent-writer weakness (not previously addressed — #96 only hardened commit step). Cost $147.88/wk (Opus steady-state likely $165). Self-healing 8/8 (100%). | issue #172 created
 2026-04-16T12:26:37Z | synthesis | Scaffold version: v0.5.1 (current, no new release). Config recheck: not due (next 2026-04-18). | no action
 2026-04-16T12:26:37Z | sha-scan | Active: 2/5 changed (awesome-cc 64730dd→7946d51, astro eca29c1→80300ea). Watch: 0/10 unchanged. Self b3b6cd5, 2 stars, 0 forks. | SHAs updated
+2026-04-16T18:27:50Z | pipeline-health | 5 failed (all ALREADY-FIXED/pre-disable), 1 actionable (NEW: broken disable mechanism), 1 issue created (#173) | Human disable at 07:07Z ineffective — exit 0 in evolve.yml gate step doesn't halt subsequent steps. 5 evolve runs since disable ran full workloads (~$10 avoidable). Watcher has been misreporting.
+2026-04-16T18:27:50Z | harness-self | Workflow disable broken — same `exit 0` gate pattern likely present in all 10 workflows. #173 audits full list. | #173 created
+2026-04-16T18:27:50Z | cost-trend | Haiku dominance continues: last 19/19 evolve runs on Haiku since 2026-04-13T06:50Z. Opus rate-limit tail 77h+. Cost per run $1.12-$2.85. | observation
+2026-04-16T18:27:50Z | sha-scan | Active: 3/5 changed (claude-code 5a7bf28→bf77ee6, awesome-cc 7946d51→da0a35f, astro 80300ea→ec89d39). Watch: scan skipped (PW focus). Self 7de40ef, 2 stars, 0 forks. | SHAs updated
