@@ -134,3 +134,4 @@
 2026-04-15T18:31:11Z | model-fallback | Extended Haiku fallback: rate-limit ended 01:05Z Apr 15, Haiku persisted through 12:18Z (~17h tail). Opus recovery confirmed 18:24Z this run. All 13 Apr 15 runs before this were Haiku despite --model opus config. | observation — monitor recovery pattern
 2026-04-15T18:31:11Z | sha-scan | Active: 3/5 changed (awesome-cc 67251e1→d3ee97d, Citadel c446e88→9713f2b, astro 8ddb800→eca29c1). Watch: 0/10 unchanged. Self 303380b, 2 stars, 0 forks. | SHAs updated
 2026-04-16T00:27:24Z | sha-scan | Active: 2/5 changed (claude-code f348a16→4fb8aa4, awesome-cc d3ee97d→8c42dde). Watch: 1/10 changed (agnix 33ad219→a63b0df). Self b104eb1, 2 stars, 0 forks. | SHAs updated
+2026-04-16T06:38:00Z | sha-scan | Active: 2/5 changed (claude-code 4fb8aa4→5a7bf28, awesome-cc 8c42dde→64730dd). Watch: 1/10 changed (claude-agent-dispatch 8f0bfcd→3d3d8a4). Self f3e4c91, 2 stars, 0 forks. | SHAs updated

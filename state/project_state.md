@@ -1,12 +1,12 @@
 # Project State
-Last updated: 2026-04-16T05:22:00Z
-Updated by: watcher.yml
+Last updated: 2026-04-16T06:38:00Z
+Updated by: evolve.yml
 
 ## Last Session
-Action: watcher.yml — health check, all clear. 0 corrective actions (5th consecutive). 0 failures in last 6h. All workflows HEALTHY. System prompt confirms Opus 4.6 but usage_log still recording Haiku (34/127 = 26.8%, last 28/30 Haiku). Dependabot PRs #133/#135/#136 CLEAN+MERGEABLE+APPROVED (14d+ awaiting human). 6 needs-human held. 3 legacy PRs CONFLICTING. agent_log.md at 116 lines (healthy).
+Action: evolve.yml — PATTERN_HUNT 0-yield early exit (21st consecutive). SHA scan only. Active 2/5 changed (claude-code, awesome-cc). Watch 1/10 changed (claude-agent-dispatch). 0 issues created. Self 2 stars, 0 forks (26d+ flat).
 
 System health:
-- Evolve: HEALTHY — last success Apr 16 00:24 (HS 0-yield). Runs completing successfully. Usage_log vs --max-turns counting discrepancy (known, monitoring).
+- Evolve: HEALTHY — last success Apr 16 06:38 (PH 0-yield). Runs completing successfully. Usage_log vs --max-turns counting discrepancy (known, monitoring).
 - Watcher: HEALTHY — cron 4h deployed. 0/90+ exceed max 50 (max 42 turns).
 - Coder: HEALTHY — last success Apr 15 12:28 (fix #169, PR #170 + fix #168, PR #171).
 - Reviewer: HEALTHY — last success Apr 15 12:28 (PR #170). 1 failure (PR #171 hit max-turns but review posted, PR merged).
