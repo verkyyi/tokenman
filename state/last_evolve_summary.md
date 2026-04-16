@@ -1,27 +1,29 @@
 # Last Evolve Summary
-Timestamp: 2026-04-16T06:38:00Z
-Main HEAD: f3e4c91
-Posture: PATTERN_HUNT (0-yield early exit — 21st consecutive 0-yield. 4 runs since last PH, cycle balance.)
-Posture history: [PATTERN_HUNT, HORIZON_SCAN, PIPELINE_WATCH, SYNTHESIS, PIPELINE_WATCH, PATTERN_HUNT, HORIZON_SCAN, SYNTHESIS]
+Timestamp: 2026-04-16T12:26:37Z
+Main HEAD: b3b6cd5
+Posture: SYNTHESIS (3 runs since last, 0 consecutive 0-yield — last SY had 2 issues. Hour 12 UTC — SEO time gate due.)
+Posture history: [SYNTHESIS, PATTERN_HUNT, HORIZON_SCAN, PIPELINE_WATCH, SYNTHESIS, PIPELINE_WATCH, PATTERN_HUNT, HORIZON_SCAN]
 Runs since each:
-  PATTERN_HUNT: 0
-  PIPELINE_WATCH: 2
-  HORIZON_SCAN: 1
-  SYNTHESIS: 3
-Open issues: #22, #48, #100, #103, #124, #149
+  PATTERN_HUNT: 1
+  PIPELINE_WATCH: 3
+  HORIZON_SCAN: 2
+  SYNTHESIS: 0
+Open issues: #22, #48, #100, #103, #124, #149, #172
 
 ## Source Digests
-anthropics/claude-code: 5a7bf28 | last-deep: 2026-04-15T06:40:00Z | changed (4fb8aa4→5a7bf28).
-hesreallyhim/awesome-claude-code: 64730dd | last-deep: 2026-04-08T18:28:37Z | changed (8c42dde→64730dd).
+anthropics/claude-code: 5a7bf28 | last-deep: 2026-04-15T06:40:00Z | unchanged.
+hesreallyhim/awesome-claude-code: 7946d51 | last-deep: 2026-04-08T18:28:37Z | changed (64730dd→7946d51).
 SethGammon/Citadel: 9713f2b | last-deep: 2026-04-13T06:47:28Z | unchanged.
 actions/runner: 4a587ad | last-deep: 2026-04-08T18:28:37Z | unchanged.
-withastro/astro: eca29c1 | last-deep: 2026-04-08T18:28:37Z | unchanged.
-verkyyi/tokenman: f3e4c91 | last-deep: never | self. 2 stars, 0 forks.
-Watch: 1/10 changed (claude-agent-dispatch 8f0bfcd→3d3d8a4). Portfolio: 6 Active + 10 Watch.
+withastro/astro: 80300ea | last-deep: 2026-04-08T18:28:37Z | changed (eca29c1→80300ea).
+verkyyi/tokenman: b3b6cd5 | last-deep: never | self. 2 stars, 0 forks.
+Watch: 0/10 changed. Portfolio: 6 Active + 10 Watch.
 
 ## Findings This Run
-- 0-yield early exit: PATTERN_HUNT has 21 consecutive 0-yield runs. SHA scan only.
-- Active 2/5 changed: claude-code and awesome-cc have new commits since last scan.
-- Watch 1/10 changed: claude-agent-dispatch has new commits.
-- Self flat: 2 stars, 0 forks (unchanged 26d+).
-0 issues created.
+- Race condition: concurrent evolve (06:38) + analyze (06:41) → merge conflict → deploy failure → human disabled workflows at 07:07Z. First human action in 25d+.
+- Created #172: stagger evolve + analyze cron schedules to prevent concurrent state file conflicts.
+- SEO (Hour 12): README accurate post-PR #170. Repo description still stale (#124 needs-human). Homepage null.
+- Human intents: 0 new issues in 7d. Workflow disable categorized as PAUSE_SYSTEM — strongest intent signal since Mar 22.
+- Scaffold version: v0.5.1 current. Config recheck not due (next 2026-04-18).
+- SHA: Active 2/5 changed (awesome-cc, astro ticker/maintenance). Watch 0/10 frozen.
+1 issue created.
