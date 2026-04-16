@@ -1,20 +1,20 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-04-16T12:26:37Z
+# Last updated: 2026-04-16T18:27:50Z
 
 ## Active Sources
 
 ### anthropics/claude-code
 - **Why:** The runtime we build on — releases, breaking changes, new hooks, CLI flags
 - **Look for:** CHANGELOG entries, new hook types, permission changes, SDK updates
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-15T06:40:00Z | **Pattern hits:** 2 | **SHA:** 5a7bf28
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-15T06:40:00Z | **Pattern hits:** 2 | **SHA:** bf77ee6
 - **Notes:** Protected source — never drop. Check CHANGELOG and releases, not just commits. v2.1.109 (Apr 15 04:02Z): thinking indicator UX. v2.1.108 (Apr 14 19:12Z): ENABLE_PROMPT_CACHING_1H env var (API key/Bedrock/Vertex/Foundry — OAuth already has 1h TTL), recap feature, Skill tool discovers built-in slash commands, memory footprint reduction for file ops, Agent tool auto-mode permission fix. v2.1.107 (Apr 14 06:11Z): thinking hints UX. v2.1.105 (Apr 13 21:53Z): PreCompact hook support (block compaction via exit code 2), background monitor for plugins, stalled stream 5min abort+retry, headless MCP first-turn fix, stale worktree cleanup (squash merges). v2.1.101 (Apr 10 19:03Z): /team-onboarding cmd, OS CA cert trust default, settings resilience, rate-limit retry detail, cmd injection fix. v2.1.98 (Apr 9 19:18Z): Monitor tool, PID namespace isolation, SCRIPT_CAPS, --exclude-dynamic-system-prompt-sections, Vertex wizard, Perforce mode, git_worktree status. CC now has 18+ hook events.
 
 ### hesreallyhim/awesome-claude-code
 - **Why:** Curated ecosystem catalog — discover new tools, libraries, and patterns
 - **Look for:** New entries in Orchestrators/Tools/Skills sections, trending repos referenced
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-08T18:28:37Z | **Pattern hits:** 0 | **SHA:** 7946d51
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-08T18:28:37Z | **Pattern hits:** 0 | **SHA:** da0a35f
 - **Notes:** 0 pattern hits across 50+ observations. SHA change: ticker data only. Submission enforcement governance (owner bypass), Teams subcategory — curation-specific patterns. Retain for HORIZON_SCAN cross-reference only.
 
 ### SethGammon/Citadel
@@ -32,13 +32,13 @@
 ### withastro/astro
 - **Why:** Web framework we use — security fixes, breaking changes, new features
 - **Look for:** Security advisories, breaking changes in minor/major releases, new content collection features
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-08T18:28:37Z | **Pattern hits:** 0 | **SHA:** 80300ea
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-08T18:28:37Z | **Pattern hits:** 0 | **SHA:** ec89d39
 - **Notes:** Only actionable for security fixes or features that affect our site build. 6 commits since last scan: inline script escaping consolidation (#16303), server-output validation skip, Cloudflare svelte fix, SCSS module full-reload fix. No security advisories. 0 harness patterns across 20+ observations.
 
 ### verkyyi/tokenman
 - **Why:** Self-reference — track forks, adopters, and how the scaffold is used
 - **Look for:** New forks, adopter modifications, issues filed by users
-- **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 0 | **SHA:** b3b6cd5
+- **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 0 | **SHA:** 7de40ef
 - **Notes:** Used during HORIZON SCAN for adoption tracking. 2 stars, 0 forks, 0 adopters as of 2026-04-13. EvoMap/awesome-agent-evolution (21 stars) monitors tokenman in data/monitor-results.json but not curated — potential growth submission target (#149).
 
 ## Watch List
