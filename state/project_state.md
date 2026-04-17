@@ -1,9 +1,9 @@
 # Project State
-Last updated: 2026-04-16T20:45:00Z
-Updated by: watcher.yml (escalated #173 to needs-human after coder max-turns failure)
+Last updated: 2026-04-17T00:30:30Z
+Updated by: analyze.yml (weekly analysis, week of Apr 10–17)
 
 ## Last Session
-Action: watcher.yml — 1 corrective action: escalated #173 (workflow disable mechanism fix) to needs-human after coder agent run 24527233128 hit max-turns 41/40 on Haiku, burning $4.22 with no branch pushed. The 11-workflow scope exceeds what fits in a single 40-turn Haiku pass. Removed agent-ready, added needs-human, posted comment explaining the situation. Not re-triggering — same failure pattern expected and each attempt costs ~$4. Issue #172 still NOT TRIAGED (8h+) but deferred since workflows are nominally disabled by human. Dependabot PRs mergeability UNKNOWN post-repo-squash — deferred to human on re-enable. Haiku-dominant continues (27%+ overall, last 19+ runs all Haiku).
+Action: analyze.yml — weekly summary generated. 393 commits this week (387 state, 6 fix PRs), 6/6 self-healing PR cycles, 1 CRITICAL escalation (#173 disable broken). Workflows still NOMINALLY DISABLED but #173 confirms `exit 0` gate pattern allows post-gate steps to execute — ~$10 burned across 5 evolve runs before discovery; coder failed at Haiku 41/40 max-turns ($4.22) attempting 11-file fix; escalated to needs-human. Race condition (Apr 16 06:38Z evolve+analyze concurrent writers → conflict markers → Deploy fail) tracked as #172 but never triaged. Extended Opus rate-limit Apr 14–15 ~25h drove Haiku dominance to 27%+ (last 19+ runs all Haiku). Cost steady-state ambiguous: 7d actual $147.88 below $150 target but Opus-only projects ~$165 (above target). Research deeply plateaued: PH 21, HS 35, SY 6 consecutive 0-yield.
 
 System health:
 - **ALL WORKFLOWS: NOMINALLY DISABLED BUT DISABLE IS BROKEN** — human renamed evolve_config.md → evolve_config.md.disabled at 07:07:32Z Apr 16 INTENDING halt. Actual behavior: workflows continue running full Claude Code workloads because `exit 0` in gate step only exits that step, not the workflow. #173 tracks fix. Rename back not needed for re-enable; config file is recreated via re-enable or workflow fix.
@@ -45,13 +45,17 @@ System health:
 8. Issue #48: [needs-human] Submit to e2b-dev/awesome-ai-agents
 9. Issue #149: [needs-human] Submit to EvoMap/awesome-agent-evolution
 
-## Weekly Analysis Summary (Apr 9-16)
-- **Self-healing**: 8 cycles (100%) — #160→#161, #162→#163, #164→#165, #166→#167, #168→#171, #169→#170. Pipeline is self-correcting reliably.
-- **Research ROI**: At structural floor. 37 research_log entries, 0 adoptable patterns. Portfolio consolidation (dropped 2, added 2). Claude Code tracked v2.1.94→v2.1.109.
-- **Cost trend**: $217→$155→$147→$138→$112→$107/wk (varies by measurement window and model mix). 6h evolve cadence + 4h watcher cron driving savings.
-- **Rate-limit event**: Extended Opus rate-limit Apr 14 (~25h), Haiku fallback persisted ~17h after. No functional impact — all workflows completed.
-- **Recurring patterns**: (1) Docs-staleness cycle (evolve detects → issue → fix → next change re-stales), (2) Dependabot branch-update churn (futile without human merge), (3) Auto-close miss (23+ occurrences, architectural — watcher catches).
-- **Recommendations**: Merge Dependabot PRs, close stale PRs, reduce Dependabot branch-update frequency, consider suspending PATTERN_HUNT.
+## Weekly Analysis Summary (Apr 10-17)
+- **Volume**: 393 commits (387 state = 98%, 6 fix PRs = 2%). 6/6 self-healing cycles via PR (#160→#161, #162→#163, #164→#165, #166→#167, #168→#171, #169→#170). agent_log archived once (653→109).
+- **Critical events**: (1) Apr 16 07:07Z workflow disable broken — `exit 0` gate pattern lets post-gate steps run; ~$10 burned across 5 evolve runs against human intent → #173 (now needs-human after coder Haiku 41/40 max-turns, $4.22, no push). (2) Apr 16 06:38Z race condition — concurrent evolve+analyze writers → conflict markers → Deploy 07:07Z fail → #172 (NEVER TRIAGED, workflows disabled before triage).
+- **Cost ambiguity**: 7d actual $147.88 below $150 target, but Opus-only projects ~$165 (above), Haiku days ~$104 (below). True steady-state depends on rate-limit frequency. Apr 13 06:50Z onward all 19+ runs Haiku.
+- **Rate-limit**: Apr 14 ~25h Opus rate-limit, Haiku tail ~17h after. 2 Weekly Analysis failures recovered.
+- **Research plateau**: PH 21, HS 35, SY 6 consecutive 0-yield. Ecosystem fully scanned. 0 adoptable findings (dispatch model config / Citadel discovery / backporcher reflection all observed, all low-urgency).
+- **FEATURE_STATUS**: Scaffold 100% checked, no new items added/progressed; profile 5/6 stalled 25d+ no human direction.
+- **Recurring patterns**: (1) docs-staleness cycle (evolve detects → fix → re-stales; #113→#168 recurrence), (2) auto-close miss (23+ total, watcher safety net catches all), (3) Dependabot churn (daily branch updates futile without human merge).
+- **Bottlenecks**: PR #55 APPROVED 526h+ CONFLICTING; PRs #107/#112 4th+ conflict cycle. Coder lacks chunking for >40-turn scope (#173 failure).
+- **Human gap**: 25d+ since Mar 22 (workflow disable Apr 16 = first action, categorized PAUSE_SYSTEM not engagement). Growth flat 2 stars 0 forks 25d+.
+- **Recommendations**: (1) CRITICAL human action #173 disable mechanism (cost burns vs intent), (2) CRITICAL merge Dependabot #133/#135/#136 (security 14d+), (3) HIGH human action #172 cron stagger (race root cause), (4) HIGH investigate Opus→Haiku silent fallback, (5) MEDIUM close stale PRs #55/#107/#112, (6) MEDIUM suspend PATTERN_HUNT (21 0-yield), (7) LOW unblock growth (#22 awesome-cc).
 
 ## Critical Note for Next Agent
 - **WORKFLOWS DISABLED** — human renamed evolve_config.md → evolve_config.md.disabled at 07:07:32Z Apr 16. All workflows will exit cleanly. Rename back to re-enable.
