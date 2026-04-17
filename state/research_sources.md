@@ -1,20 +1,20 @@
 # Research Sources
 # Managed by evolve.yml. Claude adds, prunes, and annotates freely.
 # Seeded from evolve_config.md on first run.
-# Last updated: 2026-04-16T18:27:50Z
+# Last updated: 2026-04-17T06:40:00Z
 
 ## Active Sources
 
 ### anthropics/claude-code
 - **Why:** The runtime we build on — releases, breaking changes, new hooks, CLI flags
 - **Look for:** CHANGELOG entries, new hook types, permission changes, SDK updates
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-15T06:40:00Z | **Pattern hits:** 2 | **SHA:** bf77ee6
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-15T06:40:00Z | **Pattern hits:** 2 | **SHA:** 2b53fac
 - **Notes:** Protected source — never drop. Check CHANGELOG and releases, not just commits. v2.1.109 (Apr 15 04:02Z): thinking indicator UX. v2.1.108 (Apr 14 19:12Z): ENABLE_PROMPT_CACHING_1H env var (API key/Bedrock/Vertex/Foundry — OAuth already has 1h TTL), recap feature, Skill tool discovers built-in slash commands, memory footprint reduction for file ops, Agent tool auto-mode permission fix. v2.1.107 (Apr 14 06:11Z): thinking hints UX. v2.1.105 (Apr 13 21:53Z): PreCompact hook support (block compaction via exit code 2), background monitor for plugins, stalled stream 5min abort+retry, headless MCP first-turn fix, stale worktree cleanup (squash merges). v2.1.101 (Apr 10 19:03Z): /team-onboarding cmd, OS CA cert trust default, settings resilience, rate-limit retry detail, cmd injection fix. v2.1.98 (Apr 9 19:18Z): Monitor tool, PID namespace isolation, SCRIPT_CAPS, --exclude-dynamic-system-prompt-sections, Vertex wizard, Perforce mode, git_worktree status. CC now has 18+ hook events.
 
 ### hesreallyhim/awesome-claude-code
 - **Why:** Curated ecosystem catalog — discover new tools, libraries, and patterns
 - **Look for:** New entries in Orchestrators/Tools/Skills sections, trending repos referenced
-- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-08T18:28:37Z | **Pattern hits:** 0 | **SHA:** da0a35f
+- **Added:** 2026-03-20 (seed) | **Last deep:** 2026-04-08T18:28:37Z | **Pattern hits:** 0 | **SHA:** 70c31e6
 - **Notes:** 0 pattern hits across 50+ observations. SHA change: ticker data only. Submission enforcement governance (owner bypass), Teams subcategory — curation-specific patterns. Retain for HORIZON_SCAN cross-reference only.
 
 ### SethGammon/Citadel
@@ -38,7 +38,7 @@
 ### verkyyi/tokenman
 - **Why:** Self-reference — track forks, adopters, and how the scaffold is used
 - **Look for:** New forks, adopter modifications, issues filed by users
-- **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 0 | **SHA:** 7de40ef
+- **Added:** 2026-03-20 (seed) | **Last deep:** never | **Pattern hits:** 0 | **SHA:** 5ab9467
 - **Notes:** Used during HORIZON SCAN for adoption tracking. 2 stars, 0 forks, 0 adopters as of 2026-04-13. EvoMap/awesome-agent-evolution (21 stars) monitors tokenman in data/monitor-results.json but not curated — potential growth submission target (#149).
 
 ## Watch List
@@ -55,7 +55,7 @@
 - **Look for:** Security audit skill structure, semgrep rule patterns, skill-improver tooling, SKILL.md format conventions
 - **Added:** 2026-03-23 (horizon scan) | **Observations:** 43 | **First seen:** 2026-03-23 | **SHA:** d7f76b5
 - **Decision (2026-03-31):** RETAIN on Watch List. 37 obs, 7+ days, 1 pattern hit (SKILL.md standard → #68, closed). 4K stars, 362 forks. Low pattern yield (1/37) — not promoting to Active. Actively maintained — not dropping. Serves as reference for future skill format work.
-- **Observations:** 45 | **First seen:** 2026-03-23 | **SHA:** 1efb11a
+- **Observations:** 46 | **First seen:** 2026-03-23 | **SHA:** e8cc5ba
 - **Notes:** 34+ plugins with formal SKILL.md standard. skill-improver quality loop. Codex compatibility layer. 1 pattern hit: SKILL.md quality standard (issue #68, closed). Key reference for skill format. New: mutation testing (#140), graph reasoning (#133), draw agent (#134).
 
 ### anthropics/claude-plugins-official
@@ -63,7 +63,7 @@
 - **Look for:** Plugin format updates, new submission requirements, plugin.json schema changes, new official plugins relevant to harness patterns
 - **Added:** 2026-03-24 (horizon scan) | **Observations:** 44 | **First seen:** 2026-03-24 | **SHA:** 104d39b
 - **Decision (2026-03-31):** RETAIN on Watch List. 38 obs, 7+ days, 1 pattern hit (plugin format). 14.3K stars. Active (MongoDB, SAP UI5 plugins added). Distribution channel for #66. Low pattern yield (1/38) — not promoting. Still relevant as plugin ecosystem reference.
-- **Observations:** 55 | **First seen:** 2026-03-24 | **SHA:** 48aa435
+- **Observations:** 56 | **First seen:** 2026-03-24 | **SHA:** de39da5
 - **Notes:** PR #1115: bash prefix for .sh hooks. Version field for cache invalidation. Standard plugin format: .claude-plugin/plugin.json + commands/ + agents/ + skills/. Distribution channel for #66. 1 pattern hit (official plugin format). Apr 13: base44 plugin (#1389) — full-stack app dev with CLI project management. Catalog growth continues.
 
 ### agent-sh/agnix
@@ -91,8 +91,8 @@
 - **Look for:** Shell script quality patterns, label state machine design, worktree isolation, error trap handling, BATS test patterns
 - **Added:** 2026-04-02 (horizon scan) | **Observations:** 13 | **First seen:** 2026-04-02 | **SHA:** b1f8029
 - **Decision (2026-04-09):** RETAIN on Watch. Meets quantitative promotion criteria (14 obs, 2 hits, 7d) but deep-dives found 0 directly adoptable patterns for GHA bash/markdown harness. Shell-library architecture patterns (modular lib/, BATS testing) don't transfer. Architecturally closest peer but insufficient pattern yield for Active promotion. Re-evaluate if new PRs introduce transferable patterns.
-- **Observations:** 25 | **First seen:** 2026-04-02 | **SHA:** 3d3d8a4
-- **Notes:** Created 2026-03-21, actively maintained. Shell-only, no Node/Python deps. Reusable workflows (dispatch-*.yml) consumed via workflow_call. CI validates all scripts with ShellCheck + BATS. Architecturally closest to tokenman: issue-driven, label-based state, GHA runners, claude -p headless. 2 pattern hits. Last deep: 2026-04-13T06:47:28Z. PR #48: dual-channel notification routing (Slack). PR #51: Slack bot setup docs. 185+ BATS tests. All recent activity Slack-specific, 0 CI-adoptable.
+- **Observations:** 26 | **First seen:** 2026-04-02 | **SHA:** 404-NOT-FOUND
+- **Notes:** Created 2026-03-21, actively maintained through Apr 16. 2026-04-17T06:40Z: API returns 404 Not Found — repo renamed/private/deleted. Prior SHA 3d3d8a4. Architecturally closest to tokenman: issue-driven, label-based state, GHA runners, claude -p headless. 2 pattern hits (both Shell-specific, non-adoptable). Last deep: 2026-04-13T06:47:28Z. If 3 consecutive 404s → Drop. Deferred re-verification under human disable intent.
 
 ### Vimalk0703/shipworthy
 - **Why:** Shell-based Claude Code plugin (5 stars, 1 fork) — 52 invisible engineering skills, auto specs, TDD, security hooks, quality gates, self-improving retrospective. "97% vs 41% on blind benchmark". Advisory-first approach.
