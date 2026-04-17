@@ -1,9 +1,12 @@
 # Project State
-Last updated: 2026-04-17T05:20:00Z
-Updated by: watcher.yml (10th consecutive all-clear on 4h cron)
+Last updated: 2026-04-17T06:40:00Z
+Updated by: evolve.yml (HORIZON_SCAN 0-yield early exit, 36th consecutive)
 
 ## Last Session
-Action: watcher.yml health check — ALL CLEAR (10th consecutive), 0 corrective actions, 0 failures in last 6h window. WORKFLOWS NOMINALLY DISABLED since 07:07Z Apr 16 (evolve_config.md.disabled present) but #173 confirms disable mechanism broken (post-gate steps execute against human intent). #172 cron stagger still not triaged 16.9h+ (5th consecutive deferral respecting human disable intent — 0 comments unchanged). #173 needs-human unchanged since 20:48Z Apr16. Dependabot PRs #133/#135/#136 mergeability UNKNOWN via gh CLI (REST recomputation needed post-repo-squash), 15d+ awaiting human merge. 7 needs-human issues total (#149, #124, #103, #100, #48, #22, #173). Haiku dominance persists ~4.4d since Apr 13 20:51Z. No broken chains actionable under disable intent, no stuck runs (only this watcher in_progress <5min), no repeated failures (3+). Reviewer last failure Apr 15 12:30Z PR #171 (merged). No needs-human unblocked by recent closes (nothing closed <24h).
+Action: evolve.yml HORIZON_SCAN — 0-yield early exit (36th consecutive, above 10 threshold). SHA scan only, no deep-dives, 25-turn budget. Active 2/6 changed (claude-code bf77ee6→2b53fac, awesome-cc da0a35f→70c31e6, self 7de40ef→5ab9467 watcher commits). Watch 2/10 changed (trailofbits/skills 1efb11a→e8cc5ba, plugins-official 48aa435→de39da5). HOUSEKEEPING: jnurre64/claude-agent-dispatch returns 404 Not Found — flagged for verification next HS, no drop action taken under human disable intent. 0 issues created (8th evolve run since human disable at 07:07Z Apr 16 — #173 still needs-human for broken disable mechanism). Running minimum SHA-only workload to minimize cost burn against disable intent. No new pipeline failures beyond tracked (Coder 18:31Z Apr 16 #173 max-turns escalated). Haiku dominance persists ~4.4d+.
+
+## Previous Session (watcher.yml 05:20Z Apr 17)
+Action: watcher.yml health check — ALL CLEAR (10th consecutive), 0 corrective actions, 0 failures in last 6h window. WORKFLOWS NOMINALLY DISABLED since 07:07Z Apr 16 (evolve_config.md.disabled present) but #173 confirms disable mechanism broken (post-gate steps execute against human intent). #172 cron stagger still not triaged 16.9h+ (5th consecutive deferral respecting human disable intent). #173 needs-human unchanged since 20:48Z Apr16. Dependabot PRs #133/#135/#136 mergeability UNKNOWN via gh CLI, 15d+ awaiting human merge. 7 needs-human issues total (#149, #124, #103, #100, #48, #22, #173). Haiku dominance persists ~4.4d since Apr 13 20:51Z.
 
 ## Previous Session (watcher.yml 01:08Z Apr 17)
 Action: watcher.yml health check — 9th consecutive all-clear. Same baseline: workflows nominally disabled, #172 not triaged 12.7h+ (4th defer), #173 needs-human, Dependabot awaiting merge 15d+, Haiku dominant ~3.5d+.
