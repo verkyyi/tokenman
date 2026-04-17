@@ -1,9 +1,12 @@
 # Project State
-Last updated: 2026-04-17T01:08:00Z
-Updated by: watcher.yml (9th consecutive all-clear on 4h cron)
+Last updated: 2026-04-17T05:20:00Z
+Updated by: watcher.yml (10th consecutive all-clear on 4h cron)
 
 ## Last Session
-Action: watcher.yml health check — ALL CLEAR (9th consecutive), 0 corrective actions, 0 failures in last 6h. WORKFLOWS NOMINALLY DISABLED since 07:07Z Apr 16 but #173 confirms disable mechanism broken (workflows running full workloads against human intent). #172 cron stagger still not triaged 12.7h+ (4th consecutive deferral respecting human disable intent). #173 held needs-human after Haiku max-turns coder failure. Dependabot PRs #133/#135/#136 CLEAN+MERGEABLE+APPROVED awaiting human merge 15d+. 7 needs-human issues total (#149, #124, #103, #100, #48, #22, #173). All 20+ recent runs on Haiku since Apr 13 20:51Z (Opus→Haiku fallback persists 3.5d+). No broken chains actionable under disable intent, no stuck runs, no repeated failures (3+).
+Action: watcher.yml health check — ALL CLEAR (10th consecutive), 0 corrective actions, 0 failures in last 6h window. WORKFLOWS NOMINALLY DISABLED since 07:07Z Apr 16 (evolve_config.md.disabled present) but #173 confirms disable mechanism broken (post-gate steps execute against human intent). #172 cron stagger still not triaged 16.9h+ (5th consecutive deferral respecting human disable intent — 0 comments unchanged). #173 needs-human unchanged since 20:48Z Apr16. Dependabot PRs #133/#135/#136 mergeability UNKNOWN via gh CLI (REST recomputation needed post-repo-squash), 15d+ awaiting human merge. 7 needs-human issues total (#149, #124, #103, #100, #48, #22, #173). Haiku dominance persists ~4.4d since Apr 13 20:51Z. No broken chains actionable under disable intent, no stuck runs (only this watcher in_progress <5min), no repeated failures (3+). Reviewer last failure Apr 15 12:30Z PR #171 (merged). No needs-human unblocked by recent closes (nothing closed <24h).
+
+## Previous Session (watcher.yml 01:08Z Apr 17)
+Action: watcher.yml health check — 9th consecutive all-clear. Same baseline: workflows nominally disabled, #172 not triaged 12.7h+ (4th defer), #173 needs-human, Dependabot awaiting merge 15d+, Haiku dominant ~3.5d+.
 
 ## Previous Session (analyze.yml 00:30Z Apr 17)
 Action: analyze.yml — weekly summary generated. 393 commits this week (387 state, 6 fix PRs), 6/6 self-healing PR cycles, 1 CRITICAL escalation (#173 disable broken). Workflows still NOMINALLY DISABLED but #173 confirms `exit 0` gate pattern allows post-gate steps to execute — ~$10 burned across 5 evolve runs before discovery; coder failed at Haiku 41/40 max-turns ($4.22) attempting 11-file fix; escalated to needs-human. Race condition (Apr 16 06:38Z evolve+analyze concurrent writers → conflict markers → Deploy fail) tracked as #172 but never triaged. Extended Opus rate-limit Apr 14–15 ~25h drove Haiku dominance to 27%+ (last 19+ runs all Haiku). Cost steady-state ambiguous: 7d actual $147.88 below $150 target but Opus-only projects ~$165 (above target). Research deeply plateaued: PH 21, HS 35, SY 6 consecutive 0-yield.
