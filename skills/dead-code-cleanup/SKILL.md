@@ -55,11 +55,17 @@ it, leave it alone.
    containing `__init__.py`, plus `src/` if it exists. Tests are NOT
    source dirs. Record the source-dir allowlist; every removal must be
    inside it.
-2. **Baseline tests.** Run `pytest` (or the project's configured test
-   command). If any test fails, ABORT with reason `baseline-failed`.
+2. **Baseline tests.** Run `python3 -m pytest` (or the project's
+   configured test command). Prefer `python3 -m pytest` over `pytest`
+   directly — it works even when the binary is not on PATH (common
+   in user installs). If any test fails, ABORT with
+   reason `baseline-failed`. If `python3 -m pytest` itself cannot run
+   (no pytest installed), ABORT with reason `no-test-harness`.
 3. **Find unused imports.** Use a well-known analyser:
-   `ruff check --select F401 --output-format=json`, `pyflakes`, or a
-   direct AST walk. Filter to whole-line unused imports only.
+   `python3 -m ruff check --select F401 --output-format=json`,
+   `python3 -m pyflakes`, or a direct AST walk. Filter to whole-line
+   unused imports only. (Prefer the `python3 -m` form over bare
+   binaries for the same PATH-reachability reason as above.)
 4. **Find unreachable code.** Walk each source file's AST. For every
    block, flag statements that follow an unconditional terminator
    (`Return`, `Raise`, `Continue`, `Break`) at the same indentation
