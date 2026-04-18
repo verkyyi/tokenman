@@ -108,7 +108,17 @@ def _install_remote(
                 message=f"git: {exc}",
             )
 
-        source_tree = clone_dir
+        subpath = catalog_entry.get("path")
+        if subpath:
+            source_tree = clone_dir / subpath
+            if not source_tree.is_dir():
+                return InstallResult(
+                    skill_name=skill_name, status="errored",
+                    resolved_sha=resolved_sha, exit_code=4,
+                    message=f"path {subpath!r} not found in cloned tree",
+                )
+        else:
+            source_tree = clone_dir
 
         target_dir.parent.mkdir(parents=True, exist_ok=True)
         if target_dir.exists():
