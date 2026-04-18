@@ -1,0 +1,21 @@
+# TEMPLATE — installed into consumer repos at /tokenman init as
+# .github/workflows/tokenman.yml. This file in the library repo never runs;
+# the installed copy on a consumer does.
+#
+# Phase 0: stub. Phase 1 adds trigger-check + generator steps.
+
+name: tokenman
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: run mode (scheduled | onboarding | smoke)
+        default: scheduled
+
+jobs:
+  tokenman-run:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "tokenman.yml.template — Phase 0 stub. Not yet implemented."
+          exit 0
