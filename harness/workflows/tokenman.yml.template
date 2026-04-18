@@ -2,15 +2,15 @@
 # .github/workflows/tokenman.yml. This file in the library repo never
 # runs; the installed copy on a consumer does.
 #
-# Phase 1.4: adds `mode` input. mode=single keeps the 1.2b behaviour;
-# mode=onboarding runs `python -m harness.onboard` (all enabled skills
-# in one session). No PAUSE/cooldown/budget/lock checks yet (Phase 2).
-# No schedule yet.
+# Actions-first runtime template. mode=single runs one maintainer;
+# mode=onboarding runs every enabled maintainer in one session.
 #
 # Requires: secrets.ANTHROPIC_API_KEY configured on the consumer repo.
 
 name: tokenman
 on:
+  schedule:
+    - cron: '17 9 * * 1'
   workflow_dispatch:
     inputs:
       mode:
@@ -30,6 +30,10 @@ permissions:
   contents: write
   pull-requests: write
 
+concurrency:
+  group: tokenman
+  cancel-in-progress: false
+
 jobs:
   tokenman-run:
     runs-on: ubuntu-latest
@@ -40,23 +44,25 @@ jobs:
         with:
           python-version: '3.11'
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
       - name: Install tokenman harness
         run: pip install git+https://github.com/verkyyi/tokenman.git@main
 
       - name: Install claude CLI
-        # TODO(1.2b-impl): resolve the actual install command at
-        # implementation time. Candidates include:
-        #   npm install -g @anthropic-ai/claude-code
-        #   curl -sSL https://claude.ai/install | sh
-        # Verify the chosen command during the manual smoke step.
         run: |
-          echo "TODO: install claude here"
-          exit 1   # fail fast until the TODO is resolved
+          npm install -g @anthropic-ai/claude-code
+          claude --version
 
       - name: Configure git identity for bot commits
         run: |
           git config --global user.email "tokenman-bot@users.noreply.github.com"
           git config --global user.name  "tokenman-bot"
+
+      - name: Install curated skills
+        run: python -m harness.install --repo .
 
       - name: Run tokenman
         env:
