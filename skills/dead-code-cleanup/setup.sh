@@ -16,10 +16,20 @@ python3 -m ruff --version
 which pytest  || echo "  (pytest binary not on PATH; python3 -m pytest still works)"
 which ruff    || echo "  (ruff binary not on PATH; python3 -m ruff still works)"
 
-# Make user-installed binaries visible to subsequent workflow steps
-# (Claude's bash tool inherits the step's PATH). Without this, `pytest`
-# on PATH is not found and the skill aborts with no-test-harness.
+# Make pytest / ruff reachable system-wide. Belt + suspenders:
+# - Append $HOME/.local/bin to $GITHUB_PATH (visible to subsequent steps)
+# - Symlink the binaries into /usr/local/bin (on PATH for every shell,
+#   including any subshells claude-code may spawn that don't inherit
+#   PATH from the Actions env).
 if [ -n "${GITHUB_PATH:-}" ]; then
     echo "$HOME/.local/bin" >> "$GITHUB_PATH"
     echo "--- appended $HOME/.local/bin to \$GITHUB_PATH ---"
+fi
+if command -v sudo >/dev/null 2>&1; then
+    for bin in pytest ruff; do
+        src="$HOME/.local/bin/$bin"
+        [ -x "$src" ] && sudo ln -sf "$src" "/usr/local/bin/$bin"
+    done
+    echo "--- symlinked pytest/ruff into /usr/local/bin ---"
+    ls -l /usr/local/bin/pytest /usr/local/bin/ruff
 fi

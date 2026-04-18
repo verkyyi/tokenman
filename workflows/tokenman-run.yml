@@ -160,6 +160,25 @@ jobs:
             echo "No $SETUP — skipping skill-specific setup."
           fi
 
+      - name: Pre-skill environment check
+        if: steps.gate.outputs.skip != 'true'
+        run: |
+          set -euo pipefail
+          echo "PATH=$PATH"
+          echo "PWD=$PWD"
+          echo "--- which / versions ---"
+          which python3 || true
+          which pytest || echo "pytest NOT on PATH"
+          which ruff || echo "ruff NOT on PATH"
+          python3 -m pytest --version || echo "python3 -m pytest FAILED"
+          python3 -m ruff --version || echo "python3 -m ruff FAILED"
+          echo "--- consumer repo layout ---"
+          ls -la
+          echo "--- skill dir ---"
+          ls -la ".claude/skills/${TOKENMAN_SKILL}"
+          echo "--- quick pytest dry run ---"
+          python3 -m pytest --collect-only -q 2>&1 | head -20
+
       - name: Run dead-code-cleanup via claude -p
         id: run_skill
         if: steps.gate.outputs.skip != 'true'
