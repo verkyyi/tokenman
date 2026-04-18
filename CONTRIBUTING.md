@@ -3,8 +3,8 @@
 ## Source zone vs runtime zone
 
 Tokenman lives in a single repository that plays two roles at once: it is
-both the library (source of the harness) and its own first consumer. To
-keep these from entangling, the repo is split into two zones.
+both the library (source of the harness) and its own first paused-by-default
+consumer. To keep these from entangling, the repo is split into two zones.
 
 ### Source zone — what tokenman *is*
 
