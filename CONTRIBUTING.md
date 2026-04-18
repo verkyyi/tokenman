@@ -20,15 +20,12 @@ user runs `/tokenman init` in their repo:
 - `docs/` — documentation
 - `tests/fixtures/` — synthetic consumer repos for harness testing
 
-### `skills/` — temporary bootstrap
+### `skills/`
 
-`skills/readme-maintainer/` lives in-tree during Phase 1.2b so the
-harness has a real skill to invoke before the external skills
-ecosystem exists. This is a deliberate, scoped violation of spec §5.1
-("tokenman ships zero skills"). It must be split out to a standalone
-repo before Phase 3 opens dogfood runs against the library itself.
-Do not add more skills here. See `skills/README.md` for the full
-rationale and exit plan.
+Intentionally empty. Tokenman curates skills, it does not ship them
+(spec §5.1). The catalog lives at `recommended-skills.yaml`;
+`python -m harness.install` fetches pinned versions into a consumer's
+`.claude/skills/`. Do not add skills here.
 
 Edits to source-zone files are the main library-development work.
 Everything in `tests/fixtures/` stays pristine — harness tests reset it.
