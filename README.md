@@ -25,6 +25,14 @@ roadmap.
 - Hosted infrastructure
 - Cloud accounts or dashboards
 
+## Usage
+
+Command-line tools shipped with the harness (run from a consumer repo
+that has `tokenman` installed):
+
+- `python -m harness.scope --repo <path>` — draft `.tokenman/initial-scope.md` for a repo (spec §6.3). Interactive; use `--non-interactive` for automation, `--dry-run` to skip the live `claude -p` call.
+- `python -m harness.run --skill <name> --repo <path>` — run one skill end-to-end (spec §4).
+
 ## Repository structure
 
 This repo is both the library (source of the harness) and its own
