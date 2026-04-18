@@ -1,6 +1,7 @@
 """Integration tests for harness.lib.skill_executor.StubSkillExecutor."""
 from __future__ import annotations
 
+import textwrap
 from pathlib import Path
 
 import pytest
@@ -54,4 +55,26 @@ def test_stub_default_mode_is_no_change(tmp_path: Path) -> None:
     executor = StubSkillExecutor()
     result = executor.execute(STUB_SKILL_DIR, FIXTURE_REPO, tmp_path)
     assert result.exit_code == 0
+    assert result.proposed_diff_path is None
+
+
+def test_stub_timeout_surfaces_as_error(tmp_path: Path) -> None:
+    skill_dir = tmp_path / "slow-skill"
+    skill_dir.mkdir()
+    (skill_dir / "stub.sh").write_text(textwrap.dedent("""\
+        #!/usr/bin/env bash
+        sleep 3
+        echo "should never print"
+    """))
+    (skill_dir / "stub.sh").chmod(0o755)
+    repo_dir = tmp_path / "repo"
+    repo_dir.mkdir()
+    scratch_dir = tmp_path / "scratch"
+    scratch_dir.mkdir()
+
+    executor = StubSkillExecutor(timeout_s=1)
+    result = executor.execute(skill_dir, repo_dir, scratch_dir)
+
+    assert result.exit_code == -1
+    assert "timed out" in result.stderr
     assert result.proposed_diff_path is None

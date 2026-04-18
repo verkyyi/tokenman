@@ -43,8 +43,13 @@ class StubSkillExecutor:
     and stderr are captured in full. Not used outside of tests.
     """
 
-    def __init__(self, extra_env: Optional[dict[str, str]] = None) -> None:
+    def __init__(
+        self,
+        extra_env: Optional[dict[str, str]] = None,
+        timeout_s: int = 30,
+    ) -> None:
         self._extra_env = dict(extra_env) if extra_env else {}
+        self._timeout_s = timeout_s
 
     def execute(
         self,
@@ -54,24 +59,34 @@ class StubSkillExecutor:
     ) -> ExecutionResult:
         entrypoint = skill_dir / "stub.sh"
         env = {**os.environ, **self._extra_env}
-        proc = subprocess.run(
-            ["bash", str(entrypoint), str(scratch_dir)],
-            cwd=str(repo_dir),
-            env=env,
-            capture_output=True,
-            text=True,
-            check=False,
-        )
+        try:
+            proc = subprocess.run(
+                ["bash", str(entrypoint), str(scratch_dir)],
+                cwd=str(repo_dir),
+                env=env,
+                capture_output=True,
+                text=True,
+                check=False,
+                timeout=self._timeout_s,
+            )
+            stdout = proc.stdout
+            stderr = proc.stderr
+            exit_code = proc.returncode
+        except subprocess.TimeoutExpired as e:
+            stdout = e.stdout or ""
+            stderr = (e.stderr or "") + f"\n[executor] stub.sh timed out after {self._timeout_s}s\n"
+            exit_code = -1
+
         diff = scratch_dir / "proposed.diff"
         md = scratch_dir / "proposed.md"
         first_stdout_line = next(
-            (ln for ln in proc.stdout.splitlines() if ln.strip()),
-            f"{skill_dir.name}: exit {proc.returncode}",
+            (ln for ln in stdout.splitlines() if ln.strip()),
+            f"{skill_dir.name}: exit {exit_code}",
         )
         return ExecutionResult(
-            exit_code=proc.returncode,
-            stdout=proc.stdout,
-            stderr=proc.stderr,
+            exit_code=exit_code,
+            stdout=stdout,
+            stderr=stderr,
             proposed_diff_path=diff if diff.is_file() else None,
             proposed_md_path=md if md.is_file() else None,
             summary=first_stdout_line,
