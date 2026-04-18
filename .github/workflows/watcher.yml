@@ -23,16 +23,21 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Check onboarding complete
+        id: gate
         run: |
           if [ ! -f state/evolve_config.md ]; then
             echo "::warning::Onboarding not complete. Run: claude 'Set up tokenman. Follow https://github.com/verkyyi/tokenman/blob/main/docs/onboarding.md'"
-            exit 0
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Install Claude Code
+        if: steps.gate.outputs.skip != 'true'
         run: npm install -g @anthropic-ai/claude-code
 
       - name: Collect system state
+        if: steps.gate.outputs.skip != 'true'
         id: state
         run: |
           echo "=== FAILED RUNS (last 6 hours) ===" > /tmp/system_state.txt
@@ -79,6 +84,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
 
       - name: Build watcher prompt
+        if: steps.gate.outputs.skip != 'true'
         run: |
           SYSTEM_STATE=$(cat /tmp/system_state.txt)
 
@@ -249,6 +255,7 @@ jobs:
           PROMPTEND
 
       - name: Run watcher
+        if: steps.gate.outputs.skip != 'true'
         run: |
           claude -p "$(cat /tmp/watcher_prompt.txt)" \
             --model opus \
@@ -264,7 +271,7 @@ jobs:
           WORKFLOW_PAT: ${{ secrets.WORKFLOW_PAT }}
 
       - name: Log usage metrics
-        if: always()
+        if: always() && steps.gate.outputs.skip != 'true'
         run: |
           TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)
           if [ -f /tmp/claude_output.json ]; then
@@ -285,7 +292,7 @@ jobs:
           awk -v c="$CUTOFF" 'NR==1{print;next} $0>=c' state/usage_log.md > /tmp/usage_trimmed.md && mv /tmp/usage_trimmed.md state/usage_log.md
 
       - name: Commit state changes via API
-        if: always()
+        if: always() && steps.gate.outputs.skip != 'true'
         run: |
           for f in $(git diff --name-only state/ 2>/dev/null); do
             ./scripts/commit-state.sh "$f" "state: watcher health check — $(date -u +%Y-%m-%dT%H:%M)"

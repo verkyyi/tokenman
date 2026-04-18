@@ -18,16 +18,21 @@ jobs:
           fetch-depth: 0
 
       - name: Check onboarding complete
+        id: gate
         run: |
           if [ ! -f state/evolve_config.md ]; then
             echo "::warning::Onboarding not complete. Run: claude 'Set up tokenman. Follow https://github.com/verkyyi/tokenman/blob/main/docs/onboarding.md'"
-            exit 0
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Install Claude Code
+        if: steps.gate.outputs.skip != 'true'
         run: npm install -g @anthropic-ai/claude-code
 
       - name: Build analysis prompt
+        if: steps.gate.outputs.skip != 'true'
         run: |
           cat > /tmp/prompt.txt << 'PROMPT'
           You are the weekly analysis agent for Tokenman.
@@ -73,11 +78,13 @@ jobs:
           PROMPT
 
       - name: Git identity
+        if: steps.gate.outputs.skip != 'true'
         run: |
           git config user.name "tokenman"
           git config user.email "tokenman@users.noreply.github.com"
 
       - name: Run Claude Code
+        if: steps.gate.outputs.skip != 'true'
         run: |
           claude -p "$(cat /tmp/prompt.txt)" \
             --model opus \
@@ -91,7 +98,7 @@ jobs:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
 
       - name: Log usage metrics
-        if: always()
+        if: always() && steps.gate.outputs.skip != 'true'
         run: |
           TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)
           if [ -f /tmp/claude_output.json ]; then
@@ -112,7 +119,7 @@ jobs:
           awk -v c="$CUTOFF" 'NR==1{print;next} $0>=c' state/usage_log.md > /tmp/usage_trimmed.md && mv /tmp/usage_trimmed.md state/usage_log.md
 
       - name: Commit state changes via API
-        if: always()
+        if: always() && steps.gate.outputs.skip != 'true'
         run: |
           for f in $(git diff --name-only state/ 2>/dev/null); do
             ./scripts/commit-state.sh "$f" "state: weekly analysis — $(date -u +%Y-%m-%d)"
@@ -121,7 +128,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
 
       - name: Create improvement PR if proposed
-        if: hashFiles('.proposed-change.md') != ''
+        if: hashFiles('.proposed-change.md') != '' && steps.gate.outputs.skip != 'true'
         run: |
           BRANCH="analyze/$(date +%Y%m%d)-${GITHUB_RUN_NUMBER}"
           git checkout -b "$BRANCH"

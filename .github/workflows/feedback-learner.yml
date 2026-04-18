@@ -34,13 +34,17 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Check onboarding complete
+        id: gate
         run: |
           if [ ! -f state/evolve_config.md ]; then
             echo "::warning::Onboarding not complete. Run: claude 'Set up tokenman. Follow https://github.com/verkyyi/tokenman/blob/main/docs/onboarding.md'"
-            exit 0
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Collect feedback context
+        if: steps.gate.outputs.skip != 'true'
         id: context
         run: |
           EVENT="$INPUT_EVENT_NAME"
@@ -97,9 +101,11 @@ jobs:
           INPUT_SENDER_LOGIN: ${{ github.event.sender.login }}
 
       - name: Install Claude Code
+        if: steps.gate.outputs.skip != 'true'
         run: npm install -g @anthropic-ai/claude-code
 
       - name: Extract lesson
+        if: steps.gate.outputs.skip != 'true'
         run: |
           EVENT="${{ steps.context.outputs.EVENT }}"
           SOURCE="${{ steps.context.outputs.SOURCE }}"
@@ -208,7 +214,7 @@ jobs:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
 
       - name: Log usage metrics
-        if: always()
+        if: always() && steps.gate.outputs.skip != 'true'
         run: |
           TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)
           if [ -f /tmp/claude_output.json ]; then
@@ -229,7 +235,7 @@ jobs:
           awk -v c="$CUTOFF" 'NR==1{print;next} $0>=c' state/usage_log.md > /tmp/usage_trimmed.md && mv /tmp/usage_trimmed.md state/usage_log.md
 
       - name: Commit state changes via API
-        if: always()
+        if: always() && steps.gate.outputs.skip != 'true'
         run: |
           for f in $(git diff --name-only state/ 2>/dev/null); do
             ./scripts/commit-state.sh "$f" "state: feedback-learner usage metrics"
@@ -241,7 +247,8 @@ jobs:
       - name: Handle PR rejection
         if: >
           github.event_name == 'pull_request' &&
-          steps.context.outputs.LINKED_ISSUE != ''
+          steps.context.outputs.LINKED_ISSUE != '' &&
+          steps.gate.outputs.skip != 'true'
         run: |
           LINKED_ISSUE="${{ steps.context.outputs.LINKED_ISSUE }}"
           PR_NUM="${{ github.event.pull_request.number }}"
@@ -268,6 +275,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
 
       - name: Act on feedback if needed
+        if: steps.gate.outputs.skip != 'true'
         run: |
           if [ ! -f .action-needed ]; then
             echo "No action needed"
