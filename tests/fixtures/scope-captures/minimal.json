@@ -1,0 +1,22 @@
+{
+  "profile_prose": "A small Python project with tests and a README.",
+  "recommended_skills": [
+    {
+      "name": "readme-maintainer",
+      "reasoning": "The repo has a README and source files; keeping them aligned is a good starter.",
+      "default_cadence": "on-change"
+    }
+  ],
+  "skipped_skills": [],
+  "candidate_uncurated_plugins": [
+    {
+      "plugin": "dep-bumper",
+      "marketplace": "one",
+      "reasoning": "Possibly useful once the catalog adds a dep-bump skill."
+    }
+  ],
+  "suggested_boundaries": {
+    "allowed": ["README.md"],
+    "forbidden": [".tokenman/**", "harness/**"]
+  }
+}
