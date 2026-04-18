@@ -1,10 +1,16 @@
 """Tests for harness.lib.runner."""
 from __future__ import annotations
 
+import json
+import shutil
 from datetime import datetime, timezone
 from pathlib import Path
 
-from harness.lib import runner
+import pytest
+
+from harness.lib import ledger, runner
+from harness.lib.pr_opener import FakePROpener
+from harness.lib.skill_executor import StubSkillExecutor
 
 
 # --- helpers --------------------------------------------------------
@@ -52,15 +58,6 @@ def test_iso_utc_converts_non_utc() -> None:
 
 
 # --- run_skill integration -----------------------------------------
-
-import json
-import shutil
-
-import pytest
-
-from harness.lib import ledger
-from harness.lib.pr_opener import FakePROpener
-from harness.lib.skill_executor import StubSkillExecutor
 
 
 REPO_ROOT = Path(__file__).parent.parent
@@ -306,3 +303,47 @@ def test_run_skill_leaves_no_ledger_entry_on_append_failure(tmp_path: Path) -> N
     assert (art / "stub.stdout").is_file()
     assert (art / "stub.stderr").is_file()
     assert not (art / "ledger.entry").exists()
+
+
+def test_run_skill_records_error_when_pr_opener_raises(tmp_path: Path) -> None:
+    """If pr_opener.open() raises, the runner converts the run to an
+    error outcome rather than crashing: status=error, generator=None,
+    pr=None, stderr captures the traceback, ledger has exactly one entry.
+    """
+    repo_dir, ledger_path, runs_dir = _prepare_repo_copy(tmp_path)
+
+    class BrokenPROpener:
+        def open(self, *, title, body, branch, diff):
+            raise RuntimeError("boom")
+
+    executor = StubSkillExecutor(extra_env={"STUB_MODE": "propose_diff"})
+    pr_opener = BrokenPROpener()
+
+    entry = runner.run_skill(
+        skill_dir=STUB_SKILL_DIR,
+        repo_dir=repo_dir,
+        ledger_path=ledger_path,
+        runs_dir=runs_dir,
+        executor=executor,
+        pr_opener=pr_opener,
+        skill_name="stub-readme",
+        now=_fixed_now,
+    )
+
+    assert entry["status"] == "error"
+    assert entry["generator"] is None
+    assert entry["pr"] is None
+    assert entry["total_tokens"] == 0
+
+    # Single ledger line, matches the returned entry.
+    lines = ledger_path.read_text().splitlines()
+    assert len(lines) == 1
+    assert json.loads(lines[0]) == entry
+
+    # Artifacts: proposed.diff was copied (subprocess succeeded before PR
+    # opener ran), stderr captures the failure message and traceback.
+    art = runs_dir / "r-0001"
+    assert (art / "proposed.diff").is_file()
+    stderr_content = (art / "stub.stderr").read_text()
+    assert "pr_opener failed: boom" in stderr_content
+    assert "RuntimeError" in stderr_content

@@ -6,7 +6,18 @@ See docs/superpowers/specs/2026-04-18-phase-1-2a-harness-plumbing-design.md.
 """
 from __future__ import annotations
 
+import json
+import shutil
+import tempfile
+import traceback
 from datetime import datetime, timezone
+from pathlib import Path
+from time import monotonic
+from typing import Any, Callable, Optional
+
+from harness.lib import ledger
+from harness.lib.pr_opener import PROpener
+from harness.lib.skill_executor import SkillExecutor
 
 
 def _count_diff_lines(diff_text: str) -> int:
@@ -30,18 +41,6 @@ def _format_run_id(n: int) -> str:
 def _iso_utc(dt: datetime) -> str:
     """Render as ISO 8601 UTC with seconds precision and Z suffix."""
     return dt.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-
-
-import json
-import shutil
-import tempfile
-from pathlib import Path
-from time import monotonic
-from typing import Any, Callable, Optional
-
-from harness.lib import ledger
-from harness.lib.pr_opener import PROpener
-from harness.lib.skill_executor import SkillExecutor
 
 
 def run_skill(
@@ -123,11 +122,12 @@ def run_skill(
             )
             status = "pr_opened"
         except Exception as exc:
+            tb = traceback.format_exc()
             status = "error"
             generator = None
             pr = None
             (artifact_dir / "stub.stderr").write_text(
-                result.stderr + f"\n[runner] pr_opener failed: {exc}\n"
+                result.stderr + f"\n[runner] pr_opener failed: {exc}\n{tb}"
             )
 
     # 2h. Stop clock.
@@ -148,10 +148,12 @@ def run_skill(
         "verdict_note": None,
     }
 
-    # 2j. Append (raises on invariant violation).
+    # 2j. Append first — may raise LedgerInvariantError. If it does,
+    # we never reach step 2k, so no orphan ledger.entry file gets
+    # created. Locked by test_run_skill_leaves_no_ledger_entry_on_append_failure.
     ledger.append(ledger_path, entry)
 
-    # 2k. Per-run ledger copy (only after successful append).
+    # 2k. Per-run ledger copy — only after successful append.
     (artifact_dir / "ledger.entry").write_text(
         json.dumps(entry, separators=(",", ":")) + "\n"
     )
