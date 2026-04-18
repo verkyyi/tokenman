@@ -1,10 +1,10 @@
 """`python -m harness.run` — runs one skill against a consumer repo.
 
 Thin wrapper around harness.lib.runner.run_skill. Resolves skill_dir
-from recommended-skills.yaml. --dry-run swaps ClaudeSkillExecutor for
-the stub-readme fixture and GhPROpener for FakePROpener — useful for
-local iteration or smoke testing without spending tokens or opening
-real PRs.
+from recommended-skills.yaml via harness.lib.catalog. --dry-run swaps
+ClaudeSkillExecutor for the stub-readme fixture and GhPROpener for
+FakePROpener — useful for local iteration or smoke testing without
+spending tokens or opening real PRs.
 """
 from __future__ import annotations
 
@@ -14,44 +14,9 @@ import sys
 from pathlib import Path
 from typing import Optional
 
-import yaml
-
-from harness.lib import runner
+from harness.lib import catalog, runner
 from harness.lib.pr_opener import FakePROpener, GhPROpener
 from harness.lib.skill_executor import ClaudeSkillExecutor, StubSkillExecutor
-
-
-def _repo_root() -> Path:
-    """Return the tokenman library repo root (where recommended-skills.yaml lives).
-
-    The CLI is invoked from the consumer's repo, but the catalog lives in
-    the tokenman library install. Walk up from this module's location to
-    find recommended-skills.yaml.
-    """
-    here = Path(__file__).resolve()
-    for candidate in here.parents:
-        if (candidate / "recommended-skills.yaml").is_file():
-            return candidate
-    raise SystemExit(
-        "recommended-skills.yaml not found; is tokenman installed correctly?"
-    )
-
-
-def _resolve_skill_dir(skill_name: str) -> Path:
-    root = _repo_root()
-    catalog_path = root / "recommended-skills.yaml"
-    catalog = yaml.safe_load(catalog_path.read_text()) or {}
-    entry = catalog.get(skill_name)
-    if entry is None:
-        raise SystemExit(f"skill {skill_name!r} not in recommended-skills.yaml")
-    source = entry.get("source")
-    if source is None:
-        raise SystemExit(f"skill {skill_name!r} has no 'source' field")
-    if source.startswith("./"):
-        return (root / source[2:]).resolve()
-    raise SystemExit(
-        f"only local (./) sources are supported in 1.2b; got {source!r}"
-    )
 
 
 def main(argv: Optional[list[str]] = None) -> int:
@@ -75,18 +40,37 @@ def main(argv: Optional[list[str]] = None) -> int:
         else repo / ".tokenman" / "runs"
     )
 
-    skill_dir = _resolve_skill_dir(args.skill)
+    try:
+        root = catalog.tokenman_root()
+        catalog_data = catalog.load_catalog(root)
+    except catalog.SkillResolutionError as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 2
 
     if args.dry_run:
-        root = _repo_root()
+        # Dry-run uses the stub fixture, so the skill needn't be installed;
+        # but still fail fast on unknown skill names so typos surface.
+        if args.skill not in catalog_data:
+            print(
+                f"error: skill {args.skill!r} not in recommended-skills.yaml",
+                file=sys.stderr,
+            )
+            return 2
         stub_skill = root / "tests" / "fixtures" / "skills" / "stub-readme"
         executor = StubSkillExecutor(extra_env={"STUB_MODE": "propose_diff"})
         pr_opener = FakePROpener(sink_dir=runs_dir.parent / "dry-run-prs")
         effective_skill_dir = stub_skill
     else:
+        try:
+            effective_skill_dir = catalog.resolve_skill_dir(
+                skill_name=args.skill, catalog=catalog_data,
+                tokenman_root=root, consumer_repo=repo,
+            )
+        except catalog.SkillResolutionError as exc:
+            print(f"error: {exc}", file=sys.stderr)
+            return 2
         executor = ClaudeSkillExecutor(claude_bin=args.claude_bin)
         pr_opener = GhPROpener(repo_dir=repo, base_branch=args.base_branch)
-        effective_skill_dir = skill_dir
 
     entry = runner.run_skill(
         skill_dir=effective_skill_dir,
