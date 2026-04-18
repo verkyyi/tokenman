@@ -57,7 +57,22 @@ changes without immediately dogfooding them.
   git log --grep='\[tokenman\]'                  # dogfood commits only
   ```
 
-## Phase 0 status
+## Running tests
 
-The harness is not implemented yet. Phase 0 establishes scaffolding
-and contracts. See `docs/spec.md` §12 for the full phased roadmap.
+Install dev dependencies and run pytest from the repo root:
+
+```bash
+pip install -e '.[dev]'
+pytest
+```
+
+The canonical ledger schema lives at `harness/lib/ledger.schema.json`;
+test fixtures at `tests/ledgers/*.jsonl`. The test suite validates every
+fixture entry against the schema, so schema drift fails fast.
+
+## Status
+
+Phase 0 scaffolding is in place. Phase 1.1 has locked the ledger
+schema and reworked `status.sh`. The harness runner is not
+implemented yet — Phase 1.2 covers that. See `docs/spec.md` §12 for
+the full phased roadmap.

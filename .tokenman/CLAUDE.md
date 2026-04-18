@@ -20,7 +20,7 @@
 - tests/fixtures/              # must remain pristine
 - .tokenman/CLAUDE.md          # this file — human-edited only
 - .tokenman/tokenman.yaml      # config — human-edited only
-- LICENSE, .gitignore, .shellcheckrc, scripts/
+- LICENSE, .gitignore, .shellcheckrc
 
 ## FORBIDDEN operations
 - Any change that could affect how the harness behaves
