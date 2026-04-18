@@ -1,13 +1,19 @@
 """PR opener boundary for the harness runner.
 
-Phase 1.2a ships a FakePROpener used in tests. Phase 1.2b adds a
-GhPROpener that calls `gh pr create` against a real remote.
+Phase 1.2a shipped FakePROpener for tests. 1.2b-ii adds GhPROpener
+which runs `gh pr create` against a real remote; the runner has
+already created, committed to, and pushed the branch via git_ops.
 """
 from __future__ import annotations
 
 import json
+import subprocess
 from pathlib import Path
 from typing import Optional, Protocol
+
+
+class PROpenerError(RuntimeError):
+    """Raised when opening a PR fails. Wraps captured stderr."""
 
 
 class PROpener(Protocol):
@@ -48,3 +54,49 @@ class FakePROpener:
                 json.dumps(record, indent=2)
             )
         return n
+
+
+class GhPROpener:
+    """Calls `gh pr create --json number -q .number` and parses the result.
+
+    Assumes the branch already exists locally and has been pushed (the
+    runner does this via git_ops.apply_diff_and_push before calling us).
+    """
+
+    def __init__(
+        self,
+        repo_dir: Path,
+        base_branch: str = "main",
+        gh_bin: str = "gh",
+    ) -> None:
+        self._repo_dir = repo_dir
+        self._base = base_branch
+        self._gh = gh_bin
+
+    def open(self, *, title: str, body: str, branch: str) -> int:
+        proc = subprocess.run(
+            [
+                self._gh, "pr", "create",
+                "--title", title,
+                "--body", body,
+                "--head", branch,
+                "--base", self._base,
+                "--json", "number",
+                "-q", ".number",
+            ],
+            cwd=str(self._repo_dir),
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if proc.returncode != 0:
+            raise PROpenerError(
+                f"gh pr create failed (exit {proc.returncode}): {proc.stderr.strip()}"
+            )
+        stripped = proc.stdout.strip()
+        try:
+            return int(stripped)
+        except ValueError:
+            raise PROpenerError(
+                f"gh pr create produced non-integer stdout: {stripped!r}"
+            )

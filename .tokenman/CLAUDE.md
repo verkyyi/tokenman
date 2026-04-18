@@ -13,6 +13,7 @@
 - harness/                     # the runtime itself
 - scoping/                     # the scoping logic itself
 - onboarding/                  # the onboarding logic itself
+- skills/                      # temporary bootstrap (Phase 1.2b) — see skills/README.md
 - recommended-skills.yaml      # the catalog
 - pricing.yaml                 # budget calibration
 - .github/                     # the workflows
