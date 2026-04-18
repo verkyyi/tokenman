@@ -10,7 +10,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Callable, List, Optional, Tuple
 
+from harness.lib import ledger, runner
+from harness.lib.git_ops import GitIdentity
 from harness.lib.ledger import LedgerEntry
+from harness.lib.pr_opener import PROpener
+from harness.lib.skill_executor import SkillExecutor
 
 
 @dataclass(frozen=True)
@@ -70,12 +74,6 @@ def _synth_skipped_entry(
         "verdict": None,
         "verdict_note": None,
     }
-
-
-from harness.lib import ledger, runner  # noqa: E402  (after dataclasses)
-from harness.lib.git_ops import GitIdentity
-from harness.lib.pr_opener import PROpener
-from harness.lib.skill_executor import SkillExecutor
 
 
 class OnboardingError(RuntimeError):
