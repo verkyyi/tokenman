@@ -30,9 +30,11 @@ roadmap.
 Command-line tools shipped with the harness (run from a consumer repo
 that has `tokenman` installed):
 
-- `python -m harness.scope --repo <path>` — draft `.tokenman/initial-scope.md` for a repo (spec §6.3). Interactive; use `--non-interactive` for automation, `--dry-run` to skip the live `claude -p` call.
-- `python -m harness.run --skill <name> --repo <path>` — run one skill end-to-end (spec §4).
-- `python -m harness.onboard --repo <path>` — run every enabled skill back-to-back, open a PR per skill, write `.tokenman/onboarding-summary.md` (spec §6.4).
+1. `python -m harness.scope --repo <path>` — draft `.tokenman/initial-scope.md` for a repo (spec §6.3). Interactive; use `--non-interactive` for automation, `--dry-run` to skip the live `claude -p` call.
+2. `python -m harness.install --repo <path>` — fetch skills from `recommended-skills.yaml` into `<path>/.claude/skills/` (spec §5.2, §6.2). Pass `--skill NAME` (repeatable) to install a subset; `--force` to overwrite drifted installs.
+3. `python -m harness.onboard --repo <path>` — run every enabled skill back-to-back, open a PR per skill, write `.tokenman/onboarding-summary.md` (spec §6.4).
+
+Individual skill runs: `python -m harness.run --skill <name> --repo <path>` (spec §4).
 
 ## Repository structure
 
