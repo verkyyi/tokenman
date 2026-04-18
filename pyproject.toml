@@ -1,0 +1,18 @@
+[project]
+name = "tokenman-dev"
+version = "0.0.0"
+description = "Dev tooling for the tokenman library repo (not a published package)"
+requires-python = ">=3.10"
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8",
+  "jsonschema>=4.21",
+]
+
+[tool.setuptools]
+packages = []
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+norecursedirs = ["tests/fixtures"]
