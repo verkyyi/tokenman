@@ -25,7 +25,7 @@
 ## FORBIDDEN operations
 - Any change that could affect how the harness behaves
 - Any change to version numbers
-- Any change to package.json / pyproject.toml (if ever added)
+- Any change to package.json / pyproject.toml
 - Direct commits to main
 - Auto-merge
 

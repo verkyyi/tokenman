@@ -414,7 +414,7 @@ Garbage collection runs as part of the workflow, deleting old artifact directori
 
 ### 8.3 The status script
 
-`scripts/status.sh` (or `.tokenman/status.sh` in consumer repo) reads the ledger and prints:
+`harness/templates/status.sh` (library dev copy; installed as `.tokenman/status.sh` in consumer repos) reads the ledger and prints:
 
 ```
 Tokenman status — last 7 days
