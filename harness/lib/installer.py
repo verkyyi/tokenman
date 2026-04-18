@@ -115,7 +115,10 @@ def _install_remote(
                 return InstallResult(
                     skill_name=skill_name, status="errored",
                     resolved_sha=resolved_sha, exit_code=4,
-                    message=f"path {subpath!r} not found in cloned tree",
+                    message=(
+                        f"catalog path {subpath!r} not present in "
+                        f"{source}@{version} (resolved {resolved_sha[:12]})"
+                    ),
                 )
         else:
             source_tree = clone_dir
