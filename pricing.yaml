@@ -9,3 +9,4 @@
 #     conservative: 0.05
 #     recommended:  0.10
 #     aggressive:   0.20
+#     custom:       <user-specified; not a preset — handled outside this table>
