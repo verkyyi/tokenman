@@ -4,10 +4,17 @@ See docs/superpowers/specs/2026-04-18-phase-1-3-scoping-flow-design.md.
 """
 from __future__ import annotations
 
+import argparse
+import os
+import subprocess
 import sys
+import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 
+import yaml
+
+from harness.lib import marketplace, repo_profile, scope_drafter
 from harness.lib.repo_profile import RepoProfile
 from harness.lib.scope_drafter import ScopeDraft
 
@@ -144,8 +151,139 @@ def _render_markdown(
     return "\n".join(lines)
 
 
+def _tokenman_root() -> Path:
+    """Find the tokenman library repo root (holds recommended-skills.yaml)."""
+    here = Path(__file__).resolve()
+    for candidate in here.parents:
+        if (candidate / "recommended-skills.yaml").is_file():
+            return candidate
+    raise SystemExit("recommended-skills.yaml not found; is tokenman installed?")
+
+
+def _load_catalog(root: Path) -> dict[str, dict]:
+    data = yaml.safe_load((root / "recommended-skills.yaml").read_text()) or {}
+    if not isinstance(data, dict):
+        raise SystemExit("recommended-skills.yaml must be a mapping")
+    return data
+
+
+_QUESTIONS = [
+    ("purpose", "What's this repo for? (one line)"),
+    ("concern",
+     "Main maintenance concern? [a] docs  [b] dep freshness  "
+     "[c] dead code  [d] other"),
+    ("off_limits", "Paths off-limits? (comma-separated globs, blank to skip)"),
+    ("other", "Anything else the scoping agent should know?"),
+]
+
+
+def _ask_interactive(non_interactive: bool) -> dict[str, str]:
+    if non_interactive:
+        return {key: "" for key, _ in _QUESTIONS}
+    answers: dict[str, str] = {}
+    print()
+    print("A few questions:")
+    print()
+    for key, prompt in _QUESTIONS:
+        answers[key] = input(f"  {prompt}\n  > ").strip()
+        print()
+    return answers
+
+
+def _get_stub_result() -> str:
+    path = _tokenman_root() / "tests" / "fixtures" / "scope-captures" / "minimal.json"
+    return path.read_text()
+
+
+def _prompt_accept_edit_abort(rendered: str, non_interactive: bool) -> tuple[str, str]:
+    if non_interactive:
+        return "accept", rendered
+    print("=== Draft initial-scope.md ===")
+    print(rendered)
+    print("=============================")
+    while True:
+        choice = input("Accept this draft? [a]ccept / [e]dit / [x] abort > ").strip().lower()
+        if choice in ("a", "accept", ""):
+            return "accept", rendered
+        if choice in ("x", "abort"):
+            return "abort", rendered
+        if choice in ("e", "edit"):
+            editor = os.environ.get("EDITOR", "vi")
+            with tempfile.NamedTemporaryFile("w+", suffix=".md", delete=False) as tf:
+                tf.write(rendered)
+                tmp_path = tf.name
+            subprocess.run([editor, tmp_path], check=False)
+            edited = Path(tmp_path).read_text()
+            Path(tmp_path).unlink(missing_ok=True)
+            if not edited.strip():
+                return "abort", rendered
+            return "accept", edited
+        print("  (choose a / e / x)")
+
+
 def main(argv: list[str] | None = None) -> int:
-    raise SystemExit("harness.scope CLI is not yet implemented (Phase 1.3)")
+    parser = argparse.ArgumentParser(prog="python -m harness.scope")
+    parser.add_argument("--repo", default=".")
+    parser.add_argument("--refresh", action="store_true",
+                        help="refresh marketplace caches before reading")
+    parser.add_argument("--claude-bin", default="claude")
+    parser.add_argument("--output-path", default=None,
+                        help="default: <repo>/.tokenman/initial-scope.md")
+    parser.add_argument("--non-interactive", action="store_true")
+    parser.add_argument("--dry-run", action="store_true",
+                        help="use canned LLM response (no claude invocation)")
+    args = parser.parse_args(argv)
+
+    repo = Path(args.repo).resolve()
+    output_path = (
+        Path(args.output_path).resolve() if args.output_path
+        else repo / ".tokenman" / "initial-scope.md"
+    )
+
+    try:
+        profile = repo_profile.inspect(repo)
+    except repo_profile.RepoProfileError as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 2
+
+    plugins = marketplace.list_plugins(refresh=args.refresh)
+    marketplaces_empty = not plugins
+
+    root = _tokenman_root()
+    catalog = _load_catalog(root)
+
+    answers = _ask_interactive(args.non_interactive)
+
+    if args.dry_run:
+        executor: scope_drafter.ScopeExecutor = scope_drafter.StubScopeExecutor(
+            canned_result=_get_stub_result()
+        )
+    else:
+        executor = scope_drafter.ClaudeScopeExecutor(claude_bin=args.claude_bin)
+
+    try:
+        draft = scope_drafter.draft(
+            profile=profile, plugins=plugins, user_answers=answers,
+            catalog=catalog, executor=executor, catalog_root=root,
+        )
+    except (scope_drafter.ScopeExecutorError, scope_drafter.ScopeDrafterError) as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 3
+
+    rendered = _render_markdown(
+        draft=draft, profile=profile, repo_name=repo.name,
+        prompt_version="v1", marketplaces_empty=marketplaces_empty,
+    )
+
+    decision, final_md = _prompt_accept_edit_abort(rendered, args.non_interactive)
+    if decision == "abort":
+        print("aborted; no file written", file=sys.stderr)
+        return 1
+
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(final_md)
+    print(f"wrote {output_path}")
+    return 0
 
 
 if __name__ == "__main__":

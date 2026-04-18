@@ -60,3 +60,46 @@ def test_render_markdown_notes_empty_marketplace(tmp_path: Path) -> None:
         prompt_version="v1", marketplaces_empty=True,
     )
     assert "No marketplaces configured" in md
+
+
+import shutil
+import subprocess
+import sys
+
+
+def _git_init_tmp(repo: Path) -> None:
+    subprocess.run(["git", "-C", str(repo), "init", "-b", "main"], check=True, capture_output=True)
+    subprocess.run(["git", "-C", str(repo), "config", "user.email", "seed@local"], check=True)
+    subprocess.run(["git", "-C", str(repo), "config", "user.name", "seed"], check=True)
+    subprocess.run(["git", "-C", str(repo), "add", "-A"], check=True)
+    subprocess.run(["git", "-C", str(repo), "commit", "-m", "seed"], check=True, capture_output=True)
+
+
+def test_cli_dry_run_non_interactive_writes_scope_file(tmp_path: Path) -> None:
+    repo = tmp_path / "repo"
+    shutil.copytree(REPO_ROOT / "tests" / "fixtures" / "tiny-python-repo", repo)
+    _git_init_tmp(repo)
+
+    out_path = tmp_path / "initial-scope.md"
+    proc = subprocess.run(
+        [sys.executable, "-m", "harness.scope",
+         "--repo", str(repo),
+         "--output-path", str(out_path),
+         "--dry-run", "--non-interactive"],
+        capture_output=True, text=True, cwd=REPO_ROOT,
+    )
+    assert proc.returncode == 0, proc.stderr
+    assert out_path.exists()
+    content = out_path.read_text()
+    assert "# Tokenman — Initial scope for" in content
+    assert "## Recommended skills" in content
+
+
+def test_cli_missing_git_exits_nonzero(tmp_path: Path) -> None:
+    proc = subprocess.run(
+        [sys.executable, "-m", "harness.scope",
+         "--repo", str(tmp_path),
+         "--dry-run", "--non-interactive"],
+        capture_output=True, text=True, cwd=REPO_ROOT,
+    )
+    assert proc.returncode != 0
