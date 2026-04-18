@@ -316,8 +316,9 @@ Exactly 18 entries across three skills (`readme-maintainer`,
 - 0 × `aborted_*` (rare in a "realistic" week)
 
 Per-skill run totals: readme-maintainer 7, dead-code-cleanup 7,
-dep-bump-safe 4 (sum = 18). Per-skill token totals: 110,200 + 58,100 +
-16,000 = 184,300 (so `avg = 10,239/run` in the rendered output below).
+dep-bump-safe 4 (sum = 18). Per-skill token totals: 110200 + 58100 +
+16000 = 184300 (so `avg = 10238/run` in the rendered output below,
+using integer floor division — commas omitted in v1 output).
 
 Run IDs monotonic `r-0001`…`r-0018`. Timestamps span
 `2026-04-11T00:00:00Z` through `2026-04-17T23:59:59Z` (seven full
@@ -338,22 +339,22 @@ Tokenman status
 Ledger:  tests/ledgers/realistic-week.jsonl  (18 entries)
 
 Summary (all time):
-  Runs:          18
-  PRs opened:     6
-  No-change:      8
-  Skipped:        3  (lock: 1, cooldown: 1, pause: 1)
-  Aborted:        0
-  Errors:         1
-  Tokens:   184,300  (avg 10,239/run)
+  Runs:           18
+  PRs opened:      6
+  No-change:       8
+  Skipped:         3  (lock: 1, cooldown: 1, budget: 0, pause: 1, review-bandwidth: 0)
+  Aborted:         0
+  Errors:          1
+  Tokens:   184300  (avg 10238/run)
 
 Top skills (all time):
-  readme-maintainer   110,200 tok   7 runs  3 PRs
-  dead-code-cleanup    58,100 tok   7 runs  2 PRs
-  dep-bump-safe        16,000 tok   4 runs  1 PR
+  readme-maintainer     110200 tok   7 runs  3 PRs
+  dead-code-cleanup      58100 tok   7 runs  2 PRs
+  dep-bump-safe          16000 tok   4 runs  1 PRs
 
 Last 10 runs (newest first):
-  r-0018  2026-04-17T18:00Z  readme-maintainer   pr_opened       18,400
-  r-0017  2026-04-17T10:00Z  dead-code-cleanup   no_change        5,100
+  r-0018  2026-04-17T18:00:00Z  readme-maintainer     pr_opened          18000
+  r-0017  2026-04-17T14:00:00Z  dead-code-cleanup     no_change           7000
   ...
 ```
 
