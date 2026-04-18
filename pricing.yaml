@@ -1,0 +1,11 @@
+# Claude pricing, pulled at consumer-repo init to calibrate budget suggestions.
+# Schema and values TBD; wired in Phase 2.
+#
+# Expected shape:
+#   plans:
+#     pro:       { monthly_usd: ..., approx_tokens: ... }
+#     team:      { ... }
+#   allocations:
+#     conservative: 0.05
+#     recommended:  0.10
+#     aggressive:   0.20
