@@ -13,3 +13,14 @@
 #     evaluator_strictness: low | medium | high
 #
 # Empty at Phase 0. First entry added in Phase 1 (readme-maintainer).
+
+readme-maintainer:
+  source: ./skills/readme-maintainer    # TEMPORARY: in-tree during 1.2b (see skills/README.md)
+  version: 0.1.0
+  tier: starter
+  blast_radius: low
+  typical_tokens_per_run: 15000
+  description: Keeps README aligned with actual repo contents.
+  default_cadence: on-change
+  evaluator_strictness: medium
+  # TODO(1.2b-split): extract to standalone repo before Phase 3 dogfood opens.
