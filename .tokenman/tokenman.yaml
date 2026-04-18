@@ -4,6 +4,7 @@
 
 schedule:
   strategy: manual             # no cron trigger until Phase 3
+  # target_utilization: 80%    # applies when strategy is 'adaptive' (see spec §7.3)
   min_interval: 48h
   max_interval: 14d
   pause_at: 95%
