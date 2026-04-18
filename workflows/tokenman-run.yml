@@ -1,14 +1,320 @@
 # tokenman-run.yml — installed into consumer .github/workflows/
-# Scaffolding stub. Real triggers, guardrails, ledger entries, and PR
-# creation are authored in Step 3 of the setup plan.
+#
+# Runs the tokenman dead-code-cleanup skill on a weekly cadence (or on
+# manual dispatch). PRs only: the skill never commits maintenance
+# changes directly. Ledger entries (append-only bookkeeping) ARE written
+# directly to main — if main is protected such that GITHUB_TOKEN cannot
+# push, allow this workflow's token in branch-protection bypass rules.
+#
+# Required secrets:
+#   CLAUDE_CODE_OAUTH_TOKEN — console.anthropic.com → Claude Code OAuth
+#
+# GITHUB_TOKEN is provided automatically.
 
 name: tokenman-run
 
 on:
+  schedule:
+    - cron: '0 12 * * 1'       # weekly, Monday 12:00 UTC
   workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Run the skill but do not open a PR"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write        # push skill branch + commit ledger to main
+  pull-requests: write   # open / label / close PRs
+  issues: write          # comment on stale PRs when auto-closing
+
+concurrency:
+  group: tokenman-run
+  cancel-in-progress: false
+
+env:
+  TOKENMAN_SKILL: dead-code-cleanup
+  TOKENMAN_LABEL: "tokenman:dead-code-cleanup"
+  TOKENMAN_BRANCH_PREFIX: "tokenman/dead-code-cleanup-"
+  TOKENMAN_PR_MAX_AGE_DAYS: "14"
+  TOKENMAN_RUN_COOLDOWN_HOURS: "24"
+  TOKENMAN_TOKEN_BUDGET_7D: "0"   # 0 = count only, no enforcement
+  TOKENMAN_LEDGER: .tokenman/ledger.jsonl
 
 jobs:
-  placeholder:
+  run:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
-      - run: echo "tokenman-run stub — populated in Step 3"
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # ------------------------------------------------------------------
+      # Guardrails. The `gate` step sets steps.gate.outputs.skip=true|false.
+      # Every subsequent step carries `if: steps.gate.outputs.skip != 'true'`.
+      # (Never rely on `exit 0` inside a run block to halt a workflow — that
+      # only exits the step. Ref: tokenman failure log, issue #173.)
+      # ------------------------------------------------------------------
+      - name: Guardrails
+        id: gate
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          # Verify the skill is actually installed (consumer setup sanity).
+          if [ ! -f .claude/skills/dead-code-cleanup/SKILL.md ]; then
+            echo "::error::Skill not found at .claude/skills/dead-code-cleanup/SKILL.md. Install it from the tokenman library."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "reason=skill-missing" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # 1. An open PR already exists?
+          echo "::group::Check for an existing open PR"
+          EXISTING=$(gh pr list --label "$TOKENMAN_LABEL" --state open --json number --jq 'length')
+          if [ "$EXISTING" -gt 0 ]; then
+            echo "An open tokenman PR exists; skipping."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "reason=pr-already-open" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "::endgroup::"
+
+          # 2. Last successful run within the cooldown window?
+          echo "::group::Check cooldown (${TOKENMAN_RUN_COOLDOWN_HOURS}h)"
+          if [ -f "$TOKENMAN_LEDGER" ]; then
+            LAST_TS=$(jq -r --arg skill "$TOKENMAN_SKILL" \
+              'select(.skill == $skill and .status != "skip") | .ts' \
+              "$TOKENMAN_LEDGER" | tail -n 1)
+            if [ -n "$LAST_TS" ] && [ "$LAST_TS" != "null" ]; then
+              LAST_EPOCH=$(date -d "$LAST_TS" +%s)
+              NOW_EPOCH=$(date -u +%s)
+              AGE_HOURS=$(( (NOW_EPOCH - LAST_EPOCH) / 3600 ))
+              if [ "$AGE_HOURS" -lt "$TOKENMAN_RUN_COOLDOWN_HOURS" ]; then
+                echo "Last run was ${AGE_HOURS}h ago (< ${TOKENMAN_RUN_COOLDOWN_HOURS}h); skipping."
+                echo "skip=true" >> "$GITHUB_OUTPUT"
+                echo "reason=cooldown" >> "$GITHUB_OUTPUT"
+                exit 0
+              fi
+            fi
+          fi
+          echo "::endgroup::"
+
+          # 3. Rolling 7-day token budget (only enforced if > 0).
+          echo "::group::Check 7-day token budget"
+          if [ -f "$TOKENMAN_LEDGER" ] && [ "$TOKENMAN_TOKEN_BUDGET_7D" -gt 0 ]; then
+            CUTOFF=$(date -u -d '7 days ago' +%Y-%m-%dT%H:%M:%SZ)
+            TOTAL=$(jq -s --arg cutoff "$CUTOFF" \
+              'map(select(.ts >= $cutoff)) | map((.input_tokens // 0) + (.output_tokens // 0)) | add // 0' \
+              "$TOKENMAN_LEDGER")
+            if [ "$TOTAL" -gt "$TOKENMAN_TOKEN_BUDGET_7D" ]; then
+              echo "7-day total ($TOTAL) > budget ($TOKENMAN_TOKEN_BUDGET_7D); skipping."
+              echo "skip=true" >> "$GITHUB_OUTPUT"
+              echo "reason=over-token-budget" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+          fi
+          echo "::endgroup::"
+
+          echo "All guardrails passed."
+          echo "skip=false" >> "$GITHUB_OUTPUT"
+          echo "reason=" >> "$GITHUB_OUTPUT"
+
+      - name: Install Claude Code CLI
+        if: steps.gate.outputs.skip != 'true'
+        run: |
+          curl -fsSL https://claude.ai/install.sh | bash
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Prepare working branch
+        id: prep
+        if: steps.gate.outputs.skip != 'true'
+        run: |
+          set -euo pipefail
+          TS=$(date -u +%Y%m%d-%H%M%S)
+          BRANCH="${TOKENMAN_BRANCH_PREFIX}${TS}"
+          RUN_ID="${{ github.run_id }}-${{ github.run_attempt }}"
+          git config user.name  "tokenman[bot]"
+          git config user.email "tokenman-bot@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          {
+            echo "branch=$BRANCH"
+            echo "run_id=$RUN_ID"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Run dead-code-cleanup via claude -p
+        id: run_skill
+        if: steps.gate.outputs.skip != 'true'
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TOKENMAN_BRANCH: ${{ steps.prep.outputs.branch }}
+          DRY_RUN: ${{ inputs.dry_run || 'false' }}
+        run: |
+          set -euo pipefail
+
+          PROMPT=$(cat <<'PROMPT_EOF'
+          Run the dead-code-cleanup skill on this repository.
+
+          The skill is at .claude/skills/dead-code-cleanup/SKILL.md. Follow
+          it exactly: subtractive diffs only, tests must pass before and
+          after, diff must stay under 100 lines, only paths inside the
+          source-dir allowlist, no partial-import edits. Do NOT touch
+          anything under .tokenman/ — that directory is tokenman's own
+          bookkeeping and is owned by this workflow.
+
+          Execution context:
+          - Current git HEAD is a fresh branch named __TOKENMAN_BRANCH__.
+            Push it and open a PR from it when done.
+          - Base branch for the PR: main.
+          - PR label on success: __TOKENMAN_LABEL__.
+          - Dry run: __DRY_RUN__. If "true", do all the work and verify,
+            but DO NOT call 'gh pr create'; return status "dry-run".
+
+          When you finish, emit exactly one JSON line as your final
+          message, in this shape:
+
+              {"status":"success|abort|dry-run","reason":"<short>","pr_number":<int>|null,"files_changed":<int>,"lines_deleted":<int>}
+
+          No markdown. No prose. No fences. That JSON line must be the
+          entire final message.
+          PROMPT_EOF
+          )
+          PROMPT="${PROMPT//__TOKENMAN_BRANCH__/$TOKENMAN_BRANCH}"
+          PROMPT="${PROMPT//__TOKENMAN_LABEL__/$TOKENMAN_LABEL}"
+          PROMPT="${PROMPT//__DRY_RUN__/$DRY_RUN}"
+
+          START=$(date -u +%s)
+          RESPONSE_FILE=$(mktemp)
+          set +e
+          claude -p "$PROMPT" --output-format json > "$RESPONSE_FILE" 2>&1
+          CLAUDE_EXIT=$?
+          set -e
+          END=$(date -u +%s)
+          DURATION=$(( END - START ))
+
+          # Pull usage + final message from Claude's structured output.
+          INPUT_TOKENS=$(jq -r '.usage.input_tokens // 0' "$RESPONSE_FILE" 2>/dev/null || echo 0)
+          OUTPUT_TOKENS=$(jq -r '.usage.output_tokens // 0' "$RESPONSE_FILE" 2>/dev/null || echo 0)
+          FINAL=$(jq -r '.result // empty' "$RESPONSE_FILE" 2>/dev/null || echo "")
+
+          # Extract the skill's JSON status line (flat object, no nesting).
+          SKILL_JSON=$(printf '%s' "$FINAL" | python3 -c '
+          import sys, json, re
+          txt = sys.stdin.read()
+          for m in reversed(re.findall(r"\{[^{}]*\"status\"[^{}]*\}", txt, re.DOTALL)):
+              try:
+                  obj = json.loads(m)
+                  print(json.dumps(obj))
+                  break
+              except Exception:
+                  continue
+          ')
+
+          if [ -z "$SKILL_JSON" ]; then
+            STATUS="abort"
+            REASON="no-structured-output"
+            PR_NUMBER=""
+            FILES_CHANGED=0
+            LINES_DELETED=0
+          else
+            STATUS=$(echo "$SKILL_JSON" | jq -r '.status // "abort"')
+            REASON=$(echo "$SKILL_JSON" | jq -r '.reason // ""')
+            PR_NUMBER=$(echo "$SKILL_JSON" | jq -r '.pr_number // empty')
+            FILES_CHANGED=$(echo "$SKILL_JSON" | jq -r '.files_changed // 0')
+            LINES_DELETED=$(echo "$SKILL_JSON" | jq -r '.lines_deleted // 0')
+          fi
+
+          {
+            echo "status=$STATUS"
+            echo "reason=$REASON"
+            echo "pr_number=$PR_NUMBER"
+            echo "files_changed=$FILES_CHANGED"
+            echo "lines_deleted=$LINES_DELETED"
+            echo "input_tokens=$INPUT_TOKENS"
+            echo "output_tokens=$OUTPUT_TOKENS"
+            echo "duration_s=$DURATION"
+            echo "claude_exit=$CLAUDE_EXIT"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Append ledger entry
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          TS=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          RUN_ID="${{ github.run_id }}-${{ github.run_attempt }}"
+
+          if [ "${{ steps.gate.outputs.skip }}" = "true" ]; then
+            STATUS=skip
+            REASON="${{ steps.gate.outputs.reason }}"
+            PR_NUMBER=""
+            FILES_CHANGED=0
+            LINES_DELETED=0
+            INPUT_TOKENS=0
+            OUTPUT_TOKENS=0
+            DURATION=0
+          else
+            STATUS="${{ steps.run_skill.outputs.status || 'error' }}"
+            REASON="${{ steps.run_skill.outputs.reason || 'workflow-failed-before-skill-finished' }}"
+            PR_NUMBER="${{ steps.run_skill.outputs.pr_number || '' }}"
+            FILES_CHANGED="${{ steps.run_skill.outputs.files_changed || 0 }}"
+            LINES_DELETED="${{ steps.run_skill.outputs.lines_deleted || 0 }}"
+            INPUT_TOKENS="${{ steps.run_skill.outputs.input_tokens || 0 }}"
+            OUTPUT_TOKENS="${{ steps.run_skill.outputs.output_tokens || 0 }}"
+            DURATION="${{ steps.run_skill.outputs.duration_s || 0 }}"
+          fi
+
+          ENTRY=$(jq -nc \
+            --arg run_id "$RUN_ID" \
+            --arg ts "$TS" \
+            --arg skill "$TOKENMAN_SKILL" \
+            --arg status "$STATUS" \
+            --arg reason "$REASON" \
+            --arg pr "$PR_NUMBER" \
+            --argjson files "${FILES_CHANGED:-0}" \
+            --argjson lines "${LINES_DELETED:-0}" \
+            --argjson input "${INPUT_TOKENS:-0}" \
+            --argjson output "${OUTPUT_TOKENS:-0}" \
+            --argjson duration "${DURATION:-0}" \
+            '{run_id: $run_id, ts: $ts, skill: $skill, status: $status,
+              reason: $reason,
+              pr_number: (if $pr == "" then null else ($pr | tonumber? // null) end),
+              files_changed: $files, lines_deleted: $lines,
+              input_tokens: $input, output_tokens: $output, duration_s: $duration}')
+
+          # Ledger lives on main. Re-fetch to avoid conflicts with any
+          # other ledger writer, then append + commit + push.
+          git fetch origin main
+          git checkout main
+          git pull --ff-only origin main
+
+          mkdir -p "$(dirname "$TOKENMAN_LEDGER")"
+          echo "$ENTRY" >> "$TOKENMAN_LEDGER"
+
+          git config user.name  "tokenman[bot]"
+          git config user.email "tokenman-bot@users.noreply.github.com"
+          git add "$TOKENMAN_LEDGER"
+          git commit -m "tokenman: ledger ($TOKENMAN_SKILL/$STATUS)"
+          git push origin main
+
+      - name: Auto-close stale tokenman PRs
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          CUTOFF=$(date -u -d "$TOKENMAN_PR_MAX_AGE_DAYS days ago" +%Y-%m-%dT%H:%M:%SZ)
+          gh pr list --label "$TOKENMAN_LABEL" --state open \
+            --json number,createdAt \
+            --jq ".[] | select(.createdAt < \"$CUTOFF\") | .number" \
+          | while read -r NUM; do
+            [ -n "$NUM" ] || continue
+            gh pr close "$NUM" --comment "Auto-closing: this tokenman PR is more than $TOKENMAN_PR_MAX_AGE_DAYS days old. A fresh PR will be opened on the next scheduled run if cleanup is still warranted."
+          done
