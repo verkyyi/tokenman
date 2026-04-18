@@ -24,6 +24,10 @@ def _default_runtime_mode() -> str:
     return "actions" if os.environ.get("GITHUB_ACTIONS") == "true" else "local_debug"
 
 
+def _exit_code_for_entry(entry: dict[str, object]) -> int:
+    return 1 if entry.get("status") == "error" else 0
+
+
 def main(argv: Optional[list[str]] = None) -> int:
     parser = argparse.ArgumentParser(prog="python -m harness.run")
     parser.add_argument("--skill", required=True)
@@ -94,7 +98,7 @@ def main(argv: Optional[list[str]] = None) -> int:
         runtime_mode=args.runtime_mode,
     )
     print(json.dumps(entry, separators=(",", ":")))
-    return 0
+    return _exit_code_for_entry(entry)
 
 
 if __name__ == "__main__":

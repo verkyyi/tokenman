@@ -27,6 +27,10 @@ def _default_runtime_mode() -> str:
     return "actions" if os.environ.get("GITHUB_ACTIONS") == "true" else "local_debug"
 
 
+def _exit_code_for_result(result: onboarder.OnboardingResult) -> int:
+    return 1 if any(entry["status"] == "error" for entry in result.entries) else 0
+
+
 def _enabled_skills_from_config(config_path: Path) -> list[str]:
     if not config_path.is_file():
         return []
@@ -173,7 +177,7 @@ def main(argv: Optional[list[str]] = None) -> int:
         f"({100 * result.total_tokens / max(result.session_ceiling, 1):.1f}% "
         "of session ceiling)"
     )
-    return 0
+    return _exit_code_for_result(result)
 
 
 if __name__ == "__main__":
