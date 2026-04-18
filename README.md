@@ -1,47 +1,67 @@
 # Tokenman
 
-**Tokenman is the runtime that makes `claude -p` safe to run unattended on your repo.**
+**Tokenman is a GitHub-native policy layer that makes coding-agent
+maintenance runs safe to leave unattended.**
 
-It lets any repo install a background maintenance agent that proposes
-changes via PRs on a schedule, within a budget the user controls, without
-requiring supervision.
+The product target is narrow on purpose: GitHub Actions runs a coding
+agent on a schedule or manual dispatch, Tokenman enforces scope and
+guardrails, and the result is a reviewable PR plus durable cost history.
 
-## Status
+## Current direction
 
-Pre-release. Phase 0 scaffolding is in place; nothing runs yet. See
-[`docs/spec.md`](docs/spec.md) for the full scoping draft and phased
-roadmap.
+Tokenman is pre-release and currently being refactored toward an
+Actions-first, docs-first Phase 1:
 
-## What tokenman ships
+- GitHub Actions is the primary runtime
+- GitHub web and mobile are the primary user interface
+- local coding-agent sessions remain a setup and debugging path
+- the initial product scope is docs and `README.md` maintenance only
+- the ledger stays because cost visibility is part of the product
 
-- A harness (scheduled workflows, guardrails, observability)
-- A scoping and onboarding flow
-- A curated catalog of recommended community skills (references, not copies)
-- Documentation and conventions
+## What Tokenman owns
 
-## What tokenman does not ship
+- repo profiling and scope drafting
+- skill selection and prompt assembly
+- policy checks such as pause, allowed paths, and one-open-PR lock
+- append-only cost and outcome history
 
-- Its own skills
-- Hosted infrastructure
-- Cloud accounts or dashboards
+## What Tokenman does not try to own
 
-## Usage
+- repo mechanics that `git` already handles
+- PR mechanics that `gh` already handles
+- a hosted control plane or dashboard
+- a broad autonomous maintenance platform in Phase 1
 
-Command-line tools shipped with the harness (run from a consumer repo
-that has `tokenman` installed):
+## Current CLI path
 
-1. `python -m harness.scope --repo <path>` — draft `.tokenman/initial-scope.md` for a repo (spec §6.3). Interactive; use `--non-interactive` for automation, `--dry-run` to skip the live `claude -p` call.
-2. `python -m harness.install --repo <path>` — fetch skills from `recommended-skills.yaml` into `<path>/.claude/skills/` (spec §5.2, §6.2). Pass `--skill NAME` (repeatable) to install a subset; `--force` to overwrite drifted installs.
-3. `python -m harness.onboard --repo <path>` — run every enabled skill back-to-back, open a PR per skill, write `.tokenman/onboarding-summary.md` (spec §6.4).
+The current consumer flow in the harness is:
 
-Individual skill runs: `python -m harness.run --skill <name> --repo <path>` (spec §4).
+1. `python -m harness.scope --repo <path>` - draft
+   `.tokenman/initial-scope.md` for a repo
+2. `python -m harness.install --repo <path>` - fetch curated skills from
+   `recommended-skills.yaml` into `<path>/.claude/skills/`
+3. `python -m harness.onboard --repo <path>` - run enabled skills
+   back-to-back and open reviewable PRs
+
+Individual skill runs remain available through
+`python -m harness.run --skill <name> --repo <path>`.
+
+## Document map
+
+- [`docs/spec.md`](docs/spec.md) - current product and architecture spec
+- [`docs/phase-1-product-scope.md`](docs/phase-1-product-scope.md) -
+  narrowed product boundary for the first release
+- [`docs/actions-first-refactor-plan.md`](docs/actions-first-refactor-plan.md) -
+  module-level refactor target
+- [`CONTRIBUTING.md`](CONTRIBUTING.md) - contributor guidance for the
+  current architecture
 
 ## Repository structure
 
-This repo is both the library (source of the harness) and its own
-first paused-by-default consumer. See
-[`CONTRIBUTING.md`](CONTRIBUTING.md) for the source-zone versus
-runtime-zone split.
+This repo contains the harness source and the docs that define the
+current product direction. The working model is still a source zone
+versus runtime zone split; contributor guidance lives in
+[`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ## License
 

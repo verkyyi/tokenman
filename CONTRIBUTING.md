@@ -2,68 +2,62 @@
 
 ## Source zone vs runtime zone
 
-Tokenman lives in a single repository that plays two roles at once: it is
-both the library (source of the harness) and its own first paused-by-default
-consumer. To keep these from entangling, the repo is split into two zones.
+Tokenman still uses a source-zone versus runtime-zone split. The repo
+contains the harness source, while the runtime model remains the
+reference shape for what a consumer repo will hold.
 
-### Source zone — what tokenman *is*
+### Source zone - what tokenman is
 
-These paths contain the code and assets that ship to consumers when a
-user runs `/tokenman init` in their repo:
+These paths define the product and what ships to consumers:
 
-- `harness/` — runtime code and workflow templates
-- `scoping/` — discovery and scope-proposal logic
-- `onboarding/` — guided first-run flow
-- `skills/` — **temporary** bootstrap for Phase 1.2b; see below
-- `recommended-skills.yaml` — curated catalog
-- `pricing.yaml` — budget calibration data
-- `docs/` — documentation
-- `tests/fixtures/` — synthetic consumer repos for harness testing
+- `harness/` - runtime code and workflow templates
+- `docs/` - product and refactor docs
+- `recommended-skills.yaml` - skill catalog metadata
+- `tests/fixtures/` - synthetic consumer repos for harness testing
 
-### `skills/`
+The catalog is the source of truth for skills. Do not add in-tree
+product skills as a shortcut around the install flow.
 
-Intentionally empty. Tokenman curates skills, it does not ship them
-(spec §5.1). The catalog lives at `recommended-skills.yaml`;
-`python -m harness.install` fetches pinned versions into a consumer's
-`.claude/skills/`. Do not add skills here.
+Everything in `tests/fixtures/` should stay pristine.
 
-Edits to source-zone files are the main library-development work.
-Everything in `tests/fixtures/` stays pristine — harness tests reset it.
+### Runtime zone - what tokenman does
 
-### Runtime zone — what tokenman *does on this repo*
+These paths describe the consumer runtime shape:
 
-These paths contain the library's own paused dogfood state:
+- `.tokenman/` - config, state, and runtime artifacts
+- `.github/workflows/` - installed workflow entrypoints
+- `.claude/skills/` - installed skills for a consumer repo
+- `tokenman-state` - dedicated branch for append-only ledger history
 
-- `.tokenman/` — config, state, ledger, artifacts
-- `.github/workflows/` — actual workflows that run on this repo
-- `.claude/skills/` — skills installed for this repo's dogfooding
+The important rule is that runtime state should not distort the harness
+design. Tokenman is being refactored toward an Actions-first runtime,
+GitHub-native UI, and a smaller policy layer around `git`, `gh`, and
+the coding agent.
 
-The library's runtime zone is the canonical example of what a consumer's
-runtime zone looks like — structurally identical, just with stricter
-caps and a `dogfood:` field in `tokenman.yaml`.
+## Current architecture direction
 
-### Why the separation matters
+The current docs that define direction are:
 
-Updates to `harness/workflows/tokenman.yml.template` (source) do NOT
-automatically update `.github/workflows/tokenman.yml` (runtime, once
-installed). The runtime copy is a deliberate install step. At Phase 0
-the runtime workflow file does not exist yet — it is installed when
-dogfood unpauses at Phase 3. This preserves the ability to ship library
-changes without immediately dogfooding them.
+- [`docs/spec.md`](docs/spec.md)
+- [`docs/phase-1-product-scope.md`](docs/phase-1-product-scope.md)
+- [`docs/actions-first-refactor-plan.md`](docs/actions-first-refactor-plan.md)
+
+The short version:
+
+- GitHub Actions is the primary runtime
+- GitHub web and mobile are the primary UI
+- local runs remain a setup and debugging path
+- Phase 1 is docs-first and PR-only
+- the ledger stays because cost is part of the product
+
+Contributions should move the codebase toward that shape, not back
+toward a larger custom runtime.
 
 ## Commit conventions
 
-- Imperative, sentence case, no trailing period, under ~72 characters
-- Use scope prefixes: `feat(harness|scoping|onboarding|catalog|dogfood): …`,
-  `fix(…): …`, `docs: …`, `chore: …`, `test: …`
-- PRs opened by the harness itself (once dogfood unpauses at Phase 3)
-  use the `[tokenman]` prefix per `docs/spec.md` §10.6, enabling clean
-  filtering of human versus harness history:
-
-  ```
-  git log --grep='\[tokenman\]' --invert-grep    # human commits only
-  git log --grep='\[tokenman\]'                  # dogfood commits only
-  ```
+- Imperative, sentence case, no trailing period, under about 72 characters
+- Use simple scopes when helpful: `docs: ...`, `fix: ...`, `feat: ...`,
+  `test: ...`, `chore: ...`
 
 ## Running tests
 
@@ -71,34 +65,18 @@ Install dev dependencies and run pytest from the repo root:
 
 ```bash
 pip install -e '.[dev]'
-pytest
+python -m pytest
 ```
 
-The canonical ledger schema lives at `harness/lib/ledger.schema.json`;
-test fixtures at `tests/ledgers/*.jsonl`. The test suite validates every
-fixture entry against the schema, so schema drift fails fast.
+## Code direction
 
-## Harness runtime modules
+Prefer simple ownership boundaries:
 
-The Python harness lives under `harness/lib/`:
+- Tokenman owns policy, scope, and ledger semantics
+- the coding agent owns flexible repo edits
+- `git` owns repo mechanics
+- `gh` owns PR mechanics
+- GitHub Actions owns scheduling and workflow runtime
 
-- `harness/lib/ledger.schema.json` — canonical ledger shape (from Phase 1.1).
-- `harness/lib/ledger.py` — `validate()`, `append()`, `last_run_id()`. Enforces the conditional invariants the JSON Schema cannot express.
-- `harness/lib/skill_executor.py` — `ExecutionResult`, `SkillExecutor` Protocol, `StubSkillExecutor` (tests only), `ClaudeSkillExecutor` (Phase 1.2b-ii, `claude -p` backed).
-- `harness/lib/pr_opener.py` — `PROpener` Protocol + `PROpenerError`, `FakePROpener` (tests only), `GhPROpener` (Phase 1.2b-ii, `gh pr create` backed).
-- `harness/lib/git_ops.py` — `apply_diff_and_push` (branch/apply/commit/push, Phase 1.2b-ii).
-- `harness/lib/runner.py` — `run_skill`, the orchestrator.
-- `harness/run/__main__.py` — `python -m harness.run` CLI (Phase 1.2b-ii).
-- `harness/prompts/unattended_framing.v1.md` — versioned system-prompt framing for the unattended-claude invocation (Phase 1.2b-ii).
-
-Tests for each module live at `tests/test_<module>.py`. The stub skill used by executor + runner integration tests lives at `tests/fixtures/skills/stub-readme/`.
-
-Run `pytest` from the repo root after `pip install -e '.[dev]'`.
-
-## Status
-
-Phase 1.2b-ii is the current milestone: real-skill integration. The
-runner now calls `claude -p` via `ClaudeSkillExecutor`, opens PRs via
-`GhPROpener`, and exposes a `python -m harness.run` CLI consumed by a
-consumer-deployable workflow template. `.tokenman/PAUSE` remains on
-through Phase 2. See `docs/spec.md` §12 for the full phased roadmap.
+Avoid adding new infrastructure when an existing tool already does the
+job cleanly.

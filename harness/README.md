@@ -1,19 +1,30 @@
-# harness/ — Tokenman runtime source
+# harness/ - Tokenman runtime source
 
-**Source zone.** Contents here ship to consumers when `/tokenman init`
-fetches the harness.
+**Source zone.** Contents here define the runtime that ships to
+consumers.
 
 ## Purpose
-The tokenman runtime itself: workflow templates, generator/evaluator
-drivers, deterministic gates, ledger append logic, PR opener. Not yet
-implemented — Phase 0 scaffolds the directory and the workflow template
-stub. Phase 1+ populates lib/ with actual code.
+
+The harness should converge on a small Actions-first runtime:
+
+- load repo profile and scope
+- enforce policy before each run
+- invoke the coding agent with bounded context
+- inspect changed paths with `git`
+- open or update a PR with `gh`
+- append cost and outcome history to the ledger
+
+The harness should not grow into its own scheduler, patch-management
+system, or broad execution framework.
 
 ## Contents
-- `workflows/tokenman.yml.template` — installed into
-  consumers at `.github/workflows/tokenman.yml` by `/tokenman init`.
+
+- `workflows/tokenman.yml.template` - installed into consumers at
+  `.github/workflows/tokenman.yml`
+- `lib/` - policy, orchestration, adapters, and ledger code
 
 ## See also
-- `docs/spec.md` §3.2 (source vs runtime paths)
-- `docs/spec.md` §4 (execution pipeline)
-- `CONTRIBUTING.md` (source/runtime split)
+
+- [docs/spec.md](/Users/verkyyi/tokenman/docs/spec.md)
+- [docs/actions-first-refactor-plan.md](/Users/verkyyi/tokenman/docs/actions-first-refactor-plan.md)
+- [CONTRIBUTING.md](/Users/verkyyi/tokenman/CONTRIBUTING.md)
