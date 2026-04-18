@@ -251,6 +251,7 @@ def main(argv: list[str] | None = None) -> int:
         draft = scope_drafter.draft(
             profile=profile, plugins=plugins, user_answers=answers,
             catalog=catalog_data, executor=executor, catalog_root=root,
+            consumer_repo=repo,
         )
     except (scope_drafter.ScopeExecutorError, scope_drafter.ScopeDrafterError) as exc:
         print(f"error: {exc}", file=sys.stderr)
