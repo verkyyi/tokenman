@@ -1,0 +1,45 @@
+{
+  "started_at": "2026-04-18T10:00:00Z",
+  "finished_at": "2026-04-18T10:00:42Z",
+  "session_ceiling": 180000,
+  "total_tokens": 22300,
+  "breached_ceiling": false,
+  "entries": [
+    {
+      "run_id": "r-0001",
+      "ts": "2026-04-18T10:00:14Z",
+      "skill": "readme-maintainer",
+      "status": "pr_opened",
+      "pr": 42,
+      "generator": {
+        "prompt_version": "harness-v1",
+        "output_summary": "Added a Usage section listing harness.scope and harness.run.",
+        "diff_lines": 12,
+        "tokens": 14200
+      },
+      "evaluator": null,
+      "duration_s": 14,
+      "total_tokens": 14200,
+      "verdict": null,
+      "verdict_note": null
+    },
+    {
+      "run_id": "r-0002",
+      "ts": "2026-04-18T10:00:28Z",
+      "skill": "dep-bump-safe",
+      "status": "no_change",
+      "pr": null,
+      "generator": {
+        "prompt_version": "harness-v1",
+        "output_summary": "All dependencies already at latest patch versions.",
+        "diff_lines": 0,
+        "tokens": 8100
+      },
+      "evaluator": null,
+      "duration_s": 14,
+      "total_tokens": 8100,
+      "verdict": null,
+      "verdict_note": null
+    }
+  ]
+}
