@@ -112,6 +112,22 @@ def _install_remote(
 
         target_dir.parent.mkdir(parents=True, exist_ok=True)
         if target_dir.exists():
+            existing = _read_existing_lock(target_dir)
+            if existing is not None and existing.get("resolved_sha") == resolved_sha:
+                return InstallResult(
+                    skill_name=skill_name, status="unchanged",
+                    resolved_sha=resolved_sha, exit_code=0,
+                    message=f"{skill_name} already at {resolved_sha[:12]}",
+                )
+            if not force:
+                return InstallResult(
+                    skill_name=skill_name, status="errored",
+                    resolved_sha=resolved_sha, exit_code=5,
+                    message=(
+                        f"{target_dir} exists but does not match "
+                        f"{resolved_sha[:12]}; re-run with --force to overwrite"
+                    ),
+                )
             shutil.rmtree(target_dir)
         _copy_tree_minus_git(source_tree, target_dir)
 
@@ -167,6 +183,16 @@ def _copy_tree_minus_git(src: Path, dst: Path) -> None:
         ignore=shutil.ignore_patterns(".git"),
         symlinks=True,
     )
+
+
+def _read_existing_lock(target_dir: Path) -> Optional[dict]:
+    lock_path = target_dir / ".tokenman-skill-lock"
+    if not lock_path.is_file():
+        return None
+    try:
+        return json.loads(lock_path.read_text())
+    except (OSError, json.JSONDecodeError):
+        return None
 
 
 def _write_lock(
