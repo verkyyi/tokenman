@@ -1,12 +1,8 @@
-"""PR opener boundary for the harness runner.
-
-Phase 1.2a shipped FakePROpener for tests. 1.2b-ii adds GhPROpener
-which runs `gh pr create` against a real remote; the runner has
-already created, committed to, and pushed the branch via git_ops.
-"""
+"""PR opener boundary for the harness runner."""
 from __future__ import annotations
 
 import json
+import re
 import subprocess
 from pathlib import Path
 from typing import Optional, Protocol
@@ -23,11 +19,7 @@ class PROpener(Protocol):
 
 
 class FakePROpener:
-    """In-process fake. Returns a monotonically incrementing integer.
-
-    When sink_dir is supplied, each call is also persisted as
-    pr-<n>.json for test inspection.
-    """
+    """In-process fake. Returns a monotonically incrementing integer."""
 
     def __init__(
         self,
@@ -50,18 +42,12 @@ class FakePROpener:
         self.calls.append(record)
         if self._sink_dir is not None:
             self._sink_dir.mkdir(parents=True, exist_ok=True)
-            (self._sink_dir / f"pr-{n}.json").write_text(
-                json.dumps(record, indent=2)
-            )
+            (self._sink_dir / f"pr-{n}.json").write_text(json.dumps(record, indent=2))
         return n
 
 
 class GhPROpener:
-    """Calls `gh pr create --json number -q .number` and parses the result.
-
-    Assumes the branch already exists locally and has been pushed (the
-    runner does this via git_ops.apply_diff_and_push before calling us).
-    """
+    """Calls `gh pr create` and parses the resulting PR URL."""
 
     def __init__(
         self,
@@ -76,13 +62,18 @@ class GhPROpener:
     def open(self, *, title: str, body: str, branch: str) -> int:
         proc = subprocess.run(
             [
-                self._gh, "pr", "create",
-                "--title", title,
-                "--body", body,
-                "--head", branch,
-                "--base", self._base,
-                "--json", "number",
-                "-q", ".number",
+                self._gh,
+                "pr",
+                "create",
+                "--draft",
+                "--title",
+                title,
+                "--body",
+                body,
+                "--head",
+                branch,
+                "--base",
+                self._base,
             ],
             cwd=str(self._repo_dir),
             capture_output=True,
@@ -93,10 +84,9 @@ class GhPROpener:
             raise PROpenerError(
                 f"gh pr create failed (exit {proc.returncode}): {proc.stderr.strip()}"
             )
+
         stripped = proc.stdout.strip()
-        try:
-            return int(stripped)
-        except ValueError:
-            raise PROpenerError(
-                f"gh pr create produced non-integer stdout: {stripped!r}"
-            )
+        match = re.search(r"/pull/(\d+)(?:\D*$|$)", stripped)
+        if match is None:
+            raise PROpenerError(f"gh pr create produced unexpected stdout: {stripped!r}")
+        return int(match.group(1))

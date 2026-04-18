@@ -7,6 +7,7 @@ See docs/superpowers/specs/2026-04-18-phase-1-4-onboarding-mode-design.md.
 from __future__ import annotations
 
 import argparse
+import os
 import sys
 from pathlib import Path
 from typing import Optional
@@ -20,6 +21,10 @@ from harness.lib.skill_executor import ClaudeSkillExecutor, StubSkillExecutor
 
 
 _DEFAULT_PER_RUN = 30_000
+
+
+def _default_runtime_mode() -> str:
+    return "actions" if os.environ.get("GITHUB_ACTIONS") == "true" else "local_debug"
 
 
 def _enabled_skills_from_config(config_path: Path) -> list[str]:
@@ -45,6 +50,11 @@ def main(argv: Optional[list[str]] = None) -> int:
                         help="default: <repo>/.tokenman/onboarding-summary.md")
     parser.add_argument("--claude-bin", default="claude")
     parser.add_argument("--base-branch", default="main")
+    parser.add_argument(
+        "--runtime-mode",
+        choices=["actions", "local_debug"],
+        default=_default_runtime_mode(),
+    )
     parser.add_argument("--per-run-ceiling", type=int, default=_DEFAULT_PER_RUN)
     parser.add_argument("--session-ceiling", type=int, default=None,
                         help="default: 3 × per_run_ceiling × N_skills")
@@ -142,6 +152,7 @@ def main(argv: Optional[list[str]] = None) -> int:
             pr_opener=pr_opener,
             budget=budget,
             base_branch=args.base_branch,
+            runtime_mode=args.runtime_mode,
         )
     except OnboardingError as exc:
         print(f"error: {exc}", file=sys.stderr)

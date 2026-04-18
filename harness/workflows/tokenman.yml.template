@@ -64,9 +64,9 @@ jobs:
           GH_TOKEN:          ${{ secrets.GITHUB_TOKEN }}
         run: |
           if [ "${{ inputs.mode }}" = "onboarding" ]; then
-            python -m harness.onboard --repo .
+            python -m harness.onboard --repo . --runtime-mode actions
           else
-            python -m harness.run --skill "${{ inputs.skill }}" --repo .
+            python -m harness.run --skill "${{ inputs.skill }}" --repo . --runtime-mode actions
           fi
 
       - name: Upload run artifacts

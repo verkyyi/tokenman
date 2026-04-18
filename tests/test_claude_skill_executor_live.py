@@ -32,9 +32,6 @@ def test_readme_maintainer_runs_without_crashing(tmp_path: Path) -> None:
     executor = ClaudeSkillExecutor(timeout_s=600)
     result = executor.execute(skill_dir=SKILL_DIR, repo_dir=repo, scratch_dir=scratch)
 
-    # Either claude produced a diff, or it chose not to — both are valid outcomes.
     assert result.exit_code == 0, f"claude exited nonzero: {result.stderr}"
-    if result.proposed_diff_path is not None:
-        diff = result.proposed_diff_path.read_text()
-        assert "README.md" in diff, "skill should scope to README.md only"
+    assert result.proposed_md_path == scratch / "proposed.md"
     assert result.tokens > 0, "live run should report a nonzero token count"

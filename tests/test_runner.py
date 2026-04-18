@@ -72,6 +72,11 @@ def _prepare_repo_copy(tmp_path: Path) -> tuple[Path, Path, Path]:
     """
     repo_dir = tmp_path / "repo"
     shutil.copytree(TINY_PYTHON_REPO, repo_dir)
+    subprocess.run(["git", "-C", str(repo_dir), "init", "-b", "main"], check=True, capture_output=True)
+    subprocess.run(["git", "-C", str(repo_dir), "config", "user.email", "seed@local"], check=True)
+    subprocess.run(["git", "-C", str(repo_dir), "config", "user.name", "seed"], check=True)
+    subprocess.run(["git", "-C", str(repo_dir), "add", "-A"], check=True)
+    subprocess.run(["git", "-C", str(repo_dir), "commit", "-m", "seed"], check=True, capture_output=True)
     tokenman_dir = repo_dir / ".tokenman"
     tokenman_dir.mkdir(exist_ok=True)
     ledger_path = tokenman_dir / "ledger.jsonl"
@@ -164,6 +169,50 @@ def test_run_skill_propose_diff_opens_pr(tmp_path: Path) -> None:
     assert "tokenman/stub-readme/r-0001" in ls.stdout
 
 
+def test_run_skill_actions_mode_cleans_branch_and_returns_to_main(tmp_path: Path) -> None:
+    repo_dir, ledger_path, runs_dir, remote_dir = _prepare_repo_copy_with_remote(tmp_path)
+    executor = StubSkillExecutor(extra_env={"STUB_MODE": "propose_diff"})
+    pr_opener = FakePROpener(start=1000)
+
+    entry = runner.run_skill(
+        skill_dir=STUB_SKILL_DIR,
+        repo_dir=repo_dir,
+        ledger_path=ledger_path,
+        runs_dir=runs_dir,
+        executor=executor,
+        pr_opener=pr_opener,
+        skill_name="stub-readme",
+        now=_fixed_now,
+        runtime_mode="actions",
+    )
+
+    assert entry["status"] == "pr_opened"
+    current_branch = subprocess.run(
+        ["git", "-C", str(repo_dir), "branch", "--show-current"],
+        capture_output=True,
+        text=True,
+        check=True,
+    ).stdout.strip()
+    assert current_branch == "main"
+
+    branches = subprocess.run(
+        ["git", "-C", str(repo_dir), "branch", "--list", "tokenman/stub-readme/r-0001"],
+        capture_output=True,
+        text=True,
+        check=True,
+    ).stdout.strip()
+    assert branches == ""
+    assert "Stub-readme added this line" not in (repo_dir / "README.md").read_text()
+
+    ls = subprocess.run(
+        ["git", "ls-remote", str(remote_dir), "refs/heads/tokenman/stub-readme/r-0001"],
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    assert "tokenman/stub-readme/r-0001" in ls.stdout
+
+
 def test_run_skill_no_change_skips_pr_opener(tmp_path: Path) -> None:
     repo_dir, ledger_path, runs_dir = _prepare_repo_copy(tmp_path)
     executor = StubSkillExecutor(extra_env={"STUB_MODE": "no_change"})
@@ -213,7 +262,7 @@ def test_run_skill_crash_records_error(tmp_path: Path) -> None:
     )
 
     assert entry["status"] == "error"
-    assert entry["generator"] is None
+    assert entry["generator"]["diff_lines"] == 0
     assert entry["pr"] is None
     assert entry["total_tokens"] == 0
     assert pr_opener.calls == []
@@ -343,7 +392,7 @@ def test_run_skill_leaves_no_ledger_entry_on_append_failure(tmp_path: Path) -> N
 
 def test_run_skill_records_error_when_pr_opener_raises(tmp_path: Path) -> None:
     """If pr_opener.open() raises, the runner converts the run to an
-    error outcome rather than crashing: status=error, generator=None,
+    error outcome rather than crashing: status=error, generator preserved,
     pr=None, stderr captures the traceback, ledger has exactly one entry.
     """
     repo_dir, ledger_path, runs_dir, _remote_dir = _prepare_repo_copy_with_remote(tmp_path)
@@ -367,7 +416,7 @@ def test_run_skill_records_error_when_pr_opener_raises(tmp_path: Path) -> None:
     )
 
     assert entry["status"] == "error"
-    assert entry["generator"] is None
+    assert entry["generator"]["diff_lines"] == 2
     assert entry["pr"] is None
     assert entry["total_tokens"] == 0
 

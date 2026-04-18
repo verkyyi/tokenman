@@ -45,3 +45,4 @@ def test_workflow_run_step_branches_on_mode() -> None:
     assert 'if [ "${{ inputs.mode }}" = "onboarding" ]' in raw
     assert "python -m harness.onboard" in raw
     assert "python -m harness.run" in raw
+    assert "--runtime-mode actions" in raw
