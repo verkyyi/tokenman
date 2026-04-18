@@ -262,11 +262,19 @@ jobs:
             LINES_DELETED=$(echo "$SKILL_JSON" | jq -r '.lines_deleted // 0')
           fi
 
-          # Debug: surface Claude's final message + tool transcript when abort.
-          # Helpful for diagnosing no-structured-output / abort-with-reason.
+          # Debug: surface Claude's final message + full response metadata
+          # when not success. Helpful for diagnosing abort reasons.
           if [ "$STATUS" != "success" ]; then
             echo "::group::Claude final message (.result)"
             echo "$FINAL" | head -c 4000
+            echo
+            echo "::endgroup::"
+            echo "::group::Full response JSON (top-level keys + head 6KB)"
+            jq -r 'keys_unsorted[]' "$RESPONSE_FILE" 2>/dev/null | head -20
+            echo "---"
+            jq '{is_error, subtype, type, num_turns, duration_ms, total_cost_usd, session_id}' "$RESPONSE_FILE" 2>/dev/null
+            echo "---raw head 6KB---"
+            head -c 6000 "$RESPONSE_FILE"
             echo
             echo "::endgroup::"
           fi
