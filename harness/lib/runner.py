@@ -18,7 +18,7 @@ from typing import Any, Callable, Optional
 from harness.lib import git_ops, ledger
 from harness.lib.git_ops import GitIdentity, GitOpsError
 from harness.lib.ledger import LedgerEntry
-from harness.lib.pr_opener import PROpener
+from harness.lib.pr_opener import PROpener, PROpenerError
 from harness.lib.skill_executor import SkillExecutor
 
 
@@ -134,7 +134,7 @@ def run_skill(
                 branch=branch,
             )
             status = "pr_opened"
-        except Exception as exc:  # narrowed to (GitOpsError, PROpenerError) in ii.3
+        except (GitOpsError, PROpenerError) as exc:
             tb = traceback.format_exc()
             status = "error"
             generator = None

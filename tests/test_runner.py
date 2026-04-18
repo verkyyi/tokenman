@@ -10,7 +10,7 @@ from pathlib import Path
 import pytest
 
 from harness.lib import ledger, runner
-from harness.lib.pr_opener import FakePROpener
+from harness.lib.pr_opener import FakePROpener, PROpenerError
 from harness.lib.skill_executor import StubSkillExecutor
 
 
@@ -350,7 +350,7 @@ def test_run_skill_records_error_when_pr_opener_raises(tmp_path: Path) -> None:
 
     class BrokenPROpener:
         def open(self, *, title, body, branch):
-            raise RuntimeError("boom")
+            raise PROpenerError("boom")
 
     executor = StubSkillExecutor(extra_env={"STUB_MODE": "propose_diff"})
     pr_opener = BrokenPROpener()
@@ -382,4 +382,4 @@ def test_run_skill_records_error_when_pr_opener_raises(tmp_path: Path) -> None:
     assert (art / "proposed.diff").is_file()
     stderr_content = (art / "executor.stderr").read_text()
     assert "git/pr_opener failed: boom" in stderr_content
-    assert "RuntimeError" in stderr_content
+    assert "PROpenerError" in stderr_content
