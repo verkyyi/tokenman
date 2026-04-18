@@ -19,8 +19,10 @@ case "$MODE" in
     cat > "$SCRATCH/proposed.diff" <<'DIFF'
 --- a/README.md
 +++ b/README.md
-@@ -1,2 +1,3 @@
- # Tiny Python Repo
+@@ -1,3 +1,5 @@
+ # tiny-python-repo
+
+ Fixture for tokenman harness testing. Simulates a minimal Python consumer repo.
 +
 +Stub-readme added this line.
 DIFF

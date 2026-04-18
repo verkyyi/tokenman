@@ -15,7 +15,8 @@ from pathlib import Path
 from time import monotonic
 from typing import Any, Callable, Optional
 
-from harness.lib import ledger
+from harness.lib import git_ops, ledger
+from harness.lib.git_ops import GitIdentity, GitOpsError
 from harness.lib.ledger import LedgerEntry
 from harness.lib.pr_opener import PROpener
 from harness.lib.skill_executor import SkillExecutor
@@ -54,6 +55,8 @@ def run_skill(
     pr_opener: PROpener,
     skill_name: Optional[str] = None,
     now: Optional[Callable[[], datetime]] = None,
+    base_branch: str = "main",
+    git_identity: Optional[GitIdentity] = None,
 ) -> LedgerEntry:
     """Run one skill against a repo. Returns the ledger entry appended.
 
@@ -62,6 +65,7 @@ def run_skill(
     """
     now = now or (lambda: datetime.now(timezone.utc))
     skill = skill_name or skill_dir.name
+    git_identity = git_identity or GitIdentity("tokenman-bot", "tokenman@local")
 
     # 2a. Allocate run_id.
     prev_n = ledger.last_run_id(ledger_path)
@@ -114,20 +118,29 @@ def run_skill(
             "diff_lines": diff_lines,
             "tokens": result.tokens,
         }
+        branch = f"tokenman/{skill}/{run_id}"
         try:
+            git_ops.apply_diff_and_push(
+                repo_dir=repo_dir,
+                diff_text=diff_text,
+                branch=branch,
+                base=base_branch,
+                message=f"[tokenman] {skill}: {result.summary}",
+                identity=git_identity,
+            )
             pr = pr_opener.open(
                 title=f"[tokenman] {skill}: {result.summary}",
                 body=result.summary,
-                branch=f"tokenman/{skill}/{run_id}",
+                branch=branch,
             )
             status = "pr_opened"
-        except Exception as exc:
+        except Exception as exc:  # narrowed to (GitOpsError, PROpenerError) in ii.3
             tb = traceback.format_exc()
             status = "error"
             generator = None
             pr = None
             (artifact_dir / "executor.stderr").write_text(
-                result.stderr + f"\n[runner] pr_opener failed: {exc}\n{tb}"
+                result.stderr + f"\n[runner] git/pr_opener failed: {exc}\n{tb}"
             )
 
     # 2h. Stop clock.
