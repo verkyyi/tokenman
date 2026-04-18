@@ -14,10 +14,21 @@ user runs `/tokenman init` in their repo:
 - `harness/` — runtime code and workflow templates
 - `scoping/` — discovery and scope-proposal logic
 - `onboarding/` — guided first-run flow
+- `skills/` — **temporary** bootstrap for Phase 1.2b; see below
 - `recommended-skills.yaml` — curated catalog
 - `pricing.yaml` — budget calibration data
 - `docs/` — documentation
 - `tests/fixtures/` — synthetic consumer repos for harness testing
+
+### `skills/` — temporary bootstrap
+
+`skills/readme-maintainer/` lives in-tree during Phase 1.2b so the
+harness has a real skill to invoke before the external skills
+ecosystem exists. This is a deliberate, scoped violation of spec §5.1
+("tokenman ships zero skills"). It must be split out to a standalone
+repo before Phase 3 opens dogfood runs against the library itself.
+Do not add more skills here. See `skills/README.md` for the full
+rationale and exit plan.
 
 Edits to source-zone files are the main library-development work.
 Everything in `tests/fixtures/` stays pristine — harness tests reset it.
@@ -76,9 +87,12 @@ The Python harness lives under `harness/lib/`:
 
 - `harness/lib/ledger.schema.json` — canonical ledger shape (from Phase 1.1).
 - `harness/lib/ledger.py` — `validate()`, `append()`, `last_run_id()`. Enforces the conditional invariants the JSON Schema cannot express.
-- `harness/lib/skill_executor.py` — `ExecutionResult`, `SkillExecutor` Protocol, `StubSkillExecutor` (tests only). Phase 1.2b adds `ClaudeSkillExecutor`.
-- `harness/lib/pr_opener.py` — `PROpener` Protocol, `FakePROpener` (tests only). Phase 1.2b adds `GhPROpener`.
+- `harness/lib/skill_executor.py` — `ExecutionResult`, `SkillExecutor` Protocol, `StubSkillExecutor` (tests only), `ClaudeSkillExecutor` (Phase 1.2b-ii, `claude -p` backed).
+- `harness/lib/pr_opener.py` — `PROpener` Protocol + `PROpenerError`, `FakePROpener` (tests only), `GhPROpener` (Phase 1.2b-ii, `gh pr create` backed).
+- `harness/lib/git_ops.py` — `apply_diff_and_push` (branch/apply/commit/push, Phase 1.2b-ii).
 - `harness/lib/runner.py` — `run_skill`, the orchestrator.
+- `harness/run/__main__.py` — `python -m harness.run` CLI (Phase 1.2b-ii).
+- `harness/prompts/unattended_framing.v1.md` — versioned system-prompt framing for the unattended-claude invocation (Phase 1.2b-ii).
 
 Tests for each module live at `tests/test_<module>.py`. The stub skill used by executor + runner integration tests lives at `tests/fixtures/skills/stub-readme/`.
 
@@ -86,7 +100,8 @@ Run `pytest` from the repo root after `pip install -e '.[dev]'`.
 
 ## Status
 
-Phase 0 scaffolding is in place. Phase 1.1 has locked the ledger
-schema and reworked `status.sh`. The harness runner is not
-implemented yet — Phase 1.2 covers that. See `docs/spec.md` §12 for
-the full phased roadmap.
+Phase 1.2b-ii is the current milestone: real-skill integration. The
+runner now calls `claude -p` via `ClaudeSkillExecutor`, opens PRs via
+`GhPROpener`, and exposes a `python -m harness.run` CLI consumed by a
+consumer-deployable workflow template. `.tokenman/PAUSE` remains on
+through Phase 2. See `docs/spec.md` §12 for the full phased roadmap.
