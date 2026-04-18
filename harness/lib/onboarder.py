@@ -7,7 +7,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
-from typing import List
+from pathlib import Path
+from typing import Callable, List, Optional, Tuple
 
 from harness.lib.ledger import LedgerEntry
 
@@ -69,3 +70,85 @@ def _synth_skipped_entry(
         "verdict": None,
         "verdict_note": None,
     }
+
+
+from harness.lib import ledger, runner  # noqa: E402  (after dataclasses)
+from harness.lib.git_ops import GitIdentity
+from harness.lib.pr_opener import PROpener
+from harness.lib.skill_executor import SkillExecutor
+
+
+class OnboardingError(RuntimeError):
+    """Raised before any skill runs when onboarding cannot proceed."""
+
+
+def run_onboarding(
+    *,
+    skills: List[Tuple[str, Path]],
+    repo_dir: Path,
+    ledger_path: Path,
+    runs_dir: Path,
+    executor: SkillExecutor,
+    pr_opener: PROpener,
+    budget: OnboardingBudget,
+    base_branch: str = "main",
+    git_identity: Optional[GitIdentity] = None,
+    now: Optional[Callable[[], datetime]] = None,
+) -> OnboardingResult:
+    """Run every skill in `skills` in order. Each invocation goes through
+    runner.run_skill; the orchestrator tracks the running token total
+    and pre-flights each skill against the session ceiling.
+
+    See docs/superpowers/specs/2026-04-18-phase-1-4-onboarding-mode-design.md
+    §5.1 for the full contract.
+    """
+    if not skills:
+        raise OnboardingError("no skills to onboard")
+
+    now = now or (lambda: datetime.now(timezone.utc))
+    started = now()
+    entries: list = []
+    total_tokens = 0
+    breached = False
+
+    for skill_name, skill_dir in skills:
+        # Pre-flight: would starting this skill (worst case) blow the
+        # session ceiling? If so, never invoke runner.run_skill — record
+        # a synthesized skipped_budget entry instead.
+        if total_tokens + budget.per_run_ceiling > budget.session_ceiling:
+            breached = True
+            prev_n = ledger.last_run_id(ledger_path)
+            run_id = f"r-{(prev_n or 0) + 1:04d}"
+            skipped = _synth_skipped_entry(
+                skill_name=skill_name,
+                run_id=run_id,
+                now=now(),
+            )
+            ledger.append(ledger_path, skipped)
+            entries.append(skipped)
+            continue
+
+        entry = runner.run_skill(
+            skill_dir=skill_dir,
+            repo_dir=repo_dir,
+            ledger_path=ledger_path,
+            runs_dir=runs_dir,
+            executor=executor,
+            pr_opener=pr_opener,
+            skill_name=skill_name,
+            base_branch=base_branch,
+            git_identity=git_identity,
+            now=now,
+        )
+        entries.append(entry)
+        total_tokens += entry["total_tokens"]
+
+    finished = now()
+    return OnboardingResult(
+        entries=entries,
+        total_tokens=total_tokens,
+        session_ceiling=budget.session_ceiling,
+        started_at=started,
+        finished_at=finished,
+        breached_ceiling=breached,
+    )
