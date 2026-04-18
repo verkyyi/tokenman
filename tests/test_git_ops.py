@@ -9,7 +9,10 @@ import pytest
 from harness.lib.git_ops import (
     GitIdentity,
     GitOpsError,
-    apply_diff_and_push,
+    commit_and_push,
+    create_branch_worktree,
+    remove_worktree,
+    stage_and_capture_diff,
 )
 
 
@@ -24,10 +27,6 @@ def _git(cwd: Path, *args: str) -> str:
 
 
 def _make_repo_with_bare_remote(tmp_path: Path) -> tuple[Path, Path]:
-    """Initialise a working repo with a bare remote at tmp_path/remote.
-    Returns (repo_dir, remote_dir). repo_dir has one commit on main and
-    tracks origin=main.
-    """
     remote = tmp_path / "remote.git"
     subprocess.run(["git", "init", "--bare", str(remote)], check=True, capture_output=True)
 
@@ -36,7 +35,7 @@ def _make_repo_with_bare_remote(tmp_path: Path) -> tuple[Path, Path]:
     _git(repo, "init", "-b", "main")
     (repo / "README.md").write_text("# Hello\n")
     _git(repo, "config", "user.email", "seed@local")
-    _git(repo, "config", "user.name",  "seed")
+    _git(repo, "config", "user.name", "seed")
     _git(repo, "add", "-A")
     _git(repo, "commit", "-m", "seed")
     _git(repo, "remote", "add", "origin", str(remote))
@@ -47,38 +46,42 @@ def _make_repo_with_bare_remote(tmp_path: Path) -> tuple[Path, Path]:
 IDENTITY = GitIdentity(name="tokenman-bot", email="tokenman@local")
 
 
-def test_apply_diff_and_push_creates_branch_commit_push(tmp_path: Path) -> None:
+def test_worktree_diff_commit_and_push_creates_branch_commit_push(tmp_path: Path) -> None:
     repo, remote = _make_repo_with_bare_remote(tmp_path)
-    diff_text = (
-        "--- a/README.md\n"
-        "+++ b/README.md\n"
-        "@@ -1 +1,2 @@\n"
-        " # Hello\n"
-        "+## New section\n"
-    )
-    apply_diff_and_push(
+    worktree = tmp_path / "worktree"
+    branch = "tokenman/readme-maintainer/r-0001"
+
+    create_branch_worktree(
         repo_dir=repo,
-        diff_text=diff_text,
-        branch="tokenman/readme-maintainer/r-0001",
+        worktree_dir=worktree,
+        branch=branch,
         base="main",
+    )
+    (worktree / "README.md").write_text("# Hello\n## New section\n")
+    diff_text, changed_paths = stage_and_capture_diff(checkout_dir=worktree)
+    assert changed_paths == ["README.md"]
+    assert "## New section" in diff_text
+    commit_and_push(
+        checkout_dir=worktree,
         message="[tokenman] readme-maintainer: add section",
         identity=IDENTITY,
     )
+    remove_worktree(repo_dir=repo, worktree_dir=worktree, branch=branch)
 
-    # local branch exists
     branches = _git(repo, "branch", "--list")
-    assert "tokenman/readme-maintainer/r-0001" in branches
+    assert branch not in branches
 
-    # commit author identity is ours
-    log = _git(repo, "log", "-1", "--format=%an <%ae> %s", "tokenman/readme-maintainer/r-0001")
+    _git(repo, "fetch", "origin")
+    log = _git(
+        repo,
+        "log",
+        "-1",
+        "--format=%an <%ae> %s",
+        "origin/tokenman/readme-maintainer/r-0001",
+    )
     assert "tokenman-bot <tokenman@local>" in log
     assert "add section" in log
 
-    # switching to the branch shows the applied change
-    _git(repo, "switch", "tokenman/readme-maintainer/r-0001")
-    assert "## New section" in (repo / "README.md").read_text()
-
-    # remote has the pushed branch
     remote_refs = subprocess.run(
         ["git", "ls-remote", str(remote)],
         capture_output=True,
@@ -88,22 +91,33 @@ def test_apply_diff_and_push_creates_branch_commit_push(tmp_path: Path) -> None:
     assert "refs/heads/tokenman/readme-maintainer/r-0001" in remote_refs
 
 
-def test_apply_diff_and_push_raises_on_bad_diff(tmp_path: Path) -> None:
+def test_stage_and_capture_diff_excludes_runtime_paths(tmp_path: Path) -> None:
     repo, _ = _make_repo_with_bare_remote(tmp_path)
-    bogus_diff = "not a valid unified diff at all\n"
-    with pytest.raises(GitOpsError):
-        apply_diff_and_push(
-            repo_dir=repo,
-            diff_text=bogus_diff,
-            branch="tokenman/does-not-matter/r-0001",
-            base="main",
-            message="won't apply",
-            identity=IDENTITY,
-        )
+    worktree = tmp_path / "worktree"
+    branch = "tokenman/test/r-0001"
 
-    # no branch left behind with extra commits
-    branches = _git(repo, "branch", "--list")
-    if "tokenman/does-not-matter/r-0001" in branches:
-        head = _git(repo, "rev-parse", "tokenman/does-not-matter/r-0001").strip()
-        base = _git(repo, "rev-parse", "main").strip()
-        assert head == base
+    create_branch_worktree(
+        repo_dir=repo,
+        worktree_dir=worktree,
+        branch=branch,
+        base="main",
+    )
+    (worktree / ".claude" / "skills").mkdir(parents=True)
+    (worktree / ".claude" / "skills" / "ignored.txt").write_text("x\n")
+    (worktree / ".tokenman").mkdir()
+    (worktree / ".tokenman" / "ignored.txt").write_text("y\n")
+    diff_text, changed_paths = stage_and_capture_diff(checkout_dir=worktree)
+    assert diff_text == ""
+    assert changed_paths == []
+    remove_worktree(repo_dir=repo, worktree_dir=worktree, branch=branch)
+
+
+def test_create_branch_worktree_raises_on_missing_base(tmp_path: Path) -> None:
+    repo, _ = _make_repo_with_bare_remote(tmp_path)
+    with pytest.raises(GitOpsError):
+        create_branch_worktree(
+            repo_dir=repo,
+            worktree_dir=tmp_path / "worktree",
+            branch="tokenman/test/r-0001",
+            base="does-not-exist",
+        )

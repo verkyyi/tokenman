@@ -1,7 +1,7 @@
 """Skill executor boundary for the harness runner.
 
-Phase 1.2a ships StubSkillExecutor for subprocess-driven tests.
-Phase 1.2b-ii adds ClaudeSkillExecutor that invokes `claude -p`.
+Executors edit an isolated checkout in place. The runner is responsible
+for diffing, committing, and opening the PR.
 """
 from __future__ import annotations
 
@@ -27,7 +27,6 @@ class ExecutionResult:
     exit_code: int
     stdout: str
     stderr: str
-    proposed_diff_path: Optional[Path]
     proposed_md_path: Optional[Path]
     summary: str
     prompt_version: str = "unknown"
@@ -35,7 +34,7 @@ class ExecutionResult:
 
 
 class SkillExecutor(Protocol):
-    """Invoke a skill against a repo and produce an ExecutionResult."""
+    """Invoke a skill against an isolated editable checkout."""
 
     def execute(
         self,
@@ -48,9 +47,10 @@ class SkillExecutor(Protocol):
 class StubSkillExecutor:
     """Runs `stub.sh` inside skill_dir as a subprocess.
 
-    The stub writes proposed.diff / proposed.md (if any) into the
-    scratch directory passed as its first positional argument. stdout
-    and stderr are captured in full. Not used outside of tests.
+    The stub edits the repo checkout passed as its second positional
+    argument and may write proposed.md into the scratch directory passed
+    as its first positional argument. stdout and stderr are captured in
+    full. Not used outside of tests.
     """
 
     def __init__(
@@ -71,7 +71,7 @@ class StubSkillExecutor:
         env = {**os.environ, **self._extra_env}
         try:
             proc = subprocess.run(
-                ["bash", str(entrypoint), str(scratch_dir)],
+                ["bash", str(entrypoint), str(scratch_dir), str(repo_dir)],
                 cwd=str(repo_dir),
                 env=env,
                 capture_output=True,
@@ -84,10 +84,11 @@ class StubSkillExecutor:
             exit_code = proc.returncode
         except subprocess.TimeoutExpired as e:
             stdout = e.stdout or ""
-            stderr = (e.stderr or "") + f"\n[executor] stub.sh timed out after {self._timeout_s}s\n"
+            stderr = (e.stderr or "") + (
+                f"\n[executor] stub.sh timed out after {self._timeout_s}s\n"
+            )
             exit_code = -1
 
-        diff = scratch_dir / "proposed.diff"
         md = scratch_dir / "proposed.md"
         first_stdout_line = next(
             (ln for ln in stdout.splitlines() if ln.strip()),
@@ -97,7 +98,6 @@ class StubSkillExecutor:
             exit_code=exit_code,
             stdout=stdout,
             stderr=stderr,
-            proposed_diff_path=diff if diff.is_file() else None,
             proposed_md_path=md if md.is_file() else None,
             summary=first_stdout_line,
             prompt_version="stub-v1",
@@ -106,11 +106,7 @@ class StubSkillExecutor:
 
 
 class ClaudeSkillExecutor:
-    """Runs `claude -p` against a scratch copy of the repo and computes
-    a proposed diff.
-
-    Phase 1.2b-ii. Satisfies the SkillExecutor Protocol.
-    """
+    """Runs `claude -p` against an isolated editable checkout."""
 
     def __init__(
         self,
@@ -132,14 +128,10 @@ class ClaudeSkillExecutor:
         repo_dir: Path,
         scratch_dir: Path,
     ) -> ExecutionResult:
-        working = scratch_dir / "working"
-        shutil.copytree(
-            repo_dir,
-            working,
-            ignore=shutil.ignore_patterns(".git", ".tokenman"),
-        )
-        skill_dst = working / ".claude" / "skills" / skill_dir.name
-        shutil.copytree(skill_dir, skill_dst, dirs_exist_ok=True)
+        skill_dst = repo_dir / ".claude" / "skills" / skill_dir.name
+        skill_dst.parent.mkdir(parents=True, exist_ok=True)
+        if skill_dst.resolve() != skill_dir.resolve():
+            shutil.copytree(skill_dir, skill_dst, dirs_exist_ok=True)
 
         user_prompt = (
             f"Invoke the {skill_dir.name} skill. Edit files in place. "
@@ -148,17 +140,18 @@ class ClaudeSkillExecutor:
         argv = [
             self._claude_bin,
             "-p",
-            "--output-format", "json",
-            "--append-system-prompt", self._framing,
+            "--output-format",
+            "json",
+            "--append-system-prompt",
+            self._framing,
             user_prompt,
         ]
         env = {**os.environ, **self._extra_env}
 
-        timed_out = False
         try:
             proc = subprocess.run(
                 argv,
-                cwd=str(working),
+                cwd=str(repo_dir),
                 env=env,
                 capture_output=True,
                 text=True,
@@ -170,34 +163,12 @@ class ClaudeSkillExecutor:
             exit_code = proc.returncode
         except subprocess.TimeoutExpired as e:
             stdout = e.stdout or ""
-            stderr = (e.stderr or "") + f"\n[executor] claude -p timed out after {self._timeout_s}s\n"
+            stderr = (e.stderr or "") + (
+                f"\n[executor] claude -p timed out after {self._timeout_s}s\n"
+            )
             exit_code = -1
-            timed_out = True
 
         summary, tokens = self._parse_json_output(stdout, exit_code)
-
-        diff_path: Optional[Path] = None
-        if not timed_out:
-            diff_proc = subprocess.run(
-                [
-                    "diff", "-ruN",
-                    "--exclude=.claude",
-                    "--exclude=.git",
-                    "--exclude=.tokenman",
-                    str(repo_dir), str(working),
-                ],
-                capture_output=True,
-                text=True,
-                check=False,
-            )
-            # `diff` returns 1 if differences exist; 0 if identical; >=2 is an error.
-            if diff_proc.returncode >= 2:
-                stderr += f"\n[executor] diff failed: {diff_proc.stderr.strip()}"
-            diff_output = diff_proc.stdout
-            if diff_output.strip():
-                diff_path = scratch_dir / "proposed.diff"
-                diff_path.write_text(diff_output)
-
         md_path = scratch_dir / "proposed.md"
         md_path.write_text(summary + "\n")
 
@@ -205,7 +176,6 @@ class ClaudeSkillExecutor:
             exit_code=exit_code,
             stdout=stdout,
             stderr=stderr,
-            proposed_diff_path=diff_path,
             proposed_md_path=md_path,
             summary=summary,
             prompt_version=self._prompt_version,
@@ -214,16 +184,14 @@ class ClaudeSkillExecutor:
 
     @staticmethod
     def _parse_json_output(stdout: str, exit_code: int) -> tuple[str, int]:
-        """Return (summary, tokens) from claude -p --output-format json.
-
-        Defensive: falls back to the first non-empty stdout line for
-        summary if JSON parsing fails.
-        """
+        """Return (summary, tokens) from claude JSON output."""
         try:
             doc = json.loads(stdout)
         except json.JSONDecodeError:
-            first = next((ln for ln in stdout.splitlines() if ln.strip()),
-                         f"claude: exit {exit_code}")
+            first = next(
+                (ln for ln in stdout.splitlines() if ln.strip()),
+                f"claude: exit {exit_code}",
+            )
             return first, 0
 
         summary = (

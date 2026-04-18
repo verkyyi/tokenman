@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 from pathlib import Path
 from typing import Optional
@@ -17,6 +18,10 @@ from typing import Optional
 from harness.lib import catalog, runner
 from harness.lib.pr_opener import FakePROpener, GhPROpener
 from harness.lib.skill_executor import ClaudeSkillExecutor, StubSkillExecutor
+
+
+def _default_runtime_mode() -> str:
+    return "actions" if os.environ.get("GITHUB_ACTIONS") == "true" else "local_debug"
 
 
 def main(argv: Optional[list[str]] = None) -> int:
@@ -27,6 +32,11 @@ def main(argv: Optional[list[str]] = None) -> int:
     parser.add_argument("--runs-dir", default=None)
     parser.add_argument("--claude-bin", default="claude")
     parser.add_argument("--base-branch", default="main")
+    parser.add_argument(
+        "--runtime-mode",
+        choices=["actions", "local_debug"],
+        default=_default_runtime_mode(),
+    )
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args(argv)
 
@@ -81,6 +91,7 @@ def main(argv: Optional[list[str]] = None) -> int:
         pr_opener=pr_opener,
         skill_name=args.skill,
         base_branch=args.base_branch,
+        runtime_mode=args.runtime_mode,
     )
     print(json.dumps(entry, separators=(",", ":")))
     return 0

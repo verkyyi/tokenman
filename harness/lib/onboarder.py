@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import Callable, List, Optional, Tuple
 
 from harness.lib import ledger, runner
-from harness.lib.git_ops import GitIdentity
+from harness.lib.git_ops import GitIdentity, RuntimeMode
 from harness.lib.ledger import LedgerEntry
 from harness.lib.pr_opener import PROpener
 from harness.lib.skill_executor import SkillExecutor
@@ -92,6 +92,7 @@ def run_onboarding(
     base_branch: str = "main",
     git_identity: Optional[GitIdentity] = None,
     now: Optional[Callable[[], datetime]] = None,
+    runtime_mode: RuntimeMode = "local_debug",
 ) -> OnboardingResult:
     """Run every skill in `skills` in order. Each invocation goes through
     runner.run_skill; the orchestrator tracks the running token total
@@ -137,6 +138,7 @@ def run_onboarding(
             base_branch=base_branch,
             git_identity=git_identity,
             now=now,
+            runtime_mode=runtime_mode,
         )
         entries.append(entry)
         total_tokens += entry["total_tokens"]

@@ -3,12 +3,13 @@
 # distinct summary so multi-skill tests can tell the two apart.
 set -euo pipefail
 
-if [ "$#" -lt 1 ]; then
-    echo "stub-readme-second: missing scratch-dir arg" >&2
+if [ "$#" -lt 2 ]; then
+    echo "stub-readme-second: missing scratch-dir/repo-dir args" >&2
     exit 64
 fi
 
 SCRATCH="$1"
+REPO="$2"
 MODE="${STUB_MODE:-no_change}"
 
 case "$MODE" in
@@ -16,19 +17,10 @@ case "$MODE" in
     echo "stub-readme-second: nothing to change"
     ;;
   propose_diff)
-    cat > "$SCRATCH/proposed.diff" <<'DIFF'
---- a/README.md
-+++ b/README.md
-@@ -1,3 +1,5 @@
- # tiny-python-repo
-
- Fixture for tokenman harness testing. Simulates a minimal Python consumer repo.
-+
-+Stub-readme-second added a different sentence.
-DIFF
     cat > "$SCRATCH/proposed.md" <<'MD'
 Proposed adding a different sentence under the README heading.
 MD
+    printf '\nStub-readme-second added a different sentence.\n' >> "$REPO/README.md"
     echo "stub-readme-second: proposed 1 diff"
     ;;
   crash)
