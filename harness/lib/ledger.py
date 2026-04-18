@@ -8,9 +8,37 @@ from __future__ import annotations
 import json
 from functools import lru_cache
 from pathlib import Path
-from typing import Optional
+from typing import Optional, TypedDict
 
 import jsonschema
+
+
+class GeneratorBlock(TypedDict):
+    prompt_version: str
+    output_summary: str
+    diff_lines: int
+    tokens: int
+
+
+class EvaluatorBlock(TypedDict):
+    prompt_version: str
+    verdict: str
+    reason: str
+    tokens: int
+
+
+class LedgerEntry(TypedDict):
+    run_id: str
+    ts: str
+    skill: str
+    status: str
+    pr: Optional[int]
+    generator: Optional[GeneratorBlock]
+    evaluator: Optional[EvaluatorBlock]
+    duration_s: int
+    total_tokens: int
+    verdict: Optional[str]
+    verdict_note: Optional[str]
 
 
 _SCHEMA_PATH = Path(__file__).parent / "ledger.schema.json"
@@ -118,7 +146,7 @@ def last_run_id(ledger_path: Path) -> Optional[int]:
     return int(last["run_id"].split("-")[1])
 
 
-def append(ledger_path: Path, entry: dict) -> None:
+def append(ledger_path: Path, entry: LedgerEntry) -> None:
     """Validate then append entry as a compact JSON line.
 
     Creates parent directories and the file if missing. On validation

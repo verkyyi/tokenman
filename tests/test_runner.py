@@ -127,7 +127,8 @@ def test_run_skill_propose_diff_opens_pr(tmp_path: Path) -> None:
     assert len(pr_opener.calls) == 1
     call = pr_opener.calls[0]
     assert call["branch"] == "tokenman/stub-readme/r-0001"
-    assert "Stub-readme added this line" in call["diff"]
+    diff_on_disk = (runs_dir / "r-0001" / "proposed.diff").read_text()
+    assert "Stub-readme added this line" in diff_on_disk
 
 
 def test_run_skill_no_change_skips_pr_opener(tmp_path: Path) -> None:
@@ -315,7 +316,7 @@ def test_run_skill_records_error_when_pr_opener_raises(tmp_path: Path) -> None:
     repo_dir, ledger_path, runs_dir = _prepare_repo_copy(tmp_path)
 
     class BrokenPROpener:
-        def open(self, *, title, body, branch, diff):
+        def open(self, *, title, body, branch):
             raise RuntimeError("boom")
 
     executor = StubSkillExecutor(extra_env={"STUB_MODE": "propose_diff"})

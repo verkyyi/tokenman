@@ -16,6 +16,7 @@ from time import monotonic
 from typing import Any, Callable, Optional
 
 from harness.lib import ledger
+from harness.lib.ledger import LedgerEntry
 from harness.lib.pr_opener import PROpener
 from harness.lib.skill_executor import SkillExecutor
 
@@ -53,7 +54,7 @@ def run_skill(
     pr_opener: PROpener,
     skill_name: Optional[str] = None,
     now: Optional[Callable[[], datetime]] = None,
-) -> dict:
+) -> LedgerEntry:
     """Run one skill against a repo. Returns the ledger entry appended.
 
     See the data-flow section of the Phase 1.2a design doc for the
@@ -118,7 +119,6 @@ def run_skill(
                 title=f"[tokenman] {skill}: {result.summary}",
                 body=result.summary,
                 branch=f"tokenman/{skill}/{run_id}",
-                diff=diff_text,
             )
             status = "pr_opened"
         except Exception as exc:
