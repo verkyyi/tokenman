@@ -1,0 +1,14 @@
+# tokenman-run.yml — installed into consumer .github/workflows/
+# Scaffolding stub. Real triggers, guardrails, ledger entries, and PR
+# creation are authored in Step 3 of the setup plan.
+
+name: tokenman-run
+
+on:
+  workflow_dispatch:
+
+jobs:
+  placeholder:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "tokenman-run stub — populated in Step 3"

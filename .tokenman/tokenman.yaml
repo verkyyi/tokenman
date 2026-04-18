@@ -1,0 +1,9 @@
+# Tokenman config — library role
+# This file declares that the current repo is the tokenman LIBRARY
+# (source of truth for distributable skills and workflows).
+# Consumer repos use their own .tokenman/tokenman.yaml with role: consumer.
+
+role: library
+
+produces:
+  - dead-code-cleanup

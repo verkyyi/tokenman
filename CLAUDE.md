@@ -1,144 +1,60 @@
-# Tokenman — Scaffold Constitution
-# Harness rules only. No project-specific knowledge lives here.
-# Project context: read apps/${APP_NAME}/CLAUDE.md
+# Tokenman — Library
 
-## What this scaffold is
-A self-evolving web project harness powered by Claude Code.
-The repo IS the system. State lives in state/. Events live in
-GitHub Issues. Every agent action is a commit. The scaffold's
-first project is itself — it improves its own workflows, skills,
-and rules over time.
+Open-source toolset (skills + workflows) that installs into any repo to
+enable async AI maintenance via PRs. This repo is the **library** — source
+of truth for distributable skills and workflows. Consumer repos install
+copies.
 
-## Harness Architecture
-Runtime:     GitHub Actions (8 workflows)
-State:       state/ folder (committed markdown files)
-Event bus:   GitHub Issues with labels
-CMS:         content/ folder (Astro content collections)
-Memory:      state/project_state.md (read/write every run)
-Research:    state/research_log.md (append-only, external findings)
-Deployment:  GitHub Pages (Astro static build)
+## Role
 
-## APP_NAME Resolution
-Workflows determine which project they operate on:
-1. Issue/PR-triggered (triage, coder, reviewer): read from issue/PR metadata. Default: scaffold.
-2. Cron-triggered (evolve, analyze): iterate all apps/*/ folders,
-   or target scaffold for self-evolution tasks.
-3. Manual dispatch (claude-task, discover): accept APP_NAME as input.
+`role: library` (declared in `.tokenman/tokenman.yaml`).
 
-## Session Protocol
+- NOT a hosted product, NOT a CLI wrapper, NOT self-evolving.
+- **Dogfooding is OFF.** Tokenman does not run on itself.
+- Distribution: Claude Code CLI users. Manual copy for now; no installer yet.
 
-ON START (every workflow run AND every CLI session):
-1. Read state/project_state.md — what happened last
-2. Read apps/${APP_NAME}/CLAUDE.md — project-specific rules
-3. Read apps/${APP_NAME}/FEATURE_STATUS.md — what's done and pending
-4. Check current event: issue body, PR diff, workflow input
-5. For log files, read only recent entries (not the full file):
-   - state/agent_log.md — last 30 lines (tail -30)
-   - state/research_log.md — last 30 lines (tail -30)
-   - state/research_log_archive.md — do NOT read (historical reference only)
+## Safety model
 
-ON STOP (every workflow run AND every CLI session):
-1. Write session summary to state/project_state.md
-2. Update state/agent_log.md (append one line)
-3. Update apps/${APP_NAME}/FEATURE_STATUS.md if anything changed
-4. Commit all state/ changes with message: "state: [summary]"
+- **PRs only.** Tokenman workflows never commit directly — they open PRs; humans merge.
+- **Execution: `claude -p`** (headless Claude Code inside GitHub Actions). Never the Anthropic API directly.
+- Every skill's `SKILL.md` has frontmatter: `name`, `version`, `origin: local`.
 
-CLI SESSION CLOSE (enforced by SessionEnd hook):
-When the user ends a CLI session (exits, /clear, closes terminal):
-- The SessionEnd hook auto-commits any uncommitted state/ changes
-- To ensure a useful summary exists, Claude MUST update state files
-  BEFORE the session ends — do not wait to be asked
-- When you detect the conversation is wrapping up (user says "done",
-  "thanks", "that's all", asks to commit, or context is being compressed),
-  proactively update state/project_state.md and state/agent_log.md
+## Directory contract
 
-## Autonomy Rules (scaffold defaults — app CLAUDE.md may override)
+| Path | Meaning |
+| --- | --- |
+| `/skills/` | **Source of truth** for distributable skills. |
+| `/workflows/` | **Source of truth** for distributable workflows. |
+| `/.tokenman/tokenman.yaml` | Declares this repo's role. |
+| `.claude/skills/` | Consumer runtime path. **Must stay empty in this repo.** |
+| `.github/workflows/` | Consumer runtime path. **Must stay empty in this repo.** |
 
-AUTO — commit directly, no PR needed:
-- State file updates (project_state.md, agent_log.md, research_log.md)
-- Failure log entries in CLAUDE.md
-- Skill file wording/clarity improvements (no behavioral changes)
-- FEATURE_STATUS updates
+Consumers copy `/skills/<name>/` → `.claude/skills/<name>/` and `/workflows/<name>.yml` → `.github/workflows/<name>.yml`.
 
-PR — open a pull request, label: auto-merge:
-- Lint and type fixes
-- Minor skill improvements (behavioral, low-risk)
+## Current library surface
 
-PR — open a pull request, label: needs-review:
-- Workflow YAML changes (always)
-- CLAUDE.md autonomy rule changes
-- New skill files
-- Any change inspired by external research
-- Profile page layout/copy changes
-- Discovery-generated CLAUDE.md for new projects
+- **`dead-code-cleanup`** (Python, v0.1.0) — removes provably unused imports and unreachable code. Subtractive diffs only; tests must pass; diff under 100 lines.
 
-NEVER auto-execute:
-- Deleting files or content
-- Promoting its own autonomy tier
-- Modifying auth/secrets configuration
-- More than one structural PR per evolve.yml run
-  (structural = workflow YAML, CLAUDE.md autonomy rules, new skill files)
+**Legacy skills** still present in `/skills/` (kept pending decision): `adversarial-review/`, `harness/`, `session-protocol/`, `feedback-intake/`, `github-roadmap-planning/`, `github-task-headless/`, `github-task-interactive/`, plus loose `.md` files (`content.md`, `frontend.md`, `seo.md`, `github-workflows.md`, `readme-sync.md`, `adversarial-review.md`, `harness.md`, `feedback-intake.md`). These are NOT part of the current library surface.
 
-## GitHub Actions Context
-- GITHUB_TOKEN: always available, use for API calls
-- CLAUDE_CODE_OAUTH_TOKEN: in secrets, use for claude -p and claude-code-action
-- APP_NAME: resolved dynamically per workflow (see APP_NAME Resolution)
-- Workflows run on ubuntu-latest runners
-- Full outbound internet access in runners
-- --bare flag (claude-code v2.1.81): NOT adopted. All 10 workflows use
-  CLAUDE_CODE_OAUTH_TOKEN (OAuth), but --bare disables OAuth and requires
-  ANTHROPIC_API_KEY. The startup savings are marginal vs total agent runtime.
-  Revisit only if ANTHROPIC_API_KEY is provisioned for other reasons. (#63)
+## Commit conventions
 
-## Tool Usage in Workflows
-Preferred order for file operations:
-1. GitHub API (for GitHub data — richest, most structured)
-2. curl (for external HTTP — RSS, blogs, changelogs)
-3. Standard unix tools (grep, jq, sed — for parsing)
+Imperative, sentence case, no trailing period, under ~72 chars.
 
-## State File Maintenance
+- `feat(skill): …` / `feat(workflow): …`
+- `fix(skill|workflow): …`
+- `docs: …`
+- `chore: …`
 
-### Rolling Archive (agent_log.md)
-When agent_log.md exceeds 300 lines, run `scripts/archive-agent-log.sh`
-to move older entries to `state/agent_log_archive.md`. The archive file is
-NOT read during session start — it exists only for historical reference.
-The archive script preserves the append-only contract: data is moved, not deleted.
+## What NOT to do in this repo
 
-### Rolling Archive (research_log.md)
-When research_log.md exceeds 100 entries, run `scripts/archive-research-log.sh`
-to move older entries to `state/research_log_archive.md`. The archive file is
-NOT read during session start — it exists only for historical reference.
-The archive script preserves the append-only contract: data is moved, not deleted.
+- Do NOT create `.claude/skills/` or `.github/workflows/` here with distributable content.
+- Do NOT add new skills to the library surface without explicit scope approval.
+- Do NOT wire tokenman workflows to run on this repo.
+- Do NOT call the Anthropic API directly — all execution goes through `claude -p`.
 
-### SHA-scan Compaction
-When writing sha-scan entries to research_log.md, if all sources are unchanged
-for N consecutive runs (N >= 2), write a single summary line instead of
-per-source entries:
-  TIMESTAMP | sha-scan | All N sources unchanged (Xth consecutive) | no action
-Only expand to per-source detail when a source actually changes.
+## Failure log
 
-## Commit Message Convention
-feat(content): add new content for [topic]
-feat(harness): add [workflow/skill/capability]
-fix(workflow): fix [issue] in [workflow]
-state: session summary — [what was done]
-chore(deps): patch [package] security vulnerability
-research: [source] — [finding summary]
+> One line per past mistake. Add, never remove. Date every entry.
 
-## Failure Handling
-If a step fails:
-1. Write failure to state/agent_log.md
-2. Add failure to CLAUDE.md failure log (below)
-3. Open a GitHub Issue labeled: agent-error
-4. Do NOT retry more than once automatically
-5. Exit cleanly — next run will pick up from state
-
-If a merged self-improvement causes a regression:
-1. Log the regression in the failure log
-2. Open a revert PR (needs-review)
-
-## FAILURE LOG
-# Each line = a past mistake, now prevented.
-# Add here. Never remove. Date every entry.
-# (Empty on fresh scaffold — grows with your project)
-- 2026-04-16: Workflow disable mechanism broken — `exit 0` inside a `run:` block only exits the step (with success), it does NOT halt the workflow. Gate step using `if [ ! -f state/evolve_config.md ]; then exit 0; fi` let every subsequent step run, burning ~$10 across 5 evolve runs against a human disable intent. Fix: gate step sets `steps.gate.outputs.skip` via `$GITHUB_OUTPUT`; every post-gate step carries `if: steps.gate.outputs.skip != 'true'`. Prevention: when gating a workflow, condition subsequent steps with `if:`, never rely on `exit 0` to halt execution. (#173)
+_(fresh — no entries yet)_
