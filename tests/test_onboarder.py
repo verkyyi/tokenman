@@ -1,9 +1,23 @@
 """Unit tests for harness.lib.onboarder."""
 from __future__ import annotations
 
+import shutil
+import subprocess
 from datetime import datetime, timezone
+from pathlib import Path
 
-from harness.lib.onboarder import OnboardingBudget, OnboardingResult
+import pytest
+
+from harness.lib import ledger
+from harness.lib.git_ops import GitIdentity
+from harness.lib.onboarder import (
+    OnboardingBudget,
+    OnboardingResult,
+    _synth_skipped_entry,
+    run_onboarding,
+)
+from harness.lib.pr_opener import FakePROpener
+from harness.lib.skill_executor import StubSkillExecutor
 
 
 def test_onboarding_budget_has_per_run_and_session_ceilings() -> None:
@@ -40,10 +54,6 @@ def test_onboarding_result_carries_entries_totals_and_breach_flag() -> None:
     assert r.entries == []
 
 
-from harness.lib import ledger
-from harness.lib.onboarder import _synth_skipped_entry
-
-
 def test_synth_skipped_entry_is_schema_valid_skipped_budget() -> None:
     when = datetime(2026, 4, 18, 10, 0, 0, tzinfo=timezone.utc)
     entry = _synth_skipped_entry(
@@ -64,18 +74,6 @@ def test_synth_skipped_entry_is_schema_valid_skipped_budget() -> None:
     assert entry["verdict"] is None
     assert entry["verdict_note"] is None
     assert entry["ts"] == "2026-04-18T10:00:00Z"
-
-
-import shutil
-import subprocess
-from pathlib import Path
-
-import pytest
-
-from harness.lib.git_ops import GitIdentity
-from harness.lib.onboarder import run_onboarding
-from harness.lib.pr_opener import FakePROpener
-from harness.lib.skill_executor import StubSkillExecutor
 
 
 REPO_ROOT = Path(__file__).resolve().parent.parent

@@ -5,7 +5,7 @@ See docs/superpowers/specs/2026-04-18-phase-1-4-onboarding-mode-design.md.
 """
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Callable, List, Optional, Tuple
@@ -105,7 +105,7 @@ def run_onboarding(
 
     now = now or (lambda: datetime.now(timezone.utc))
     started = now()
-    entries: list = []
+    entries: list[LedgerEntry] = []
     total_tokens = 0
     breached = False
 

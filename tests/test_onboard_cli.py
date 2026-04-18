@@ -64,3 +64,4 @@ def test_cli_dry_run_writes_summary_with_skills_passed_via_flag(
     assert "## What ran" in content
     assert "stub-readme" in content
     assert "stub-readme-second" in content
+    assert "## Pull requests opened" in content
