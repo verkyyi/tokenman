@@ -1,13 +1,21 @@
-node_modules/
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Build
+build/
 dist/
-.astro/
+
+# Secrets
 .env
 .env.local
-
-# Temp files written by Claude during workflow runs
-.commit-message
-.fix-failed
-/tmp/
+*.token
 
 # Editor
 .vscode/
@@ -18,10 +26,3 @@ dist/
 # OS
 .DS_Store
 Thumbs.db
-
-# Ephemeral workflow communication files
-.proposed-change.md
-.trigger-discovery.txt
-
-# Circuit breaker runtime state (per-session, not committed)
-.claude/circuit-breaker-state.json
