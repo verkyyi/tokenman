@@ -13,7 +13,7 @@ from typing import Optional, Protocol
 class PROpener(Protocol):
     """Opens a PR and returns its number."""
 
-    def open(self, *, title: str, body: str, branch: str, diff: str) -> int: ...
+    def open(self, *, title: str, body: str, branch: str) -> int: ...
 
 
 class FakePROpener:
@@ -32,7 +32,7 @@ class FakePROpener:
         self._sink_dir = sink_dir
         self.calls: list[dict] = []
 
-    def open(self, *, title: str, body: str, branch: str, diff: str) -> int:
+    def open(self, *, title: str, body: str, branch: str) -> int:
         n = self._next
         self._next += 1
         record = {
@@ -40,7 +40,6 @@ class FakePROpener:
             "title": title,
             "body": body,
             "branch": branch,
-            "diff": diff,
         }
         self.calls.append(record)
         if self._sink_dir is not None:

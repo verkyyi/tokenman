@@ -105,6 +105,7 @@ def test_run_skill_propose_diff_opens_pr(tmp_path: Path) -> None:
     # stub fixture diff has 2 content +/- lines (2x '+'), headers excluded.
     assert entry["generator"]["diff_lines"] == 2
     assert entry["generator"]["prompt_version"] == "stub-v1"
+    assert entry["generator"]["tokens"] == 0
     assert entry["evaluator"] is None
     assert entry["total_tokens"] == 0
 
@@ -117,8 +118,8 @@ def test_run_skill_propose_diff_opens_pr(tmp_path: Path) -> None:
     art = runs_dir / "r-0001"
     assert (art / "proposed.diff").is_file()
     assert (art / "proposed.md").is_file()
-    assert (art / "stub.stdout").is_file()
-    assert (art / "stub.stderr").is_file()
+    assert (art / "executor.stdout").is_file()
+    assert (art / "executor.stderr").is_file()
     assert (art / "ledger.entry").is_file()
     assert json.loads((art / "ledger.entry").read_text()) == entry
 
@@ -126,7 +127,8 @@ def test_run_skill_propose_diff_opens_pr(tmp_path: Path) -> None:
     assert len(pr_opener.calls) == 1
     call = pr_opener.calls[0]
     assert call["branch"] == "tokenman/stub-readme/r-0001"
-    assert "Stub-readme added this line" in call["diff"]
+    diff_on_disk = (runs_dir / "r-0001" / "proposed.diff").read_text()
+    assert "Stub-readme added this line" in diff_on_disk
 
 
 def test_run_skill_no_change_skips_pr_opener(tmp_path: Path) -> None:
@@ -148,6 +150,7 @@ def test_run_skill_no_change_skips_pr_opener(tmp_path: Path) -> None:
     assert entry["status"] == "no_change"
     assert entry["pr"] is None
     assert entry["generator"]["diff_lines"] == 0
+    assert entry["generator"]["prompt_version"] == "stub-v1"
     assert entry["generator"]["tokens"] == 0
     assert entry["total_tokens"] == 0
     assert pr_opener.calls == []
@@ -155,8 +158,8 @@ def test_run_skill_no_change_skips_pr_opener(tmp_path: Path) -> None:
     art = runs_dir / "r-0001"
     assert not (art / "proposed.diff").exists()
     assert not (art / "proposed.md").exists()
-    assert (art / "stub.stdout").is_file()
-    assert (art / "stub.stderr").is_file()
+    assert (art / "executor.stdout").is_file()
+    assert (art / "executor.stderr").is_file()
     assert (art / "ledger.entry").is_file()
 
 
@@ -183,8 +186,8 @@ def test_run_skill_crash_records_error(tmp_path: Path) -> None:
     assert pr_opener.calls == []
 
     art = runs_dir / "r-0001"
-    assert (art / "stub.stdout").is_file()
-    stderr_content = (art / "stub.stderr").read_text()
+    assert (art / "executor.stdout").is_file()
+    stderr_content = (art / "executor.stderr").read_text()
     assert "crashing on purpose" in stderr_content
     assert (art / "ledger.entry").is_file()
 
@@ -300,8 +303,8 @@ def test_run_skill_leaves_no_ledger_entry_on_append_failure(tmp_path: Path) -> N
 
     # Artifacts present (subprocess did run), but per-run ledger.entry absent.
     art = runs_dir / "r-0002"
-    assert (art / "stub.stdout").is_file()
-    assert (art / "stub.stderr").is_file()
+    assert (art / "executor.stdout").is_file()
+    assert (art / "executor.stderr").is_file()
     assert not (art / "ledger.entry").exists()
 
 
@@ -313,7 +316,7 @@ def test_run_skill_records_error_when_pr_opener_raises(tmp_path: Path) -> None:
     repo_dir, ledger_path, runs_dir = _prepare_repo_copy(tmp_path)
 
     class BrokenPROpener:
-        def open(self, *, title, body, branch, diff):
+        def open(self, *, title, body, branch):
             raise RuntimeError("boom")
 
     executor = StubSkillExecutor(extra_env={"STUB_MODE": "propose_diff"})
@@ -344,6 +347,6 @@ def test_run_skill_records_error_when_pr_opener_raises(tmp_path: Path) -> None:
     # opener ran), stderr captures the failure message and traceback.
     art = runs_dir / "r-0001"
     assert (art / "proposed.diff").is_file()
-    stderr_content = (art / "stub.stderr").read_text()
+    stderr_content = (art / "executor.stderr").read_text()
     assert "pr_opener failed: boom" in stderr_content
     assert "RuntimeError" in stderr_content

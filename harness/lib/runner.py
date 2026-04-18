@@ -16,6 +16,7 @@ from time import monotonic
 from typing import Any, Callable, Optional
 
 from harness.lib import ledger
+from harness.lib.ledger import LedgerEntry
 from harness.lib.pr_opener import PROpener
 from harness.lib.skill_executor import SkillExecutor
 
@@ -53,7 +54,7 @@ def run_skill(
     pr_opener: PROpener,
     skill_name: Optional[str] = None,
     now: Optional[Callable[[], datetime]] = None,
-) -> dict:
+) -> LedgerEntry:
     """Run one skill against a repo. Returns the ledger entry appended.
 
     See the data-flow section of the Phase 1.2a design doc for the
@@ -77,8 +78,8 @@ def run_skill(
         result = executor.execute(skill_dir, repo_dir, scratch)
 
         # 2f. Persist subprocess output.
-        (artifact_dir / "stub.stdout").write_text(result.stdout)
-        (artifact_dir / "stub.stderr").write_text(result.stderr)
+        (artifact_dir / "executor.stdout").write_text(result.stdout)
+        (artifact_dir / "executor.stderr").write_text(result.stderr)
         if result.proposed_diff_path is not None:
             shutil.copyfile(result.proposed_diff_path, artifact_dir / "proposed.diff")
         if result.proposed_md_path is not None:
@@ -99,26 +100,25 @@ def run_skill(
     elif result.proposed_diff_path is None:
         status = "no_change"
         generator = {
-            "prompt_version": "stub-v1",
+            "prompt_version": result.prompt_version,
             "output_summary": result.summary,
             "diff_lines": 0,
-            "tokens": 0,
+            "tokens": result.tokens,
         }
         pr = None
     else:
         diff_lines = _count_diff_lines(diff_text)
         generator = {
-            "prompt_version": "stub-v1",
+            "prompt_version": result.prompt_version,
             "output_summary": result.summary,
             "diff_lines": diff_lines,
-            "tokens": 0,
+            "tokens": result.tokens,
         }
         try:
             pr = pr_opener.open(
                 title=f"[tokenman] {skill}: {result.summary}",
                 body=result.summary,
                 branch=f"tokenman/{skill}/{run_id}",
-                diff=diff_text,
             )
             status = "pr_opened"
         except Exception as exc:
@@ -126,7 +126,7 @@ def run_skill(
             status = "error"
             generator = None
             pr = None
-            (artifact_dir / "stub.stderr").write_text(
+            (artifact_dir / "executor.stderr").write_text(
                 result.stderr + f"\n[runner] pr_opener failed: {exc}\n{tb}"
             )
 
