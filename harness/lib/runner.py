@@ -77,8 +77,8 @@ def run_skill(
         result = executor.execute(skill_dir, repo_dir, scratch)
 
         # 2f. Persist subprocess output.
-        (artifact_dir / "stub.stdout").write_text(result.stdout)
-        (artifact_dir / "stub.stderr").write_text(result.stderr)
+        (artifact_dir / "executor.stdout").write_text(result.stdout)
+        (artifact_dir / "executor.stderr").write_text(result.stderr)
         if result.proposed_diff_path is not None:
             shutil.copyfile(result.proposed_diff_path, artifact_dir / "proposed.diff")
         if result.proposed_md_path is not None:
@@ -126,7 +126,7 @@ def run_skill(
             status = "error"
             generator = None
             pr = None
-            (artifact_dir / "stub.stderr").write_text(
+            (artifact_dir / "executor.stderr").write_text(
                 result.stderr + f"\n[runner] pr_opener failed: {exc}\n{tb}"
             )
 
