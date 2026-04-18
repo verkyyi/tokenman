@@ -308,65 +308,19 @@ Weekly/monthly runs begin on schedule. User reviews PRs at their pace. Ledger ac
 
 ### 6.6 Ongoing teaching
 
-From Phase 4 onward, tokenman observes PR outcomes and writes preference inferences to `.tokenman/learned.md`. The user reviews and approves each inferred preference. Approved preferences feed back into generator and evaluator prompts on subsequent runs.
+Phase 4+. The harness observes PR outcomes and proposes preference inferences the user approves; approved preferences feed back into prompts. Roadmap in §12 Phase 4.
 
 ---
 
 ## 7. Budget and scheduling
 
-### 7.1 Budget calibration during init
+Detailed design lands in Phase 2 — see §12. Headline shape:
 
-Tokenman detects (or asks about) the user's Claude subscription and billing cycle. It suggests a percentage allocation:
+- **Budget caps**: three layers (per-run, per-skill weekly, global weekly/monthly). Breach → skip run, log a `skipped_*` status. The library repo runs at ~20% of normal consumer defaults.
+- **Schedule strategies**: `fixed | adaptive | event-driven | manual`. Library defaults to `manual` until Phase 3; consumers default to `fixed weekly` through Phase 1, `adaptive` from Phase 2.
+- **Calibration at init**: subscription tier → percentage allocation (5% conservative / 10% default / 20% aggressive / custom), translated to concrete token caps using `pricing.yaml` pulled at init.
 
-- **5% — Conservative** — 1-2 PRs/week, minimal cost
-- **10% — Recommended (default)** — 2-4 PRs/week, balanced
-- **20% — Aggressive** — 4-8 PRs/week, proactive maintenance
-- **Custom** — user-specified percentage
-
-Suggestions translate to concrete token budgets (per-run, weekly, monthly) displayed alongside the percentage.
-
-`pricing.yaml` in the library repo is pulled at init time, ensuring budget suggestions reflect current Claude pricing.
-
-### 7.2 Budget enforcement
-
-Three-layer cap hierarchy:
-
-| Cap | Enforced at | Action on breach |
-|---|---|---|
-| Per-run | Before generator starts | Skip run, log `skipped_run_cap` |
-| Per-skill weekly | Before generator starts | Skip run, log `skipped_skill_cap` |
-| Global weekly/monthly | Before generator starts | Skip run, log `skipped_global_cap` |
-
-Caps are re-checked before each stage; any stage that would exceed a cap fails the whole run gracefully.
-
-**Library repo has stricter caps.** The library's own `.tokenman/tokenman.yaml` sets budgets at roughly 20% of a normal consumer's default. The library is not a typical consumer and should not spend like one.
-
-### 7.3 Schedule strategies
-
-Declared in `tokenman.yaml`:
-
-```yaml
-schedule:
-  strategy: adaptive          # fixed | adaptive | event-driven | manual
-  target_utilization: 80%     # adaptive: aim for this fraction of budget
-  min_interval: 48h
-  max_interval: 14d
-  pause_at: 95%               # throttle hard at this fraction of budget
-```
-
-**Fixed** — runs on defined cadence (e.g., weekly Sunday midnight). Simple, predictable.
-
-**Adaptive** — self-tunes based on ledger history:
-- Low utilization → run more often
-- High utilization → run less often
-- Repeated no-ops → back off
-- Recent activity spike → accelerate
-
-**Event-driven** — triggers on repo events (PR merged, commits to main) rather than schedule. Most responsive to real work.
-
-**Manual** — never runs on a schedule; only via `workflow_dispatch`. This is the library repo's default until Phase 3.
-
-Init recommends a strategy based on repo activity detected during discovery.
+Pre-Phase 2, budgets are declared but not enforced; runs are counted in the ledger and surfaced by `status.sh` so usage is observable before enforcement lands.
 
 ---
 
@@ -546,14 +500,7 @@ The rule: **tokenman on the library can only do things that, if wrong, embarrass
 
 ### 10.3 Smoke test before real work
 
-When PAUSE is first removed on the library (Phase 3), the first workflow run is a no-op smoke test:
-
-- Reads the config
-- Checks trigger gates
-- Writes a single ledger entry saying "smoke test passed"
-- Opens a PR that adds a line to a `.tokenman/smoketest.md` file
-
-No creative output. No source code touched. Just proof that the harness machinery works on the real thing. The smoke test runs for a week before any real skill executes on the library.
+When the library's PAUSE is first removed (Phase 3), the first run is a no-op smoke test — config read, trigger gates checked, ledger entry and a trivial `.tokenman/smoketest.md` PR, no source touched. Runs for a week before any real skill executes on the library. Detail lands with Phase 3 in §12.
 
 ### 10.4 Development loop uses fixtures, not the library
 
@@ -563,11 +510,7 @@ Rule of thumb: if tempted to trigger a manual run on the library to test a chang
 
 ### 10.5 Stricter retention and caps
 
-The library's own `.tokenman/tokenman.yaml`:
-
-- Budget cap at ~20% of a normal consumer's default
-- Artifact retention: 14 days (vs 30 for normal consumers)
-- Schedule: `manual` until Phase 3; `adaptive` with conservative params thereafter
+Library's `.tokenman/tokenman.yaml` runs at ~20% of normal consumer defaults with 14-day artifact retention (vs 30). Schedule stays `manual` until Phase 3. Detail lands with Phase 2 in §12.
 
 ### 10.6 `[tokenman]` commit prefix
 
@@ -577,48 +520,13 @@ All commits tokenman opens on the library repo have messages prefixed `[tokenman
 
 ## 11. Learning loop (Phase 4+)
 
-### 11.1 Signal sources (ranked by reliability)
+Detailed design lands in Phase 4 — see §12. Headline shape:
 
-| Signal | Reliability |
-|---|---|
-| PR merged as-is | High |
-| PR merged with edits | Medium-high |
-| PR closed with substantive comment | High |
-| Line-level review comments | High |
-| Labels added (`wontfix`, `needs-rework`) | High |
-| PR merged with edits (unexplained) | Medium |
-| PR closed silently | Medium-low |
-| PR stale >14 days | Low |
+- **Signal sources**: PR outcomes (merged as-is / merged with edits / closed / stale / labels / inline comments) weighted by reliability.
+- **Mechanism**: after N consistent signals (threshold configurable, default 5), the harness proposes a preference to `.tokenman/learned.md`. User approves/rejects/edits. Approved preferences are injected into generator + evaluator prompts on subsequent runs.
+- **Scope**: repo-scoped; never leaked across consumers. Rejected preferences are recorded so they don't re-propose identically.
 
-### 11.2 Learning mechanism
-
-After each run, the harness observes PR outcomes via GitHub API. When patterns emerge across ≥N runs (threshold configurable, default 5), the harness proposes a learning:
-
-```markdown
-# learned.md
-
-## Proposed learnings (pending user approval)
-
-### readme-maintainer
-- Observation: 3 of last 5 merged PRs had emojis removed in commit edits
-- Proposed preference: "do not use emojis in headings"
-- Evidence: r-0087 (commit 3a2b), r-0094 (commit f8e1), r-0101 (commit 2d4c)
-- [Approve] [Reject] [Edit]
-
-## Approved preferences (active)
-
-### readme-maintainer  
-- (2026-04-12) No emojis in headings — 5 consecutive merged PRs support this
-```
-
-Approved preferences are injected into the generator and evaluator prompts on subsequent runs. Rejected preferences are recorded (so they don't re-propose identically). Learnings are repo-scoped — never leaked across consumers.
-
-### 11.3 Risks and mitigations
-
-- **Overfitting to quirks** — learnings live in the consumer repo only
-- **Bad signal from silent closures** — weight explicit feedback much higher
-- **Noise amplification** — threshold prevents one-off events from becoming preferences
-- **Opaque behavior change** — every learning is user-approved before activation
+Not built pre-Phase 4. Phase 1-3 ledger entries accumulate the history that Phase 4 will mine.
 
 ---
 
