@@ -8,7 +8,7 @@ from __future__ import annotations
 import json
 from functools import lru_cache
 from pathlib import Path
-from typing import Any, Optional
+from typing import Optional
 
 import jsonschema
 
@@ -25,14 +25,23 @@ def _load_schema() -> dict:
     return json.loads(_SCHEMA_PATH.read_text())
 
 
+@lru_cache(maxsize=1)
 def _schema_validator() -> jsonschema.Draft202012Validator:
     return jsonschema.Draft202012Validator(_load_schema())
 
 
 def validate(entry: dict, *, previous: Optional[dict] = None) -> None:
-    """Validate entry against schema + conditional invariants.
+    """Validate entry against the JSON schema and conditional invariants.
 
-    Invariant 1: pr is non-null iff status == 'pr_opened'.
+    Raises LedgerInvariantError if any check fails. Checks:
+      1. JSON Schema (harness/lib/ledger.schema.json).
+      2. pr is non-null iff status == "pr_opened".
+      3. generator is null on skipped_* statuses; populated on
+         pr_opened / no_change / aborted_*; either allowed on error.
+      4. total_tokens == generator.tokens + evaluator.tokens (counting
+         absent blocks as 0).
+      5. When `previous` is supplied: run_id strictly greater than
+         previous['run_id']; ts >= previous['ts'] (non-strict).
     """
     errors = list(_schema_validator().iter_errors(entry))
     if errors:
