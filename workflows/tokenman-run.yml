@@ -85,10 +85,12 @@ jobs:
           echo "::endgroup::"
 
           # 2. Last successful run within the cooldown window?
+          # Only success and dry-run count — skip/abort/error are no-ops and
+          # should not hold back the next attempt.
           echo "::group::Check cooldown (${TOKENMAN_RUN_COOLDOWN_HOURS}h)"
           if [ -f "$TOKENMAN_LEDGER" ]; then
             LAST_TS=$(jq -r --arg skill "$TOKENMAN_SKILL" \
-              'select(.skill == $skill and .status != "skip") | .ts' \
+              'select(.skill == $skill and (.status == "success" or .status == "dry-run")) | .ts' \
               "$TOKENMAN_LEDGER" | tail -n 1)
             if [ -n "$LAST_TS" ] && [ "$LAST_TS" != "null" ]; then
               LAST_EPOCH=$(date -d "$LAST_TS" +%s)
