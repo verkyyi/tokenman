@@ -204,3 +204,52 @@ def draft(
             ) from exc
 
     return _enforce_allowlist(validated, catalog)
+
+
+class ClaudeScopeExecutor:
+    """Production executor: shells out to `claude -p` with JSON output."""
+
+    def __init__(
+        self,
+        *,
+        claude_bin: str = "claude",
+        timeout_s: int = 180,
+    ) -> None:
+        self.claude_bin = claude_bin
+        self.timeout_s = timeout_s
+
+    def run(self, *, system_prompt: str, user_payload: str) -> str:
+        argv = [
+            self.claude_bin,
+            "-p",
+            "--output-format", "json",
+            "--append-system-prompt", system_prompt,
+        ]
+        try:
+            proc = subprocess.run(
+                argv,
+                input=user_payload,
+                capture_output=True,
+                text=True,
+                timeout=self.timeout_s,
+            )
+        except subprocess.TimeoutExpired as exc:
+            raise ScopeExecutorError(
+                f"claude -p timed out after {self.timeout_s}s"
+            ) from exc
+        if proc.returncode != 0:
+            raise ScopeExecutorError(
+                f"claude -p exited {proc.returncode}: {proc.stderr.strip()}"
+            )
+        try:
+            wrapper = json.loads(proc.stdout)
+        except json.JSONDecodeError as exc:
+            raise ScopeExecutorError(
+                f"claude -p stdout is not valid JSON: {exc}"
+            ) from exc
+        result = wrapper.get("result")
+        if not isinstance(result, str):
+            raise ScopeExecutorError(
+                "claude -p JSON output missing string `result` field"
+            )
+        return result

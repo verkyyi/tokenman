@@ -135,3 +135,44 @@ def test_draft_includes_skill_md_in_payload_for_local_catalog_entries(tmp_path: 
         catalog_root=tmp_path,
     )
     assert "SCOPE: README.md only." in captured["payload"]
+
+
+def test_claude_scope_executor_parses_result_field(monkeypatch) -> None:
+    import subprocess
+    from harness.lib import scope_drafter as sd
+
+    fake_json = json.dumps({"result": '{"profile_prose":"ok"}'})
+    calls: dict[str, object] = {}
+
+    class FakeCompleted:
+        returncode = 0
+        stdout = fake_json
+        stderr = ""
+
+    def fake_run(argv, input, capture_output, text, timeout):  # noqa: A002
+        calls["argv"] = argv
+        calls["input"] = input
+        return FakeCompleted()
+
+    monkeypatch.setattr(subprocess, "run", fake_run)
+    executor = sd.ClaudeScopeExecutor(claude_bin="claude")
+    out = executor.run(system_prompt="SYS", user_payload="USER")
+    assert out == '{"profile_prose":"ok"}'
+    assert "claude" in calls["argv"][0]
+    assert "-p" in calls["argv"]
+    assert "USER" == calls["input"]
+
+
+def test_claude_scope_executor_raises_on_nonzero_exit(monkeypatch) -> None:
+    import subprocess
+    from harness.lib import scope_drafter as sd
+
+    class FakeCompleted:
+        returncode = 1
+        stdout = ""
+        stderr = "auth failure"
+
+    monkeypatch.setattr(subprocess, "run", lambda *a, **k: FakeCompleted())
+    executor = sd.ClaudeScopeExecutor(claude_bin="claude")
+    with pytest.raises(sd.ScopeExecutorError):
+        executor.run(system_prompt="SYS", user_payload="USER")
