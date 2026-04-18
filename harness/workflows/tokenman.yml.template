@@ -2,8 +2,10 @@
 # .github/workflows/tokenman.yml. This file in the library repo never
 # runs; the installed copy on a consumer does.
 #
-# Phase 1.2b-ii: workflow_dispatch only. No PAUSE/cooldown/budget/lock
-# checks yet (those are Phase 2). No schedule yet.
+# Phase 1.4: adds `mode` input. mode=single keeps the 1.2b behaviour;
+# mode=onboarding runs `python -m harness.onboard` (all enabled skills
+# in one session). No PAUSE/cooldown/budget/lock checks yet (Phase 2).
+# No schedule yet.
 #
 # Requires: secrets.ANTHROPIC_API_KEY configured on the consumer repo.
 
@@ -11,9 +13,17 @@ name: tokenman
 on:
   workflow_dispatch:
     inputs:
-      skill:
-        description: Skill to run (must exist in recommended-skills.yaml)
+      mode:
+        description: single (one skill) or onboarding (all enabled skills)
         required: true
+        default: single
+        type: choice
+        options:
+          - single
+          - onboarding
+      skill:
+        description: Skill to run (required when mode=single)
+        required: false
         default: readme-maintainer
 
 permissions:
@@ -53,14 +63,16 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           GH_TOKEN:          ${{ secrets.GITHUB_TOKEN }}
         run: |
-          python -m harness.run \
-            --skill "${{ inputs.skill }}" \
-            --repo .
+          if [ "${{ inputs.mode }}" = "onboarding" ]; then
+            python -m harness.onboard --repo .
+          else
+            python -m harness.run --skill "${{ inputs.skill }}" --repo .
+          fi
 
       - name: Upload run artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: tokenman-run-${{ github.run_id }}
+          name: tokenman-${{ inputs.mode }}-${{ github.run_id }}
           path: .tokenman/runs/
           if-no-files-found: warn
