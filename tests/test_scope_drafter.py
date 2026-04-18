@@ -43,7 +43,7 @@ def _answers() -> dict[str, str]:
             "other": ""}
 
 
-def test_draft_happy_path() -> None:
+def test_draft_happy_path(tmp_path: Path) -> None:
     executor = scope_drafter.StubScopeExecutor(canned_result=CANNED.read_text())
     draft = scope_drafter.draft(
         profile=_profile(),
@@ -51,12 +51,13 @@ def test_draft_happy_path() -> None:
         user_answers=_answers(),
         catalog=_catalog(),
         executor=executor,
+        consumer_repo=tmp_path,
     )
     assert draft["recommended_skills"][0]["name"] == "readme-maintainer"
     assert draft["suggested_boundaries"]["allowed"] == ["README.md"]
 
 
-def test_draft_demotes_non_catalog_skill() -> None:
+def test_draft_demotes_non_catalog_skill(tmp_path: Path) -> None:
     rogue = json.loads(CANNED.read_text())
     rogue["recommended_skills"].append({
         "name": "not-in-catalog",
@@ -70,6 +71,7 @@ def test_draft_demotes_non_catalog_skill() -> None:
         user_answers=_answers(),
         catalog=_catalog(),
         executor=executor,
+        consumer_repo=tmp_path,
     )
     names = [s["name"] for s in draft["recommended_skills"]]
     assert "not-in-catalog" not in names
@@ -77,7 +79,7 @@ def test_draft_demotes_non_catalog_skill() -> None:
     assert "not-in-catalog" in demoted
 
 
-def test_draft_retries_once_on_invalid_json() -> None:
+def test_draft_retries_once_on_invalid_json(tmp_path: Path) -> None:
     executor = scope_drafter.StubScopeExecutor(
         canned_sequence=["not json", CANNED.read_text()]
     )
@@ -87,12 +89,13 @@ def test_draft_retries_once_on_invalid_json() -> None:
         user_answers=_answers(),
         catalog=_catalog(),
         executor=executor,
+        consumer_repo=tmp_path,
     )
     assert draft["recommended_skills"][0]["name"] == "readme-maintainer"
     assert executor.call_count == 2
 
 
-def test_draft_raises_after_retry_exhaustion() -> None:
+def test_draft_raises_after_retry_exhaustion(tmp_path: Path) -> None:
     executor = scope_drafter.StubScopeExecutor(
         canned_sequence=["not json", "still not json"]
     )
@@ -103,6 +106,7 @@ def test_draft_raises_after_retry_exhaustion() -> None:
             user_answers=_answers(),
             catalog=_catalog(),
             executor=executor,
+            consumer_repo=tmp_path,
         )
 
 
@@ -133,6 +137,7 @@ def test_draft_includes_skill_md_in_payload_for_local_catalog_entries(tmp_path: 
         catalog=catalog,
         executor=CapturingExecutor(),
         catalog_root=tmp_path,
+        consumer_repo=tmp_path / "consumer",
     )
     assert "SCOPE: README.md only." in captured["payload"]
 

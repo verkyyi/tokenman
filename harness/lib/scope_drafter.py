@@ -92,7 +92,21 @@ def _load_framing() -> str:
     return _FRAMING_RESOURCE.read_text(encoding="utf-8")
 
 
-def _load_skill_md(catalog: dict[str, dict], catalog_root: Path) -> dict[str, Optional[str]]:
+def _load_skill_md(
+    *,
+    catalog: dict[str, dict],
+    catalog_root: Path,
+    consumer_repo: Path,
+) -> dict[str, Optional[str]]:
+    """Load SKILL.md text for each catalog entry when available.
+
+    - Local './…' source → read from <catalog_root>/<path>/SKILL.md.
+    - Remote source, installed → read from
+      <consumer_repo>/.claude/skills/<name>/SKILL.md.
+    - Remote source, not yet installed → None (the scoping prompt
+      tolerates null skill_md, falling back to the catalog entry's
+      description).
+    """
     out: dict[str, Optional[str]] = {}
     for name, entry in catalog.items():
         source = entry.get("source") if isinstance(entry, dict) else None
@@ -102,8 +116,15 @@ def _load_skill_md(catalog: dict[str, dict], catalog_root: Path) -> dict[str, Op
                 out[name] = skill_md.read_text(encoding="utf-8")
             except OSError:
                 out[name] = None
-        else:
-            out[name] = None
+            continue
+        if isinstance(source, str) and source.startswith(("https://", "http://")):
+            installed = consumer_repo / ".claude" / "skills" / name / "SKILL.md"
+            try:
+                out[name] = installed.read_text(encoding="utf-8")
+            except OSError:
+                out[name] = None
+            continue
+        out[name] = None
     return out
 
 
@@ -171,12 +192,17 @@ def draft(
     user_answers: dict[str, str],
     catalog: dict[str, dict],
     executor: ScopeExecutor,
+    consumer_repo: Path,
     catalog_root: Optional[Path] = None,
     prompt_version: str = "v1",
 ) -> ScopeDraft:
     if catalog_root is None:
         catalog_root = Path(__file__).resolve().parents[2]
-    skill_md = _load_skill_md(catalog, catalog_root)
+    skill_md = _load_skill_md(
+        catalog=catalog,
+        catalog_root=catalog_root,
+        consumer_repo=consumer_repo,
+    )
     payload = _build_payload(
         profile=profile, plugins=plugins, user_answers=user_answers,
         catalog=catalog, skill_md=skill_md,

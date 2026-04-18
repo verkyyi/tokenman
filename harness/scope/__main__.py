@@ -12,9 +12,7 @@ import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 
-import yaml
-
-from harness.lib import marketplace, repo_profile, scope_drafter
+from harness.lib import catalog, marketplace, repo_profile, scope_drafter
 from harness.lib.repo_profile import RepoProfile
 from harness.lib.scope_drafter import ScopeDraft
 
@@ -151,22 +149,6 @@ def _render_markdown(
     return "\n".join(lines)
 
 
-def _tokenman_root() -> Path:
-    """Find the tokenman library repo root (holds recommended-skills.yaml)."""
-    here = Path(__file__).resolve()
-    for candidate in here.parents:
-        if (candidate / "recommended-skills.yaml").is_file():
-            return candidate
-    raise SystemExit("recommended-skills.yaml not found; is tokenman installed?")
-
-
-def _load_catalog(root: Path) -> dict[str, dict]:
-    data = yaml.safe_load((root / "recommended-skills.yaml").read_text()) or {}
-    if not isinstance(data, dict):
-        raise SystemExit("recommended-skills.yaml must be a mapping")
-    return data
-
-
 _QUESTIONS = [
     ("purpose", "What's this repo for? (one line)"),
     ("concern",
@@ -191,7 +173,7 @@ def _ask_interactive(non_interactive: bool) -> dict[str, str]:
 
 
 def _get_stub_result() -> str:
-    path = _tokenman_root() / "tests" / "fixtures" / "scope-captures" / "minimal.json"
+    path = catalog.tokenman_root() / "tests" / "fixtures" / "scope-captures" / "minimal.json"
     return path.read_text()
 
 
@@ -249,8 +231,12 @@ def main(argv: list[str] | None = None) -> int:
     plugins = marketplace.list_plugins(refresh=args.refresh)
     marketplaces_empty = not plugins
 
-    root = _tokenman_root()
-    catalog = _load_catalog(root)
+    try:
+        root = catalog.tokenman_root()
+        catalog_data = catalog.load_catalog(root)
+    except catalog.SkillResolutionError as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 2
 
     answers = _ask_interactive(args.non_interactive)
 
@@ -264,7 +250,8 @@ def main(argv: list[str] | None = None) -> int:
     try:
         draft = scope_drafter.draft(
             profile=profile, plugins=plugins, user_answers=answers,
-            catalog=catalog, executor=executor, catalog_root=root,
+            catalog=catalog_data, executor=executor, catalog_root=root,
+            consumer_repo=repo,
         )
     except (scope_drafter.ScopeExecutorError, scope_drafter.ScopeDrafterError) as exc:
         print(f"error: {exc}", file=sys.stderr)

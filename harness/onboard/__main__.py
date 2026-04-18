@@ -13,45 +13,13 @@ from typing import Optional
 
 import yaml
 
-from harness.lib import onboarder, summary
+from harness.lib import catalog, onboarder, summary
 from harness.lib.onboarder import OnboardingBudget, OnboardingError
 from harness.lib.pr_opener import FakePROpener, GhPROpener
 from harness.lib.skill_executor import ClaudeSkillExecutor, StubSkillExecutor
 
 
 _DEFAULT_PER_RUN = 30_000
-
-
-def _tokenman_root() -> Path:
-    """Find the tokenman library repo root (holds recommended-skills.yaml)."""
-    here = Path(__file__).resolve()
-    for candidate in here.parents:
-        if (candidate / "recommended-skills.yaml").is_file():
-            return candidate
-    raise SystemExit("recommended-skills.yaml not found; is tokenman installed?")
-
-
-def _load_catalog(root: Path) -> dict[str, dict]:
-    data = yaml.safe_load((root / "recommended-skills.yaml").read_text()) or {}
-    if not isinstance(data, dict):
-        raise SystemExit("recommended-skills.yaml must be a mapping")
-    return data
-
-
-def _resolve_skill_dir(skill_name: str, catalog: dict, root: Path) -> Path:
-    entry = catalog.get(skill_name)
-    if entry is None:
-        raise SystemExit(
-            f"skill {skill_name!r} not in recommended-skills.yaml"
-        )
-    source = entry.get("source")
-    if source is None:
-        raise SystemExit(f"skill {skill_name!r} has no 'source' field")
-    if source.startswith("./"):
-        return (root / source[2:]).resolve()
-    raise SystemExit(
-        f"remote skill sources land in Phase 1.5; got {source!r}"
-    )
 
 
 def _enabled_skills_from_config(config_path: Path) -> list[str]:
@@ -121,8 +89,12 @@ def main(argv: Optional[list[str]] = None) -> int:
         )
         return 2
 
-    root = _tokenman_root()
-    catalog = _load_catalog(root)
+    try:
+        root = catalog.tokenman_root()
+        catalog_data = catalog.load_catalog(root)
+    except catalog.SkillResolutionError as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 2
 
     if args.dry_run:
         # Every skill resolves to the same stub fixture; substitute fakes.
@@ -133,10 +105,18 @@ def main(argv: Optional[list[str]] = None) -> int:
     else:
         try:
             skills = [
-                (name, _resolve_skill_dir(name, catalog, root))
+                (
+                    name,
+                    catalog.resolve_skill_dir(
+                        skill_name=name,
+                        catalog=catalog_data,
+                        tokenman_root=root,
+                        consumer_repo=repo,
+                    ),
+                )
                 for name in skill_names
             ]
-        except SystemExit as exc:
+        except catalog.SkillResolutionError as exc:
             print(f"error: {exc}", file=sys.stderr)
             return 2
         executor = ClaudeSkillExecutor(claude_bin=args.claude_bin)
