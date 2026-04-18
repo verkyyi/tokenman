@@ -1,21 +1,66 @@
-# TEMPLATE — installed into consumer repos at /tokenman init as
-# .github/workflows/tokenman.yml. This file in the library repo never runs;
-# the installed copy on a consumer does.
+# TEMPLATE — installed into consumer repos at `/tokenman init` as
+# .github/workflows/tokenman.yml. This file in the library repo never
+# runs; the installed copy on a consumer does.
 #
-# Phase 0: stub. Phase 1 adds trigger-check + generator steps.
+# Phase 1.2b-ii: workflow_dispatch only. No PAUSE/cooldown/budget/lock
+# checks yet (those are Phase 2). No schedule yet.
+#
+# Requires: secrets.ANTHROPIC_API_KEY configured on the consumer repo.
 
 name: tokenman
 on:
   workflow_dispatch:
     inputs:
-      mode:
-        description: run mode (scheduled | onboarding | smoke)
-        default: scheduled
+      skill:
+        description: Skill to run (must exist in recommended-skills.yaml)
+        required: true
+        default: readme-maintainer
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
   tokenman-run:
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          echo "tokenman.yml.template — Phase 0 stub. Not yet implemented."
-          exit 0
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install tokenman harness
+        run: pip install git+https://github.com/verkyyi/tokenman.git@main
+
+      - name: Install claude CLI
+        # TODO(1.2b-impl): resolve the actual install command at
+        # implementation time. Candidates include:
+        #   npm install -g @anthropic-ai/claude-code
+        #   curl -sSL https://claude.ai/install | sh
+        # Verify the chosen command during the manual smoke step.
+        run: |
+          echo "TODO: install claude here"
+          exit 1   # fail fast until the TODO is resolved
+
+      - name: Configure git identity for bot commits
+        run: |
+          git config --global user.email "tokenman-bot@users.noreply.github.com"
+          git config --global user.name  "tokenman-bot"
+
+      - name: Run tokenman
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GH_TOKEN:          ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python -m harness.run \
+            --skill "${{ inputs.skill }}" \
+            --repo .
+
+      - name: Upload run artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tokenman-run-${{ github.run_id }}
+          path: .tokenman/runs/
+          if-no-files-found: warn
