@@ -20,6 +20,8 @@ class ExecutionResult:
     proposed_diff_path: Optional[Path]
     proposed_md_path: Optional[Path]
     summary: str
+    prompt_version: str = "unknown"
+    tokens: int = 0
 
 
 class SkillExecutor(Protocol):
@@ -73,4 +75,6 @@ class StubSkillExecutor:
             proposed_diff_path=diff if diff.is_file() else None,
             proposed_md_path=md if md.is_file() else None,
             summary=first_stdout_line,
+            prompt_version="stub-v1",
+            tokens=0,
         )

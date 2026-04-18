@@ -105,6 +105,7 @@ def test_run_skill_propose_diff_opens_pr(tmp_path: Path) -> None:
     # stub fixture diff has 2 content +/- lines (2x '+'), headers excluded.
     assert entry["generator"]["diff_lines"] == 2
     assert entry["generator"]["prompt_version"] == "stub-v1"
+    assert entry["generator"]["tokens"] == 0
     assert entry["evaluator"] is None
     assert entry["total_tokens"] == 0
 
@@ -148,6 +149,7 @@ def test_run_skill_no_change_skips_pr_opener(tmp_path: Path) -> None:
     assert entry["status"] == "no_change"
     assert entry["pr"] is None
     assert entry["generator"]["diff_lines"] == 0
+    assert entry["generator"]["prompt_version"] == "stub-v1"
     assert entry["generator"]["tokens"] == 0
     assert entry["total_tokens"] == 0
     assert pr_opener.calls == []

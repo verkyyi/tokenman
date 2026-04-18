@@ -99,19 +99,19 @@ def run_skill(
     elif result.proposed_diff_path is None:
         status = "no_change"
         generator = {
-            "prompt_version": "stub-v1",
+            "prompt_version": result.prompt_version,
             "output_summary": result.summary,
             "diff_lines": 0,
-            "tokens": 0,
+            "tokens": result.tokens,
         }
         pr = None
     else:
         diff_lines = _count_diff_lines(diff_text)
         generator = {
-            "prompt_version": "stub-v1",
+            "prompt_version": result.prompt_version,
             "output_summary": result.summary,
             "diff_lines": diff_lines,
-            "tokens": 0,
+            "tokens": result.tokens,
         }
         try:
             pr = pr_opener.open(

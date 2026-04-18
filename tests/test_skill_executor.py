@@ -21,6 +21,8 @@ def test_stub_no_change_mode(tmp_path: Path) -> None:
     assert result.proposed_md_path is None
     assert "no changes needed" in result.stdout
     assert result.summary.startswith("stub-readme: no changes")
+    assert result.prompt_version == "stub-v1"
+    assert result.tokens == 0
 
 
 def test_stub_propose_diff_mode(tmp_path: Path) -> None:
@@ -33,6 +35,8 @@ def test_stub_propose_diff_mode(tmp_path: Path) -> None:
     assert result.proposed_md_path.is_file()
     assert "proposed 1 diff" in result.stdout
     assert "Stub-readme added this line" in result.proposed_diff_path.read_text()
+    assert result.prompt_version == "stub-v1"
+    assert result.tokens == 0
 
 
 def test_stub_crash_mode(tmp_path: Path) -> None:
@@ -41,6 +45,8 @@ def test_stub_crash_mode(tmp_path: Path) -> None:
     assert result.exit_code == 2
     assert "crashing on purpose" in result.stderr
     assert result.proposed_diff_path is None
+    assert result.prompt_version == "stub-v1"
+    assert result.tokens == 0
 
 
 def test_stub_default_mode_is_no_change(tmp_path: Path) -> None:
