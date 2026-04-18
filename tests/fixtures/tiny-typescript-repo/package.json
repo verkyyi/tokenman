@@ -4,6 +4,6 @@
   "description": "Fixture consumer for tokenman harness testing",
   "type": "module",
   "scripts": {
-    "test": "node --test tests/"
+    "test": "node --test tests/smoke.test.ts"
   }
 }
