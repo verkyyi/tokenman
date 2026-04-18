@@ -1,0 +1,16 @@
+{
+  "name": "one",
+  "plugins": [
+    {
+      "name": "readme-sync",
+      "description": "Keep README in sync with code",
+      "category": "docs",
+      "homepage": "https://example.com/readme-sync"
+    },
+    {
+      "name": "dep-bumper",
+      "description": "Bump deps safely",
+      "category": "maintenance"
+    }
+  ]
+}
