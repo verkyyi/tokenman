@@ -224,7 +224,14 @@ jobs:
           START=$(date -u +%s)
           RESPONSE_FILE=$(mktemp)
           set +e
-          claude -p "$PROMPT" --output-format json > "$RESPONSE_FILE" 2>&1
+          # --dangerously-skip-permissions: required for headless CI. Without
+          # it, Claude's bash/write/edit calls require interactive approval
+          # and the skill can't run any tool. CI runners are isolated
+          # environments, so auto-approving is correct here.
+          claude -p "$PROMPT" \
+            --output-format json \
+            --dangerously-skip-permissions \
+            > "$RESPONSE_FILE" 2>&1
           CLAUDE_EXIT=$?
           set -e
           END=$(date -u +%s)
