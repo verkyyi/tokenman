@@ -146,6 +146,18 @@ jobs:
             echo "run_id=$RUN_ID"
           } >> "$GITHUB_OUTPUT"
 
+      - name: Setup skill dependencies
+        if: steps.gate.outputs.skip != 'true'
+        run: |
+          set -euo pipefail
+          SETUP=".claude/skills/${TOKENMAN_SKILL}/setup.sh"
+          if [ -f "$SETUP" ]; then
+            echo "Running $SETUP"
+            bash "$SETUP"
+          else
+            echo "No $SETUP — skipping skill-specific setup."
+          fi
+
       - name: Run dead-code-cleanup via claude -p
         id: run_skill
         if: steps.gate.outputs.skip != 'true'
