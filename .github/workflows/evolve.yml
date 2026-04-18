@@ -24,16 +24,21 @@ jobs:
           fetch-depth: 50
 
       - name: Check onboarding complete
+        id: gate
         run: |
           if [ ! -f state/evolve_config.md ]; then
             echo "::warning::Onboarding not complete. Run: claude 'Set up tokenman. Follow https://github.com/verkyyi/tokenman/blob/main/docs/onboarding.md'"
-            exit 0
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Install Claude Code
+        if: steps.gate.outputs.skip != 'true'
         run: npm install -g @anthropic-ai/claude-code
 
       - name: Build evolution prompt
+        if: steps.gate.outputs.skip != 'true'
         run: |
           cat > /tmp/prompt.txt << 'PROMPT'
           You are a self-directing research agent for this project. Your mission:
@@ -333,11 +338,13 @@ jobs:
           PROMPT
 
       - name: Git identity
+        if: steps.gate.outputs.skip != 'true'
         run: |
           git config user.name "tokenman"
           git config user.email "tokenman@users.noreply.github.com"
 
       - name: Run Claude Code
+        if: steps.gate.outputs.skip != 'true'
         run: |
           claude -p "$(cat /tmp/prompt.txt)" \
             --model opus \
@@ -353,7 +360,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
 
       - name: Validate posture output
-        if: always()
+        if: always() && steps.gate.outputs.skip != 'true'
         run: |
           # Runs before commit-state.sh wipes local files via git checkout.
           # Validates the posture system produced expected output format.
@@ -400,7 +407,7 @@ jobs:
           fi
 
       - name: Log usage metrics
-        if: always()
+        if: always() && steps.gate.outputs.skip != 'true'
         run: |
           TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)
           if [ -f /tmp/claude_output.json ]; then
@@ -423,7 +430,7 @@ jobs:
           awk -v c="$CUTOFF" 'NR==1{print;next} $0>=c' state/usage_log.md > /tmp/usage_trimmed.md && mv /tmp/usage_trimmed.md state/usage_log.md
 
       - name: Commit state changes via API
-        if: always()
+        if: always() && steps.gate.outputs.skip != 'true'
         run: |
           for f in $(git diff --name-only state/ 2>/dev/null; git ls-files --others --exclude-standard state/ 2>/dev/null); do
             ./scripts/commit-state.sh "$f" "state: evolve — $(date -u +%Y-%m-%dT%H:%M)"
@@ -432,6 +439,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
 
       - name: Commit non-state changes
+        if: steps.gate.outputs.skip != 'true'
         run: |
           git add CLAUDE.md skills/ README.md public/robots.txt src/layouts/Base.astro src/pages/index.astro
           if ! git diff --cached --quiet; then
@@ -453,6 +461,7 @@ jobs:
           fi
 
       - name: Trigger triage for new issues
+        if: steps.gate.outputs.skip != 'true'
         run: |
           if [ -f .new_issues.txt ]; then
             while read -r NUM; do
@@ -474,7 +483,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
 
       - name: Trigger discovery if needed
-        if: hashFiles('.trigger-discovery.txt') != ''
+        if: hashFiles('.trigger-discovery.txt') != '' && steps.gate.outputs.skip != 'true'
         run: |
           APP=$(cat .trigger-discovery.txt)
           gh workflow run discover.yml -f app_name="$APP"

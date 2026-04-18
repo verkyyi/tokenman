@@ -141,3 +141,4 @@ If a merged self-improvement causes a regression:
 # Each line = a past mistake, now prevented.
 # Add here. Never remove. Date every entry.
 # (Empty on fresh scaffold — grows with your project)
+- 2026-04-16: Workflow disable mechanism broken — `exit 0` inside a `run:` block only exits the step (with success), it does NOT halt the workflow. Gate step using `if [ ! -f state/evolve_config.md ]; then exit 0; fi` let every subsequent step run, burning ~$10 across 5 evolve runs against a human disable intent. Fix: gate step sets `steps.gate.outputs.skip` via `$GITHUB_OUTPUT`; every post-gate step carries `if: steps.gate.outputs.skip != 'true'`. Prevention: when gating a workflow, condition subsequent steps with `if:`, never rely on `exit 0` to halt execution. (#173)

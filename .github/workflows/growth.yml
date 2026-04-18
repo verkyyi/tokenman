@@ -25,16 +25,21 @@ jobs:
           fetch-depth: 50
 
       - name: Check onboarding complete
+        id: gate
         run: |
           if [ ! -f state/evolve_config.md ]; then
             echo "::warning::Onboarding not complete. Run: claude 'Set up tokenman. Follow https://github.com/verkyyi/tokenman/blob/main/docs/onboarding.md'"
-            exit 0
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Install Claude Code
+        if: steps.gate.outputs.skip != 'true'
         run: npm install -g @anthropic-ai/claude-code
 
       - name: Collect growth context
+        if: steps.gate.outputs.skip != 'true'
         run: |
           echo "=== GROWTH METRICS ===" > /tmp/growth_context.txt
           cat state/growth_metrics.md >> /tmp/growth_context.txt
@@ -70,6 +75,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
 
       - name: Build growth prompt
+        if: steps.gate.outputs.skip != 'true'
         run: |
           GROWTH_CONTEXT=$(cat /tmp/growth_context.txt)
           LEARNED_RULES=$(cat state/learned_rules.md)
@@ -199,6 +205,7 @@ jobs:
           PROMPTEND
 
       - name: Run growth strategist
+        if: steps.gate.outputs.skip != 'true'
         run: |
           claude -p "$(cat /tmp/growth_prompt.txt)" \
             --model opus \
@@ -213,7 +220,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
 
       - name: Log usage metrics
-        if: always()
+        if: always() && steps.gate.outputs.skip != 'true'
         run: |
           TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)
           if [ -f /tmp/claude_output.json ]; then
@@ -234,7 +241,7 @@ jobs:
           awk -v c="$CUTOFF" 'NR==1{print;next} $0>=c' state/usage_log.md > /tmp/usage_trimmed.md && mv /tmp/usage_trimmed.md state/usage_log.md
 
       - name: Commit state changes via API
-        if: always()
+        if: always() && steps.gate.outputs.skip != 'true'
         run: |
           for f in $(git diff --name-only state/ 2>/dev/null); do
             ./scripts/commit-state.sh "$f" "state: growth strategy run — $(date -u +%Y-%m-%dT%H:%M)"
@@ -243,6 +250,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
 
       - name: Trigger triage for new issues
+        if: steps.gate.outputs.skip != 'true'
         run: |
           if [ -f .new_issues.txt ]; then
             while read -r NUM; do
