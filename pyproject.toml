@@ -10,9 +10,10 @@ dev = [
   "jsonschema>=4.21",
 ]
 
-[tool.setuptools]
-packages = []
-
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 norecursedirs = ["tests/fixtures"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["harness*"]
