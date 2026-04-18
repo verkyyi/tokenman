@@ -51,6 +51,13 @@ def main(argv: Optional[list[str]] = None) -> int:
 
     if args.catalog_path:
         catalog_path = Path(args.catalog_path).resolve()
+        if catalog_path.name != "recommended-skills.yaml":
+            print(
+                f"error: --catalog-path must end in 'recommended-skills.yaml'; "
+                f"got {catalog_path.name!r}",
+                file=sys.stderr,
+            )
+            return 2
         root = catalog_path.parent
     else:
         try:
@@ -84,7 +91,7 @@ def main(argv: Optional[list[str]] = None) -> int:
             entry = catalog_data.get(name)
             src = entry.get("source") if entry else "<unknown>"
             ver = entry.get("version") if entry else "<unknown>"
-            print(f"[dry-run] would install {name} from {src} @ {ver}")
+            print(f"[dry-run] would attempt to install {name} from {src} @ {ver}")
         return 0
 
     final_exit = 0
