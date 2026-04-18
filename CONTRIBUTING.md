@@ -70,6 +70,20 @@ The canonical ledger schema lives at `harness/lib/ledger.schema.json`;
 test fixtures at `tests/ledgers/*.jsonl`. The test suite validates every
 fixture entry against the schema, so schema drift fails fast.
 
+## Harness runtime modules
+
+The Python harness lives under `harness/lib/`:
+
+- `harness/lib/ledger.schema.json` — canonical ledger shape (from Phase 1.1).
+- `harness/lib/ledger.py` — `validate()`, `append()`, `last_run_id()`. Enforces the conditional invariants the JSON Schema cannot express.
+- `harness/lib/skill_executor.py` — `ExecutionResult`, `SkillExecutor` Protocol, `StubSkillExecutor` (tests only). Phase 1.2b adds `ClaudeSkillExecutor`.
+- `harness/lib/pr_opener.py` — `PROpener` Protocol, `FakePROpener` (tests only). Phase 1.2b adds `GhPROpener`.
+- `harness/lib/runner.py` — `run_skill`, the orchestrator.
+
+Tests for each module live at `tests/test_<module>.py`. The stub skill used by executor + runner integration tests lives at `tests/fixtures/skills/stub-readme/`.
+
+Run `pytest` from the repo root after `pip install -e '.[dev]'`.
+
 ## Status
 
 Phase 0 scaffolding is in place. Phase 1.1 has locked the ledger
