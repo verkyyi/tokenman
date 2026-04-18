@@ -109,6 +109,17 @@ tokenman/
         └── .gitkeep                   # empty dir tracked
 ```
 
+### Note: deviation from spec §10.1
+
+Spec §10.1 says "the workflow file exists but will not execute while
+PAUSE is present." Phase 0 takes a safer approach: no workflow file is
+installed yet. The directory `.github/workflows/` exists (tracked via
+`.gitkeep`) but contains no workflow. `.github/workflows/tokenman.yml`
+is installed at the Phase 3 gate alongside PAUSE removal. The PAUSE
+file still sits in the runtime zone at Phase 0 as a leading indicator
+of the paused posture and to catch accidental workflow installation
+before Phase 3.
+
 ## File contents
 
 ### `.tokenman/CLAUDE.md` (paranoid boundaries)

@@ -37,9 +37,11 @@ caps and a `dogfood:` field in `tokenman.yaml`.
 ### Why the separation matters
 
 Updates to `harness/workflows/tokenman.yml.template` (source) do NOT
-automatically update `.github/workflows/tokenman.yml` (runtime). The
-runtime copy is a deliberate install step. This preserves the ability
-to ship library changes without immediately dogfooding them.
+automatically update `.github/workflows/tokenman.yml` (runtime, once
+installed). The runtime copy is a deliberate install step. At Phase 0
+the runtime workflow file does not exist yet — it is installed when
+dogfood unpauses at Phase 3. This preserves the ability to ship library
+changes without immediately dogfooding them.
 
 ## Commit conventions
 
