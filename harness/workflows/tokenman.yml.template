@@ -5,7 +5,7 @@
 # Actions-first runtime template. mode=single runs one maintainer;
 # mode=onboarding runs every enabled maintainer in one session.
 #
-# Requires: secrets.ANTHROPIC_API_KEY configured on the consumer repo.
+# Requires: secrets.CLAUDE_CODE_OAUTH_TOKEN configured on the consumer repo.
 
 name: tokenman
 on:
@@ -66,8 +66,8 @@ jobs:
 
       - name: Run tokenman
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          GH_TOKEN:          ${{ secrets.GITHUB_TOKEN }}
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          GH_TOKEN:                 ${{ secrets.GITHUB_TOKEN }}
         run: |
           if [ "${{ inputs.mode }}" = "onboarding" ]; then
             python -m harness.onboard --repo . --runtime-mode actions

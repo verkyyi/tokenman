@@ -43,6 +43,7 @@ def test_workflow_run_step_branches_on_mode() -> None:
     assert "python -m harness.run" in raw
     assert "--runtime-mode actions" in raw
     assert "npm install -g @anthropic-ai/claude-code" in raw
+    assert "CLAUDE_CODE_OAUTH_TOKEN" in raw
     assert "exit 1" not in raw
 
 
