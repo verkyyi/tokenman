@@ -38,3 +38,29 @@ def test_onboarding_result_carries_entries_totals_and_breach_flag() -> None:
     assert r.finished_at == finished
     assert r.breached_ceiling is False
     assert r.entries == []
+
+
+from harness.lib import ledger
+from harness.lib.onboarder import _synth_skipped_entry
+
+
+def test_synth_skipped_entry_is_schema_valid_skipped_budget() -> None:
+    when = datetime(2026, 4, 18, 10, 0, 0, tzinfo=timezone.utc)
+    entry = _synth_skipped_entry(
+        skill_name="readme-maintainer",
+        run_id="r-0042",
+        now=when,
+    )
+    # Should not raise.
+    ledger.validate(entry)
+    assert entry["run_id"] == "r-0042"
+    assert entry["skill"] == "readme-maintainer"
+    assert entry["status"] == "skipped_budget"
+    assert entry["pr"] is None
+    assert entry["generator"] is None
+    assert entry["evaluator"] is None
+    assert entry["duration_s"] == 0
+    assert entry["total_tokens"] == 0
+    assert entry["verdict"] is None
+    assert entry["verdict_note"] is None
+    assert entry["ts"] == "2026-04-18T10:00:00Z"
