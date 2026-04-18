@@ -7,6 +7,7 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 
+from harness.lib.ledger import LedgerEntry
 from harness.lib.onboarder import OnboardingResult
 
 
@@ -20,7 +21,7 @@ def _utilization_pct(total: int, ceiling: int) -> str:
     return f"{(100 * total / ceiling):.1f}%"
 
 
-def _entry_line(entry: dict) -> str:
+def _entry_line(entry: LedgerEntry) -> str:
     skill = entry["skill"]
     status = entry["status"]
     tokens = _fmt_int(entry["total_tokens"])
@@ -37,7 +38,7 @@ def _entry_line(entry: dict) -> str:
     return f"- **{skill}** — {status} ({tokens} tok) → {tail}"
 
 
-def _pr_lines(entries: list[dict]) -> list[str]:
+def _pr_lines(entries: list[LedgerEntry]) -> list[str]:
     out = []
     for e in entries:
         if e["status"] != "pr_opened":
@@ -52,7 +53,7 @@ def _pr_lines(entries: list[dict]) -> list[str]:
     return out
 
 
-def _considered_lines(entries: list[dict]) -> list[str]:
+def _considered_lines(entries: list[LedgerEntry]) -> list[str]:
     out = []
     for e in entries:
         if e["status"] != "no_change":
@@ -65,7 +66,7 @@ def _considered_lines(entries: list[dict]) -> list[str]:
     return out
 
 
-def _skipped_lines(entries: list[dict]) -> list[str]:
+def _skipped_lines(entries: list[LedgerEntry]) -> list[str]:
     out = []
     for e in entries:
         status = e["status"]
