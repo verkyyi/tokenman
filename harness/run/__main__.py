@@ -15,7 +15,8 @@ import sys
 from pathlib import Path
 from typing import Optional
 
-from harness.lib import catalog, runner
+from harness.lib import catalog, ledger, runner
+from harness.lib.git_ops import GitIdentity
 from harness.lib.pr_opener import FakePROpener, GhPROpener
 from harness.lib.skill_executor import ClaudeSkillExecutor, StubSkillExecutor
 
@@ -26,6 +27,20 @@ def _default_runtime_mode() -> str:
 
 def _exit_code_for_entry(entry: dict[str, object]) -> int:
     return 1 if entry.get("status") == "error" else 0
+
+
+def _default_ledger_target(
+    *,
+    repo: Path,
+    runtime_mode: str,
+    ledger_path_arg: str | None,
+    git_identity: GitIdentity,
+) -> ledger.LedgerTarget:
+    if ledger_path_arg:
+        return Path(ledger_path_arg).resolve()
+    if runtime_mode == "actions":
+        return ledger.StateBranchLedgerStore(repo_dir=repo, identity=git_identity)
+    return repo / ".tokenman" / "ledger.jsonl"
 
 
 def main(argv: Optional[list[str]] = None) -> int:
@@ -45,9 +60,12 @@ def main(argv: Optional[list[str]] = None) -> int:
     args = parser.parse_args(argv)
 
     repo = Path(args.repo).resolve()
-    ledger_path = (
-        Path(args.ledger_path) if args.ledger_path
-        else repo / ".tokenman" / "ledger.jsonl"
+    git_identity = GitIdentity("tokenman-bot", "tokenman@local")
+    ledger_target = _default_ledger_target(
+        repo=repo,
+        runtime_mode=args.runtime_mode,
+        ledger_path_arg=args.ledger_path,
+        git_identity=git_identity,
     )
     runs_dir = (
         Path(args.runs_dir) if args.runs_dir
@@ -89,12 +107,13 @@ def main(argv: Optional[list[str]] = None) -> int:
     entry = runner.run_skill(
         skill_dir=effective_skill_dir,
         repo_dir=repo,
-        ledger_path=ledger_path,
+        ledger_path=ledger_target,
         runs_dir=runs_dir,
         executor=executor,
         pr_opener=pr_opener,
         skill_name=args.skill,
         base_branch=args.base_branch,
+        git_identity=git_identity,
         runtime_mode=args.runtime_mode,
     )
     print(json.dumps(entry, separators=(",", ":")))

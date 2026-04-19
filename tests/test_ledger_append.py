@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import copy
 import json
+import subprocess
 from pathlib import Path
 
 import pytest
@@ -277,3 +278,56 @@ def test_invariant_ts_equal_to_previous_accepted(tmp_path: Path) -> None:
     same_ts["ts"] = "2026-04-18T12:00:00Z"
     same_ts["pr"] = 1001
     ledger.append(p, same_ts)
+
+
+def _seed_git_repo_with_remote(repo: Path, remote: Path) -> None:
+    subprocess.run(["git", "init", "--bare", str(remote)], check=True, capture_output=True)
+    subprocess.run(["git", "-C", str(repo), "init", "-b", "main"], check=True, capture_output=True)
+    subprocess.run(["git", "-C", str(repo), "config", "user.email", "seed@local"], check=True)
+    subprocess.run(["git", "-C", str(repo), "config", "user.name", "seed"], check=True)
+    (repo / "README.md").write_text("seed\n")
+    subprocess.run(["git", "-C", str(repo), "add", "README.md"], check=True)
+    subprocess.run(
+        ["git", "-C", str(repo), "commit", "-m", "seed"],
+        check=True,
+        capture_output=True,
+    )
+    subprocess.run(["git", "-C", str(repo), "remote", "add", "origin", str(remote)], check=True)
+    subprocess.run(
+        ["git", "-C", str(repo), "push", "-u", "origin", "main"],
+        check=True,
+        capture_output=True,
+    )
+
+
+def test_state_branch_store_appends_and_reads_last_run_id(tmp_path: Path) -> None:
+    repo = tmp_path / "repo"
+    repo.mkdir()
+    remote = tmp_path / "remote.git"
+    _seed_git_repo_with_remote(repo, remote)
+
+    store = ledger.StateBranchLedgerStore(repo_dir=repo)
+    assert ledger.last_run_id(store) is None
+
+    e1 = copy.deepcopy(VALID_PR_OPENED)
+    ledger.append(store, e1)
+    assert ledger.last_run_id(store) == 1
+
+    e2 = copy.deepcopy(VALID_PR_OPENED)
+    e2["run_id"] = "r-0002"
+    e2["ts"] = "2026-04-18T12:00:01Z"
+    e2["pr"] = 1001
+    ledger.append(store, e2)
+    assert ledger.last_run_id(store) == 2
+
+    subprocess.run(
+        ["git", "-C", str(repo), "fetch", "origin", "tokenman-state:refs/heads/tokenman-state"],
+        check=True,
+        capture_output=True,
+    )
+    raw = subprocess.check_output(
+        ["git", "-C", str(repo), "show", "tokenman-state:ledger.jsonl"],
+        text=True,
+    )
+    lines = [json.loads(line) for line in raw.splitlines() if line.strip()]
+    assert [line["run_id"] for line in lines] == ["r-0001", "r-0002"]

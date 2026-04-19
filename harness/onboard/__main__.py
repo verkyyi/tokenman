@@ -14,7 +14,8 @@ from typing import Optional
 
 import yaml
 
-from harness.lib import catalog, onboarder, summary
+from harness.lib import catalog, ledger, onboarder, summary
+from harness.lib.git_ops import GitIdentity
 from harness.lib.onboarder import OnboardingBudget, OnboardingError
 from harness.lib.pr_opener import FakePROpener, GhPROpener
 from harness.lib.skill_executor import ClaudeSkillExecutor, StubSkillExecutor
@@ -29,6 +30,20 @@ def _default_runtime_mode() -> str:
 
 def _exit_code_for_result(result: onboarder.OnboardingResult) -> int:
     return 1 if any(entry["status"] == "error" for entry in result.entries) else 0
+
+
+def _default_ledger_target(
+    *,
+    repo: Path,
+    runtime_mode: str,
+    ledger_path_arg: str | None,
+    git_identity: GitIdentity,
+) -> ledger.LedgerTarget:
+    if ledger_path_arg:
+        return Path(ledger_path_arg).resolve()
+    if runtime_mode == "actions":
+        return ledger.StateBranchLedgerStore(repo_dir=repo, identity=git_identity)
+    return repo / ".tokenman" / "ledger.jsonl"
 
 
 def _enabled_skills_from_config(config_path: Path) -> list[str]:
@@ -71,13 +86,16 @@ def main(argv: Optional[list[str]] = None) -> int:
     args = parser.parse_args(argv)
 
     repo = Path(args.repo).resolve()
+    git_identity = GitIdentity("tokenman-bot", "tokenman@local")
     config_path = (
         Path(args.config_path).resolve() if args.config_path
         else repo / ".tokenman" / "tokenman.yaml"
     )
-    ledger_path = (
-        Path(args.ledger_path).resolve() if args.ledger_path
-        else repo / ".tokenman" / "ledger.jsonl"
+    ledger_target = _default_ledger_target(
+        repo=repo,
+        runtime_mode=args.runtime_mode,
+        ledger_path_arg=args.ledger_path,
+        git_identity=git_identity,
     )
     runs_dir = (
         Path(args.runs_dir).resolve() if args.runs_dir
@@ -150,12 +168,13 @@ def main(argv: Optional[list[str]] = None) -> int:
         result = onboarder.run_onboarding(
             skills=skills,
             repo_dir=repo,
-            ledger_path=ledger_path,
+            ledger_path=ledger_target,
             runs_dir=runs_dir,
             executor=executor,
             pr_opener=pr_opener,
             budget=budget,
             base_branch=args.base_branch,
+            git_identity=git_identity,
             runtime_mode=args.runtime_mode,
         )
     except OnboardingError as exc:
