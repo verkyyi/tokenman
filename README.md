@@ -89,7 +89,7 @@ The MVP user-facing files are:
 - `README.md`
 
 The `harness/` package remains as internal implementation code for the
-action runtime, ledger, and local debugging path.
+action runtime, ledger, and validation flow.
 
 ## License
 

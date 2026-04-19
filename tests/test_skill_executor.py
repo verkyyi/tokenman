@@ -9,12 +9,17 @@ from harness.lib.skill_executor import StubSkillExecutor
 
 REPO_ROOT = Path(__file__).parent.parent
 STUB_SKILL_DIR = REPO_ROOT / "tests" / "fixtures" / "skills" / "stub-readme"
-FIXTURE_REPO = REPO_ROOT / "tests" / "fixtures" / "tiny-python-repo"
+
+
+def _make_repo(path: Path) -> Path:
+    path.mkdir(parents=True, exist_ok=True)
+    (path / "README.md").write_text("# Title\n", encoding="utf-8")
+    return path
 
 
 def test_stub_no_change_mode(tmp_path: Path) -> None:
     executor = StubSkillExecutor(extra_env={"STUB_MODE": "no_change"})
-    result = executor.execute(STUB_SKILL_DIR, FIXTURE_REPO, tmp_path)
+    result = executor.execute(STUB_SKILL_DIR, _make_repo(tmp_path / "repo"), tmp_path)
     assert result.exit_code == 0
     assert result.proposed_md_path is None
     assert "no changes needed" in result.stdout
@@ -25,9 +30,7 @@ def test_stub_no_change_mode(tmp_path: Path) -> None:
 
 def test_stub_propose_diff_mode(tmp_path: Path) -> None:
     executor = StubSkillExecutor(extra_env={"STUB_MODE": "propose_diff"})
-    repo_dir = tmp_path / "repo"
-    repo_dir.mkdir()
-    (repo_dir / "README.md").write_text("# Title\n")
+    repo_dir = _make_repo(tmp_path / "repo")
     result = executor.execute(STUB_SKILL_DIR, repo_dir, tmp_path)
     assert result.exit_code == 0
     assert result.proposed_md_path == tmp_path / "proposed.md"
@@ -40,7 +43,7 @@ def test_stub_propose_diff_mode(tmp_path: Path) -> None:
 
 def test_stub_crash_mode(tmp_path: Path) -> None:
     executor = StubSkillExecutor(extra_env={"STUB_MODE": "crash"})
-    result = executor.execute(STUB_SKILL_DIR, FIXTURE_REPO, tmp_path)
+    result = executor.execute(STUB_SKILL_DIR, _make_repo(tmp_path / "repo"), tmp_path)
     assert result.exit_code == 2
     assert "crashing on purpose" in result.stderr
     assert result.prompt_version == "stub-v1"
@@ -49,7 +52,7 @@ def test_stub_crash_mode(tmp_path: Path) -> None:
 
 def test_stub_default_mode_is_no_change(tmp_path: Path) -> None:
     executor = StubSkillExecutor()
-    result = executor.execute(STUB_SKILL_DIR, FIXTURE_REPO, tmp_path)
+    result = executor.execute(STUB_SKILL_DIR, _make_repo(tmp_path / "repo"), tmp_path)
     assert result.exit_code == 0
 
 

@@ -11,11 +11,7 @@
 
 ## FORBIDDEN paths (never touch, any phase)
 - harness/                     # the runtime itself
-- scoping/                     # the scoping logic itself
-- onboarding/                  # the onboarding logic itself
-- skills/                      # tokenman ships no skills (spec §5.1) — see skills/README.md
-- recommended-skills.yaml      # the catalog
-- pricing.yaml                 # budget calibration
+- skills/                      # tombstone only; not part of the MVP surface
 - .github/                     # the workflows
 - .claude/skills/              # installed skills
 - tests/fixtures/              # must remain pristine

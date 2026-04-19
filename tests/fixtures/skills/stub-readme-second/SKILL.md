@@ -1,6 +1,6 @@
 # stub-readme-second
 
-Second stub skill used by Phase 1.4 onboarding tests. Mirrors
+Second stub skill used by runner tests. Mirrors
 `stub-readme` but emits a different output line so tests can
 distinguish the two skills' ledger entries.
 
