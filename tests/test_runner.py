@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import json
-import shutil
 import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
@@ -64,15 +63,19 @@ def test_iso_utc_converts_non_utc() -> None:
 
 REPO_ROOT = Path(__file__).parent.parent
 STUB_SKILL_DIR = REPO_ROOT / "tests" / "fixtures" / "skills" / "stub-readme"
-TINY_PYTHON_REPO = REPO_ROOT / "tests" / "fixtures" / "tiny-python-repo"
+
+
+def _seed_repo_tree(repo_dir: Path) -> None:
+    repo_dir.mkdir(parents=True, exist_ok=True)
+    (repo_dir / "README.md").write_text("# Test Repo\n", encoding="utf-8")
+    (repo_dir / "docs").mkdir(exist_ok=True)
+    (repo_dir / "docs" / "guide.md").write_text("Guide\n", encoding="utf-8")
 
 
 def _prepare_repo_copy(tmp_path: Path) -> tuple[Path, Path, Path]:
-    """Return (repo_dir, ledger_path, runs_dir). Repo is a fresh copy of
-    the fixture so fixture files stay pristine.
-    """
+    """Return (repo_dir, ledger_path, runs_dir)."""
     repo_dir = tmp_path / "repo"
-    shutil.copytree(TINY_PYTHON_REPO, repo_dir)
+    _seed_repo_tree(repo_dir)
     subprocess.run(["git", "-C", str(repo_dir), "init", "-b", "main"], check=True, capture_output=True)
     subprocess.run(["git", "-C", str(repo_dir), "config", "user.email", "seed@local"], check=True)
     subprocess.run(["git", "-C", str(repo_dir), "config", "user.name", "seed"], check=True)
@@ -88,11 +91,11 @@ def _prepare_repo_copy(tmp_path: Path) -> tuple[Path, Path, Path]:
 def _prepare_repo_copy_with_remote(tmp_path: Path) -> tuple[Path, Path, Path, Path]:
     """Return (repo_dir, ledger_path, runs_dir, remote_dir).
 
-    repo_dir is a fresh copy of the fixture + `git init` + initial commit
-    + origin pointing at remote_dir (a bare repo).
+    repo_dir is a fresh repo + initial commit + origin pointing at
+    remote_dir (a bare repo).
     """
     repo_dir = tmp_path / "repo"
-    shutil.copytree(TINY_PYTHON_REPO, repo_dir)
+    _seed_repo_tree(repo_dir)
     tokenman_dir = repo_dir / ".tokenman"
     tokenman_dir.mkdir(exist_ok=True)
     ledger_path = tokenman_dir / "ledger.jsonl"

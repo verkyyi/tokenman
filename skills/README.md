@@ -1,5 +1,5 @@
 # skills/
 
-Intentionally empty. Tokenman does not ship skills; it curates them.
-See `recommended-skills.yaml` for the catalog and
-`docs/spec.md` §5 for the rationale.
+Intentionally empty. The current MVP does not ship or install skills.
+This directory remains only as a tombstone so contributors do not
+recreate the older skill-catalog surface.
