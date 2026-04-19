@@ -10,6 +10,7 @@ from pathlib import Path
 import pytest
 
 from harness.lib import ledger, runner
+from harness.lib.issue_opener import FakeIssueOpener
 from harness.lib.pr_opener import FakePROpener, PROpenerError
 from harness.lib.skill_executor import StubSkillExecutor
 
@@ -133,6 +134,7 @@ def test_run_skill_propose_diff_opens_pr(tmp_path: Path) -> None:
     assert entry["run_id"] == "r-0001"
     assert entry["status"] == "pr_opened"
     assert entry["pr"] == 1000
+    assert entry["issue"] is None
     # stub fixture diff has 2 content +/- lines (2x '+'), headers excluded.
     assert entry["generator"]["diff_lines"] == 2
     assert entry["generator"]["prompt_version"] == "stub-v1"
@@ -187,6 +189,7 @@ def test_run_skill_actions_mode_cleans_branch_and_returns_to_main(tmp_path: Path
     )
 
     assert entry["status"] == "pr_opened"
+    assert entry["issue"] is None
     current_branch = subprocess.run(
         ["git", "-C", str(repo_dir), "branch", "--show-current"],
         capture_output=True,
@@ -231,6 +234,7 @@ def test_run_skill_no_change_skips_pr_opener(tmp_path: Path) -> None:
 
     assert entry["status"] == "no_change"
     assert entry["pr"] is None
+    assert entry["issue"] is None
     assert entry["generator"]["diff_lines"] == 0
     assert entry["generator"]["prompt_version"] == "stub-v1"
     assert entry["generator"]["tokens"] == 0
@@ -264,6 +268,7 @@ def test_run_skill_crash_records_error(tmp_path: Path) -> None:
     assert entry["status"] == "error"
     assert entry["generator"]["diff_lines"] == 0
     assert entry["pr"] is None
+    assert entry["issue"] is None
     assert entry["total_tokens"] == 0
     assert pr_opener.calls == []
 
@@ -334,6 +339,35 @@ def test_run_skill_increments_from_existing_ledger(tmp_path: Path) -> None:
     )
     assert entry["run_id"] == "r-0018"
     assert ledger.last_run_id(ledger_path) == 18
+
+
+def test_run_skill_scope_violation_opens_issue_instead_of_pr(tmp_path: Path) -> None:
+    repo_dir, ledger_path, runs_dir = _prepare_repo_copy(tmp_path)
+    executor = StubSkillExecutor(extra_env={"STUB_MODE": "propose_diff"})
+    pr_opener = FakePROpener()
+    issue_opener = FakeIssueOpener(start=3000)
+
+    entry = runner.run_skill(
+        skill_dir=STUB_SKILL_DIR,
+        repo_dir=repo_dir,
+        ledger_path=ledger_path,
+        runs_dir=runs_dir,
+        executor=executor,
+        pr_opener=pr_opener,
+        issue_opener=issue_opener,
+        skill_name="stub-readme",
+        now=_fixed_now,
+        write_paths=["docs/**"],
+        on_low_confidence="issue",
+        job_type="docs_maintainer",
+    )
+
+    assert entry["status"] == "issue_opened"
+    assert entry["pr"] is None
+    assert entry["issue"] == 3000
+    assert pr_opener.calls == []
+    assert len(issue_opener.calls) == 1
+    assert "outside the allowed write scope" in issue_opener.calls[0]["body"]
 
 
 def test_run_skill_leaves_no_ledger_entry_on_append_failure(tmp_path: Path) -> None:

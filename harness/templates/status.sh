@@ -43,6 +43,7 @@ echo
 counts=$(jq -sr '[
     length,
     (map(select(.status == "pr_opened"))                | length),
+    (map(select(.status == "issue_opened"))             | length),
     (map(select(.status == "no_change"))                | length),
     (map(select(.status | startswith("skipped_")))      | length),
     (map(select(.status | startswith("aborted_")))      | length),
@@ -55,7 +56,7 @@ counts=$(jq -sr '[
     (map(select(.status == "skipped_review_bandwidth")) | length)
 ] | @tsv' "$LEDGER")
 
-read -r total prs nochg skipped aborted errors tokens sk_lock sk_cd sk_bd sk_ps sk_rb <<< "$counts"
+read -r total prs issues nochg skipped aborted errors tokens sk_lock sk_cd sk_bd sk_ps sk_rb <<< "$counts"
 
 avg=0
 if [ "$total" -gt 0 ]; then
@@ -65,6 +66,7 @@ fi
 echo "Summary (all time):"
 printf "  Runs:          %3d\n" "$total"
 printf "  PRs opened:    %3d\n" "$prs"
+printf "  Issues opened: %3d\n" "$issues"
 printf "  No-change:     %3d\n" "$nochg"
 printf "  Skipped:       %3d  (lock: %d, cooldown: %d, budget: %d, pause: %d, review-bandwidth: %d)\n" \
     "$skipped" "$sk_lock" "$sk_cd" "$sk_bd" "$sk_ps" "$sk_rb"

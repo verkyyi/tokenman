@@ -38,6 +38,7 @@ class LedgerEntry(TypedDict):
     skill: str
     status: str
     pr: Optional[int]
+    issue: Optional[int]
     generator: Optional[GeneratorBlock]
     evaluator: Optional[EvaluatorBlock]
     duration_s: int
@@ -237,11 +238,13 @@ def validate(entry: dict, *, previous: Optional[dict] = None) -> None:
     Raises LedgerInvariantError if any check fails. Checks:
       1. JSON Schema (harness/lib/ledger.schema.json).
       2. pr is non-null iff status == "pr_opened".
-      3. generator is null on skipped_* statuses; populated on
-         pr_opened / no_change / aborted_*; either allowed on error.
-      4. total_tokens == generator.tokens + evaluator.tokens (counting
+      3. issue is non-null iff status == "issue_opened".
+      4. generator is null on skipped_* statuses; populated on
+         pr_opened / issue_opened / no_change / aborted_*; either
+         allowed on error.
+      5. total_tokens == generator.tokens + evaluator.tokens (counting
          absent blocks as 0).
-      5. When `previous` is supplied: run_id strictly greater than
+      6. When `previous` is supplied: run_id strictly greater than
          previous['run_id']; ts >= previous['ts'] (non-strict).
     """
     errors = list(_schema_validator().iter_errors(entry))
@@ -256,6 +259,16 @@ def validate(entry: dict, *, previous: Optional[dict] = None) -> None:
     if status != "pr_opened" and pr is not None:
         raise LedgerInvariantError(
             f"pr must be null when status == {status!r} (got {pr!r})"
+        )
+
+    issue = entry.get("issue")
+    if status == "issue_opened" and issue is None:
+        raise LedgerInvariantError(
+            "issue must be non-null when status == 'issue_opened'"
+        )
+    if status != "issue_opened" and issue is not None:
+        raise LedgerInvariantError(
+            f"issue must be null when status == {status!r} (got {issue!r})"
         )
 
     gen = entry.get("generator")
