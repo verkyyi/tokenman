@@ -1,11 +1,11 @@
 # Tokenman context for the tokenman library repo
 
 ## CRITICAL: this repo is the tokenman library itself.
-## Dogfooding is SEVERELY restricted. PAUSE is ON through Phase 2.
+## Dogfooding is SEVERELY restricted. Phase 3 README smoke test is active.
 
 ## Allowed paths (nothing else — and even these are gated by phase)
 - docs/**/*.md                 # Phase 4+
-- README.md                    # Phase 3+ (narrow README dogfood)
+- README.md                    # Phase 3 active (narrow README dogfood)
 - CHANGELOG.md                 # Phase 4+ (if it ever exists)
 - .tokenman/smoketest.md       # Phase 3 smoke test only
 

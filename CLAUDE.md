@@ -22,7 +22,8 @@ Imperative, sentence case, no period, <72 chars.
   `recommended-skills.yaml`, or `pricing.yaml` from a dogfood run. The
   paranoid `.tokenman/CLAUDE.md` forbids this.
 - Do not modify `tests/fixtures/` — harness tests must be able to reset them.
-- Do not remove `.tokenman/PAUSE` until the Phase 3 gate (spec §12).
+- Do not widen dogfood scope beyond the current README-only gate without
+  updating `.tokenman/CLAUDE.md` and `.tokenman/tokenman.yaml` together.
 - Do not call the Anthropic API directly — all execution goes through `claude -p`.
 
 ## Failure log

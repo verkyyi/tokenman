@@ -3,27 +3,25 @@
 # See docs/spec.md §3.4 for the consumer equivalent.
 
 schedule:
-  strategy: manual             # no cron trigger until Phase 3
+  strategy: manual             # narrow README smoke test only
   # target_utilization: 80%    # applies when strategy is 'adaptive' (see spec §7.3)
   min_interval: 48h
   max_interval: 14d
   pause_at: 95%
 
 budget:
-  # Library-specific cap: ~20% of normal-consumer default (see spec §7.2).
-  # Zero until Phase 3; raised to real values when dogfood starts.
-  per_run_tokens: 0
-  per_skill_weekly_tokens: 0
-  global_weekly_tokens: 0
+  # Library-specific cap: keep narrow and explicit during README-only dogfood.
+  per_run_tokens: 300000
+  per_skill_weekly_tokens: 600000
+  global_weekly_tokens: 600000
 
 skills:
-  # No skills enabled in Phase 0-2.
-  # Phase 3 will add readme-maintainer for smoke test → narrow README scope.
-  []
+  # Phase 3: README-only dogfood.
+  - readme-maintainer
 
 retention:
   artifacts_days: 14           # stricter than consumer default (30)
 
 dogfood:
-  phase: 0                     # human-edited as phases advance
-  pause_committed: true        # presence of .tokenman/PAUSE
+  phase: 3                     # narrow README smoke gate
+  pause_committed: false
