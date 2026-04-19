@@ -1,12 +1,8 @@
-# Fixture consumer repos
+# Test fixtures
 
-These directories simulate external consumer repos for harness testing.
-Treat them as pristine: never edit from a dogfood run (forbidden in
-.tokenman/CLAUDE.md). Harness tests reset them as part of their setup.
-
-## Phase 0 status
-Skeleton only — no harness runs against them yet.
+These directories are checked-in inputs for the remaining action/runtime
+tests. Treat them as pristine: never edit them from a dogfood run.
 
 ## Fixtures
-- tiny-python-repo/      — minimal Python project
-- tiny-typescript-repo/  — minimal TypeScript project
+- `claude-captures/` — recorded Claude JSON output for replay tests
+- `skills/` — stub skill directories used by runner/executor tests

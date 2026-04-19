@@ -6,9 +6,6 @@ Stub skills used by `tests/test_skill_executor.py` and
 bash entrypoint (`stub.sh`) that writes canned files based on the
 `STUB_MODE` env var.
 
-Not to be confused with `tests/fixtures/tiny-*-repo/`, which hosts
-synthetic *consumer* repositories for harness integration tests.
-
 ## Adding a new stub
 
 Each stub lives under `tests/fixtures/skills/<name>/` and must contain:

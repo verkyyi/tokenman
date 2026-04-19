@@ -1,9 +1,0 @@
-{
-  "name": "tiny-typescript-repo",
-  "version": "0.1.0",
-  "description": "Fixture consumer for tokenman harness testing",
-  "type": "module",
-  "scripts": {
-    "test": "node --test tests/smoke.test.ts"
-  }
-}

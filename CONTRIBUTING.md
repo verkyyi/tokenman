@@ -2,21 +2,20 @@
 
 ## Source zone vs runtime zone
 
-Tokenman still uses a source-zone versus runtime-zone split. The repo
-contains the harness source, while the runtime model remains the
-reference shape for what a consumer repo will hold.
+Tokenman is now a narrow GitHub Action product. The repo contains the
+action contract plus the internal Python modules that implement prompt
+preparation, validation, routing, and ledger writes.
 
 ### Source zone - what tokenman is
 
 These paths define the product and what ships to consumers:
 
-- `harness/` - runtime code and workflow templates
-- `docs/` - product and refactor docs
-- `recommended-skills.yaml` - skill catalog metadata
-- `tests/fixtures/` - synthetic consumer repos for harness testing
-
-The catalog is the source of truth for skills. Do not add in-tree
-product skills as a shortcut around the install flow.
+- `action.yml` - GitHub Action contract
+- `entrypoint.sh` - thin shell preflight
+- `prompt.md` - fixed docs-maintainer framing
+- `harness/` - internal action/runtime implementation
+- `docs/` - current product docs
+- `tests/` - action and runtime validation
 
 Everything in `tests/fixtures/` should stay pristine.
 
@@ -24,34 +23,33 @@ Everything in `tests/fixtures/` should stay pristine.
 
 These paths describe the consumer runtime shape:
 
-- `.tokenman/` - config, state, and runtime artifacts
-- `.github/workflows/` - installed workflow entrypoints
-- `.claude/skills/` - installed skills for a consumer repo
+- checked-out repo contents under GitHub Actions
+- `.tokenman/` - run state and artifacts for the current invocation
+- `.github/workflows/` - consumer workflow entrypoints
 - `tokenman-state` - dedicated branch for append-only ledger history
 
 The important rule is that runtime state should not distort the harness
-design. Tokenman is being refactored toward an Actions-first runtime,
-GitHub-native UI, and a smaller policy layer around `git`, `gh`, and
-the coding agent.
+design. Tokenman is a GitHub-native policy layer around the official
+Claude Code Action, plus `git`/`gh` for repository mechanics.
 
 ## Current architecture direction
 
 The current docs that define direction are:
 
 - [`docs/spec.md`](docs/spec.md)
-- [`docs/phase-1-product-scope.md`](docs/phase-1-product-scope.md)
-- [`docs/actions-first-refactor-plan.md`](docs/actions-first-refactor-plan.md)
+- [`README.md`](README.md)
 
 The short version:
 
 - GitHub Actions is the primary runtime
 - GitHub web and mobile are the primary UI
-- local runs remain a setup and debugging path
-- Phase 1 is docs-first and PR-only
+- the MVP is one job: `docs_maintainer`
+- the trust boundary is explicit `read_paths` / `write_paths`
+- outcomes are pull request, issue, or no-op
 - the ledger stays because cost is part of the product
 
 Contributions should move the codebase toward that shape, not back
-toward a larger custom runtime.
+toward a larger local runtime or skill platform.
 
 ## Commit conventions
 
@@ -72,7 +70,7 @@ python -m pytest
 
 Prefer simple ownership boundaries:
 
-- Tokenman owns policy, scope, and ledger semantics
+- Tokenman owns policy, prompt shaping, validation, and ledger semantics
 - the coding agent owns flexible repo edits
 - `git` owns repo mechanics
 - `gh` owns PR mechanics
