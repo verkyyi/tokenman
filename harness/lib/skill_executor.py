@@ -140,6 +140,8 @@ class ClaudeSkillExecutor:
         argv = [
             self._claude_bin,
             "-p",
+            "--permission-mode",
+            "acceptEdits",
             "--output-format",
             "json",
             "--append-system-prompt",

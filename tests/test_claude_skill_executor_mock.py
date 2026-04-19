@@ -53,6 +53,7 @@ def test_claude_invocation_argv_and_env(tmp_path: Path) -> None:
     argv = claude_call.args[0]
     assert argv[0] == "claude"
     assert "-p" in argv
+    assert "--permission-mode" in argv and "acceptEdits" in argv
     assert "--output-format" in argv and "json" in argv
     assert "--append-system-prompt" in argv
     assert claude_call.kwargs["cwd"] == str(repo)
