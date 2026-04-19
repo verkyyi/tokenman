@@ -11,7 +11,7 @@ from typing import Optional, Protocol, TypeAlias, TypedDict
 
 import jsonschema
 
-from harness.lib.git_ops import GitIdentity
+from harness.git import GitIdentity
 
 
 class GeneratorBlock(TypedDict):
@@ -43,7 +43,7 @@ class LedgerEntry(TypedDict):
     verdict_note: Optional[str]
 
 
-_SCHEMA_PATH = Path(__file__).parent / "ledger.schema.json"
+_SCHEMA_PATH = Path(__file__).with_name("ledger.schema.json")
 
 
 class LedgerInvariantError(ValueError):
@@ -55,8 +55,6 @@ class LedgerStoreError(RuntimeError):
 
 
 class LedgerStore(Protocol):
-    """Minimal interface for durable ledger storage."""
-
     def last_run_id(self) -> Optional[int]: ...
 
     def append(self, entry: LedgerEntry) -> None: ...
@@ -67,8 +65,6 @@ LedgerTarget: TypeAlias = Path | LedgerStore
 
 @dataclass(frozen=True)
 class StateBranchLedgerStore:
-    """Append-only ledger stored on a dedicated git branch."""
-
     repo_dir: Path
     branch: str = "tokenman-state"
     remote: str = "origin"
@@ -92,8 +88,8 @@ class StateBranchLedgerStore:
 
             ledger_file = worktree_dir / self.ledger_relpath
             ledger_file.parent.mkdir(parents=True, exist_ok=True)
-            with ledger_file.open("a", encoding="utf-8") as f:
-                f.write(json.dumps(entry, separators=(",", ":")) + "\n")
+            with ledger_file.open("a", encoding="utf-8") as handle:
+                handle.write(json.dumps(entry, separators=(",", ":")) + "\n")
 
             add = self._run_git(["add", "--", self.ledger_relpath], cwd=worktree_dir)
             if add.returncode != 0:
@@ -215,7 +211,7 @@ class StateBranchLedgerStore:
         )
         if show.returncode != 0:
             return []
-        return [ln for ln in show.stdout.splitlines() if ln.strip()]
+        return [line for line in show.stdout.splitlines() if line.strip()]
 
 
 @lru_cache(maxsize=1)
@@ -229,20 +225,7 @@ def _schema_validator() -> jsonschema.Draft202012Validator:
 
 
 def validate(entry: dict, *, previous: Optional[dict] = None) -> None:
-    """Validate entry against the JSON schema and conditional invariants.
-
-    Raises LedgerInvariantError if any check fails. Checks:
-      1. JSON Schema (harness/lib/ledger.schema.json).
-      2. pr is non-null iff status == "pr_opened".
-      3. issue is non-null iff status == "issue_opened".
-      4. generator is null on skipped_* statuses; populated on
-         pr_opened / issue_opened / no_change / aborted_*; either
-         allowed on error.
-      5. total_tokens == generator.tokens + evaluator.tokens (counting
-         absent blocks as 0).
-      6. When `previous` is supplied: run_id strictly greater than
-         previous['run_id']; ts >= previous['ts'] (non-strict).
-    """
+    """Validate entry against the JSON schema and conditional invariants."""
     errors = list(_schema_validator().iter_errors(entry))
     if errors:
         msgs = "; ".join(f"{list(e.path)}: {e.message}" for e in errors)
@@ -259,48 +242,39 @@ def validate(entry: dict, *, previous: Optional[dict] = None) -> None:
 
     issue = entry.get("issue")
     if status == "issue_opened" and issue is None:
-        raise LedgerInvariantError(
-            "issue must be non-null when status == 'issue_opened'"
-        )
+        raise LedgerInvariantError("issue must be non-null when status == 'issue_opened'")
     if status != "issue_opened" and issue is not None:
         raise LedgerInvariantError(
             f"issue must be null when status == {status!r} (got {issue!r})"
         )
 
-    gen = entry.get("generator")
+    generator = entry.get("generator")
     if status.startswith("skipped_"):
-        if gen is not None:
+        if generator is not None:
             raise LedgerInvariantError(
                 f"generator must be null when status == {status!r}"
             )
-    elif status == "error":
-        # Either null (pre-generator failure) or populated (generator ran
-        # then a later stage erred) is acceptable.
-        pass
-    else:
-        # pr_opened, no_change, aborted_gate, aborted_evaluator
-        if gen is None:
-            raise LedgerInvariantError(
-                f"generator must be populated when status == {status!r}"
-            )
+    elif status != "error" and generator is None:
+        raise LedgerInvariantError(
+            f"generator must be populated when status == {status!r}"
+        )
 
-    gen_tokens = gen["tokens"] if gen else 0
-    ev = entry.get("evaluator")
-    ev_tokens = ev["tokens"] if ev else 0
-    expected = gen_tokens + ev_tokens
+    generator_tokens = generator["tokens"] if generator else 0
+    evaluator = entry.get("evaluator")
+    evaluator_tokens = evaluator["tokens"] if evaluator else 0
+    expected = generator_tokens + evaluator_tokens
     if entry["total_tokens"] != expected:
         raise LedgerInvariantError(
             f"total_tokens ({entry['total_tokens']}) != "
-            f"generator.tokens ({gen_tokens}) + evaluator.tokens ({ev_tokens})"
+            f"generator.tokens ({generator_tokens}) + evaluator.tokens ({evaluator_tokens})"
         )
 
     if previous is not None:
-        prev_run_n = int(previous["run_id"].split("-")[1])
+        previous_run_n = int(previous["run_id"].split("-")[1])
         new_run_n = int(entry["run_id"].split("-")[1])
-        if new_run_n <= prev_run_n:
+        if new_run_n <= previous_run_n:
             raise LedgerInvariantError(
-                f"run_id {entry['run_id']!r} not strictly greater than "
-                f"previous {previous['run_id']!r}"
+                f"run_id {entry['run_id']!r} not strictly greater than previous {previous['run_id']!r}"
             )
         if entry["ts"] < previous["ts"]:
             raise LedgerInvariantError(
@@ -309,10 +283,9 @@ def validate(entry: dict, *, previous: Optional[dict] = None) -> None:
 
 
 def _last_entry(ledger_path: Path) -> Optional[dict]:
-    """Return the last non-blank JSON line as a dict, or None."""
     if not ledger_path.is_file():
         return None
-    lines = [ln for ln in ledger_path.read_text().splitlines() if ln.strip()]
+    lines = [line for line in ledger_path.read_text().splitlines() if line.strip()]
     if not lines:
         return None
     return json.loads(lines[-1])
@@ -325,9 +298,6 @@ def _last_run_id_from_lines(lines: list[str]) -> Optional[int]:
 
 
 def last_run_id(target: LedgerTarget) -> Optional[int]:
-    """Return the integer portion of the last entry's run_id, or None if the
-    ledger is missing / empty / all-blank.
-    """
     if isinstance(target, Path):
         last = _last_entry(target)
         if last is None:
@@ -337,11 +307,6 @@ def last_run_id(target: LedgerTarget) -> Optional[int]:
 
 
 def append(target: LedgerTarget, entry: LedgerEntry) -> None:
-    """Validate then append entry as a compact JSON line.
-
-    Creates parent directories and the file if missing. On validation
-    failure the file is left unchanged.
-    """
     if not isinstance(target, Path):
         target.append(entry)
         return
@@ -351,7 +316,5 @@ def append(target: LedgerTarget, entry: LedgerEntry) -> None:
     validate(entry, previous=previous)
 
     ledger_path.parent.mkdir(parents=True, exist_ok=True)
-    line = json.dumps(entry, separators=(",", ":"))
-    with ledger_path.open("a") as f:
-        f.write(line + "\n")
-        f.flush()
+    with ledger_path.open("a", encoding="utf-8") as handle:
+        handle.write(json.dumps(entry, separators=(",", ":")) + "\n")

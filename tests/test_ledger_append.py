@@ -1,4 +1,4 @@
-"""Tests for harness.lib.ledger — schema validation, invariants, append."""
+"""Tests for harness.ledger — schema validation, invariants, append."""
 from __future__ import annotations
 
 import copy
@@ -8,7 +8,7 @@ from pathlib import Path
 
 import pytest
 
-from harness.lib import ledger
+from harness import ledger
 
 
 # A known-valid Phase 1 entry used as the base for variant tests below.

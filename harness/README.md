@@ -1,26 +1,30 @@
-# harness/ - Tokenman runtime source
+# harness/ - Tokenman action runtime
 
 **Source zone.** Contents here define the runtime that ships to
 consumers.
 
 ## Purpose
 
-The harness implements the internal action runtime:
+The harness is the internal implementation behind the public Action:
 
 - prepare the bounded docs-maintainer prompt
-- invoke the coding agent with bounded context
+- wrap the official Claude Code Action
 - validate changed paths with `git`
 - route valid runs to PR, issue, or no-op
 - append cost and outcome history to the ledger
 
-The harness should not grow into its own scheduler, patch-management
-system, or broad execution framework.
+It should stay flat and action-specific, not grow into a framework.
 
 ## Contents
 
-- `workflows/tokenman.yml.template` - installed into consumers at
-  `.github/workflows/tokenman.yml`
-- `lib/` - policy, orchestration, adapters, and ledger code
+- `prepare.py` - pre-Claude prompt/state preparation
+- `finalize.py` - post-Claude validation and routing
+- `docs.py` - docs-maintainer-only validation and PR/issue body helpers
+- `scope.py` - read/write path parsing and enforcement
+- `git.py` - git branch/diff/commit helpers
+- `github.py` - `gh` helpers for PR and issue creation
+- `ledger.py` and `ledger.schema.json` - append-only run history
+- `workflow.yml.template` - example consumer workflow
 
 ## See also
 

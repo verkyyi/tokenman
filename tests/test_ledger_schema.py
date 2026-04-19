@@ -1,4 +1,4 @@
-"""Validate every ledger fixture entry against harness/lib/ledger.schema.json."""
+"""Validate every ledger fixture entry against harness/ledger.schema.json."""
 from __future__ import annotations
 
 import json
@@ -8,7 +8,7 @@ import jsonschema
 import pytest
 
 REPO_ROOT = Path(__file__).parent.parent
-SCHEMA_PATH = REPO_ROOT / "harness" / "lib" / "ledger.schema.json"
+SCHEMA_PATH = REPO_ROOT / "harness" / "ledger.schema.json"
 LEDGERS_DIR = REPO_ROOT / "tests" / "ledgers"
 
 

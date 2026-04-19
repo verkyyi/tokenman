@@ -1,8 +1,7 @@
 # Ledger test fixtures
 
 JSONL files used by `tests/test_ledger_schema.py` to validate the ledger
-schema (`harness/lib/ledger.schema.json`) and by `harness/templates/status.sh`
-as realistic input.
+schema (`harness/ledger.schema.json`) as realistic input.
 
 ## Fixtures
 
@@ -11,8 +10,7 @@ as realistic input.
   statuses like `skipped_budget`, `aborted_evaluator`) but valid under
   the schema today.
 - `realistic-week.jsonl` — a synthetic week of runs across 2–3 skills
-  (~18 entries). Aggregation fixture; exercises the per-skill breakdown
-  and last-N-runs sections of `status.sh`.
+  (~18 entries). Aggregation fixture for ledger summaries.
 
 ## Updating fixtures
 

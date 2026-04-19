@@ -5,7 +5,6 @@ import fnmatch
 
 
 def parse_patterns(raw: str) -> list[str]:
-    """Parse newline-delimited glob patterns from workflow inputs."""
     patterns: list[str] = []
     for line in raw.splitlines():
         stripped = line.strip()
@@ -13,13 +12,6 @@ def parse_patterns(raw: str) -> list[str]:
             continue
         patterns.append(_normalize(stripped))
     return patterns
-
-
-def _normalize(path_or_pattern: str) -> str:
-    normalized = path_or_pattern.replace("\\", "/").strip()
-    while normalized.startswith("./"):
-        normalized = normalized[2:]
-    return normalized.lstrip("/")
 
 
 def matches(path: str, pattern: str) -> bool:
@@ -36,3 +28,10 @@ def outside_scope(paths: list[str], patterns: list[str]) -> list[str]:
     if not patterns:
         return []
     return [path for path in paths if not any(matches(path, pattern) for pattern in patterns)]
+
+
+def _normalize(path_or_pattern: str) -> str:
+    normalized = path_or_pattern.replace("\\", "/").strip()
+    while normalized.startswith("./"):
+        normalized = normalized[2:]
+    return normalized.lstrip("/")

@@ -12,13 +12,24 @@ from pathlib import Path
 from time import monotonic
 from typing import Optional
 
-from harness.action.common import env_default, markdown_list, require
-from harness.lib import docs_maintainer, git_ops, ledger
-from harness.lib.git_ops import GitIdentity
-from harness.lib.issue_opener import GhIssueOpener, IssueOpenerError
-from harness.lib.ledger import LedgerEntry
-from harness.lib.path_rules import outside_scope
-from harness.lib.pr_opener import GhPROpener, PROpenerError
+from harness import docs, git, github, ledger, scope
+
+
+def env_default(name: str, default: str | None = None) -> str | None:
+    value = os.environ.get(name)
+    return value if value not in {None, ""} else default
+
+
+def require(name: str, value: str | None) -> str:
+    if value:
+        return value
+    raise SystemExit(f"missing required input: {name}")
+
+
+def _markdown_list(items: list[str], *, empty: str) -> str:
+    if not items:
+        return f"- {empty}"
+    return "\n".join(f"- `{item}`" for item in items)
 
 
 def _step_summary(entry: dict, *, read_paths: list[str], write_paths: list[str]) -> str:
@@ -50,10 +61,10 @@ def _step_summary(entry: dict, *, read_paths: list[str], write_paths: list[str])
         [
             "",
             "### Read Scope",
-            markdown_list(read_paths, empty="No read paths were provided."),
+            _markdown_list(read_paths, empty="No read paths were provided."),
             "",
             "### Write Scope",
-            markdown_list(write_paths, empty="No write paths were provided."),
+            _markdown_list(write_paths, empty="No write paths were provided."),
         ]
     )
     return "\n".join(lines) + "\n"
@@ -103,7 +114,7 @@ def _load_structured_output(raw: str | None) -> dict[str, str]:
 
 
 def main(argv: Optional[list[str]] = None) -> int:
-    parser = argparse.ArgumentParser(prog="python -m harness.action.finalize")
+    parser = argparse.ArgumentParser(prog="python -m harness.finalize")
     parser.add_argument("--repo", default=env_default("GITHUB_WORKSPACE", "."))
     parser.add_argument("--github-token", default=env_default("INPUT_GITHUB_TOKEN"))
     parser.add_argument(
@@ -142,22 +153,19 @@ def main(argv: Optional[list[str]] = None) -> int:
             encoding="utf-8",
         )
 
-    git_identity = GitIdentity(
+    identity = git.GitIdentity(
         "tokenman-bot",
         "tokenman-bot@users.noreply.github.com",
     )
     ledger_target: ledger.LedgerTarget = ledger.StateBranchLedgerStore(
         repo_dir=repo_dir,
-        identity=git_identity,
+        identity=identity,
     )
-    pr_opener = GhPROpener(repo_dir=repo_dir, base_branch=state["base_branch"])
-    issue_opener = GhIssueOpener(repo_dir=repo_dir)
 
     t_start = monotonic()
     status = "error"
     pr: Optional[int] = None
     issue: Optional[int] = None
-    stderr = ""
     generator: dict[str, object] | None = None
 
     summary = structured_output.get("summary") or "Claude did not return a summary."
@@ -165,12 +173,11 @@ def main(argv: Optional[list[str]] = None) -> int:
     confidence_reason = structured_output.get("reason") or "No confidence rationale was returned."
 
     try:
-        diff_text, changed_paths = git_ops.stage_and_capture_diff(checkout_dir=repo_dir)
-        diff_lines = docs_maintainer.count_diff_lines(diff_text)
+        diff_text, changed_paths = git.stage_and_capture_diff(checkout_dir=repo_dir)
         generator = {
             "prompt_version": "tokenman-mvp-v1",
             "output_summary": summary,
-            "diff_lines": diff_lines,
+            "diff_lines": docs.count_diff_lines(diff_text),
             "tokens": 0,
         }
 
@@ -183,7 +190,7 @@ def main(argv: Optional[list[str]] = None) -> int:
                 f"Claude Code Action did not complete successfully: {args.claude_outcome}"
             )
 
-        scope_violations = outside_scope(changed_paths, state["write_paths"])
+        scope_violations = scope.outside_scope(changed_paths, state["write_paths"])
         if scope_violations:
             low_confidence_reason = (
                 "Generated changes outside the allowed write scope: "
@@ -191,7 +198,7 @@ def main(argv: Optional[list[str]] = None) -> int:
             )
 
         non_doc_paths = (
-            [path for path in changed_paths if not docs_maintainer.is_docs_path(path)]
+            [path for path in changed_paths if not docs.is_docs_path(path)]
             if state["job_type"] == "docs_maintainer"
             else []
         )
@@ -208,9 +215,10 @@ def main(argv: Optional[list[str]] = None) -> int:
             status = "no_change"
         elif low_confidence_reason is not None:
             if args.on_low_confidence == "issue":
-                issue = issue_opener.open(
+                issue = github.open_issue(
+                    repo_dir=repo_dir,
                     title="[tokenman] docs-maintainer: review needed",
-                    body=docs_maintainer.build_issue_body(
+                    body=docs.build_issue_body(
                         reason=low_confidence_reason,
                         summary=summary,
                         changed_paths=changed_paths,
@@ -224,28 +232,30 @@ def main(argv: Optional[list[str]] = None) -> int:
         elif args.on_high_confidence != "pull_request":
             status = "no_change"
         else:
-            git_ops.commit_and_push(
+            git.commit_and_push(
                 checkout_dir=repo_dir,
                 message=f"[tokenman] docs-maintainer: {summary}",
-                identity=git_identity,
+                identity=identity,
             )
-            pr = pr_opener.open(
+            pr = github.open_pull_request(
+                repo_dir=repo_dir,
                 title=f"[tokenman] docs-maintainer: {summary}",
-                body=docs_maintainer.build_pr_body(
+                body=docs.build_pr_body(
                     summary=summary,
                     changed_paths=changed_paths,
                     write_paths=state["write_paths"],
                     context_summary=state["context_summary"],
                 ),
                 branch=state["branch"],
+                base_branch=state["base_branch"],
             )
             status = "pr_opened"
-    except (git_ops.GitOpsError, PROpenerError, IssueOpenerError) as exc:
+    except (git.GitError, github.GitHubError, ledger.LedgerStoreError) as exc:
         stderr = f"[tokenman] finalize failed: {exc}\n{traceback.format_exc()}"
         (artifact_dir / "tokenman.stderr").write_text(stderr, encoding="utf-8")
         status = "error"
     finally:
-        git_ops.cleanup_branch_checkout(
+        git.cleanup_branch_checkout(
             repo_dir=repo_dir,
             checkout_dir=repo_dir,
             branch=state["branch"],
@@ -253,7 +263,7 @@ def main(argv: Optional[list[str]] = None) -> int:
             runtime_mode="actions",
         )
 
-    entry: LedgerEntry = {
+    entry: ledger.LedgerEntry = {
         "run_id": state["run_id"],
         "ts": _iso_utc(datetime.now(timezone.utc)),
         "skill": "docs-maintainer",

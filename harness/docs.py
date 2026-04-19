@@ -31,7 +31,6 @@ _DOC_FILENAMES = {
 
 
 def count_diff_lines(diff_text: str) -> int:
-    """Count changed content lines, excluding unified-diff file headers."""
     count = 0
     for line in diff_text.splitlines():
         if line.startswith(("+++ ", "+++\t", "--- ", "---\t")):

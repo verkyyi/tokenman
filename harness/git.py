@@ -1,4 +1,4 @@
-"""Git operations for the tokenman runner."""
+"""Git operations for the Tokenman action runtime."""
 from __future__ import annotations
 
 import subprocess
@@ -10,8 +10,8 @@ from typing import Literal
 RuntimeMode = Literal["actions", "local_debug"]
 
 
-class GitOpsError(RuntimeError):
-    """Raised when any git step fails. Wraps the captured stderr."""
+class GitError(RuntimeError):
+    """Raised when a git step fails."""
 
 
 @dataclass(frozen=True)
@@ -39,31 +39,6 @@ def _run(
     )
 
 
-def _switch_in_place_branch(*, repo_dir: Path, branch: str, base: str) -> None:
-    proc = _run(["git", "switch", "-c", branch, base], cwd=repo_dir)
-    if proc.returncode != 0:
-        raise GitOpsError(f"git switch -c {branch} {base} failed: {proc.stderr.strip()}")
-
-
-def create_branch_worktree(
-    *,
-    repo_dir: Path,
-    worktree_dir: Path,
-    branch: str,
-    base: str,
-) -> None:
-    worktree_dir.parent.mkdir(parents=True, exist_ok=True)
-    proc = _run(
-        ["git", "worktree", "add", "-b", branch, str(worktree_dir), base],
-        cwd=repo_dir,
-    )
-    if proc.returncode != 0:
-        raise GitOpsError(
-            f"git worktree add -b {branch} {worktree_dir} {base} failed: "
-            f"{proc.stderr.strip()}"
-        )
-
-
 def prepare_branch_checkout(
     *,
     repo_dir: Path,
@@ -73,33 +48,35 @@ def prepare_branch_checkout(
     runtime_mode: RuntimeMode,
 ) -> Path:
     if runtime_mode == "actions":
-        _switch_in_place_branch(repo_dir=repo_dir, branch=branch, base=base)
+        proc = _run(["git", "switch", "-c", branch, base], cwd=repo_dir)
+        if proc.returncode != 0:
+            raise GitError(f"git switch -c {branch} {base} failed: {proc.stderr.strip()}")
         return repo_dir
 
     worktree_dir = scratch_dir / "worktree"
-    create_branch_worktree(
-        repo_dir=repo_dir,
-        worktree_dir=worktree_dir,
-        branch=branch,
-        base=base,
+    worktree_dir.parent.mkdir(parents=True, exist_ok=True)
+    proc = _run(
+        ["git", "worktree", "add", "-b", branch, str(worktree_dir), base],
+        cwd=repo_dir,
     )
+    if proc.returncode != 0:
+        raise GitError(
+            f"git worktree add -b {branch} {worktree_dir} {base} failed: {proc.stderr.strip()}"
+        )
     return worktree_dir
 
 
 def stage_and_capture_diff(*, checkout_dir: Path) -> tuple[str, list[str]]:
-    add = _run(
-        ["git", "add", "-A", "--", ".", *_EXCLUDED_PATHS],
-        cwd=checkout_dir,
-    )
+    add = _run(["git", "add", "-A", "--", ".", *_EXCLUDED_PATHS], cwd=checkout_dir)
     if add.returncode != 0:
-        raise GitOpsError(f"git add failed: {add.stderr.strip()}")
+        raise GitError(f"git add failed: {add.stderr.strip()}")
 
     names = _run(
         ["git", "diff", "--cached", "--name-only", "--", ".", *_EXCLUDED_PATHS],
         cwd=checkout_dir,
     )
     if names.returncode != 0:
-        raise GitOpsError(f"git diff --name-only failed: {names.stderr.strip()}")
+        raise GitError(f"git diff --name-only failed: {names.stderr.strip()}")
 
     changed_paths = [line for line in names.stdout.splitlines() if line.strip()]
     if not changed_paths:
@@ -120,7 +97,7 @@ def stage_and_capture_diff(*, checkout_dir: Path) -> tuple[str, list[str]]:
         cwd=checkout_dir,
     )
     if diff.returncode != 0:
-        raise GitOpsError(f"git diff failed: {diff.stderr.strip()}")
+        raise GitError(f"git diff failed: {diff.stderr.strip()}")
     return diff.stdout, changed_paths
 
 
@@ -145,21 +122,11 @@ def commit_and_push(
         cwd=checkout_dir,
     )
     if commit.returncode != 0:
-        raise GitOpsError(f"git commit failed: {commit.stderr.strip()}")
+        raise GitError(f"git commit failed: {commit.stderr.strip()}")
 
     push = _run(["git", "push", "-u", remote, "HEAD"], cwd=checkout_dir)
     if push.returncode != 0:
-        raise GitOpsError(f"git push failed: {push.stderr.strip()}")
-
-
-def remove_worktree(
-    *,
-    repo_dir: Path,
-    worktree_dir: Path,
-    branch: str,
-) -> None:
-    _run(["git", "worktree", "remove", "--force", str(worktree_dir)], cwd=repo_dir)
-    _run(["git", "branch", "-D", branch], cwd=repo_dir)
+        raise GitError(f"git push failed: {push.stderr.strip()}")
 
 
 def cleanup_branch_checkout(
@@ -176,4 +143,5 @@ def cleanup_branch_checkout(
         _run(["git", "branch", "-D", branch], cwd=repo_dir)
         return
 
-    remove_worktree(repo_dir=repo_dir, worktree_dir=checkout_dir, branch=branch)
+    _run(["git", "worktree", "remove", "--force", str(checkout_dir)], cwd=repo_dir)
+    _run(["git", "branch", "-D", branch], cwd=repo_dir)

@@ -7,7 +7,7 @@ import yaml
 
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-TEMPLATE = REPO_ROOT / "harness" / "workflows" / "tokenman.yml.template"
+TEMPLATE = REPO_ROOT / "harness" / "workflow.yml.template"
 
 
 def _load_template() -> dict:

@@ -72,7 +72,7 @@ runs:
         INPUT_ON_LOW_CONFIDENCE: ${{ inputs.on_low_confidence }}
         INPUT_BASE_BRANCH: ${{ inputs.base_branch }}
         INPUT_CLAUDE_ARGS: ${{ inputs.claude_args }}
-      run: python3 -m harness.action.prepare --repo "${GITHUB_WORKSPACE:-.}"
+      run: python3 -m harness.prepare --repo "${GITHUB_WORKSPACE:-.}"
     - name: Run Claude Code Action
       id: claude
       continue-on-error: true
@@ -96,7 +96,7 @@ runs:
         TOKENMAN_CLAUDE_OUTCOME: ${{ steps.claude.outcome }}
         TOKENMAN_STRUCTURED_OUTPUT: ${{ steps.claude.outputs.structured_output }}
         TOKENMAN_EXECUTION_FILE: ${{ steps.claude.outputs.execution_file }}
-      run: python3 -m harness.action.finalize --repo "${GITHUB_WORKSPACE:-.}"
+      run: python3 -m harness.finalize --repo "${GITHUB_WORKSPACE:-.}"
     - name: Upload run artifacts
       if: always()
       uses: actions/upload-artifact@v4
