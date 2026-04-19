@@ -53,6 +53,8 @@ Individual skill runs remain available through
   narrowed product boundary for the first release
 - [`docs/actions-first-refactor-plan.md`](docs/actions-first-refactor-plan.md) -
   module-level refactor target
+- [`recommended-skills.yaml`](recommended-skills.yaml) - curated skill
+  catalog with tier, blast-radius, and cadence metadata
 - [`CONTRIBUTING.md`](CONTRIBUTING.md) - contributor guidance for the
   current architecture
 
