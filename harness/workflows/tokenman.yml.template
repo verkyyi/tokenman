@@ -1,89 +1,38 @@
-# TEMPLATE — installed into consumer repos at `/tokenman init` as
-# .github/workflows/tokenman.yml. This file in the library repo never
-# runs; the installed copy on a consumer does.
-#
-# Actions-first runtime template. mode=single runs one maintainer;
-# mode=onboarding runs every enabled maintainer in one session.
-#
-# Requires: secrets.CLAUDE_CODE_OAUTH_TOKEN configured on the consumer repo.
+name: Tokenman Docs Maintainer
 
-name: tokenman
 on:
-  schedule:
-    - cron: '17 9 * * 1'
+  push:
+    branches:
+      - main
+    paths:
+      - "services/payments/**"
+      - "openapi/payments.yaml"
   workflow_dispatch:
-    inputs:
-      mode:
-        description: single (one skill) or onboarding (all enabled skills)
-        required: true
-        default: single
-        type: choice
-        options:
-          - single
-          - onboarding
-      skill:
-        description: Skill to run (required when mode=single)
-        required: false
-        default: readme-maintainer
-
-permissions:
-  contents: write
-  pull-requests: write
-
-concurrency:
-  group: tokenman
-  cancel-in-progress: false
 
 jobs:
-  tokenman-run:
+  docs-maintainer:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+
     steps:
       - uses: actions/checkout@v4
-
-      - uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          fetch-depth: 0
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install tokenman harness
-        run: pip install git+https://github.com/verkyyi/tokenman.git@main
-
-      - name: Install claude CLI
-        run: |
-          npm install -g @anthropic-ai/claude-code
-          claude --version
-
-      - name: Configure git identity for bot commits
-        run: |
-          git config --global user.email "tokenman-bot@users.noreply.github.com"
-          git config --global user.name  "tokenman-bot"
-
-      - name: Install curated skills
-        run: |
-          if [ "${{ inputs.mode }}" = "onboarding" ]; then
-            python -m harness.install --repo .
-          else
-            python -m harness.install --repo . --skill "${{ inputs.skill }}"
-          fi
-
-      - name: Run tokenman
+      - name: Run Tokenman
+        uses: your-org/tokenman@v1
         env:
-          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-          GH_TOKEN:                 ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          if [ "${{ inputs.mode }}" = "onboarding" ]; then
-            python -m harness.onboard --repo . --runtime-mode actions
-          else
-            python -m harness.run --skill "${{ inputs.skill }}" --repo . --runtime-mode actions
-          fi
-
-      - name: Upload run artifacts
-        if: always()
-        uses: actions/upload-artifact@v4
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         with:
-          name: tokenman-${{ inputs.mode }}-${{ github.run_id }}
-          path: .tokenman/runs/
-          if-no-files-found: warn
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          read_paths: |
+            services/payments/**
+            openapi/payments.yaml
+          write_paths: |
+            docs/payments/**
+          on_high_confidence: pull_request
+          on_low_confidence: issue

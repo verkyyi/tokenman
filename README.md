@@ -1,67 +1,95 @@
 # Tokenman
 
-**Tokenman is a GitHub-native policy layer that makes coding-agent
-maintenance runs safe to leave unattended.**
+Tokenman is a thin control layer for Claude inside GitHub Actions.
 
-The product target is narrow on purpose: GitHub Actions runs a coding
-agent on a schedule or manual dispatch, Tokenman enforces scope and
-guardrails, and the result is a reviewable PR plus durable cost history.
+The MVP is intentionally narrow:
 
-## Current direction
+- one job: `docs_maintainer`
+- one runtime: GitHub Actions
+- one trust boundary: explicit `read_paths` and `write_paths`
+- three outcomes: pull request, issue, or no-op
 
-Tokenman is pre-release and currently being refactored toward an
-Actions-first, docs-first Phase 1:
+Claude does the reasoning and editing. Tokenman supplies the fixed job,
+prompt shaping, scope enforcement, output routing, run artifacts, and
+append-only history.
 
-- GitHub Actions is the primary runtime
-- GitHub web and mobile are the primary user interface
-- local coding-agent sessions remain a setup and debugging path
-- the initial product scope is docs and `README.md` maintenance only
-- the ledger stays because cost visibility is part of the product
+## MVP contract
 
-## What Tokenman owns
+The public surface is the GitHub Action at [action.yml](action.yml).
+It accepts:
 
-- repo profiling and scope drafting
-- skill selection and prompt assembly
-- policy checks such as pause, allowed paths, and one-open-PR lock
-- append-only cost and outcome history
+- `github_token`
+- `read_paths`
+- `write_paths`
+- `job_type` default `docs_maintainer`
+- `on_high_confidence` default `pull_request`
+- `on_low_confidence` default `issue`
 
-## What Tokenman does not try to own
+Tokenman runs Claude against the checked-out repo, validates the diff,
+and then:
 
-- repo mechanics that `git` already handles
-- PR mechanics that `gh` already handles
-- a hosted control plane or dashboard
-- a broad autonomous maintenance platform in Phase 1
+- opens a PR when the edit is in-scope
+- opens an issue when the run is blocked or confidence is low
+- records a no-op when nothing useful changed
 
-## Current CLI path
+## Example
 
-The current consumer flow in the harness is:
+```yaml
+name: Tokenman Docs Maintainer
 
-1. `python -m harness.scope --repo <path>` - draft
-   `.tokenman/initial-scope.md` for a repo
-2. `python -m harness.install --repo <path>` - fetch curated skills from
-   `recommended-skills.yaml` into `<path>/.claude/skills/`
-3. `python -m harness.onboard --repo <path>` - run enabled skills
-   back-to-back and open reviewable PRs
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "services/payments/**"
+      - "openapi/payments.yaml"
+  workflow_dispatch:
 
-Individual skill runs remain available through
-`python -m harness.run --skill <name> --repo <path>`.
+jobs:
+  docs-maintainer:
+    runs-on: ubuntu-latest
 
-## Document map
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
 
-- [`docs/spec.md`](docs/spec.md) - current product and architecture spec
-- [`docs/phase-1-product-scope.md`](docs/phase-1-product-scope.md) -
-  narrowed product boundary for the first release
-- [`docs/actions-first-refactor-plan.md`](docs/actions-first-refactor-plan.md) -
-  module-level refactor target
-- [`CONTRIBUTING.md`](CONTRIBUTING.md) - contributor guidance for the
-  current architecture
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-## Repository structure
+      - name: Run Tokenman
+        uses: your-org/tokenman@v1
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          read_paths: |
+            services/payments/**
+            openapi/payments.yaml
+          write_paths: |
+            docs/payments/**
+          on_high_confidence: pull_request
+          on_low_confidence: issue
+```
 
-This repo contains the harness source and the docs that define the
-current product direction. The working model is still a source zone
-versus runtime zone split; contributor guidance lives in
-[`CONTRIBUTING.md`](CONTRIBUTING.md).
+`ANTHROPIC_API_KEY` is shown above because Tokenman wraps the official
+Claude Code Action, which needs model authentication for automation
+runs. You can also provide `CLAUDE_CODE_OAUTH_TOKEN` instead.
+
+## Repo shape
+
+The MVP user-facing files are:
+
+- `action.yml`
+- `entrypoint.sh`
+- `prompt.md`
+- `README.md`
+
+The `harness/` package remains as internal implementation code for the
+action runtime, ledger, and local debugging path.
 
 ## License
 

@@ -1,0 +1,106 @@
+name: Tokenman
+description: Scoped docs-maintainer harness for Claude inside GitHub Actions
+inputs:
+  github_token:
+    description: GitHub token used for PR and issue creation
+    required: true
+  read_paths:
+    description: Newline-delimited glob patterns Claude may inspect
+    required: true
+  write_paths:
+    description: Newline-delimited glob patterns Claude may modify
+    required: true
+  job_type:
+    description: Fixed job type for this run
+    required: false
+    default: docs_maintainer
+  on_high_confidence:
+    description: Route to use for valid in-scope changes
+    required: false
+    default: pull_request
+  on_low_confidence:
+    description: Route to use when Tokenman blocks a direct PR
+    required: false
+    default: issue
+  base_branch:
+    description: Base branch for pull requests; defaults to the triggering ref
+    required: false
+  anthropic_api_key:
+    description: Optional explicit Anthropic API key; otherwise use env ANTHROPIC_API_KEY
+    required: false
+  claude_code_oauth_token:
+    description: Optional explicit Claude Code OAuth token; otherwise use env CLAUDE_CODE_OAUTH_TOKEN
+    required: false
+  claude_args:
+    description: Extra Claude CLI arguments appended after Tokenman defaults
+    required: false
+    default: ""
+outputs:
+  outcome:
+    description: Final routed outcome
+    value: ${{ steps.finalize.outputs.outcome }}
+  status:
+    description: Internal runner status
+    value: ${{ steps.finalize.outputs.status }}
+  run_id:
+    description: Tokenman run id
+    value: ${{ steps.finalize.outputs.run_id }}
+  pr_number:
+    description: PR number when a pull request is opened
+    value: ${{ steps.finalize.outputs.pr_number }}
+  issue_number:
+    description: Issue number when an issue is opened
+    value: ${{ steps.finalize.outputs.issue_number }}
+runs:
+  using: composite
+  steps:
+    - name: Install Python dependencies
+      shell: bash
+      run: python3 -m pip install --quiet "jsonschema>=4.21"
+    - name: Tokenman preflight
+      shell: bash
+      run: ${{ github.action_path }}/entrypoint.sh
+    - name: Prepare Tokenman
+      id: prepare
+      shell: bash
+      env:
+        INPUT_GITHUB_TOKEN: ${{ inputs.github_token }}
+        INPUT_READ_PATHS: ${{ inputs.read_paths }}
+        INPUT_WRITE_PATHS: ${{ inputs.write_paths }}
+        INPUT_JOB_TYPE: ${{ inputs.job_type }}
+        INPUT_ON_HIGH_CONFIDENCE: ${{ inputs.on_high_confidence }}
+        INPUT_ON_LOW_CONFIDENCE: ${{ inputs.on_low_confidence }}
+        INPUT_BASE_BRANCH: ${{ inputs.base_branch }}
+        INPUT_CLAUDE_ARGS: ${{ inputs.claude_args }}
+      run: python3 -m harness.action.prepare --repo "${GITHUB_WORKSPACE:-.}"
+    - name: Run Claude Code Action
+      id: claude
+      continue-on-error: true
+      uses: anthropics/claude-code-action@v1
+      with:
+        anthropic_api_key: ${{ inputs.anthropic_api_key || env.ANTHROPIC_API_KEY }}
+        claude_code_oauth_token: ${{ inputs.claude_code_oauth_token || env.CLAUDE_CODE_OAUTH_TOKEN }}
+        github_token: ${{ inputs.github_token }}
+        prompt: ${{ steps.prepare.outputs.prompt }}
+        claude_args: ${{ steps.prepare.outputs.claude_args }}
+        display_report: "false"
+    - name: Finalize Tokenman
+      id: finalize
+      if: always()
+      shell: bash
+      env:
+        INPUT_GITHUB_TOKEN: ${{ inputs.github_token }}
+        INPUT_ON_HIGH_CONFIDENCE: ${{ inputs.on_high_confidence }}
+        INPUT_ON_LOW_CONFIDENCE: ${{ inputs.on_low_confidence }}
+        TOKENMAN_STATE_PATH: ${{ steps.prepare.outputs.state_path }}
+        TOKENMAN_CLAUDE_OUTCOME: ${{ steps.claude.outcome }}
+        TOKENMAN_STRUCTURED_OUTPUT: ${{ steps.claude.outputs.structured_output }}
+        TOKENMAN_EXECUTION_FILE: ${{ steps.claude.outputs.execution_file }}
+      run: python3 -m harness.action.finalize --repo "${GITHUB_WORKSPACE:-.}"
+    - name: Upload run artifacts
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: tokenman-${{ github.run_id }}-${{ github.run_attempt }}
+        path: ${{ github.workspace }}/.tokenman/runs/
+        if-no-files-found: warn

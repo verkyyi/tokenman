@@ -26,6 +26,7 @@
       "type": "string",
       "enum": [
         "pr_opened",
+        "issue_opened",
         "no_change",
         "skipped_lock",
         "skipped_cooldown",
@@ -44,6 +45,13 @@
         { "type": "integer", "minimum": 1 }
       ],
       "description": "PR number; non-null only when status == 'pr_opened'. Invariant enforced by append utility (Phase 1.2)."
+    },
+    "issue": {
+      "oneOf": [
+        { "type": "null" },
+        { "type": "integer", "minimum": 1 }
+      ],
+      "description": "Issue number; non-null only when status == 'issue_opened'. Invariant enforced by append utility."
     },
     "generator": {
       "description": "Populated whenever the generator ran; null for skip statuses and pre-generator errors.",
@@ -96,5 +104,5 @@
       "description": "Optional human note accompanying a verdict. Null on write; filled in with verdict at weekly review."
     }
   },
-  "$comment": "Conditional invariants (documented, not schema-enforced here): (1) pr is non-null iff status == 'pr_opened'. (2) generator is non-null for statuses where the generator ran (pr_opened, no_change, aborted_gate, aborted_evaluator, and generator-phase errors); null for skipped_* statuses. (3) total_tokens = (generator.tokens or 0) + (evaluator.tokens or 0). These invariants are enforced by the append-validate utility in Phase 1.2."
+  "$comment": "Conditional invariants (documented, not schema-enforced here): (1) pr is non-null iff status == 'pr_opened'. (2) issue is non-null iff status == 'issue_opened'. (3) generator is non-null for statuses where the generator ran (pr_opened, issue_opened, no_change, aborted_gate, aborted_evaluator, and generator-phase errors); null for skipped_* statuses. (4) total_tokens = (generator.tokens or 0) + (evaluator.tokens or 0). These invariants are enforced by the append-validate utility in Phase 1.2."
 }

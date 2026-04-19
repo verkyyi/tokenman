@@ -99,6 +99,7 @@ def test_run_main_returns_nonzero_when_runner_reports_error(
             "skill": "readme-maintainer",
             "status": "error",
             "pr": None,
+            "issue": None,
             "generator": {
                 "prompt_version": "harness-v1",
                 "output_summary": "failed",

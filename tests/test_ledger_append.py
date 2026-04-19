@@ -18,6 +18,7 @@ VALID_PR_OPENED: dict = {
     "skill": "stub-readme",
     "status": "pr_opened",
     "pr": 1000,
+    "issue": None,
     "generator": {
         "prompt_version": "stub-v1",
         "output_summary": "proposed 1 diff",
@@ -134,6 +135,30 @@ def test_invariant_pr_non_null_without_pr_opened_rejected() -> None:
         ledger.validate(bad)
 
 
+def test_invariant_issue_non_null_without_issue_opened_rejected() -> None:
+    bad = copy.deepcopy(VALID_PR_OPENED)
+    bad["issue"] = 42
+    with pytest.raises(ledger.LedgerInvariantError, match="issue"):
+        ledger.validate(bad)
+
+
+def test_invariant_issue_opened_requires_issue_number() -> None:
+    bad = copy.deepcopy(VALID_PR_OPENED)
+    bad["status"] = "issue_opened"
+    bad["pr"] = None
+    bad["issue"] = None
+    with pytest.raises(ledger.LedgerInvariantError, match="issue"):
+        ledger.validate(bad)
+
+
+def test_invariant_issue_opened_accepts_issue_number() -> None:
+    ok = copy.deepcopy(VALID_PR_OPENED)
+    ok["status"] = "issue_opened"
+    ok["pr"] = None
+    ok["issue"] = 77
+    ledger.validate(ok)
+
+
 def test_invariant_pr_null_with_pr_opened_rejected() -> None:
     bad = copy.deepcopy(VALID_PR_OPENED)
     bad["pr"] = None
@@ -163,6 +188,7 @@ def test_invariant_generator_null_on_error_accepted() -> None:
     ok = copy.deepcopy(VALID_PR_OPENED)
     ok["status"] = "error"
     ok["pr"] = None
+    ok["issue"] = None
     ok["generator"] = None
     ok["total_tokens"] = 0
     ledger.validate(ok)  # must not raise
@@ -172,6 +198,7 @@ def test_invariant_generator_populated_on_error_accepted() -> None:
     ok = copy.deepcopy(VALID_PR_OPENED)
     ok["status"] = "error"
     ok["pr"] = None
+    ok["issue"] = None
     # generator stays populated; total_tokens already matches 0
     ledger.validate(ok)  # must not raise
 
@@ -180,6 +207,7 @@ def test_invariant_generator_null_on_skipped_without_pr_accepted() -> None:
     ok = copy.deepcopy(VALID_PR_OPENED)
     ok["status"] = "skipped_pause"
     ok["pr"] = None
+    ok["issue"] = None
     ok["generator"] = None
     ok["total_tokens"] = 0
     ledger.validate(ok)  # must not raise
@@ -217,6 +245,7 @@ def test_invariant_total_tokens_zero_when_both_null() -> None:
     ok = copy.deepcopy(VALID_PR_OPENED)
     ok["status"] = "skipped_pause"
     ok["pr"] = None
+    ok["issue"] = None
     ok["generator"] = None
     ok["evaluator"] = None
     ok["total_tokens"] = 0
