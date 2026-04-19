@@ -15,14 +15,7 @@ dev = [
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-norecursedirs = ["tests/fixtures"]
-markers = [
-    "live: tests that invoke a real external service (claude, gh). Requires TOKENMAN_LIVE=1.",
-]
 
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["harness*"]
-
-[tool.setuptools.package-data]
-"harness.prompts" = ["*.md"]

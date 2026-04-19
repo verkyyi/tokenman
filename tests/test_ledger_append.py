@@ -15,13 +15,13 @@ from harness.lib import ledger
 VALID_PR_OPENED: dict = {
     "run_id": "r-0001",
     "ts": "2026-04-18T12:00:00Z",
-    "skill": "stub-readme",
+    "skill": "docs-maintainer",
     "status": "pr_opened",
     "pr": 1000,
     "issue": None,
     "generator": {
-        "prompt_version": "stub-v1",
-        "output_summary": "proposed 1 diff",
+        "prompt_version": "tokenman-mvp-v1",
+        "output_summary": "Updated payments docs for recent API changes.",
         "diff_lines": 3,
         "tokens": 0,
     },

@@ -1,8 +1,4 @@
-"""Ledger append utility — validates entries against the schema and the
-conditional invariants the schema cannot express, then appends JSONL lines.
-See docs/spec.md §8.1 and
-docs/superpowers/specs/2026-04-18-phase-1-2a-harness-plumbing-design.md.
-"""
+"""Ledger append utility for Tokenman's append-only run history."""
 from __future__ import annotations
 
 import json

@@ -11,10 +11,7 @@
 
 ## FORBIDDEN paths (never touch, any phase)
 - harness/                     # the runtime itself
-- skills/                      # tombstone only; not part of the MVP surface
 - .github/                     # the workflows
-- .claude/skills/              # installed skills
-- tests/fixtures/              # must remain pristine
 - .tokenman/CLAUDE.md          # this file — human-edited only
 - .tokenman/tokenman.yaml      # config — human-edited only
 - LICENSE, .gitignore, .shellcheckrc

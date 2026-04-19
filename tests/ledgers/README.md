@@ -2,8 +2,7 @@
 
 JSONL files used by `tests/test_ledger_schema.py` to validate the ledger
 schema (`harness/lib/ledger.schema.json`) and by `harness/templates/status.sh`
-as realistic input. Distinct from `tests/fixtures/` which hosts synthetic
-consumer repos.
+as realistic input.
 
 ## Fixtures
 

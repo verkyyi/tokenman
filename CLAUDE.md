@@ -1,7 +1,7 @@
 # Tokenman
 
-Tokenman is a harness that makes `claude -p` safe to run unattended on a repo.
-See `docs/spec.md` for the full scoping draft.
+Tokenman is a GitHub Actions harness around the official Claude Code Action.
+See `docs/spec.md` for the current product spec.
 
 ## For interactive Claude Code sessions
 
@@ -20,7 +20,6 @@ Imperative, sentence case, no period, <72 chars.
 ## What NOT to do in this repo
 - Do not modify files in `harness/` from a dogfood run. The paranoid
   `.tokenman/CLAUDE.md` forbids this.
-- Do not modify `tests/fixtures/` — harness tests must be able to reset them.
 - Do not widen dogfood scope beyond the current README-only gate without
   updating `.tokenman/CLAUDE.md` and `.tokenman/tokenman.yaml` together.
 - Do not call the Anthropic API directly — action runs go through the official

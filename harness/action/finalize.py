@@ -13,7 +13,7 @@ from time import monotonic
 from typing import Optional
 
 from harness.action.common import env_default, markdown_list, require
-from harness.lib import git_ops, ledger, runner
+from harness.lib import docs_maintainer, git_ops, ledger
 from harness.lib.git_ops import GitIdentity
 from harness.lib.issue_opener import GhIssueOpener, IssueOpenerError
 from harness.lib.ledger import LedgerEntry
@@ -166,7 +166,7 @@ def main(argv: Optional[list[str]] = None) -> int:
 
     try:
         diff_text, changed_paths = git_ops.stage_and_capture_diff(checkout_dir=repo_dir)
-        diff_lines = runner._count_diff_lines(diff_text)
+        diff_lines = docs_maintainer.count_diff_lines(diff_text)
         generator = {
             "prompt_version": "tokenman-mvp-v1",
             "output_summary": summary,
@@ -191,7 +191,7 @@ def main(argv: Optional[list[str]] = None) -> int:
             )
 
         non_doc_paths = (
-            [path for path in changed_paths if not runner._is_docs_path(path)]
+            [path for path in changed_paths if not docs_maintainer.is_docs_path(path)]
             if state["job_type"] == "docs_maintainer"
             else []
         )
@@ -210,8 +210,7 @@ def main(argv: Optional[list[str]] = None) -> int:
             if args.on_low_confidence == "issue":
                 issue = issue_opener.open(
                     title="[tokenman] docs-maintainer: review needed",
-                    body=runner._build_issue_body(
-                        skill="docs-maintainer",
+                    body=docs_maintainer.build_issue_body(
                         reason=low_confidence_reason,
                         summary=summary,
                         changed_paths=changed_paths,
@@ -232,8 +231,7 @@ def main(argv: Optional[list[str]] = None) -> int:
             )
             pr = pr_opener.open(
                 title=f"[tokenman] docs-maintainer: {summary}",
-                body=runner._build_pr_body(
-                    skill="docs-maintainer",
+                body=docs_maintainer.build_pr_body(
                     summary=summary,
                     changed_paths=changed_paths,
                     write_paths=state["write_paths"],

@@ -17,8 +17,6 @@ These paths define the product and what ships to consumers:
 - `docs/` - current product docs
 - `tests/` - action and runtime validation
 
-Everything in `tests/fixtures/` should stay pristine.
-
 ### Runtime zone - what tokenman does
 
 These paths describe the consumer runtime shape:
